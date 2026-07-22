@@ -12,10 +12,10 @@
 </head>
 <body>
 
-    <!-- PANTALLA DE BLOQUEO / SEGURIDAD PIN -->
+    <!-- PANTALLA DE BLOQUEO / SEGURIDAD PIN (Translúcida) -->
     <div id="lock-screen" class="lock-overlay">
         <div class="lock-box">
-            <img src="https://raw.githubusercontent.com/figueredo56/zaard-tracker/refs/heads/main/184%20sin%20t%C3%ADtulo_20260715225022.png" style="width: 60px; height: 60px; border-radius: 50%; margin-bottom: 10px; border: 2px solid #0070f3;">
+            <img src="https://raw.githubusercontent.com/figueredo56/zaard-tracker/refs/heads/main/184%20sin%20t%C3%ADtulo_20260715225022.png" class="animated-logo" style="width: 65px; height: 65px; border-radius: 50%; margin-bottom: 10px; border: 2px solid #0070f3; object-fit: cover;">
             <h2>ZAARD WALLET</h2>
             <p id="lock-msg">Cartera principal de ZAARD INNOVATION.<br>Ingresa tu clave de seguridad:</p>
             <input type="password" id="pin-input" placeholder="••••" maxlength="6">
@@ -24,10 +24,10 @@
     </div>
 
     <div class="wallet-container">
-        <!-- Encabezado con Identidad -->
+        <!-- Encabezado con Identidad y Logo Animado -->
         <header>
             <div class="header-brand">
-                <img src="https://raw.githubusercontent.com/figueredo56/zaard-tracker/refs/heads/main/184%20sin%20t%C3%ADtulo_20260715225022.png" alt="Logo ZARD">
+                <img src="https://raw.githubusercontent.com/figueredo56/zaard-tracker/refs/heads/main/184%20sin%20t%C3%ADtulo_20260715225022.png" alt="Logo ZARD" class="animated-logo">
                 <div>
                     <h1>ZAARD WALLET</h1>
                     <p>Con la seguridad y confianza de PANGA</p>
@@ -48,11 +48,10 @@
                 
                 <!-- Lista de Tokens Activos con Logos -->
                 <div class="tokens-list" id="active-tokens-list">
-                    <!-- ZARD Token -->
                     <div class="token-item">
                         <div class="token-info">
                             <img src="https://raw.githubusercontent.com/figueredo56/zaard-tracker/refs/heads/main/184%20sin%20t%C3%ADtulo_20260715225022.png" alt="ZARD">
-                            <span><b>ZARD</b> <small style="color:#94a3b8">ZAARD Innovation</small></span>
+                            <span><b>ZARD</b> <small style="color:#cbd5e1">ZAARD Innovation</small></span>
                         </div>
                         <span id="zard-balance">0.00</span>
                     </div>
@@ -64,7 +63,7 @@
             <!-- PESTAÑA 2: BUSCADOR WEB3 / DAPPS PRINCIPALES -->
             <section id="tab-browser" class="tab-content">
                 <h2>Buscador y DApps Principales</h2>
-                <p style="font-size: 0.85rem; color: #94a3b8;">Acceso directo seguro a las principales plataformas descentralizadas del ecosistema cripto:</p>
+                <p style="font-size: 0.85rem; color: #cbd5e1;">Acceso directo seguro a las principales plataformas descentralizadas del ecosistema cripto:</p>
                 
                 <div class="dapp-grid">
                     <a class="dapp-card" href="https://pancakeswap.finance" target="_blank">
@@ -108,7 +107,7 @@
             </section>
         </main>
 
-        <!-- Barra de Navegación Inferior Estilo App -->
+        <!-- Barra de Navegación Inferior -->
         <nav class="nav-tabs">
             <button onclick="cambiarPestaña('main', event)" class="nav-btn active">Inicio</button>
             <button onclick="cambiarPestaña('browser', event)" class="nav-btn">Buscador</button>
