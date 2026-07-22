@@ -3,18 +3,37 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ZAARD WALLET</title>
+    <title>ZAARD WALLET - ZAARD INNOVATION</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="https://raw.githubusercontent.com/figueredo56/zaard-tracker/refs/heads/main/184%20sin%20t%C3%ADtulo_20260715225022.png" type="image/png">
+    <link rel="apple-touch-icon" href="https://raw.githubusercontent.com/figueredo56/zaard-tracker/refs/heads/main/184%20sin%20t%C3%ADtulo_20260715225022.png">
     <!-- Ethers.js CDN -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/ethers/5.7.2/ethers.umd.min.js"></script>
 </head>
 <body>
 
+    <!-- PANTALLA DE BLOQUEO / SEGURIDAD PIN -->
+    <div id="lock-screen" class="lock-overlay">
+        <div class="lock-box">
+            <img src="https://raw.githubusercontent.com/figueredo56/zaard-tracker/refs/heads/main/184%20sin%20t%C3%ADtulo_20260715225022.png" style="width: 60px; height: 60px; border-radius: 50%; margin-bottom: 10px; border: 2px solid #0070f3;">
+            <h2>ZAARD WALLET</h2>
+            <p id="lock-msg">Cartera principal de ZAARD INNOVATION.<br>Ingresa tu clave de seguridad:</p>
+            <input type="password" id="pin-input" placeholder="••••" maxlength="6">
+            <button class="action-btn success-btn" onclick="verificarPin()">Desbloquear Billetera</button>
+        </div>
+    </div>
+
     <div class="wallet-container">
-        <!-- Encabezado -->
+        <!-- Encabezado con Identidad -->
         <header>
-            <h1>ZAARD WALLET</h1>
-            <button id="connect-btn" onclick="conectarWallet()">Conectar Wallet</button>
+            <div class="header-brand">
+                <img src="https://raw.githubusercontent.com/figueredo56/zaard-tracker/refs/heads/main/184%20sin%20t%C3%ADtulo_20260715225022.png" alt="Logo ZARD">
+                <div>
+                    <h1>ZAARD WALLET</h1>
+                    <p>Con la seguridad y confianza de PANGA</p>
+                </div>
+            </div>
+            <button id="connect-btn" class="action-btn" style="width: auto; padding: 8px 14px; font-size: 0.8rem;" onclick="conectarWallet()">Conectar</button>
         </header>
 
         <!-- Contenido de las Pestañas -->
@@ -23,54 +42,78 @@
             <section id="tab-main" class="tab-content active">
                 <h2>Activos Principales</h2>
                 <div class="balance-card">
-                    <p>Balance BNB</p>
+                    <p>Balance BNB (BSC)</p>
                     <h3 id="bnb-balance">0.00 BNB</h3>
                 </div>
-                <div class="tokens-list">
+                
+                <!-- Lista de Tokens Activos con Logos -->
+                <div class="tokens-list" id="active-tokens-list">
+                    <!-- ZARD Token -->
                     <div class="token-item">
-                        <span>ZARD</span>
-                        <span id="zaard-balance">0.00</span>
+                        <div class="token-info">
+                            <img src="https://raw.githubusercontent.com/figueredo56/zaard-tracker/refs/heads/main/184%20sin%20t%C3%ADtulo_20260715225022.png" alt="ZARD">
+                            <span><b>ZARD</b> <small style="color:#94a3b8">ZAARD Innovation</small></span>
+                        </div>
+                        <span id="zard-balance">0.00</span>
                     </div>
                 </div>
+
+                <button class="action-btn success-btn" onclick="cambiarPestaña('browser')">🌐 Abrir Buscador Web3 & DApps</button>
             </section>
 
-            <!-- PESTAÑA 2: SPOT -->
-            <section id="tab-spot" class="tab-content">
-                <h2>Mercado Spot</h2>
-                <p>Operaciones descentralizadas impulsadas por PancakeSwap.</p>
-                <div class="coming-soon">Próximamente gráficos y órdenes en tiempo real.</div>
-            </section>
-
-            <!-- PESTAÑA 3: SWAP -->
-            <section id="tab-swap" class="tab-content">
-                <h2>Intercambio Rápido (Swap)</h2>
-                <div class="swap-box">
-                    <input type="number" placeholder="0.0" id="swap-from">
-                    <select><option>BNB</option><option>ZARD</option></select>
-                    <div class="swap-arrow">↓</div>
-                    <input type="number" placeholder="0.0" id="swap-to" disabled>
-                    <select><option>ZARD</option><option>BNB</option></select>
-                    <button class="action-btn">Intercambiar</button>
+            <!-- PESTAÑA 2: BUSCADOR WEB3 / DAPPS PRINCIPALES -->
+            <section id="tab-browser" class="tab-content">
+                <h2>Buscador y DApps Principales</h2>
+                <p style="font-size: 0.85rem; color: #94a3b8;">Acceso directo seguro a las principales plataformas descentralizadas del ecosistema cripto:</p>
+                
+                <div class="dapp-grid">
+                    <a class="dapp-card" href="https://pancakeswap.finance" target="_blank">
+                        <img src="https://tokens.pancakeswap.finance/images/0x0e09fabb73bdadeae02c2323706793f10pancake.png" alt="PancakeSwap">
+                        <span>PancakeSwap</span>
+                    </a>
+                    <a class="dapp-card" href="https://p2p.binance.com" target="_blank">
+                        <img src="https://cryptologos.cc/logos/binance-coin-bnb-logo.svg?v=035" alt="Binance">
+                        <span>Binance P2P</span>
+                    </a>
+                    <a class="dapp-card" href="https://metamask.io" target="_blank">
+                        <img src="https://cryptologos.cc/logos/metamask-fox-logo.svg?v=035" alt="MetaMask">
+                        <span>MetaMask</span>
+                    </a>
+                    <a class="dapp-card" href="https://pinksale.finance" target="_blank">
+                        <img src="https://www.pinksale.finance/favicon.ico" alt="PinkSale">
+                        <span>PinkSale</span>
+                    </a>
                 </div>
             </section>
 
-            <!-- PESTAÑA 4: P2P -->
-            <section id="tab-p2p" class="tab-content">
-                <h2>Comercio P2P (Fiat)</h2>
-                <p>Compra y vende criptomonedas de forma segura con dinero local.</p>
-                <div class="p2p-card">
-                    <p>Conexión externa compatible con pasarelas Web3 y comercio verificado.</p>
-                    <button class="action-btn" onclick="window.open('https://p2p.binance.com', '_blank')">Ir a Binance P2P</button>
+            <!-- PESTAÑA 3: SWAP RÁPIDO -->
+            <section id="tab-swap" class="tab-content">
+                <h2>Intercambio Rápido</h2>
+                <div class="balance-card">
+                    <p>Operaciones descentralizadas con máxima liquidez en PancakeSwap.</p>
+                    <br>
+                    <button class="action-btn success-btn" onclick="window.open('https://pancakeswap.finance/swap?outputCurrency=0x3468ea4e6ce13ec4c7f8651f7efc6aa6046f4d65', '_blank')">Ir a PancakeSwap con ZARD</button>
+                </div>
+            </section>
+
+            <!-- PESTAÑA 4: CONFIGURACIÓN / SEGURIDAD -->
+            <section id="tab-settings" class="tab-content">
+                <h2>Seguridad de la Cartera</h2>
+                <div class="balance-card">
+                    <p>Estado de la Red: <b>Binance Smart Chain (BSC)</b></p>
+                    <p>Propietario: <b>ZAARD Protocol / Panga</b></p>
+                    <br>
+                    <button class="action-btn" onclick="localStorage.removeItem('zaard_wallet_pin'); location.reload();">Restablecer PIN de Seguridad</button>
                 </div>
             </section>
         </main>
 
-        <!-- Barra de Navegación Inferior (Pestañas estilo App) -->
+        <!-- Barra de Navegación Inferior Estilo App -->
         <nav class="nav-tabs">
-            <button onclick="cambiarPestaña('main')" class="nav-btn active">Principal</button>
-            <button onclick="cambiarPestaña('spot')" class="nav-btn">Spot</button>
-            <button onclick="cambiarPestaña('swap')" class="nav-btn">Swap</button>
-            <button onclick="cambiarPestaña('p2p')" class="nav-btn">P2P</button>
+            <button onclick="cambiarPestaña('main', event)" class="nav-btn active">Inicio</button>
+            <button onclick="cambiarPestaña('browser', event)" class="nav-btn">Buscador</button>
+            <button onclick="cambiarPestaña('swap', event)" class="nav-btn">Swap</button>
+            <button onclick="cambiarPestaña('settings', event)" class="nav-btn">Seguridad</button>
         </nav>
     </div>
 
