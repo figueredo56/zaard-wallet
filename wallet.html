@@ -33,7 +33,7 @@
                     <p>Con la seguridad y confianza de PANGA</p>
                 </div>
             </div>
-            <button id="connect-btn" class="action-btn" style="width: auto; padding: 8px 14px; font-size: 0.8rem;" onclick="conectarWallet()">Conectar</button>
+            <button id="connect-btn" class="action-btn" style="width: auto; padding: 8px 14px; font-size: 0.8rem;" onclick="reproducirSonidoSuave(); conectarWallet();">Conectar</button>
         </header>
 
         <!-- Contenido de las Pestañas -->
@@ -57,7 +57,7 @@
                     </div>
                 </div>
 
-                <button class="action-btn success-btn" onclick="cambiarPestaña('browser')">🌐 Abrir Buscador Web3 & DApps</button>
+                <button class="action-btn success-btn" onclick="reproducirSonidoSuave(); cambiarPestaña('browser')">🌐 Abrir Buscador Web3 & DApps</button>
             </section>
 
             <!-- PESTAÑA 2: BUSCADOR WEB3 / DAPPS PRINCIPALES -->
@@ -66,19 +66,19 @@
                 <p style="font-size: 0.85rem; color: #cbd5e1;">Acceso directo seguro a las principales plataformas descentralizadas del ecosistema cripto:</p>
                 
                 <div class="dapp-grid">
-                    <a class="dapp-card" href="https://pancakeswap.finance" target="_blank">
+                    <a class="dapp-card" href="https://pancakeswap.finance" target="_blank" onclick="reproducirSonidoSuave()">
                         <img src="https://tokens.pancakeswap.finance/images/0x0e09fabb73bdadeae02c2323706793f10pancake.png" alt="PancakeSwap">
                         <span>PancakeSwap</span>
                     </a>
-                    <a class="dapp-card" href="https://p2p.binance.com" target="_blank">
+                    <a class="dapp-card" href="https://p2p.binance.com" target="_blank" onclick="reproducirSonidoSuave()">
                         <img src="https://cryptologos.cc/logos/binance-coin-bnb-logo.svg?v=035" alt="Binance">
                         <span>Binance P2P</span>
                     </a>
-                    <a class="dapp-card" href="https://metamask.io" target="_blank">
+                    <a class="dapp-card" href="https://metamask.io" target="_blank" onclick="reproducirSonidoSuave()">
                         <img src="https://cryptologos.cc/logos/metamask-fox-logo.svg?v=035" alt="MetaMask">
                         <span>MetaMask</span>
                     </a>
-                    <a class="dapp-card" href="https://pinksale.finance" target="_blank">
+                    <a class="dapp-card" href="https://pinksale.finance" target="_blank" onclick="reproducirSonidoSuave()">
                         <img src="https://www.pinksale.finance/favicon.ico" alt="PinkSale">
                         <span>PinkSale</span>
                     </a>
@@ -91,7 +91,7 @@
                 <div class="balance-card">
                     <p>Operaciones descentralizadas con máxima liquidez en PancakeSwap.</p>
                     <br>
-                    <button class="action-btn success-btn" onclick="window.open('https://pancakeswap.finance/swap?outputCurrency=0x3468ea4e6ce13ec4c7f8651f7efc6aa6046f4d65', '_blank')">Ir a PancakeSwap con ZARD</button>
+                    <button class="action-btn success-btn" onclick="reproducirSonidoSuave(); window.open('https://pancakeswap.finance/swap?outputCurrency=0x3468ea4e6ce13ec4c7f8651f7efc6aa6046f4d65', '_blank')">Ir a PancakeSwap con ZARD</button>
                 </div>
             </section>
 
@@ -102,17 +102,17 @@
                     <p>Estado de la Red: <b>Binance Smart Chain (BSC)</b></p>
                     <p>Propietario: <b>ZAARD Protocol / Panga</b></p>
                     <br>
-                    <button class="action-btn" onclick="localStorage.removeItem('zaard_wallet_pin'); location.reload();">Restablecer PIN de Seguridad</button>
+                    <button class="action-btn" onclick="reproducirSonidoSuave(); localStorage.removeItem('zaard_wallet_pin'); location.reload();">Restablecer PIN de Seguridad</button>
                 </div>
             </section>
         </main>
 
         <!-- Barra de Navegación Inferior -->
         <nav class="nav-tabs">
-            <button onclick="cambiarPestaña('main', event)" class="nav-btn active">Inicio</button>
-            <button onclick="cambiarPestaña('browser', event)" class="nav-btn">Buscador</button>
-            <button onclick="cambiarPestaña('swap', event)" class="nav-btn">Swap</button>
-            <button onclick="cambiarPestaña('settings', event)" class="nav-btn">Seguridad</button>
+            <button onclick="reproducirSonidoSuave(); cambiarPestaña('main', event)" class="nav-btn active">Inicio</button>
+            <button onclick="reproducirSonidoSuave(); cambiarPestaña('browser', event)" class="nav-btn">Buscador</button>
+            <button onclick="reproducirSonidoSuave(); cambiarPestaña('swap', event)" class="nav-btn">Swap</button>
+            <button onclick="reproducirSonidoSuave(); cambiarPestaña('settings', event)" class="nav-btn">Seguridad</button>
         </nav>
     </div>
 
