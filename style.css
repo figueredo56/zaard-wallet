@@ -1,11 +1,10 @@
 :root {
     --bg-main: #0b0e14;
-    --bg-card: #151a25;
     --accent-purple: #7928ca;
     --accent-blue: #0070f3;
     --accent-green: #10b981;
     --text-main: #ffffff;
-    --text-muted: #94a3b8;
+    --text-muted: #cbd5e1;
 }
 
 body {
@@ -13,7 +12,7 @@ body {
     padding: 0;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background-color: var(--bg-main);
-    background-image: linear-gradient(135deg, rgba(121, 40, 202, 0.15) 0%, rgba(0, 112, 243, 0.15) 100%), 
+    background-image: linear-gradient(135deg, rgba(11, 14, 20, 0.65) 0%, rgba(15, 23, 42, 0.65) 100%), 
                       url('https://raw.githubusercontent.com/figueredo56/zaard-tracker/refs/heads/main/60%20sin%20t%C3%ADtulo_20260509231919_1.png');
     background-size: cover;
     background-position: center;
@@ -25,12 +24,33 @@ body {
     min-height: 100vh;
 }
 
-/* Pantalla de Bloqueo / Seguridad PIN */
+/* Animación de entrada de la Moneda / Logo (Zoom y rebote) */
+@keyframes zoomInLogo {
+    0% {
+        transform: scale(0.2);
+        opacity: 0;
+    }
+    60% {
+        transform: scale(1.15);
+        opacity: 1;
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+.animated-logo {
+    animation: zoomInLogo 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+/* Pantalla de Bloqueo / Seguridad PIN (Translúcida igual que la app) */
 .lock-overlay {
     position: fixed;
     top: 0; left: 0; width: 100%; height: 100%;
-    background: rgba(11, 14, 20, 0.95);
-    backdrop-filter: blur(10px);
+    background: rgba(11, 14, 20, 0.65);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -38,14 +58,16 @@ body {
 }
 
 .lock-box {
-    background: var(--bg-card);
+    background: rgba(15, 23, 42, 0.65);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
     padding: 30px;
-    border-radius: 16px;
-    border: 1px solid rgba(0, 112, 243, 0.3);
+    border-radius: 20px;
+    border: 1px solid rgba(121, 40, 202, 0.4);
     text-align: center;
     max-width: 320px;
     width: 90%;
-    box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+    box-shadow: 0 12px 40px rgba(0,0,0,0.7);
 }
 
 .lock-box h2 {
@@ -65,9 +87,9 @@ body {
     text-align: center;
     font-size: 1.5rem;
     letter-spacing: 8px;
-    border-radius: 8px;
-    border: 1px solid #334155;
-    background: #0b0e14;
+    border-radius: 10px;
+    border: 1px solid rgba(255,255,255,0.2);
+    background: rgba(11, 14, 20, 0.5);
     color: #fff;
     margin-bottom: 20px;
 }
@@ -76,11 +98,12 @@ body {
 .wallet-container {
     width: 100%;
     max-width: 480px;
-    background: rgba(21, 26, 37, 0.92);
+    background: rgba(15, 23, 42, 0.55);
     backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
     border-radius: 20px;
-    border: 1px solid rgba(121, 40, 202, 0.3);
-    box-shadow: 0 12px 40px rgba(0,0,0,0.6);
+    border: 1px solid rgba(121, 40, 202, 0.4);
+    box-shadow: 0 12px 40px rgba(0,0,0,0.7);
     display: flex;
     flex-direction: column;
     height: 90vh;
@@ -90,29 +113,30 @@ body {
 }
 
 header {
-    padding: 20px;
+    padding: 18px 20px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border-bottom: 1px solid #222b38;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(11, 14, 20, 0.3);
 }
 
 .header-brand {
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 10px;
 }
 
 .header-brand img {
-    width: 40px;
-    height: 40px;
+    width: 38px;
+    height: 38px;
     border-radius: 50%;
     object-fit: cover;
     border: 2px solid var(--accent-blue);
 }
 
 header h1 {
-    font-size: 1.2rem;
+    font-size: 1.1rem;
     margin: 0;
     background: linear-gradient(90deg, #fff, #a855f7);
     -webkit-background-clip: text;
@@ -120,7 +144,7 @@ header h1 {
 }
 
 header p {
-    font-size: 0.7rem;
+    font-size: 0.65rem;
     color: var(--text-muted);
     margin: 2px 0 0 0;
 }
@@ -139,14 +163,16 @@ main {
     display: block;
 }
 
-/* Tarjetas y Balances */
+/* Tarjetas Translúcidas */
 .balance-card {
-    background: linear-gradient(135deg, #1e1b4b, #0f172a);
+    background: rgba(30, 27, 75, 0.45);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
     padding: 20px;
     border-radius: 14px;
-    border: 1px solid rgba(0, 112, 243, 0.4);
+    border: 1px solid rgba(0, 112, 243, 0.35);
     margin-bottom: 20px;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.4);
 }
 
 .balance-card p {
@@ -161,7 +187,7 @@ main {
     color: #fff;
 }
 
-/* Lista de Tokens con Logos */
+/* Lista de Tokens con Transparencia */
 .tokens-list {
     display: flex;
     flex-direction: column;
@@ -170,13 +196,15 @@ main {
 }
 
 .token-item {
-    background: #1e293b;
+    background: rgba(30, 41, 59, 0.55);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
     padding: 12px 16px;
     border-radius: 10px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border: 1px solid #334155;
+    border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .token-info {
@@ -191,7 +219,7 @@ main {
     border-radius: 50%;
 }
 
-/* Botones con toque Verde y Estilo Pro */
+/* Botones con Verde Neón y Gradiente */
 .action-btn {
     width: 100%;
     padding: 12px;
@@ -214,7 +242,7 @@ main {
     box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4);
 }
 
-/* Enlaces Web3 Externos (Pancake, Binance, etc.) */
+/* DApps Grid Transparente */
 .dapp-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -223,11 +251,13 @@ main {
 }
 
 .dapp-card {
-    background: #1e293b;
+    background: rgba(30, 41, 59, 0.6);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
     padding: 15px;
     border-radius: 12px;
     text-align: center;
-    border: 1px solid #334155;
+    border: 1px solid rgba(255, 255, 255, 0.1);
     cursor: pointer;
     transition: transform 0.2s, border-color 0.2s;
     text-decoration: none;
@@ -249,11 +279,13 @@ main {
     border-radius: 50%;
 }
 
-/* Navegación Inferior */
+/* Navegación Inferior Translúcida */
 .nav-tabs {
     display: flex;
-    background: #0f172a;
-    border-top: 1px solid #222b38;
+    background: rgba(11, 14, 20, 0.6);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
     padding: 8px;
 }
 
@@ -273,6 +305,6 @@ main {
 }
 
 .nav-btn.active {
-    color: var(--accent-blue);
+    color: #38bdf8;
     font-weight: bold;
 }
