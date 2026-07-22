@@ -19,10 +19,9 @@ function cambiarPestaña(tabName) {
 const BSC_CHAIN_ID = "0x38"; // 56 en decimal
 const RPC_URL = "https://bsc-dataseed.binance.org/";
 
-// Reemplaza estas direcciones con tus contratos reales de ZAARD INNOVATION cuando gustes
+// Contratos del ecosistema ZAARD INNOVATION
 const TOKENS = {
-    ZAARD: "0x0000000000000000000000000000000000000000", 
-    PANGA: "0x0000000000000000000000000000000000000000"  
+    ZARD: "0x3468ea4e6ce13ec4c7f8651f7efc6aa6046f4d65" 
 };
 
 const ERC20_ABI = [
@@ -99,18 +98,16 @@ async function obtenerBalances() {
 
         // Balance ZARD
         if (TOKENS.ZARD !== "0x0000000000000000000000000000000000000000") {
-            const zaardContract = new ethers.Contract(TOKENS.ZAARD, ERC20_ABI, provider);
-            const zaardBal = await zaardContract.balanceOf(userAddress);
-            const zaardDec = await zaardContract.decimals();
-            document.getElementById('zaard-balance').innerText = parseFloat(ethers.utils.formatUnits(zaardBal, zaardDec)).toFixed(2);
-        }
-
-        // Balance PANGA
-        if (TOKENS.PANGA !== "0x0000000000000000000000000000000000000000") {
-            const zairdContract = new ethers.Contract(TOKENS.ZAIRD, ERC20_ABI, provider);
-            const zairdBal = await zairdContract.balanceOf(userAddress);
-            const zairdDec = await zairdContract.decimals();
-            document.getElementById('zaird-balance').innerText = parseFloat(ethers.utils.formatUnits(zairdBal, zairdDec)).toFixed(2);
+            const zardContract = new ethers.Contract(TOKENS.ZARD, ERC20_ABI, provider);
+            const zardBal = await zardContract.balanceOf(userAddress);
+            const zardDec = await zardContract.decimals();
+            
+            // Si en tu HTML usas el id 'zaard-balance' o 'zard-balance', lo adaptamos. 
+            // Aquí apuntamos al identificador principal de tu token ZARD:
+            const element = document.getElementById('zaard-balance');
+            if (element) {
+                element.innerText = parseFloat(ethers.utils.formatUnits(zardBal, zardDec)).toFixed(2);
+            }
         }
 
     } catch (e) {
