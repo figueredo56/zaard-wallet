@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ZAARD WALLET</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Ethers.js CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ethers/5.7.2/ethers.umd.min.js"></script>
+</head>
+<body>
+
+    <div class="wallet-container">
+        <!-- Encabezado -->
+        <header>
+            <h1>ZAARD WALLET</h1>
+            <button id="connect-btn" onclick="conectarWallet()">Conectar Wallet</button>
+        </header>
+
+        <!-- Contenido de las Pestañas -->
+        <main>
+            <!-- PESTAÑA 1: PRINCIPAL -->
+            <section id="tab-main" class="tab-content active">
+                <h2>Activos Principales</h2>
+                <div class="balance-card">
+                    <p>Balance BNB</p>
+                    <h3 id="bnb-balance">0.00 BNB</h3>
+                </div>
+                <div class="tokens-list">
+                    <div class="token-item">
+                        <span>ZAARD</span>
+                        <span id="zaard-balance">0.00</span>
+                    </div>
+                    <div class="token-item">
+                        <span>ZAIRD</span>
+                        <span id="zaird-balance">0.00</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- PESTAÑA 2: SPOT -->
+            <section id="tab-spot" class="tab-content">
+                <h2>Mercado Spot</h2>
+                <p>Operaciones descentralizadas impulsadas por PancakeSwap.</p>
+                <div class="coming-soon">Próximamente gráficos y órdenes en tiempo real.</div>
+            </section>
+
+            <!-- PESTAÑA 3: SWAP -->
+            <section id="tab-swap" class="tab-content">
+                <h2>Intercambio Rápido (Swap)</h2>
+                <div class="swap-box">
+                    <input type="number" placeholder="0.0" id="swap-from">
+                    <select><option>BNB</option><option>ZAARD</option><option>ZAIRD</option></select>
+                    <div class="swap-arrow">↓</div>
+                    <input type="number" placeholder="0.0" id="swap-to" disabled>
+                    <select><option>ZAARD</option><option>BNB</option><option>ZAIRD</option></select>
+                    <button class="action-btn">Intercambiar</button>
+                </div>
+            </section>
+
+            <!-- PESTAÑA 4: P2P -->
+            <section id="tab-p2p" class="tab-content">
+                <h2>Comercio P2P (Fiat)</h2>
+                <p>Compra y vende criptomonedas de forma segura con dinero local.</p>
+                <div class="p2p-card">
+                    <p>Conexión externa compatible con pasarelas Web3 y comercio verificado.</p>
+                    <button class="action-btn" onclick="window.open('https://p2p.binance.com', '_blank')">Ir a Binance P2P / Web3</button>
+                </div>
+            </section>
+        </main>
+
+        <!-- Barra de Navegación Inferior (Pestañas estilo App) -->
+        <nav class="nav-tabs">
+            <button onclick="cambiarPestaña('main')" class="nav-btn active">Principal</button>
+            <button onclick="cambiarPestaña('spot')" class="nav-btn">Spot</button>
+            <button onclick="cambiarPestaña('swap')" class="nav-btn">Swap</button>
+            <button onclick="cambiarPestaña('p2p')" class="nav-btn">P2P</button>
+        </nav>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
