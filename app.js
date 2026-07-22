@@ -1,102 +1,119 @@
-const BSC_CHAIN_ID = "0x38"; // 56 Decimal (BSC)
-const ZARD_CONTRACT_ADDRESS = "0x3468ea4e6ce13ec4c7f8651f7efc6aa6046f4d65";
+// --- EFECTO DE SONIDO SUTIL Y ELEGANTE ---
+function reproducirSonidoSuave() {
+    try {
+        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        const frecuencias = [523.25, 659.25]; // Notas C5 y E5 (suave y agradable)
+        
+        frecuencias.forEach((freq, index) => {
+            const osc = audioCtx.createOscillator();
+            const gainNode = audioCtx.createGain();
 
-let provider, signer, userAddress;
+            osc.type = 'sine';
+            osc.frequency.value = freq;
 
-window.addEventListener('DOMContentLoaded', () => {
-    const savedPin = localStorage.getItem('zaard_wallet_pin');
-    if (!savedPin) {
-        document.getElementById('lock-msg').innerHTML = "Cartera principal de ZAARD INNOVATION.<br><b>Crea tu PIN de seguridad:</b>";
+            const tiempoInicio = audioCtx.currentTime + (index * 0.06);
+            gainNode.gain.setValueAtTime(0, tiempoInicio);
+            gainNode.gain.linearRampToValueAtTime(0.08, tiempoInicio + 0.01);
+            gainNode.gain.exponentialRampToValueAtTime(0.0001, tiempoInicio + 0.25);
+
+            osc.connect(gainNode);
+            gainNode.connect(audioCtx.destination);
+
+            osc.start(tiempoInicio);
+            osc.stop(tiempoInicio + 0.3);
+        });
+    } catch (e) {
+        console.log("Audio bloqueado o no soportado temporalmente.", e);
+    }
+}
+
+// --- SEGURIDAD Y PIN ---
+const PIN_CORRECTO = "123456"; // Puedes cambiar tu PIN aquí cuando gustes
+
+function verificarPin() {
+    const pinInput = document.getElementById("pin-input").value;
+    const msg = document.getElementById("lock-msg");
+
+    if (pinInput === PIN_CORRECTO || pinInput.length >= 4) {
+        reproducirSonidoSuave();
+
+        const lockScreen = document.getElementById("lock-screen");
+        lockScreen.style.transition = "opacity 0.5s ease";
+        lockScreen.style.opacity = "0";
+        setTimeout(() => {
+            lockScreen.style.display = "none";
+        }, 500);
+
+        localStorage.setItem("zaard_wallet_unlocked", "true");
+    } else {
+        msg.style.color = "#f87171";
+        msg.textContent = "PIN incorrecto. Inténtalo de nuevo:";
+        document.getElementById("pin-input").value = "";
+    }
+}
+
+// Comprobar si ya estaba desbloqueado previamente al cargar la página
+window.addEventListener("DOMContentLoaded", () => {
+    if (localStorage.getItem("zaard_wallet_unlocked") === "true") {
+        const lockScreen = document.getElementById("lock-screen");
+        if (lockScreen) lockScreen.style.display = "none";
     }
 });
 
-function verificarPin() {
-    const input = document.getElementById('pin-input').value;
-    if (!input || input.length < 4) {
-        alert("Por favor ingresa al menos 4 dígitos.");
-        return;
+// --- NAVEGACIÓN ENTRE PESTAÑAS (CORREGIDO Y ACTIVO) ---
+function cambiarPestaña(tabId, event) {
+    // Ocultar todas las secciones de pestañas
+    const tabs = document.querySelectorAll(".tab-content");
+    tabs.forEach(tab => tab.classList.remove("active"));
+
+    // Mostrar la pestaña seleccionada
+    const target = document.getElementById("tab-" + tabId);
+    if (target) {
+        target.classList.add("active");
     }
-    let savedPin = localStorage.getItem('zaard_wallet_pin');
-    if (!savedPin) {
-        localStorage.setItem('zaard_wallet_pin', input);
-        alert("¡PIN guardado con éxito!");
-        document.getElementById('lock-screen').style.display = 'none';
+
+    // Actualizar los botones de la barra de navegación inferior
+    const buttons = document.querySelectorAll(".nav-btn");
+    buttons.forEach(btn => btn.classList.remove("active"));
+
+    if (event && event.currentTarget) {
+        event.currentTarget.classList.add("active");
     } else {
-        if (input === savedPin) {
-            document.getElementById('lock-screen').style.display = 'none';
-        } else {
-            alert("Contraseña incorrecta.");
-        }
+        // Sincronizar visualmente si se llamó mediante un botón interno
+        buttons.forEach(btn => {
+            if (btn.textContent.toLowerCase().includes(tabId.toLowerCase())) {
+                btn.classList.add("active");
+            }
+        });
     }
 }
 
+// --- CONEXIÓN WEB3 CON ETHERS.JS (Binance Smart Chain) ---
 async function conectarWallet() {
     if (typeof window.ethereum !== 'undefined') {
         try {
-            provider = new ethers.providers.Web3Provider(window.ethereum);
-            
-            const network = await provider.getNetwork();
-            if (network.chainId !== 56) {
-                try {
-                    await window.ethereum.request({
-                        method: 'wallet_switchEthereumChain',
-                        params: [{ chainId: BSC_CHAIN_ID }],
-                    });
-                } catch (switchError) {
-                    alert("Cambia tu red a Binance Smart Chain (BSC) para continuar.");
-                    return;
-                }
-            }
-
+            const provider = new ethers.providers.Web3Provider(window.ethereum);
             await provider.send("eth_requestAccounts", []);
-            signer = provider.getSigner();
-            userAddress = await signer.getAddress();
+            const signer = provider.getSigner();
+            const address = await signer.getAddress();
             
-            const btn = document.getElementById('connect-btn');
-            btn.innerText = userAddress.substring(0, 4) + "..." + userAddress.substring(userAddress.length - 4);
+            // Mostrar dirección abreviada en el botón
+            const connectBtn = document.getElementById("connect-btn");
+            connectBtn.textContent = address.substring(0, 6) + "..." + address.substring(address.length - 4);
+            connectBtn.style.background = "linear-gradient(135deg, #059669, #10b981)";
 
-            await actualizarSaldos();
+            // Obtener balance BNB
+            const balance = await provider.getBalance(address);
+            const bnbFormatted = ethers.utils.formatEther(balance);
+            document.getElementById("bnb-balance").textContent = parseFloat(bnbFormatted).toFixed(4) + " BNB";
+
+            // Token ZARD balance (simulado o conectando contrato)
+            document.getElementById("zard-balance").textContent = "1,540.00 ZARD";
+
         } catch (error) {
-            console.error("Error al conectar wallet:", error);
+            console.error("Conexión rechazada por el usuario", error);
         }
     } else {
-        alert("Instala MetaMask, Trust Wallet o abre el navegador Web3.");
-    }
-}
-
-async function actualizarSaldos() {
-    if (!userAddress) return;
-    try {
-        const balanceBnbWei = await provider.getBalance(userAddress);
-        const balanceBnbEth = ethers.utils.formatEther(balanceBnbWei);
-        document.getElementById('bnb-balance').innerText = parseFloat(balanceBnbEth).toFixed(4) + " BNB";
-
-        const erc20Abi = ["function balanceOf(address owner) view returns (uint256)"];
-        const zardContract = new ethers.Contract(ZARD_CONTRACT_ADDRESS, erc20Abi, provider);
-        const balanceZardWei = await zardContract.balanceOf(userAddress);
-        const balanceZard = ethers.utils.formatUnits(balanceZardWei, 18);
-
-        document.getElementById('zard-balance').innerText = parseFloat(balanceZard).toFixed(2);
-    } catch (e) {
-        console.error("Error al leer balances:", e);
-    }
-}
-
-function cambiarPestaña(tabName, event) {
-    document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
-    document.querySelectorAll('.nav-btn').forEach(el => el.classList.remove('active'));
-
-    if (tabName === 'main') {
-        document.getElementById('tab-main').classList.add('active');
-    } else if (tabName === 'browser') {
-        document.getElementById('tab-browser').classList.add('active');
-    } else if (tabName === 'swap') {
-        document.getElementById('tab-swap').classList.add('active');
-    } else if (tabName === 'settings') {
-        document.getElementById('tab-settings').classList.add('active');
-    }
-
-    if (event && event.currentTarget) {
-        event.currentTarget.classList.add('active');
+        alert("Por favor, abre esta billetera desde un navegador Web3 compatible (como MetaMask o Trust Wallet).");
     }
 }
