@@ -1,116 +1,102 @@
-// --- CONTROL DE PESTAÑAS ---
-function cambiarPestaña(tabName) {
-    // Ocultar todas las pestañas
-    const tabs = document.querySelectorAll('.tab-content');
-    tabs.forEach(tab => tab.classList.remove('active'));
+const BSC_CHAIN_ID = "0x38"; // 56 Decimal (BSC)
+const ZARD_CONTRACT_ADDRESS = "0x3468ea4e6ce13ec4c7f8651f7efc6aa6046f4d65";
 
-    // Desactivar todos los botones del menú
-    const buttons = document.querySelectorAll('.nav-btn');
-    buttons.forEach(btn => btn.classList.remove('active'));
+let provider, signer, userAddress;
 
-    // Activar la pestaña seleccionada
-    document.getElementById(`tab-${tabName}`).classList.add('active');
-    
-    // Resaltar botón correspondiente
-    event.currentTarget.classList.add('active');
-}
+window.addEventListener('DOMContentLoaded', () => {
+    const savedPin = localStorage.getItem('zaard_wallet_pin');
+    if (!savedPin) {
+        document.getElementById('lock-msg').innerHTML = "Cartera principal de ZAARD INNOVATION.<br><b>Crea tu PIN de seguridad:</b>";
+    }
+});
 
-// --- LOGICA WEB3 Y CONEXIÓN BSC ---
-const BSC_CHAIN_ID = "0x38"; // 56 en decimal
-const RPC_URL = "https://bsc-dataseed.binance.org/";
-
-// Contratos del ecosistema ZAARD INNOVATION
-const TOKENS = {
-    ZARD: "0x3468ea4e6ce13ec4c7f8651f7efc6aa6046f4d65" 
-};
-
-const ERC20_ABI = [
-    "function balanceOf(address owner) view returns (uint256)",
-    "function decimals() view returns (uint8)"
-];
-
-let provider;
-let signer;
-let userAddress;
-
-async function conectarWallet() {
-    if (typeof window.ethereum === "undefined") {
-        alert("¡No se detectó ninguna billetera Web3! Instala MetaMask o Trust Wallet.");
+function verificarPin() {
+    const input = document.getElementById('pin-input').value;
+    if (!input || input.length < 4) {
+        alert("Por favor ingresa al menos 4 dígitos.");
         return;
     }
-
-    try {
-        provider = new ethers.providers.Web3Provider(window.ethereum);
-        await provider.send("eth_requestAccounts", []);
-        signer = provider.getSigner();
-        userAddress = await signer.getAddress();
-        
-        // Cambiar texto del botón con parte de la dirección
-        document.getElementById("connect-btn").innerText = userAddress.substring(0, 6) + "..." + userAddress.substring(38);
-
-        // Verificar red BSC
-        const network = await provider.getNetwork();
-        if (network.chainId !== 56) {
-            await cambiarARedBSC();
-        }
-
-        await obtenerBalances();
-
-    } catch (error) {
-        console.error("Error al conectar:", error);
-    }
-}
-
-async function cambiarARedBSC() {
-    try {
-        await window.ethereum.request({
-            method: "wallet_switchEthereumChain",
-            params: [{ chainId: BSC_CHAIN_ID }],
-        });
-    } catch (switchError) {
-        if (switchError.code === 4902) {
-            try {
-                await window.ethereum.request({
-                    method: "wallet_addEthereumChain",
-                    params: [{
-                        chainId: BSC_CHAIN_ID,
-                        chainName: "Binance Smart Chain Mainnet",
-                        nativeCurrency: { name: "BNB", symbol: "BNB", decimals: 18 },
-                        rpcUrls: [RPC_URL],
-                        blockExplorerUrls: ["https://bscscan.com/"]
-                    }],
-                });
-            } catch (addError) {
-                console.error("No se pudo agregar la red:", addError);
-            }
+    let savedPin = localStorage.getItem('zaard_wallet_pin');
+    if (!savedPin) {
+        localStorage.setItem('zaard_wallet_pin', input);
+        alert("¡PIN guardado con éxito!");
+        document.getElementById('lock-screen').style.display = 'none';
+    } else {
+        if (input === savedPin) {
+            document.getElementById('lock-screen').style.display = 'none';
+        } else {
+            alert("Contraseña incorrecta.");
         }
     }
 }
 
-async function obtenerBalances() {
-    if (!userAddress) return;
-
-    try {
-        // Balance BNB
-        const bnbWei = await provider.getBalance(userAddress);
-        const bnbFormatted = parseFloat(ethers.utils.formatEther(bnbWei)).toFixed(4);
-        document.getElementById('bnb-balance').innerText = `${bnbFormatted} BNB`;
-
-        // Balance ZARD
-        if (TOKENS.ZARD !== "0x0000000000000000000000000000000000000000") {
-            const zardContract = new ethers.Contract(TOKENS.ZARD, ERC20_ABI, provider);
-            const zardBal = await zardContract.balanceOf(userAddress);
-            const zardDec = await zardContract.decimals();
+async function conectarWallet() {
+    if (typeof window.ethereum !== 'undefined') {
+        try {
+            provider = new ethers.providers.Web3Provider(window.ethereum);
             
-            // Si en tu HTML usas el id 'zaard-balance' o 'zard-balance', lo adaptamos. 
-            // Aquí apuntamos al identificador principal de tu token ZARD:
-            const element = document.getElementById('zaard-balance');
-            if (element) {
-                element.innerText = parseFloat(ethers.utils.formatUnits(zardBal, zardDec)).toFixed(2);
+            const network = await provider.getNetwork();
+            if (network.chainId !== 56) {
+                try {
+                    await window.ethereum.request({
+                        method: 'wallet_switchEthereumChain',
+                        params: [{ chainId: BSC_CHAIN_ID }],
+                    });
+                } catch (switchError) {
+                    alert("Cambia tu red a Binance Smart Chain (BSC) para continuar.");
+                    return;
+                }
             }
-        }
 
+            await provider.send("eth_requestAccounts", []);
+            signer = provider.getSigner();
+            userAddress = await signer.getAddress();
+            
+            const btn = document.getElementById('connect-btn');
+            btn.innerText = userAddress.substring(0, 4) + "..." + userAddress.substring(userAddress.length - 4);
+
+            await actualizarSaldos();
+        } catch (error) {
+            console.error("Error al conectar wallet:", error);
+        }
+    } else {
+        alert("Instala MetaMask, Trust Wallet o abre el navegador Web3.");
+    }
+}
+
+async function actualizarSaldos() {
+    if (!userAddress) return;
+    try {
+        const balanceBnbWei = await provider.getBalance(userAddress);
+        const balanceBnbEth = ethers.utils.formatEther(balanceBnbWei);
+        document.getElementById('bnb-balance').innerText = parseFloat(balanceBnbEth).toFixed(4) + " BNB";
+
+        const erc20Abi = ["function balanceOf(address owner) view returns (uint256)"];
+        const zardContract = new ethers.Contract(ZARD_CONTRACT_ADDRESS, erc20Abi, provider);
+        const balanceZardWei = await zardContract.balanceOf(userAddress);
+        const balanceZard = ethers.utils.formatUnits(balanceZardWei, 18);
+
+        document.getElementById('zard-balance').innerText = parseFloat(balanceZard).toFixed(2);
     } catch (e) {
         console.error("Error al leer balances:", e);
+    }
+}
+
+function cambiarPestaña(tabName, event) {
+    document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+    document.querySelectorAll('.nav-btn').forEach(el => el.classList.remove('active'));
+
+    if (tabName === 'main') {
+        document.getElementById('tab-main').classList.add('active');
+    } else if (tabName === 'browser') {
+        document.getElementById('tab-browser').classList.add('active');
+    } else if (tabName === 'swap') {
+        document.getElementById('tab-swap').classList.add('active');
+    } else if (tabName === 'settings') {
+        document.getElementById('tab-settings').classList.add('active');
+    }
+
+    if (event && event.currentTarget) {
+        event.currentTarget.classList.add('active');
     }
 }
