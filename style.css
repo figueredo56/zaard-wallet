@@ -1,0 +1,146 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: #0b0e11;
+    color: #eaecef;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.wallet-container {
+    width: 100%;
+    max-width: 420px;
+    height: 100%;
+    max-height: 750px;
+    background-color: #181a20;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    overflow: hidden;
+    border: 1px solid #2b313a;
+}
+
+header {
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #1e2329;
+    border-bottom: 1px solid #2b313a;
+}
+
+header h1 {
+    font-size: 1.2rem;
+    color: #f0b90b; /* Color estilo Binance / Cripto */
+}
+
+#connect-btn {
+    background-color: #f0b90b;
+    color: #0b0e11;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+main {
+    flex: 1;
+    padding: 20px;
+    overflow-y: auto;
+}
+
+.tab-content {
+    display: none;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+h2 {
+    font-size: 1.1rem;
+    margin-bottom: 15px;
+}
+
+.balance-card, .tokens-list div, .p2p-card {
+    background-color: #21262d;
+    padding: 15px;
+    border-radius: 12px;
+    margin-bottom: 10px;
+    border: 1px solid #30363d;
+}
+
+.tokens-list div {
+    display: flex;
+    justify-content: space-between;
+}
+
+.swap-box {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.swap-box input, .swap-box select {
+    padding: 12px;
+    background: #21262d;
+    border: 1px solid #30363d;
+    color: white;
+    border-radius: 8px;
+}
+
+.swap-arrow {
+    text-align: center;
+    font-size: 1.2rem;
+    color: #f0b90b;
+}
+
+.action-btn {
+    background-color: #f0b90b;
+    color: #0b0e11;
+    border: none;
+    padding: 12px;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 10px;
+    width: 100%;
+}
+
+.nav-tabs {
+    display: flex;
+    background-color: #1e2329;
+    border-top: 1px solid #2b313a;
+}
+
+.nav-btn {
+    flex: 1;
+    padding: 15px 0;
+    background: none;
+    border: none;
+    color: #848e9c;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.nav-btn.active, .nav-btn:hover {
+    color: #f0b90b;
+    background-color: #2b313a;
+}
+
+.coming-soon {
+    text-align: center;
+    color: #848e9c;
+    margin-top: 40px;
+}
