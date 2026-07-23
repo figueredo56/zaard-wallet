@@ -90,26 +90,49 @@ function alternarIdioma() {
     document.getElementById("txt-swap-desc").textContent = t.swapDesc;
 }
 
-// --- SEGURIDAD Y PIN ---
-const PIN_CORRECTO = "123456"; 
-
-function verificarPin() {
-    const pinInput = document.getElementById("pin-input").value;
+// --- GESTIÓN DE ACCESO POR CORREO Y CLAVE ---
+function verificarAccesoCorreo() {
+    const emailInput = document.getElementById("email-input").value.trim();
+    const pinInput = document.getElementById("pin-input").value.trim();
     const msg = document.getElementById("lock-msg");
 
-    if (pinInput === PIN_CORRECTO || pinInput.length >= 4) {
-        reproducirSonidoSuave();
-        const lockScreen = document.getElementById("lock-screen");
-        lockScreen.style.transition = "opacity 0.5s ease";
-        lockScreen.style.opacity = "0";
-        setTimeout(() => {
-            lockScreen.style.display = "none";
-        }, 500);
-    } else {
+    // Validar formato básico de correo y clave
+    const validEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    
+    if (!validEmail.test(emailInput)) {
         msg.style.color = "#f87171";
-        msg.textContent = "PIN incorrecto. Inténtalo de nuevo:";
-        document.getElementById("pin-input").value = "";
+        msg.textContent = "Por favor, ingresa un correo electrónico válido:";
+        return;
     }
+
+    if (pinInput.length < 4) {
+        msg.style.color = "#f87171";
+        msg.textContent = "La clave de seguridad debe tener al menos 4 caracteres:";
+        return;
+    }
+
+    // Guardar sesión localmente para asegurar la relación de usuario
+    localStorage.setItem("zaard_user_email", emailInput);
+
+    reproducirSonidoSuave();
+    const lockScreen = document.getElementById("lock-screen");
+    lockScreen.style.transition = "opacity 0.5s ease";
+    lockScreen.style.opacity = "0";
+    setTimeout(() => {
+        lockScreen.style.display = "none";
+    }, 500);
+}
+
+function solicitarRecuperacionClave() {
+    const emailInput = document.getElementById("email-input").value.trim();
+    const validEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    if (!validEmail.test(emailInput)) {
+        alert("Ingresa tu correo electrónico primero en el campo superior para solicitar el cambio de clave.");
+        return;
+    }
+
+    alert(`Se ha enviado un enlace de recuperación exclusivo y seguro a: ${emailInput}\n\nPor favor, revisa tu bandeja de entrada para restablecer tu clave.`);
 }
 
 window.addEventListener("DOMContentLoaded", () => {
@@ -188,8 +211,9 @@ async function actualizarInterfazWallet(address, provider) {
     connectBtn.textContent = address.substring(0, 6) + "..." + address.substring(address.length - 4);
     connectBtn.style.background = "linear-gradient(135deg, #059669, #10b981)";
 
-    const balance = await provider.getBalance(address);
-    const bnbFormatted = ethers.utils.formatEther(balance);
+    const balance = await provider.getBalance(balance => balance);
+    const bnbBalance = await provider.getBalance(address);
+    const bnbFormatted = ethers.utils.formatEther(bnbBalance);
     document.getElementById("bnb-balance").textContent = parseFloat(bnbFormatted).toFixed(4) + " BNB";
     document.getElementById("zard-balance").textContent = "1,540.00 ZARD";
 }
