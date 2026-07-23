@@ -25,18 +25,23 @@
     <div id="lock-screen" class="lock-overlay">
         <div class="lock-box">
             <h2>ZAARD WALLET</h2>
-            <p id="lock-msg">Cartera principal de ZAARD INNOVATION.<br>Ingresa tu correo y clave de seguridad:</p>
+            <p id="lock-msg">Sistema de Autenticación Descentralizada.<br>Ingrese su correo y clave de seguridad:</p>
             
-            <!-- Campo de Correo Electrónico (1 Cartera por Usuario) -->
-            <input type="email" id="email-input" placeholder="tu-correo@gmail.com" style="width: 100%; padding: 10px; margin-bottom: 12px; background: #0f172a; border: 1px solid #334155; color: #fff; border-radius: 8px; box-sizing: border-box;">
+            <input type="email" id="email-input" placeholder="usuario@dominio.com">
+            <input type="password" id="pin-input" maxlength="20" placeholder="Clave de seguridad">
             
-            <!-- Campo de Clave de Seguridad -->
-            <input type="password" id="pin-input" maxlength="20" placeholder="Clave de seguridad" style="width: 100%; padding: 10px; margin-bottom: 15px; background: #0f172a; border: 1px solid #334155; color: #fff; border-radius: 8px; box-sizing: border-box;">
+            <button class="action-btn" onclick="verificarAccesoCorreo()">Acceder / Vincular Billetera</button>
             
-            <button class="action-btn" onclick="verificarAccesoCorreo()">Acceder / Registrar Billetera</button>
-            
-            <p style="margin-top: 15px; font-size: 0.75rem;">
-                <a href="#" onclick="solicitarRecuperacionClave()" style="color: #34d399; text-decoration: none;">¿Olvidaste tu clave? (Cambiar por correo)</a>
+            <!-- Aviso técnico de calidad sobre la clave -->
+            <div class="security-warning-box">
+                <p class="warning-title">⚠️ AVISO DE SEGURIDAD CRÍTICA</p>
+                <p class="warning-text">
+                    El protocolo no almacena contraseñas en texto plano. Si olvida su clave, el sistema no podrá restaurarla automáticamente; la única vía de recuperación y validación de titularidad es mediante enlace cifrado enviado a su correo electrónico.
+                </p>
+            </div>
+
+            <p style="margin-top: 10px; font-size: 0.75rem;">
+                <a href="#" onclick="solicitarRecuperacionClave()" style="color: #34d399; text-decoration: none;">¿Olvidó su clave? (Recuperar vía correo)</a>
             </p>
         </div>
     </div>
