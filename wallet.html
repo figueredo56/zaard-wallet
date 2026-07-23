@@ -21,13 +21,23 @@
 </head>
 <body>
 
-    <!-- Pantalla de Bloqueo PIN -->
+    <!-- Pantalla de Autenticación y Registro por Correo y Clave -->
     <div id="lock-screen" class="lock-overlay">
         <div class="lock-box">
             <h2>ZAARD WALLET</h2>
-            <p id="lock-msg">Cartera principal de ZAARD INNOVATION.<br>Ingresa tu clave de seguridad:</p>
-            <input type="password" id="pin-input" maxlength="6" placeholder="••••">
-            <button class="action-btn" onclick="verificarPin()">Desbloquear Billetera</button>
+            <p id="lock-msg">Cartera principal de ZAARD INNOVATION.<br>Ingresa tu correo y clave de seguridad:</p>
+            
+            <!-- Campo de Correo Electrónico (1 Cartera por Usuario) -->
+            <input type="email" id="email-input" placeholder="tu-correo@gmail.com" style="width: 100%; padding: 10px; margin-bottom: 12px; background: #0f172a; border: 1px solid #334155; color: #fff; border-radius: 8px; box-sizing: border-box;">
+            
+            <!-- Campo de Clave de Seguridad -->
+            <input type="password" id="pin-input" maxlength="20" placeholder="Clave de seguridad" style="width: 100%; padding: 10px; margin-bottom: 15px; background: #0f172a; border: 1px solid #334155; color: #fff; border-radius: 8px; box-sizing: border-box;">
+            
+            <button class="action-btn" onclick="verificarAccesoCorreo()">Acceder / Registrar Billetera</button>
+            
+            <p style="margin-top: 15px; font-size: 0.75rem;">
+                <a href="#" onclick="solicitarRecuperacionClave()" style="color: #34d399; text-decoration: none;">¿Olvidaste tu clave? (Cambiar por correo)</a>
+            </p>
         </div>
     </div>
 
@@ -147,7 +157,7 @@
                         Red: <b>Binance Smart Chain (BSC)</b><br>
                         Propietario: <b>ZAARD Protocol / PANGA</b>
                     </p>
-                    <button class="action-btn" style="margin-top: 15px;" onclick="alert('Sistema protegido con PIN obligatorio y validación Web3 externa.')">Seguridad Activa</button>
+                    <button class="action-btn" style="margin-top: 15px;" onclick="alert('Sistema protegido con validación de correo único y clave personal.')">Seguridad Activa</button>
                 </div>
             </div>
         </main>
