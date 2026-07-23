@@ -18,11 +18,11 @@ function reproducirSonidoSuave() {
             osc.stop(tiempoInicio + 0.3);
         });
     } catch (e) {
-        console.log("Audio no soportado temporalmente.", e);
+        console.log("Audio no soportado.", e);
     }
 }
 
-// --- SEGURIDAD Y PIN (PIDE CLAVE SIEMPRE AL ENTRAR) ---
+// --- SEGURIDAD Y PIN ---
 const PIN_CORRECTO = "123456"; 
 
 function verificarPin() {
@@ -44,7 +44,6 @@ function verificarPin() {
     }
 }
 
-// Aseguramos que la pantalla de bloqueo aparezca siempre al cargar o recargar
 window.addEventListener("DOMContentLoaded", () => {
     const lockScreen = document.getElementById("lock-screen");
     if (lockScreen) lockScreen.style.display = "flex";
@@ -67,7 +66,6 @@ function cambiarPestaña(tabId, event) {
         event.currentTarget.classList.add("active");
     }
 
-    // Cambiar fondos del body dinámicamente según la pestaña activa
     document.body.classList.remove("bg-swap", "bg-security");
     if (tabId === 'swap') {
         document.body.classList.add("bg-swap");
@@ -98,6 +96,6 @@ async function conectarWallet() {
             console.error("Conexión rechazada", error);
         }
     } else {
-        alert("Por favor, abre esta billetera desde un navegador Web3 compatible (MetaMask o Trust Wallet).");
+        alert("Abre esta billetera desde un navegador Web3 compatible (MetaMask o Trust Wallet).");
     }
 }
