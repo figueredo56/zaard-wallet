@@ -142,43 +142,41 @@ function cambiarPestaña(tabId, event) {
     }
 }
 
-// --- CONEXIÓN WEB3 CON SELECTOR DUAL (MetaMask o Binance Web3) ---
-async function conectarWallet() {
+// --- CONTROL DE MODAL DE BILLETERAS ---
+function mostrarModalWallet() {
     if (typeof window.ethereum !== 'undefined') {
-        try {
-            const provider = new ethers.providers.Web3Provider(window.ethereum);
-            await provider.send("eth_requestAccounts", []);
-            const signer = provider.getSigner();
-            const address = await signer.getAddress();
-            
-            actualizarInterfazWallet(address, provider);
-            return;
-        } catch (error) {
-            console.error("Conexión Web3 rechazada", error);
-        }
+        intentarConexionDirecta();
+        return;
     }
+    document.getElementById("wallet-modal").style.display = "flex";
+}
 
-    // Selector dual para elegir entre MetaMask y Binance Web3 Wallet
+function cerrarModalWallet() {
+    document.getElementById("wallet-modal").style.display = "none";
+}
+
+async function intentarConexionDirecta() {
+    try {
+        const provider = new ethers.providers.Web3Provider(window.ethereum);
+        await provider.send("eth_requestAccounts", []);
+        const signer = provider.getSigner();
+        const address = await signer.getAddress();
+        actualizarInterfazWallet(address, provider);
+        cerrarModalWallet();
+    } catch (error) {
+        console.error("Conexión rechazada", error);
+    }
+}
+
+function conectarMetaMask() {
     const cleanUrl = window.location.href.replace(/^https?:\/\//, '');
-    const eleccion = prompt(
-        "Selecciona tu billetera preferida para autorizar firmas:\n\n" +
-        "1. Escribe 'metamask' para abrir en MetaMask\n" +
-        "2. Escribe 'binance' para abrir en Binance Web3 Wallet",
-        "metamask"
-    );
+    window.location.href = `https://metamask.app.link/dapp/${cleanUrl}`;
+}
 
-    if (!eleccion) return;
-
-    const lower = eleccion.toLowerCase().trim();
-    if (lower.includes('meta') || lower === '1') {
-        const metaMaskDeepLink = `https://metamask.app.link/dapp/${cleanUrl}`;
-        window.location.href = metaMaskDeepLink;
-    } else if (lower.includes('binance') || lower === '2') {
-        const binanceDeepLink = `bnapp://app.binance.com/browser?url=${encodeURIComponent(window.location.href)}`;
-        window.location.href = binanceDeepLink;
-    } else {
-        alert("Opción no reconocida. Por favor ingresa 'metamask' o 'binance'.");
-    }
+function conectarBinance() {
+    const cleanUrl = window.location.href.replace(/^https?:\/\//, '');
+    // Enlace universal compatible con Binance Web3 dApp browser
+    window.location.href = `https://app.binance.com/en/wegames?appUrl=${encodeURIComponent(window.location.href)}`;
 }
 
 async function actualizarInterfazWallet(address, provider) {
