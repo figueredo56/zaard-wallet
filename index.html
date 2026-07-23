@@ -1,9 +1,18 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <meta http-equiv="refresh" content="0;url=wallet.html">
-</head>
-<body>
-    <p>Redirigiendo a ZAARD Wallet...</p>
-</body>
-</html>
+<!-- Barra de navegación inferior -->
+<nav class="nav-tabs">
+    <button class="nav-btn active" onclick="cambiarPestaña('inicio', event)">
+        <span>🏠</span> Inicio
+    </button>
+    <button class="nav-btn" onclick="cambiarPestaña('buscador', event)">
+        <span>🔍</span> Buscador
+    </button>
+    <button class="nav-btn" onclick="window.open('https://figueredo56.github.io/zaard-tracker/', '_blank')">
+        <span>📊</span> Tracker
+    </button>
+    <button class="nav-btn" onclick="cambiarPestaña('swap', event)">
+        <span>🔄</span> Swap
+    </button>
+    <button class="nav-btn" onclick="cambiarPestaña('seguridad', event)">
+        <span>🛡️</span> Seguridad
+    </button>
+</nav>
