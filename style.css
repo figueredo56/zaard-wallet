@@ -25,7 +25,7 @@ html, body {
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background-color: #0b0e14 !important;
-    background-image: url('https://raw.githubusercontent.com/figueredo56/zaard-tracker/refs/heads/main/60%20sin%20t%C3%ADtulo_20260715225022.png') !important;
+    background-image: url('https://raw.githubusercontent.com/figueredo56/zaard-tracker/refs/heads/main/60%20sin%20t%C3%adtulo_20260715225022.png') !important;
     background-size: cover !important;
     background-position: center center !important;
     background-repeat: no-repeat !important;
@@ -37,7 +37,7 @@ body {
 }
 
 body.bg-swap { background-image: none !important; background-color: #080b10 !important; }
-body.bg-security { background-image: url('https://raw.githubusercontent.com/figueredo56/zaard-wallet/refs/heads/main/194%20sin%20t%C3%ADtulo_20260722171836.png') !important; }
+body.bg-security { background-image: url('https://raw.githubusercontent.com/figueredo56/zaard-wallet/refs/heads/main/194%20sin%20t%C3%adtulo_20260722171836.png') !important; }
 
 @keyframes coinInfinitePulse {
     0% { transform: scale(1); }
@@ -49,11 +49,11 @@ body.bg-security { background-image: url('https://raw.githubusercontent.com/figu
     animation: coinInfinitePulse 3s infinite ease-in-out;
 }
 
-/* Pantalla de Bloqueo: Cuadro 100% transparente para ver el fondo y candado */
+/* Pantalla de Bloqueo / Autenticación */
 .lock-overlay {
     position: fixed;
     top: 0; left: 0; width: 100%; height: 100%;
-    background-image: url('https://raw.githubusercontent.com/figueredo56/zaard-wallet/refs/heads/main/194%20sin%20t%C3%ADtulo_20260722171836.png');
+    background-image: url('https://raw.githubusercontent.com/figueredo56/zaard-wallet/refs/heads/main/194%20sin%20t%C3%adtulo_20260722171836.png');
     background-size: cover;
     background-position: center;
     display: flex;
@@ -63,15 +63,15 @@ body.bg-security { background-image: url('https://raw.githubusercontent.com/figu
 }
 
 .lock-box {
-    background: rgba(0, 0, 0, 0.05);
-    backdrop-filter: blur(2px);
-    -webkit-backdrop-filter: blur(2px);
+    background: rgba(0, 0, 0, 0.45);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
     padding: 30px;
     border-radius: 20px;
     border: 2px solid rgba(52, 211, 153, 0.6);
-    box-shadow: 0 0 30px rgba(0,0,0,0.5);
+    box-shadow: 0 0 30px rgba(0,0,0,0.8);
     text-align: center;
-    max-width: 320px;
+    max-width: 340px;
     width: 90%;
 }
 
@@ -90,18 +90,26 @@ body.bg-security { background-image: url('https://raw.githubusercontent.com/figu
     margin-bottom: 20px;
 }
 
-.lock-box input {
-    width: 80%;
+.lock-box input[type="email"],
+.lock-box input[type="password"] {
+    width: 100%;
     padding: 12px;
-    text-align: center;
-    font-size: 1.5rem;
-    letter-spacing: 8px;
+    font-size: 1rem;
+    letter-spacing: normal;
     border-radius: 10px;
     border: 2px solid #34d399;
-    background: rgba(0, 0, 0, 0.2);
+    background: rgba(0, 0, 0, 0.4);
     color: #ffffff;
-    margin-bottom: 20px;
+    margin-bottom: 15px;
     outline: none;
+    box-sizing: border-box;
+    text-align: left;
+    padding-left: 15px;
+}
+
+.lock-box input::placeholder {
+    color: #94a3b8;
+    font-size: 0.9rem;
 }
 
 .wallet-container {
@@ -247,7 +255,7 @@ main {
     font-size: 0.9rem;
 }
 
-/* Tarjeta de Staking / Bloqueo con estilo técnico elegante */
+/* Tarjeta de Staking / Bloqueo */
 .staking-banner {
     background: linear-gradient(135deg, rgba(121, 40, 202, 0.3), rgba(0, 112, 243, 0.3));
     border: 2px dashed #c084fc;
@@ -311,7 +319,7 @@ main {
 .dapp-card img { width: 36px; height: 36px; border-radius: 50%; object-fit: cover; border: 1.5px solid #34d399; }
 .dapp-card span { font-size: 0.8rem; color: #fff; }
 
-/* Barra de Navegación Inferior (6 Pestañas compactas) */
+/* Barra de Navegación Inferior */
 .nav-tabs {
     display: flex;
     background: rgba(11, 14, 20, 0.95);
