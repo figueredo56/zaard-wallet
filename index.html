@@ -5,18 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ZAARD WALLET</title>
     <link rel="stylesheet" href="style.css">
-    <!-- Ethers.js para Web3 -->
     <script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.umd.min.js"></script>
 </head>
 <body>
 
-    <!-- Pantalla de Bloqueo de Seguridad (PIN) -->
+    <!-- Pantalla de Bloqueo PIN -->
     <div id="lock-screen" class="lock-overlay">
         <div class="lock-box">
             <h2>ZAARD WALLET</h2>
-            <p id="lock-msg">Ingresa tu clave de seguridad:</p>
+            <p id="lock-msg">Cartera principal de ZAARD INNOVATION.<br>Ingresa tu clave de seguridad:</p>
             <input type="password" id="pin-input" maxlength="6" placeholder="••••">
-            <button class="action-btn" onclick="verificarPin()">Desbloquear</button>
+            <button class="action-btn" onclick="verificarPin()">Desbloquear Billetera</button>
         </div>
     </div>
 
@@ -29,20 +28,23 @@
                 <img src="https://raw.githubusercontent.com/figueredo56/zaard-tracker/refs/heads/main/60%20sin%20t%C3%ADtulo_20260715225022.png" alt="Logo" class="animated-logo">
                 <div>
                     <h1>ZAARD WALLET</h1>
-                    <p>Seguridad y Confianza de PANGA</p>
+                    <p id="header-subtitle">Seguridad y Confianza de PANGA</p>
                 </div>
             </div>
-            <button id="connect-btn" class="action-btn" style="width: auto; padding: 8px 12px; font-size: 0.8rem;" onclick="conectarWallet()">Conectar</button>
+            <div class="header-controls">
+                <button class="lang-btn" onclick="alternarIdioma()" id="lang-indicator">ES 🌐</button>
+                <button id="connect-btn" class="action-btn" style="width: auto; padding: 6px 10px; font-size: 0.7rem;" onclick="conectarWallet()">Conectar</button>
+            </div>
         </header>
 
         <!-- Contenido de Pestañas -->
         <main>
             <!-- 1. INICIO -->
             <div id="tab-inicio" class="tab-content active">
-                <h2 style="color: #34d399; margin-top: 0;">Activos Principales</h2>
+                <h2 id="txt-assets-title" style="color: #34d399; margin-top: 0; font-size: 1.2rem;">Activos Principales</h2>
                 
                 <div class="balance-card">
-                    <p>Balance BNB (BSC)</p>
+                    <p id="txt-bnb-label">Balance BNB (BSC)</p>
                     <h3 id="bnb-balance">0.00 BNB</h3>
                 </div>
 
@@ -56,73 +58,90 @@
                     </div>
                 </div>
 
-                <button class="action-btn" onclick="cambiarPestaña('buscador', event)">🌐 Abrir Ecosistema ZAARD</button>
+                <button class="action-btn" onclick="cambiarPestaña('buscador', event)">🌐 <span id="txt-btn-ecosystem">Ir al Ecosistema ZAARD</span></button>
             </div>
 
-            <!-- 2. BUSCADOR (DAPPS OFICIALES) -->
+            <!-- 2. STAKING / BLOQUEO ZARD (Nueva Pestaña Solicitada) -->
+            <div id="tab-staking" class="tab-content">
+                <h2 style="color: #c084fc; margin-top: 0; font-size: 1.2rem;">ZAARD Staking & Yield</h2>
+                
+                <div class="staking-banner">
+                    <span class="badge-coming" id="badge-coming-text">🚀 PRÓXIMA GRAN APERTURA</span>
+                    <h3 id="staking-title-msg">Bloqueo Inteligente de Activos</h3>
+                    <p id="staking-desc-msg">
+                        Próxima gran apertura. Podrás bloquear tus tokens ZARD en contratos inteligentes auditados para generar recompensas y rendimiento pasivo diario dentro del ecosistema descentralizado.
+                    </p>
+                    <button class="action-btn" style="margin-top: 15px; opacity: 0.7;" disabled id="staking-btn-msg">Módulo en Inicialización</button>
+                </div>
+            </div>
+
+            <!-- 3. BUSCADOR -->
             <div id="tab-buscador" class="tab-content">
-                <h2 style="color: #34d399; margin-top: 0;">Ecosistema ZAARD</h2>
-                <p style="color: #6ee7b7; font-size: 0.9rem;">Accesos directos oficiales a las plataformas del protocolo:</p>
+                <h2 id="txt-browser-title" style="color: #34d399; margin-top: 0; font-size: 1.2rem;">Buscador y DApps</h2>
+                <p id="txt-browser-desc" style="color: #6ee7b7; font-size: 0.82rem;">Plataformas oficiales del protocolo:</p>
                 
                 <div class="dapp-grid">
                     <a href="https://figueredo56.github.io/ZAARD-Arcade/index-menu.html" target="_blank" class="dapp-card">
-                        <span>🎮</span>
-                        <span>Juegos Arcade</span>
-                    </a>
-                    <a href="https://figueredo56.github.io/zaard-official/" target="_blank" class="dapp-card">
-                        <span>🌐</span>
-                        <span>Página Web</span>
-                    </a>
-                    <a href="https://figueredo56.github.io/index.html/" target="_blank" class="dapp-card">
-                        <span>⚡</span>
-                        <span>Ecosistema</span>
+                        <img src="https://raw.githubusercontent.com/figueredo56/zaard-tracker/refs/heads/main/60%20sin%20t%C3%ADtulo_20260715225022.png" alt="Juegos">
+                        <span id="dapp-arcade">Juegos Arcade</span>
                     </a>
                     <a href="https://figueredo56.github.io/zaard-tracker/" target="_blank" class="dapp-card">
-                        <span>📊</span>
-                        <span>Tracker</span>
+                        <img src="https://raw.githubusercontent.com/figueredo56/zaard-tracker/refs/heads/main/60%20sin%20t%C3%ADtulo_20260715225022.png" alt="Tracker">
+                        <span id="dapp-tracker">Tracker ZARD</span>
+                    </a>
+                    <a href="https://figueredo56.github.io/zaard-official/" target="_blank" class="dapp-card">
+                        <img src="https://raw.githubusercontent.com/figueredo56/zaard-tracker/refs/heads/main/60%20sin%20t%C3%ADtulo_20260715225022.png" alt="Web">
+                        <span id="dapp-web">Página Web</span>
+                    </a>
+                    <a href="https://figueredo56.github.io/index.html/" target="_blank" class="dapp-card">
+                        <img src="https://raw.githubusercontent.com/figueredo56/zaard-tracker/refs/heads/main/60%20sin%20t%C3%ADtulo_20260715225022.png" alt="Ecosistema">
+                        <span id="dapp-eco">Ecosistema</span>
                     </a>
                 </div>
             </div>
 
-            <!-- 3. SWAP (Limpio sin imagen de fondo) -->
+            <!-- 4. SWAP -->
             <div id="tab-swap" class="tab-content">
-                <h2 style="color: #34d399; margin-top: 0;">Intercambio Rápido</h2>
+                <h2 style="color: #34d399; margin-top: 0; font-size: 1.2rem;">Intercambio Rápido</h2>
                 <div class="balance-card">
-                    <p>Operaciones descentralizadas con máxima liquidez.</p>
+                    <p id="txt-swap-desc">Operaciones descentralizadas con máxima liquidez en PancakeSwap.</p>
                     <button class="action-btn" style="margin-top: 15px;" onclick="window.open('https://pancakeswap.finance/', '_blank')">Ir a PancakeSwap</button>
                 </div>
             </div>
 
-            <!-- 4. SEGURIDAD -->
+            <!-- 5. SEGURIDAD -->
             <div id="tab-seguridad" class="tab-content">
-                <h2 style="color: #34d399; margin-top: 0;">Seguridad de la Cartera</h2>
+                <h2 style="color: #34d399; margin-top: 0; font-size: 1.2rem;">Seguridad de la Cartera</h2>
                 <div class="balance-card">
-                    <p style="color: #fff; line-height: 1.6;">
+                    <p style="color: #fff; line-height: 1.6; font-size: 0.85rem;" id="security-info-text">
                         Red: <b>Binance Smart Chain (BSC)</b><br>
                         Propietario: <b>ZAARD Protocol / PANGA</b>
                     </p>
-                    <button class="action-btn" style="margin-top: 15px;" onclick="alert('Sistema protegido con PIN obligatorio.')">Seguridad Activa</button>
+                    <button class="action-btn" style="margin-top: 15px;" onclick="alert('Sistema protegido con PIN obligatorio y validación Web3 externa.')">Seguridad Activa</button>
                 </div>
             </div>
         </main>
 
-        <!-- Barra de Navegación Inferior (5 Pestañas) -->
+        <!-- Barra de Navegación Inferior (6 Pestañas: Incluye STAKING y TRACKER) -->
         <nav class="nav-tabs">
             <button class="nav-btn active" onclick="cambiarPestaña('inicio', event)">
-                <span>🏠</span> Inicio
+                <span>🏠</span> <span class="nav-home">Inicio</span>
+            </button>
+            <button class="nav-btn" onclick="cambiarPestaña('staking', event)">
+                <span>💎</span> <span>Staking</span>
             </button>
             <button class="nav-btn" onclick="cambiarPestaña('buscador', event)">
-                <span>🔍</span> Buscador
+                <span>🔍</span> <span class="nav-browser">Buscador</span>
             </button>
             <button class="nav-btn" onclick="cambiarPestaña('swap', event)">
                 <span>🔄</span> Swap
             </button>
             <button class="nav-btn" onclick="cambiarPestaña('seguridad', event)">
-                <span>🛡️</span> Seguridad
+                <span>🛡️</span> <span class="nav-security">Seguridad</span>
             </button>
-            <button class="nav-btn" onclick="window.open('https://figueredo56.github.io/zaard-tracker/', '_blank')">
+            <a href="https://figueredo56.github.io/zaard-tracker/" target="_blank" class="nav-btn">
                 <span>📊</span> Tracker
-            </button>
+            </a>
         </nav>
 
     </div>
