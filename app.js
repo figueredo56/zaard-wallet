@@ -90,18 +90,17 @@ function alternarIdioma() {
     document.getElementById("txt-swap-desc").textContent = t.swapDesc;
 }
 
-// --- GESTIÓN DE ACCESO POR CORREO Y CLAVE ---
+// --- GESTIÓN DE ACCESO CON VALIDACIÓN REAL ---
 function verificarAccesoCorreo() {
     const emailInput = document.getElementById("email-input").value.trim();
     const pinInput = document.getElementById("pin-input").value.trim();
     const msg = document.getElementById("lock-msg");
 
-    // Validar formato básico de correo y clave
     const validEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     
     if (!validEmail.test(emailInput)) {
         msg.style.color = "#f87171";
-        msg.textContent = "Por favor, ingresa un correo electrónico válido:";
+        msg.textContent = "Correo inválido. Por favor verifica los datos:";
         return;
     }
 
@@ -111,8 +110,31 @@ function verificarAccesoCorreo() {
         return;
     }
 
-    // Guardar sesión localmente para asegurar la relación de usuario
-    localStorage.setItem("zaard_user_email", emailInput);
+    let correoRegistrado = localStorage.getItem("zaard_saved_email");
+    let claveRegistrada = localStorage.getItem("zaard_saved_pin");
+
+    if (!correoRegistrado) {
+        localStorage.setItem("zaard_saved_email", emailInput);
+        localStorage.setItem("zaard_saved_pin", pinInput);
+        localStorage.setItem("zaard_user_email", emailInput);
+        
+        procederDesbloqueo("¡Billetera registrada y vinculada con éxito!");
+    } else {
+        if (emailInput === correoRegistrado && pinInput === claveRegistrada) {
+            localStorage.setItem("zaard_user_email", emailInput);
+            procederDesbloqueo("¡Acceso autorizado!");
+        } else {
+            msg.style.color = "#f87171";
+            msg.textContent = "Acceso denegado: Correo o clave incorrectos.";
+            reproducirAlertaError();
+        }
+    }
+}
+
+function procederDesbloqueo(mensajeExito) {
+    const msg = document.getElementById("lock-msg");
+    msg.style.color = "#34d399";
+    msg.textContent = mensajeExito;
 
     reproducirSonidoSuave();
     const lockScreen = document.getElementById("lock-screen");
@@ -123,16 +145,43 @@ function verificarAccesoCorreo() {
     }, 500);
 }
 
+function reproducirAlertaError() {
+    try {
+        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        const osc = audioCtx.createOscillator();
+        const gainNode = audioCtx.createGain();
+        osc.type = 'sawtooth';
+        osc.frequency.value = 150;
+        gainNode.gain.setValueAtTime(0.1, audioCtx.currentTime);
+        osc.connect(gainNode);
+        gainNode.connect(audioCtx.destination);
+        osc.start();
+        osc.stop(audioCtx.currentTime + 0.2);
+    } catch (e) {
+        console.log(e);
+    }
+}
+
 function solicitarRecuperacionClave() {
     const emailInput = document.getElementById("email-input").value.trim();
     const validEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    let correoRegistrado = localStorage.getItem("zaard_saved_email");
 
     if (!validEmail.test(emailInput)) {
-        alert("Ingresa tu correo electrónico primero en el campo superior para solicitar el cambio de clave.");
+        alert("Ingresa tu correo electrónico en el campo superior primero.");
         return;
     }
 
-    alert(`Se ha enviado un enlace de recuperación exclusivo y seguro a: ${emailInput}\n\nPor favor, revisa tu bandeja de entrada para restablecer tu clave.`);
+    if (correoRegistrado && emailInput !== correoRegistrado) {
+        alert("El correo ingresado no coincide con el propietario registrado en esta billetera.");
+        return;
+    }
+
+    if (confirm(`Se ha solicitado la recuperación de credenciales para el correo: ${emailInput}\n\n¿Deseas restablecer la clave de seguridad en este dispositivo? Se limpiarán los registros anteriores para configurar una nueva clave.`)) {
+        localStorage.removeItem("zaard_saved_email");
+        localStorage.removeItem("zaard_saved_pin");
+        alert("Credenciales restablecidas localmente. Ingresa tu nueva clave y haz clic en acceder para registrarla de nuevo.");
+    }
 }
 
 window.addEventListener("DOMContentLoaded", () => {
@@ -211,7 +260,6 @@ async function actualizarInterfazWallet(address, provider) {
     connectBtn.textContent = address.substring(0, 6) + "..." + address.substring(address.length - 4);
     connectBtn.style.background = "linear-gradient(135deg, #059669, #10b981)";
 
-    const balance = await provider.getBalance(balance => balance);
     const bnbBalance = await provider.getBalance(address);
     const bnbFormatted = ethers.utils.formatEther(bnbBalance);
     document.getElementById("bnb-balance").textContent = parseFloat(bnbFormatted).toFixed(4) + " BNB";
