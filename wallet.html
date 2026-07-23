@@ -19,18 +19,18 @@
         </div>
     </div>
 
-    <!-- Modal de Selección de Billetera (MetaMask / Binance Web3) -->
+    <!-- Modal de Selección de Billetera (Apertura Directa al Navegador de la App) -->
     <div id="wallet-modal" class="lock-overlay" style="display: none;">
         <div class="lock-box" style="text-align: center;">
-            <h3 style="color: #34d399; margin-top: 0;">Selecciona tu Billetera</h3>
-            <p style="font-size: 0.85rem; color: #cbd5e1; margin-bottom: 20px;">Elige con qué dApp browser deseas conectar:</p>
+            <h3 style="color: #34d399; margin-top: 0;">Abrir en DApp Browser</h3>
+            <p style="font-size: 0.85rem; color: #cbd5e1; margin-bottom: 20px;">Selecciona tu billetera para abrir el sitio de forma segura:</p>
             
-            <button class="action-btn" style="margin-bottom: 12px; background: linear-gradient(135deg, #f59e0b, #d97706); display: flex; align-items: center; justify-content: center; gap: 10px;" onclick="conectarMetaMask()">
-                🦊 Conectar con MetaMask
+            <button class="action-btn" style="margin-bottom: 12px; background: linear-gradient(135deg, #f59e0b, #d97706);" onclick="abrirEnMetaMask()">
+                🦊 Abrir en Navegador MetaMask
             </button>
             
-            <button class="action-btn" style="background: linear-gradient(135deg, #eab308, #ca8a04); display: flex; align-items: center; justify-content: center; gap: 10px;" onclick="conectarBinance()">
-                🟡 Conectar con Binance Web3
+            <button class="action-btn" style="background: linear-gradient(135deg, #eab308, #ca8a04);" onclick="abrirEnBinance()">
+                🟡 Copiar Enlace para Binance Web3
             </button>
             
             <button class="action-btn" style="background: #334155; margin-top: 15px; font-size: 0.8rem; padding: 8px;" onclick="cerrarModalWallet()">Cancelar</button>
@@ -43,7 +43,7 @@
         <!-- Cabecera -->
         <header>
             <div class="header-brand">
-                <img src="https://raw.githubusercontent.com/figueredo56/zaard-tracker/refs/heads/main/60%20sin%20t%C3%ADtulo_20260715225022.png" alt="Logo" class="animated-logo" style="width: 40px; height: 40px; border-radius: 50%; object-fit: cover;">
+                <img src="https://raw.githubusercontent.com/figueredo56/zaard-wallet/refs/heads/main/CC_20260527_151822.png" alt="Logo" class="animated-logo" style="width: 40px; height: 40px; border-radius: 50%; object-fit: cover;">
                 <div>
                     <h1>ZAARD WALLET</h1>
                     <p id="header-subtitle">Seguridad y Confianza de PANGA</p>
@@ -69,7 +69,7 @@
                 <div class="tokens-list">
                     <div class="token-item">
                         <div class="token-info">
-                            <img src="https://raw.githubusercontent.com/figueredo56/zaard-tracker/refs/heads/main/60%20sin%20t%C3%ADtulo_20260715225022.png" alt="ZARD" class="animated-logo" style="width: 30px; height: 30px; border-radius: 50%;">
+                            <img src="https://raw.githubusercontent.com/figueredo56/zaard-wallet/refs/heads/main/CC_20260527_151822.png" alt="ZARD" class="animated-logo" style="width: 30px; height: 30px; border-radius: 50%; object-fit: cover;">
                             <span>ZARD (ZAARD Innovation)</span>
                         </div>
                         <span id="zard-balance" style="font-weight: bold;">0.00</span>
@@ -93,26 +93,26 @@
                 </div>
             </div>
 
-            <!-- 3. BUSCADOR CON TUS IMÁGENES Y ENLACES OFICIALES -->
+            <!-- 3. BUSCADOR CON TU NUEVA IMAGEN -->
             <div id="tab-buscador" class="tab-content">
                 <h2 id="txt-browser-title" style="color: #34d399; margin-top: 0; font-size: 1.2rem;">Buscador y DApps</h2>
                 <p id="txt-browser-desc" style="color: #6ee7b7; font-size: 0.82rem;">Plataformas oficiales del protocolo:</p>
                 
                 <div class="dapp-grid">
                     <a href="https://figueredo56.github.io/ZAARD-Arcade/index-menu.html" target="_blank" class="dapp-card">
-                        <img src="https://raw.githubusercontent.com/figueredo56/zaard-tracker/refs/heads/main/60%20sin%20t%C3%ADtulo_20260715225022.png" alt="Juegos" style="width: 35px; height: 35px; border-radius: 50%;">
+                        <img src="https://raw.githubusercontent.com/figueredo56/zaard-wallet/refs/heads/main/CC_20260717_213315.png" alt="Juegos" style="width: 35px; height: 35px; border-radius: 50%; object-fit: cover;">
                         <span id="dapp-arcade">Juegos Arcade</span>
                     </a>
                     <a href="https://figueredo56.github.io/zaard-tracker/" target="_blank" class="dapp-card">
-                        <img src="https://raw.githubusercontent.com/figueredo56/zaard-tracker/refs/heads/main/60%20sin%20t%C3%ADtulo_20260715225022.png" alt="Tracker" style="width: 35px; height: 35px; border-radius: 50%;">
+                        <img src="https://raw.githubusercontent.com/figueredo56/zaard-wallet/refs/heads/main/CC_20260717_213315.png" alt="Tracker" style="width: 35px; height: 35px; border-radius: 50%; object-fit: cover;">
                         <span id="dapp-tracker">Tracker ZARD</span>
                     </a>
                     <a href="https://figueredo56.github.io/zaard-official/" target="_blank" class="dapp-card">
-                        <img src="https://raw.githubusercontent.com/figueredo56/zaard-tracker/refs/heads/main/60%20sin%20t%C3%ADtulo_20260715225022.png" alt="Web" style="width: 35px; height: 35px; border-radius: 50%;">
+                        <img src="https://raw.githubusercontent.com/figueredo56/zaard-wallet/refs/heads/main/CC_20260717_213315.png" alt="Web" style="width: 35px; height: 35px; border-radius: 50%; object-fit: cover;">
                         <span id="dapp-web">Página Web</span>
                     </a>
                     <a href="https://figueredo56.github.io/index.html/" target="_blank" class="dapp-card">
-                        <img src="https://raw.githubusercontent.com/figueredo56/zaard-tracker/refs/heads/main/60%20sin%20t%C3%ADtulo_20260715225022.png" alt="Ecosistema" style="width: 35px; height: 35px; border-radius: 50%;">
+                        <img src="https://raw.githubusercontent.com/figueredo56/zaard-wallet/refs/heads/main/CC_20260717_213315.png" alt="Ecosistema" style="width: 35px; height: 35px; border-radius: 50%; object-fit: cover;">
                         <span id="dapp-eco">Ecosistema</span>
                     </a>
                 </div>
