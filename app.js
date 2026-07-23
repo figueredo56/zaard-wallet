@@ -96,6 +96,6 @@ async function conectarWallet() {
             console.error("Conexión rechazada", error);
         }
     } else {
-        alert("Abre esta billetera desde un navegador Web3 compatible (MetaMask o Trust Wallet).");
+        alert("Abre esta billetera desde un navegador Web3 compatible.");
     }
 }
