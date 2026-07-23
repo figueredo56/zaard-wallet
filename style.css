@@ -14,44 +14,56 @@
     box-sizing: border-box;
 }
 
-body {
+html, body {
     margin: 0;
     padding: 0;
+    width: 100%;
+    height: 100%;
+    min-height: 100vh;
+}
+
+body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    /* Fondo limpio mostrando la imagen de forma directa sin capas oscuras encima */
-    background-color: #0b0e14;
-    background-image: url('https://raw.githubusercontent.com/figueredo56/zaard-tracker/refs/heads/main/60%20sin%20t%C3%ADtulo_20260715225022.png');
-    background-size: cover;
-    background-position: center;
-    background-attachment: fixed;
+    background-color: #0b0e14 !important;
+    /* Fondo principal por defecto (Inicio y Buscador) */
+    background-image: url('https://raw.githubusercontent.com/figueredo56/zaard-tracker/refs/heads/main/60%20sin%20t%C3%ADtulo_20260715225022.png') !important;
+    background-size: cover !important;
+    background-position: center center !important;
+    background-repeat: no-repeat !important;
+    background-attachment: fixed !important;
     color: var(--text-main);
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 100vh;
 }
 
-/* Animación de la moneda: 4.5 segundos, crece grande y se acomoda */
-@keyframes coinZoomEffect {
+/* Fondos dinámicos específicos por pestaña según tus capturas */
+body.bg-swap {
+    background-image: url('https://raw.githubusercontent.com/figueredo56/zaard-wallet/refs/heads/main/193%20sin%20t%C3%ADtulo_20260722145856_2.png') !important;
+}
+
+body.bg-security {
+    background-image: url('https://raw.githubusercontent.com/figueredo56/zaard-wallet/refs/heads/main/194%20sin%20t%C3%ADtulo_20260722171836.png') !important;
+}
+
+/* Animación en Bucle Infinito: La moneda se acerca y se aleja constantemente */
+@keyframes coinInfinitePulse {
     0% {
-        transform: scale(0.2);
-        opacity: 0;
+        transform: scale(1);
     }
-    45% {
-        transform: scale(2.2); 
-        opacity: 1;
+    50% {
+        transform: scale(1.15);
     }
     100% {
-        transform: scale(1); 
-        opacity: 1;
+        transform: scale(1);
     }
 }
 
 .animated-logo {
-    animation: coinZoomEffect 4.5s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+    animation: coinInfinitePulse 3s infinite ease-in-out;
 }
 
-/* Efecto de titileo (glow parpadeante) con bordes morados y azules para los botones y tarjetas */
+/* Efecto de titileo (glow parpadeante) con bordes morados y azules */
 @keyframes borderGlowPulse {
     0% {
         border-color: rgba(121, 40, 202, 0.4);
@@ -67,16 +79,18 @@ body {
     }
 }
 
-/* Pantalla de Bloqueo PIN (Totalmente translúcida para ver el fondo) */
+/* Pantalla de Bloqueo PIN (Fondo solicitado 194) */
 .lock-overlay {
     position: fixed;
     top: 0; 
     left: 0; 
     width: 100%; 
     height: 100%;
-    background: rgba(11, 14, 20, 0.3);
-    backdrop-filter: blur(6px);
-    -webkit-backdrop-filter: blur(6px);
+    background-image: url('https://raw.githubusercontent.com/figueredo56/zaard-wallet/refs/heads/main/194%20sin%20t%C3%ADtulo_20260722171836.png');
+    background-size: cover;
+    background-position: center;
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -84,7 +98,7 @@ body {
 }
 
 .lock-box {
-    background: rgba(15, 23, 42, 0.35);
+    background: rgba(15, 23, 42, 0.65);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
     padding: 30px;
@@ -116,7 +130,7 @@ body {
     letter-spacing: 8px;
     border-radius: 10px;
     border: 1px solid rgba(255,255,255,0.4);
-    background: rgba(11, 14, 20, 0.2);
+    background: rgba(11, 14, 20, 0.4);
     color: #fff;
     margin-bottom: 20px;
     outline: none;
@@ -127,17 +141,17 @@ body {
     box-shadow: 0 0 10px rgba(0, 112, 243, 0.5);
 }
 
-/* Contenedor Principal de la App (Cristalino y con bordes titilantes) */
+/* Contenedor Principal de la App */
 .wallet-container {
     width: 100%;
     max-width: 480px;
-    background: rgba(15, 23, 42, 0.3); /* Ultra transparente para revelar el fondo de pantalla */
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
+    background: rgba(15, 23, 42, 0.35);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
     border-radius: 20px;
     border: 2px solid var(--accent-purple);
     animation: borderGlowPulse 4s infinite ease-in-out;
-    box-shadow: 0 15px 35px rgba(0,0,0,0.5);
+    box-shadow: 0 15px 35px rgba(0,0,0,0.6);
     display: flex;
     flex-direction: column;
     height: 90vh;
@@ -152,7 +166,7 @@ header {
     justify-content: space-between;
     align-items: center;
     border-bottom: 1px solid rgba(255, 255, 255, 0.15);
-    background: rgba(11, 14, 20, 0.1);
+    background: rgba(11, 14, 20, 0.2);
 }
 
 .header-brand {
@@ -199,9 +213,9 @@ main {
 
 /* Tarjetas Transparentes con Bordes Titilantes */
 .balance-card {
-    background: rgba(30, 27, 75, 0.25);
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
+    background: rgba(30, 27, 75, 0.3);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
     padding: 20px;
     border-radius: 14px;
     border: 2px solid var(--accent-blue);
@@ -221,7 +235,7 @@ main {
     color: #fff;
 }
 
-/* Lista de Tokens Translúcida */
+/* Lista de Tokens */
 .tokens-list {
     display: flex;
     flex-direction: column;
@@ -230,7 +244,7 @@ main {
 }
 
 .token-item {
-    background: rgba(30, 41, 59, 0.3);
+    background: rgba(30, 41, 59, 0.35);
     backdrop-filter: blur(6px);
     -webkit-backdrop-filter: blur(6px);
     padding: 12px 16px;
@@ -254,7 +268,7 @@ main {
     object-fit: cover;
 }
 
-/* Botones con Titileo Brillante Morado/Azul */
+/* Botones de Acción */
 .action-btn {
     width: 100%;
     padding: 12px;
@@ -282,7 +296,7 @@ main {
     border-color: #34d399;
 }
 
-/* DApps Grid Translúcida */
+/* DApps Grid */
 .dapp-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -291,7 +305,7 @@ main {
 }
 
 .dapp-card {
-    background: rgba(30, 41, 59, 0.3);
+    background: rgba(30, 41, 59, 0.35);
     backdrop-filter: blur(6px);
     -webkit-backdrop-filter: blur(6px);
     padding: 15px;
@@ -320,10 +334,10 @@ main {
     object-fit: cover;
 }
 
-/* Navegación Inferior Translúcida */
+/* Barra de Navegación Inferior */
 .nav-tabs {
     display: flex;
-    background: rgba(11, 14, 20, 0.3);
+    background: rgba(11, 14, 20, 0.4);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
     border-top: 1px solid rgba(255, 255, 255, 0.2);
@@ -335,13 +349,13 @@ main {
     background: none;
     border: none;
     color: var(--text-muted);
-    font-size: 0.75rem;
-    padding: 8px 0;
+    font-size: 0.70rem;
+    padding: 6px 0;
     cursor: pointer;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 4px;
+    gap: 3px;
     transition: color 0.2s;
 }
 
