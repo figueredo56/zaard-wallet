@@ -22,6 +22,74 @@ function reproducirSonidoSuave() {
     }
 }
 
+// --- TRADUCCIÓN DINÁMICA (ES / EN) ---
+let idiomaActual = 'es';
+
+const traducciones = {
+    es: {
+        subtitle: "Seguridad y Confianza de PANGA",
+        assetsTitle: "Activos Principales",
+        bnbLabel: "Balance BNB (BSC)",
+        btnEco: "Ir al Ecosistema ZAARD",
+        stakingBadge: "🚀 PRÓXIMA GRAN APERTURA",
+        stakingTitle: "Bloqueo Inteligente de Activos",
+        stakingDesc: "Próxima gran apertura. Podrás bloquear tus tokens ZARD en contratos inteligentes auditados para generar recompensas y rendimiento pasivo diario dentro del ecosistema descentralizado.",
+        stakingBtn: "Módulo en Inicialización",
+        browserTitle: "Buscador y DApps",
+        browserDesc: "Plataformas oficiales del protocolo:",
+        arcade: "Juegos Arcade",
+        tracker: "Tracker ZARD",
+        web: "Página Web",
+        eco: "Ecosistema",
+        swapDesc: "Operaciones descentralizadas con máxima liquidez en PancakeSwap.",
+        navHome: "Inicio",
+        navBrowser: "Buscador",
+        navSecurity: "Seguridad"
+    },
+    en: {
+        subtitle: "PANGA Security & Trust",
+        assetsTitle: "Main Assets",
+        bnbLabel: "BNB Balance (BSC)",
+        btnEco: "Go to ZAARD Ecosystem",
+        stakingBadge: "🚀 COMING SOON GRAND OPENING",
+        stakingTitle: "Smart Asset Locking",
+        stakingDesc: "Upcoming grand opening. You will be able to lock your ZARD tokens in audited smart contracts to generate daily rewards and passive yield within the decentralized ecosystem.",
+        stakingBtn: "Module Initializing",
+        browserTitle: "Browser & DApps",
+        browserDesc: "Official protocol platforms:",
+        arcade: "Arcade Games",
+        tracker: "ZARD Tracker",
+        web: "Website",
+        eco: "Ecosystem",
+        swapDesc: "Decentralized operations with maximum liquidity on PancakeSwap.",
+        navHome: "Home",
+        navBrowser: "Browser",
+        navSecurity: "Security"
+    }
+};
+
+function alternarIdioma() {
+    idiomaActual = idiomaActual === 'es' ? 'en' : 'es';
+    document.getElementById("lang-indicator").textContent = idiomaActual.toUpperCase() + " 🌐";
+    
+    const t = traducciones[idiomaActual];
+    document.getElementById("header-subtitle").textContent = t.subtitle;
+    document.getElementById("txt-assets-title").textContent = t.assetsTitle;
+    document.getElementById("txt-bnb-label").textContent = t.bnbLabel;
+    document.getElementById("txt-btn-ecosystem").textContent = t.btnEco;
+    document.getElementById("badge-coming-text").textContent = t.stakingBadge;
+    document.getElementById("staking-title-msg").textContent = t.stakingTitle;
+    document.getElementById("staking-desc-msg").textContent = t.stakingDesc;
+    document.getElementById("staking-btn-msg").textContent = t.stakingBtn;
+    document.getElementById("txt-browser-title").textContent = t.browserTitle;
+    document.getElementById("txt-browser-desc").textContent = t.browserDesc;
+    document.getElementById("dapp-arcade").textContent = t.arcade;
+    document.getElementById("dapp-tracker").textContent = t.tracker;
+    document.getElementById("dapp-web").textContent = t.web;
+    document.getElementById("dapp-eco").textContent = t.eco;
+    document.getElementById("txt-swap-desc").textContent = t.swapDesc;
+}
+
 // --- SEGURIDAD Y PIN ---
 const PIN_CORRECTO = "123456"; 
 
@@ -74,7 +142,7 @@ function cambiarPestaña(tabId, event) {
     }
 }
 
-// --- CONEXIÓN WEB3 ---
+// --- CONEXIÓN WEB3 EXTERNA (Deep Link y Firmas de Cartera) ---
 async function conectarWallet() {
     if (typeof window.ethereum !== 'undefined') {
         try {
@@ -93,9 +161,15 @@ async function conectarWallet() {
             document.getElementById("zard-balance").textContent = "1,540.00 ZARD";
 
         } catch (error) {
-            console.error("Conexión rechazada", error);
+            console.error("Conexión rechazada por el usuario", error);
         }
     } else {
-        alert("Abre esta billetera desde un navegador Web3 compatible.");
+        // Redirección inteligente para apertura externa vía dApp browser de MetaMask o TrustWallet
+        const cleanUrl = window.location.href.replace(/^https?:\/\//, '');
+        const metaMaskDeepLink = `https://metamask.app.link/dapp/${cleanUrl}`;
+        
+        if (confirm("¿Deseas abrir ZAARD WALLET en tu aplicación de criptomonedas (MetaMask / TrustWallet) para autorizar firmas de forma externa?")) {
+            window.location.href = metaMaskDeepLink;
+        }
     }
 }
