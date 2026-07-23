@@ -142,7 +142,7 @@ function cambiarPestaña(tabId, event) {
     }
 }
 
-// --- CONTROL DE MODAL DE BILLETERAS ---
+// --- CONTROL DE CONEXIÓN Y MODAL ---
 function mostrarModalWallet() {
     if (typeof window.ethereum !== 'undefined') {
         intentarConexionDirecta();
@@ -168,15 +168,19 @@ async function intentarConexionDirecta() {
     }
 }
 
-function conectarMetaMask() {
+function abrirEnMetaMask() {
     const cleanUrl = window.location.href.replace(/^https?:\/\//, '');
     window.location.href = `https://metamask.app.link/dapp/${cleanUrl}`;
 }
 
-function conectarBinance() {
-    const cleanUrl = window.location.href.replace(/^https?:\/\//, '');
-    // Enlace universal compatible con Binance Web3 dApp browser
-    window.location.href = `https://app.binance.com/en/wegames?appUrl=${encodeURIComponent(window.location.href)}`;
+function abrirEnBinance() {
+    const currentUrl = window.location.href;
+    navigator.clipboard.writeText(currentUrl).then(() => {
+        alert("¡Enlace copiado al portapapeles!\n\nAbre tu Binance Web3 Wallet, ve al DApp Browser y pégalo arriba para conectar de inmediato.");
+    }).catch(() => {
+        prompt("Copia este enlace para abrirlo en Binance Web3:", currentUrl);
+    });
+    cerrarModalWallet();
 }
 
 async function actualizarInterfazWallet(address, provider) {
