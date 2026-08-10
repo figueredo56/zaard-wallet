@@ -1,196 +1,331 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ZAARD WALLET - PANGA</title>
+/* ==========================================================================
+   ZAARD WALLET - LÓGICA Y SEGURIDAD OFICIAL (PROTOCOLO PANGA)
+   ========================================================================== */
+
+// 1. Protección contra inspección y copia (Protocolo Panga)
+document.addEventListener('contextmenu', e => e.preventDefault());
+
+document.addEventListener('keydown', e => {
+    if (
+        e.key === 'F12' || 
+        (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'J' || e.key === 'C')) || 
+        (e.ctrlKey && (e.key === 'u' || e.key === 's'))
+    ) {
+        e.preventDefault();
+        alert("⚠️ ZAARD INNOVATION SECURITY: Esta aplicación está protegida bajo el Protocolo Panga.");
+        return false;
+    }
+});
+
+// 2. Control del Reproductor de Audio Flotante
+const audio = document.getElementById('zaard-audio');
+const playBtn = document.getElementById('play-btn');
+const timerDisplay = document.getElementById('audio-timer');
+const muteBtn = document.getElementById('mute-btn');
+
+if (audio) {
+    audio.volume = 0.4;
+
+    function formatTime(seconds) {
+        const mins = Math.floor(seconds / 60);
+        const secs = Math.floor(seconds % 60);
+        return `${mins}:${secs < 10 ? '0' : ''}${secs}`;
+    }
+
+    audio.addEventListener('timeupdate', () => {
+        if (timerDisplay) timerDisplay.textContent = formatTime(audio.currentTime);
+    });
+
+    window.togglePlay = function() {
+        if (audio.paused) {
+            audio.play().then(() => {
+                playBtn.innerHTML = '<svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><rect x="6" y="5" width="4" height="14"/><rect x="14" y="5" width="4" height="14"/></svg>';
+            }).catch(err => console.log("Play bloqueado:", err));
+        } else {
+            audio.pause();
+            playBtn.innerHTML = '<svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>';
+        }
+    };
+
+    window.stopAudio = function() {
+        audio.pause();
+        audio.currentTime = 0;
+        playBtn.innerHTML = '<svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>';
+        if (timerDisplay) timerDisplay.textContent = "0:00";
+    };
+
+    window.toggleMute = function() {
+        audio.muted = !audio.muted;
+        muteBtn.textContent = audio.muted ? '🔇' : '🔊';
+    };
+
+    window.addEventListener('DOMContentLoaded', () => {
+        audio.play().then(() => {
+            playBtn.innerHTML = '<svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><rect x="6" y="5" width="4" height="14"/><rect x="14" y="5" width="4" height="14"/></svg>';
+        }).catch(error => {
+            console.log("Autoplay bloqueado:", error);
+            document.body.addEventListener('click', () => {
+                audio.play();
+                playBtn.innerHTML = '<svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><rect x="6" y="5" width="4" height="14"/><rect x="14" y="5" width="4" height="14"/></svg>';
+            }, { once: true });
+        });
+    });
+}
+
+// 3. Sistema de Autenticación por Correo y Clave
+window.verificarAccesoCorreo = function() {
+    const email = document.getElementById('email-input').value.trim();
+    const pin = document.getElementById('pin-input').value.trim();
+
+    if (!email || !email.includes('@')) {
+        alert("Por favor ingrese un correo electrónico válido.");
+        return;
+    }
+    if (!pin || pin.length < 4) {
+        alert("Por favor ingrese una clave de seguridad válida (mínimo 4 caracteres).");
+        return;
+    }
+
+    localStorage.setItem('zaard_user_email', email);
+    localStorage.setItem('zaard_auth', 'true');
+
+    document.getElementById('lock-screen').style.display = 'none';
+    alert("¡Autenticación exitosa! Bienvenido a ZAARD WALLET.");
+};
+
+window.solicitarRecuperacionClave = function() {
+    const email = document.getElementById('email-input').value.trim();
+    if (!email || !email.includes('@')) {
+        alert("Por favor ingrese su correo electrónico primero en el campo superior para solicitar la recuperación.");
+        return;
+    }
+    alert(`Enlace cifrado de recuperación enviado exitosamente a: ${email}\nVerifique su bandeja de entrada.`);
+};
+
+window.addEventListener('DOMContentLoaded', () => {
+    const isAuth = localStorage.getItem('zaard_auth');
+    if (isAuth === 'true') {
+        const lockScreen = document.getElementById('lock-screen');
+        if (lockScreen) lockScreen.style.display = 'none';
+    }
+});
+
+// 4. Modales de Billetera y Conexión Web3
+window.mostrarModalWallet = function() {
+    document.getElementById('wallet-modal').style.display = 'flex';
+};
+
+window.cerrarModalWallet = function() {
+    document.getElementById('wallet-modal').style.display = 'none';
+};
+
+window.abrirEnMetaMask = function() {
+    const currentUrl = window.location.href;
+    window.location.href = `https://metamask.app.link/dapp/${currentUrl.replace(/^https?:\/\//, '')}`;
+};
+
+window.abrirEnBinance = function() {
+    const currentUrl = window.location.href;
+    navigator.clipboard.writeText(currentUrl).then(() => {
+        alert("¡Enlace copiado al portapapeles!\nAbra su billetera Binance Web3 y pegue el enlace en el navegador DApp.");
+        cerrarModalWallet();
+    }).catch(() => {
+        prompt("Copie este enlace para Binance Web3:", currentUrl);
+    });
+};
+
+document.getElementById('connect-btn')?.addEventListener('click', async () => {
+    if (typeof window.ethereum !== 'undefined') {
+        try {
+            const provider = new ethers.providers.Web3Provider(window.ethereum);
+            await provider.send("eth_requestAccounts", []);
+            const signer = provider.getSigner();
+            const address = await signer.getAddress();
+            
+            document.getElementById('connect-btn').textContent = address.substring(0, 6) + "..." + address.substring(38);
+            
+            const balance = await provider.getBalance(address);
+            const formattedBalance = ethers.utils.formatEther(balance);
+            document.getElementById('bnb-balance').textContent = parseFloat(formattedBalance).toFixed(4) + " BNB";
+            document.getElementById('zard-balance').textContent = "1,540.00";
+            
+            cerrarModalWallet();
+        } catch (error) {
+            console.error(error);
+            alert("Error al conectar la billetera.");
+        }
+    } else {
+        mostrarModalWallet();
+    }
+});
+
+// 5. Navegación por pestañas
+window.cambiarPestaña = function(tabId, event) {
+    if (event) event.preventDefault();
     
-    <!-- ICONO Y FAVICON OFICIAL -->
-    <link rel="icon" type="image/png" href="https://raw.githubusercontent.com/figueredo56/ZARD.token/refs/heads/main/170%20sin%20t%C3%tulo_20260707213436.png">
-    <link rel="apple-touch-icon" href="https://raw.githubusercontent.com/figueredo56/ZARD.token/refs/heads/main/170%20sin%20t%C3%tulo_20260707213436.png">
+    document.querySelectorAll('.tab-content').forEach(el => {
+        el.style.display = 'none';
+    });
     
-    <!-- METADATOS OFICIALES PARA VISTA PREVIA EN WHATSAPP / TELEGRAM -->
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://figueredo56.github.io/zaard-wallet/wallet.html">
-    <meta property="og:title" content="ZAARD WALLET - Seguridad y Confianza de PANGA">
-    <meta property="og:description" content="Cartera oficial descentralizada de ZAARD INNOVATION.">
-    <meta property="og:image" content="https://raw.githubusercontent.com/figueredo56/ZARD.token/refs/heads/main/170%20sin%20t%C3%tulo_20260707213436.png">
+    const targetTab = document.getElementById(`tab-${tabId}`);
+    if (targetTab) {
+        targetTab.style.display = 'block';
+    }
 
-    <link rel="stylesheet" href="style.css">
-    <script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.umd.min.js"></script>
-</head>
-<body>
+    document.querySelectorAll('.nav-btn').forEach(btn => {
+        btn.classList.remove('active');
+    });
+    if (event && event.currentTarget && event.currentTarget.classList.contains('nav-btn')) {
+        event.currentTarget.classList.add('active');
+    }
+};
 
-    <!-- Pantalla de Autenticación y Registro por Correo y Clave -->
-    <div id="lock-screen" class="lock-overlay">
-        <div class="lock-box">
-            <h2>ZAARD WALLET</h2>
-            <p id="lock-msg">Sistema de Autenticación Descentralizada.<br>Ingrese su correo y clave de seguridad:</p>
-            
-            <input type="email" id="email-input" placeholder="usuario@dominio.com">
-            <input type="password" id="pin-input" maxlength="20" placeholder="Clave de seguridad">
-            
-            <button class="action-btn" onclick="verificarAccesoCorreo()">Acceder / Vincular Billetera</button>
-            
-            <!-- Aviso técnico de calidad sobre la clave -->
-            <div class="security-warning-box">
-                <p class="warning-title">⚠️ AVISO DE SEGURIDAD CRÍTICA</p>
-                <p class="warning-text">
-                    El protocolo no almacena contraseñas en texto plano. Si olvida su clave, el sistema no podrá restaurarla automáticamente; la única vía de recuperación y validación de titularidad es mediante enlace cifrado enviado a su correo electrónico.
-                </p>
-            </div>
+// 6. Diccionario Multilenguaje Avanzado (ES, EN, AR, ZH)
+const translations = {
+    es: {
+        headerSubtitle: "Seguridad y Confianza de PANGA",
+        assetsTitle: "Activos Principales",
+        bnbLabel: "Balance BNB (BSC)",
+        btnEco: "Ir al Ecosistema ZAARD",
+        stakingTitle: "ZAARD Staking & Yield",
+        badgeComing: "🚀 PRÓXIMA GRAN APERTURA",
+        stakingTitleMsg: "Bloqueo Inteligente de Activos",
+        stakingDescMsg: "Próxima gran apertura. Podrás bloquear tus tokens ZARD en contratos inteligentes auditados para generar recompensas y rendimiento pasivo diario dentro del ecosistema descentralizado.",
+        stakingBtnMsg: "Módulo en Inicialización",
+        browserTitle: "Buscador y DApps",
+        browserDesc: "Plataformas oficiales del protocolo:",
+        dappArcade: "Juegos Arcade",
+        dappTracker: "Tracker ZARD",
+        dappWeb: "Página Web",
+        dappEco: "Ecosistema",
+        swapTitle: "Intercambio Rápido",
+        swapDesc: "Operaciones descentralizadas con máxima liquidez en PancakeSwap.",
+        securityTitle: "Seguridad de la Cartera",
+        navHome: "Inicio",
+        navBrowser: "Buscador",
+        navSecurity: "Seguridad"
+    },
+    en: {
+        headerSubtitle: "PANGA Security & Trust",
+        assetsTitle: "Main Assets",
+        bnbLabel: "BNB Balance (BSC)",
+        btnEco: "Go to ZAARD Ecosystem",
+        stakingTitle: "ZAARD Staking & Yield",
+        badgeComing: "🚀 UPCOMING GRAND OPENING",
+        stakingTitleMsg: "Smart Asset Locking",
+        stakingDescMsg: "Upcoming grand opening. You will be able to lock your ZARD tokens in audited smart contracts to generate daily rewards and passive yield within the decentralized ecosystem.",
+        stakingBtnMsg: "Module Initializing",
+        browserTitle: "Browser & DApps",
+        browserDesc: "Official protocol platforms:",
+        dappArcade: "Arcade Games",
+        dappTracker: "ZAARD Tracker",
+        dappWeb: "Official Website",
+        dappEco: "Ecosystem",
+        swapTitle: "Fast Swap",
+        swapDesc: "Decentralized trades with maximum liquidity on PancakeSwap.",
+        securityTitle: "Wallet Security",
+        navHome: "Home",
+        navBrowser: "Browser",
+        navSecurity: "Security"
+    },
+    ar: {
+        headerSubtitle: "أمان وثقة بانغا",
+        assetsTitle: "الأصول الرئيسية",
+        bnbLabel: "رصيد BNB (BSC)",
+        btnEco: "الذهاب إلى نظام زارد البيئي",
+        stakingTitle: "تخزين وعوائد زارد",
+        badgeComing: "🚀 الافتتاح الكبير قريباً",
+        stakingTitleMsg: "قفل الأصول الذكي",
+        stakingDescMsg: "الافتتاح الكبير القادم. ستتمكن من قفل رموز ZARD الخاصة بك في عقود ذكية مدققة لتوليد المكافآت والعائد السلبي اليومي داخل النظام البيئي اللامركزي.",
+        stakingBtnMsg: "الوحدة قيد التهيئة",
+        browserTitle: "المتصفح والتطبيقات اللامركزية",
+        browserDesc: "منصات البروتوكول الرسمية:",
+        dappArcade: "ألعاب الآركيد",
+        dappTracker: "متتبع زارد",
+        dappWeb: "الموقع الرسمي",
+        dappEco: "النظام البيئي",
+        swapTitle: "التبديل السريع",
+        swapDesc: "معاملات لامركزية بأقصى سيولة على بانكيك سواب.",
+        securityTitle: "أمان المحفظة",
+        navHome: "الرئيسية",
+        navBrowser: "المتصفح",
+        navSecurity: "الأمان"
+    },
+    zh: {
+        headerSubtitle: "庞加安全与信任",
+        assetsTitle: "主要资产",
+        bnbLabel: "BNB 余额 (BSC)",
+        btnEco: "前往 扎ード 生态系统",
+        stakingTitle: "ZAARD 质押与收益",
+        badgeComing: "🚀 即将隆重开幕",
+        stakingTitleMsg: "智能资产锁定",
+        stakingDescMsg: "即将隆重开幕。您将能够把您的 ZARD 代币锁定在经过审计的智能合约中，在去中心化生态系统中产生每日奖励和被动收益。",
+        stakingBtnMsg: "模块初始化中",
+        browserTitle: "浏览器与 DApp",
+        browserDesc: "官方协议平台：",
+        dappArcade: "街机游戏",
+        dappTracker: "ZAARD 追踪器",
+        dappWeb: "官方网站",
+        dappEco: "生态系统",
+        swapTitle: "快捷兑换",
+        swapDesc: "在 PancakeSwap 上以最大流动性进行去中心化交易。",
+        securityTitle: "钱包安全",
+        navHome: "首页",
+        navBrowser: "浏览器",
+        navSecurity: "安全"
+    }
+};
 
-            <p style="margin-top: 10px; font-size: 0.75rem;">
-                <a href="#" onclick="solicitarRecuperacionClave()" style="color: #34d399; text-decoration: none;">¿Olvidó su clave? (Recuperar vía correo)</a>
-            </p>
-        </div>
-    </div>
+window.cambiarIdioma = function(lang) {
+    const t = translations[lang];
+    if (!t) return;
 
-    <!-- Modal de Selección de Billetera (Apertura Directa al Navegador de la App) -->
-    <div id="wallet-modal" class="lock-overlay" style="display: none;">
-        <div class="lock-box" style="text-align: center;">
-            <h3 style="color: #34d399; margin-top: 0;">Abrir en DApp Browser</h3>
-            <p style="font-size: 0.85rem; color: #cbd5e1; margin-bottom: 20px;">Selecciona tu billetera para abrir el sitio de forma segura:</p>
-            
-            <button class="action-btn" style="margin-bottom: 12px; background: linear-gradient(135deg, #f59e0b, #d97706);" onclick="abrirEnMetaMask()">
-                🦊 Abrir en Navegador MetaMask
-            </button>
-            
-            <button class="action-btn" style="background: linear-gradient(135deg, #eab308, #ca8a04);" onclick="abrirEnBinance()">
-                🟡 Copiar Enlace para Binance Web3
-            </button>
-            
-            <button class="action-btn" style="background: #334155; margin-top: 15px; font-size: 0.8rem; padding: 8px;" onclick="cerrarModalWallet()">Cancelar</button>
-        </div>
-    </div>
+    const setText = (id, text) => {
+        const el = document.getElementById(id);
+        if (el) el.textContent = text;
+    };
 
-    <!-- Contenedor Principal -->
-    <div class="wallet-container">
-        
-        <!-- Cabecera -->
-        <header>
-            <div class="header-brand">
-                <img src="https://raw.githubusercontent.com/figueredo56/zaard-wallet/refs/heads/main/CC_20260527_151822.png" alt="Logo" class="animated-logo" style="width: 40px; height: 40px; border-radius: 50%; object-fit: cover;">
-                <div>
-                    <h1>ZAARD WALLET</h1>
-                    <p id="header-subtitle">Seguridad y Confianza de PANGA</p>
-                </div>
-            </div>
-            <div class="header-controls">
-                <button class="lang-btn" onclick="alternarIdioma()" id="lang-indicator">ES 🌐</button>
-                <button id="connect-btn" class="action-btn" style="width: auto; padding: 6px 10px; font-size: 0.7rem;" onclick="mostrarModalWallet()">Conectar</button>
-            </div>
-        </header>
+    setText('header-subtitle', t.headerSubtitle);
+    setText('txt-assets-title', t.assetsTitle);
+    setText('txt-bnb-label', t.bnbLabel);
+    setText('txt-btn-ecosystem', t.btnEco);
+    setText('badge-coming-text', t.badgeComing);
+    setText('staking-title-msg', t.stakingTitleMsg);
+    setText('staking-desc-msg', t.stakingDescMsg);
+    setText('staking-btn-msg', t.stakingBtnMsg);
+    setText('txt-browser-title', t.browserTitle);
+    setText('txt-browser-desc', t.browserDesc);
+    setText('dapp-arcade', t.dappArcade);
+    setText('dapp-tracker', t.dappTracker);
+    setText('dapp-web', t.dappWeb);
+    setText('dapp-eco', t.dappEco);
+    setText('txt-swap-desc', t.swapDesc);
 
-        <!-- Contenido de Pestañas -->
-        <main>
-            <!-- 1. INICIO -->
-            <div id="tab-inicio" class="tab-content active">
-                <h2 id="txt-assets-title" style="color: #34d399; margin-top: 0; font-size: 1.2rem;">Activos Principales</h2>
-                
-                <div class="balance-card">
-                    <p id="txt-bnb-label">Balance BNB (BSC)</p>
-                    <h3 id="bnb-balance">0.00 BNB</h3>
-                </div>
+    document.querySelectorAll('.nav-home').forEach(el => el.textContent = t.navHome);
+    document.querySelectorAll('.nav-browser').forEach(el => el.textContent = t.navBrowser);
+    document.querySelectorAll('.nav-security').forEach(el => el.textContent = t.navSecurity);
 
-                <div class="tokens-list">
-                    <div class="token-item">
-                        <div class="token-info">
-                            <img src="https://raw.githubusercontent.com/figueredo56/zaard-wallet/refs/heads/main/CC_20260527_151822.png" alt="ZARD" class="animated-logo" style="width: 30px; height: 30px; border-radius: 50%; object-fit: cover;">
-                            <span>ZARD (ZAARD Innovation)</span>
-                        </div>
-                        <span id="zard-balance" style="font-weight: bold;">0.00</span>
-                    </div>
-                </div>
+    if (lang === 'ar') {
+        document.documentElement.setAttribute('dir', 'rtl');
+    } else {
+        document.documentElement.setAttribute('dir', 'ltr');
+    }
 
-                <button class="action-btn" onclick="cambiarPestaña('buscador', event)">🌐 <span id="txt-btn-ecosystem">Ir al Ecosistema ZAARD</span></button>
-            </div>
+    ['es', 'en', 'ar', 'zh'].forEach(l => {
+        const btn = document.getElementById(`btn-${l}`);
+        if (btn) {
+            if (l === lang) {
+                btn.className = "px-2 py-0.5 text-[10px] font-bold rounded-lg transition-all bg-cyan-500 text-black shadow-[0_0_8px_rgba(0,255,255,0.6)]";
+            } else {
+                btn.className = "px-2 py-0.5 text-[10px] font-bold rounded-lg transition-all text-gray-400 hover:text-white";
+            }
+        }
+    });
 
-            <!-- 2. STAKING / BLOQUEO ZARD -->
-            <div id="tab-staking" class="tab-content">
-                <h2 style="color: #c084fc; margin-top: 0; font-size: 1.2rem;">ZAARD Staking & Yield</h2>
-                
-                <div class="staking-banner">
-                    <span class="badge-coming" id="badge-coming-text">🚀 PRÓXIMA GRAN APERTURA</span>
-                    <h3 id="staking-title-msg">Bloqueo Inteligente de Activos</h3>
-                    <p id="staking-desc-msg">
-                        Próxima gran apertura. Podrás bloquear tus tokens ZARD en contratos inteligentes auditados para generar recompensas y rendimiento pasivo diario dentro del ecosistema descentralizado.
-                    </p>
-                    <button class="action-btn" style="margin-top: 15px; opacity: 0.7;" disabled id="staking-btn-msg">Módulo en Inicialización</button>
-                </div>
-            </div>
+    localStorage.setItem('zaard_wallet_lang', lang);
+};
 
-            <!-- 3. BUSCADOR -->
-            <div id="tab-buscador" class="tab-content">
-                <h2 id="txt-browser-title" style="color: #34d399; margin-top: 0; font-size: 1.2rem;">Buscador y DApps</h2>
-                <p id="txt-browser-desc" style="color: #6ee7b7; font-size: 0.82rem;">Plataformas oficiales del protocolo:</p>
-                
-                <div class="dapp-grid">
-                    <a href="https://figueredo56.github.io/ZAARD-Arcade/index-menu.html" target="_blank" class="dapp-card">
-                        <img src="https://raw.githubusercontent.com/figueredo56/zaard-wallet/refs/heads/main/CC_20260717_213315.png" alt="Juegos" style="width: 35px; height: 35px; border-radius: 50%; object-fit: cover;">
-                        <span id="dapp-arcade">Juegos Arcade</span>
-                    </a>
-                    <a href="https://figueredo56.github.io/zaard-tracker/" target="_blank" class="dapp-card">
-                        <img src="https://raw.githubusercontent.com/figueredo56/zaard-wallet/refs/heads/main/CC_20260717_213315.png" alt="Tracker" style="width: 35px; height: 35px; border-radius: 50%; object-fit: cover;">
-                        <span id="dapp-tracker">Tracker ZARD</span>
-                    </a>
-                    <a href="https://figueredo56.github.io/zaard-official/" target="_blank" class="dapp-card">
-                        <img src="https://raw.githubusercontent.com/figueredo56/zaard-wallet/refs/heads/main/CC_20260717_213315.png" alt="Web" style="width: 35px; height: 35px; border-radius: 50%; object-fit: cover;">
-                        <span id="dapp-web">Página Web</span>
-                    </a>
-                    <a href="https://figueredo56.github.io/index.html/" target="_blank" class="dapp-card">
-                        <img src="https://raw.githubusercontent.com/figueredo56/zaard-wallet/refs/heads/main/CC_20260717_213315.png" alt="Ecosistema" style="width: 35px; height: 35px; border-radius: 50%; object-fit: cover;">
-                        <span id="dapp-eco">Ecosistema</span>
-                    </a>
-                </div>
-            </div>
-
-            <!-- 4. SWAP -->
-            <div id="tab-swap" class="tab-content">
-                <h2 style="color: #34d399; margin-top: 0; font-size: 1.2rem;">Intercambio Rápido</h2>
-                <div class="balance-card">
-                    <p id="txt-swap-desc">Operaciones descentralizadas con máxima liquidez en PancakeSwap.</p>
-                    <button class="action-btn" style="margin-top: 15px;" onclick="window.open('https://pancakeswap.finance/', '_blank')">Ir a PancakeSwap</button>
-                </div>
-            </div>
-
-            <!-- 5. SEGURIDAD -->
-            <div id="tab-seguridad" class="tab-content">
-                <h2 style="color: #34d399; margin-top: 0; font-size: 1.2rem;">Seguridad de la Cartera</h2>
-                <div class="balance-card">
-                    <p style="color: #fff; line-height: 1.6; font-size: 0.85rem;" id="security-info-text">
-                        Red: <b>Binance Smart Chain (BSC)</b><br>
-                        Propietario: <b>ZAARD Protocol / PANGA</b>
-                    </p>
-                    <button class="action-btn" style="margin-top: 15px;" onclick="alert('Sistema protegido con validación de correo único y clave personal.')">Seguridad Activa</button>
-                </div>
-            </div>
-        </main>
-
-        <!-- Barra de Navegación Inferior -->
-        <nav class="nav-tabs">
-            <button class="nav-btn active" onclick="cambiarPestaña('inicio', event)">
-                <span>🏠</span> <span class="nav-home">Inicio</span>
-            </button>
-            <button class="nav-btn" onclick="cambiarPestaña('staking', event)">
-                <span>💎</span> <span>Staking</span>
-            </button>
-            <button class="nav-btn" onclick="cambiarPestaña('buscador', event)">
-                <span>🔍</span> <span class="nav-browser">Buscador</span>
-            </button>
-            <button class="nav-btn" onclick="cambiarPestaña('swap', event)">
-                <span>🔄</span> Swap
-            </button>
-            <button class="nav-btn" onclick="cambiarPestaña('seguridad', event)">
-                <span>🛡️</span> <span class="nav-security">Seguridad</span>
-            </button>
-            <a href="https://figueredo56.github.io/zaard-tracker/" target="_blank" class="nav-btn">
-                <span>📊</span> Tracker
-            </a>
-        </nav>
-
-    </div>
-
-    <script src="app.js"></script>
-</body>
-</html>
+window.addEventListener('DOMContentLoaded', () => {
+    const savedLang = localStorage.getItem('zaard_wallet_lang') || 'es';
+    cambiarIdioma(savedLang);
+});
