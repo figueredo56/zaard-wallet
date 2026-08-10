@@ -1,30 +1,61 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" class="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ZAARD WALLET - PANGA</title>
+    <title>ZAARD WALLET | Protocolo Panga</title>
     
     <!-- ICONO Y FAVICON OFICIAL -->
     <link rel="icon" type="image/png" href="https://raw.githubusercontent.com/figueredo56/ZARD.token/refs/heads/main/170%20sin%20t%C3%tulo_20260707213436.png">
     <link rel="apple-touch-icon" href="https://raw.githubusercontent.com/figueredo56/ZARD.token/refs/heads/main/170%20sin%20t%C3%tulo_20260707213436.png">
     
-    <!-- METADATOS OFICIALES PARA VISTA PREVIA EN WHATSAPP / TELEGRAM -->
+    <!-- METADATOS OFICIALES PARA VISTA PREVIA -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://figueredo56.github.io/zaard-wallet/wallet.html">
     <meta property="og:title" content="ZAARD WALLET - Seguridad y Confianza de PANGA">
-    <meta property="og:description" content="Cartera oficial descentralizada de ZAARD INNOVATION.">
+    <meta property="og:description" content="Cartera oficial descentralizada de ZAARD INNOVATION con monitoreo On-Chain avanzado.">
     <meta property="og:image" content="https://raw.githubusercontent.com/figueredo56/ZARD.token/refs/heads/main/170%20sin%20t%C3%tulo_20260707213436.png">
 
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            cyan: '#00ffff',
+                            purple: '#a855f7',
+                            emerald: '#22c55e',
+                            darkBg: '#050014'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
     <link rel="stylesheet" href="style.css">
     <script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.umd.min.js"></script>
 </head>
-<body>
+<body class="flex items-center justify-center min-h-screen">
+
+    <!-- Reproductor de audio flotante minimalista del ecosistema -->
+    <div class="fixed bottom-3 left-3 z-50 glow-player px-3 py-1.5 rounded-full shadow-2xl flex items-center gap-2.5">
+        <audio id="zaard-audio" src="El Chupulún de Zaard.mp3" preload="auto" loop></audio>
+        <button onclick="togglePlay()" id="play-btn" class="text-green-400 hover:text-cyan-300 transition-all transform hover:scale-110 focus:outline-none" title="Reproducir">
+            <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+        </button>
+        <button onclick="stopAudio()" class="text-purple-400 hover:text-pink-300 transition-all transform hover:scale-110 focus:outline-none" title="Detener">
+            <svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24"><rect x="6" y="6" width="12" height="12"/></svg>
+        </button>
+        <span id="audio-timer" class="text-[10px] font-mono text-cyan-200 tracking-wider">0:00</span>
+        <button onclick="toggleMute()" id="mute-btn" class="text-gray-400 hover:text-white transition-all text-xs focus:outline-none" title="Silenciar">🔊</button>
+    </div>
 
     <!-- Pantalla de Autenticación y Registro por Correo y Clave -->
     <div id="lock-screen" class="lock-overlay">
         <div class="lock-box">
-            <h2>ZAARD WALLET</h2>
+            <h2 class="title-gradient">ZAARD WALLET</h2>
             <p id="lock-msg">Sistema de Autenticación Descentralizada.<br>Ingrese su correo y clave de seguridad:</p>
             
             <input type="email" id="email-input" placeholder="usuario@dominio.com">
@@ -32,7 +63,6 @@
             
             <button class="action-btn" onclick="verificarAccesoCorreo()">Acceder / Vincular Billetera</button>
             
-            <!-- Aviso técnico de calidad sobre la clave -->
             <div class="security-warning-box">
                 <p class="warning-title">⚠️ AVISO DE SEGURIDAD CRÍTICA</p>
                 <p class="warning-text">
@@ -40,13 +70,13 @@
                 </p>
             </div>
 
-            <p style="margin-top: 10px; font-size: 0.75rem;">
+            <p style="margin-top: 10px; font-size: 0.75rem; text-align: center;">
                 <a href="#" onclick="solicitarRecuperacionClave()" style="color: #34d399; text-decoration: none;">¿Olvidó su clave? (Recuperar vía correo)</a>
             </p>
         </div>
     </div>
 
-    <!-- Modal de Selección de Billetera (Apertura Directa al Navegador de la App) -->
+    <!-- Modal de Selección de Billetera -->
     <div id="wallet-modal" class="lock-overlay" style="display: none;">
         <div class="lock-box" style="text-align: center;">
             <h3 style="color: #34d399; margin-top: 0;">Abrir en DApp Browser</h3>
@@ -64,21 +94,26 @@
         </div>
     </div>
 
-    <!-- Contenedor Principal -->
-    <div class="wallet-container">
+    <!-- Contenedor Principal con Marco Brillante -->
+    <div class="frame-gold wallet-container w-full max-w-xl p-4 md:p-6 mx-auto">
         
         <!-- Cabecera -->
-        <header>
-            <div class="header-brand">
-                <img src="https://raw.githubusercontent.com/figueredo56/zaard-wallet/refs/heads/main/CC_20260527_151822.png" alt="Logo" class="animated-logo" style="width: 40px; height: 40px; border-radius: 50%; object-fit: cover;">
+        <header class="flex justify-between items-center pb-3 border-b border-cyan-500/30 mb-4">
+            <div class="flex items-center gap-3 header-brand">
+                <img src="https://raw.githubusercontent.com/figueredo56/zaard-wallet/refs/heads/main/CC_20260527_151822.png" alt="Logo" class="animated-logo w-10 h-10 rounded-full object-cover border border-cyan-400 shadow-[0_0_10px_rgba(0,255,255,0.4)]">
                 <div>
-                    <h1>ZAARD WALLET</h1>
-                    <p id="header-subtitle">Seguridad y Confianza de PANGA</p>
+                    <h1 class="text-xl font-bold title-gradient">ZAARD WALLET</h1>
+                    <p id="header-subtitle" class="text-[11px] text-cyan-200">Seguridad y Confianza de PANGA</p>
                 </div>
             </div>
-            <div class="header-controls">
-                <button class="lang-btn" onclick="alternarIdioma()" id="lang-indicator">ES 🌐</button>
-                <button id="connect-btn" class="action-btn" style="width: auto; padding: 6px 10px; font-size: 0.7rem;" onclick="mostrarModalWallet()">Conectar</button>
+            <div class="flex items-center gap-2 header-controls">
+                <div class="flex items-center gap-1 bg-black/60 border border-cyan-500/40 rounded-xl p-1 shadow-inner">
+                    <button onclick="cambiarIdioma('es')" id="btn-es" class="px-2 py-0.5 text-[10px] font-bold rounded-lg transition-all bg-cyan-500 text-black shadow-[0_0_8px_rgba(0,255,255,0.6)]">🇪🇸 ES</button>
+                    <button onclick="cambiarIdioma('en')" id="btn-en" class="px-2 py-0.5 text-[10px] font-bold rounded-lg transition-all text-gray-400 hover:text-white">🇬🇧 EN</button>
+                    <button onclick="cambiarIdioma('ar')" id="btn-ar" class="px-2 py-0.5 text-[10px] font-bold rounded-lg transition-all text-gray-400 hover:text-white">🇸🇦 AR</button>
+                    <button onclick="cambiarIdioma('zh')" id="btn-zh" class="px-2 py-0.5 text-[10px] font-bold rounded-lg transition-all text-gray-400 hover:text-white">🇨🇳 ZH</button>
+                </div>
+                <button id="connect-btn" class="action-btn" style="width: auto; padding: 6px 12px; font-size: 0.75rem;" onclick="mostrarModalWallet()">Conectar</button>
             </div>
         </header>
 
@@ -103,11 +138,11 @@
                     </div>
                 </div>
 
-                <button class="action-btn" onclick="cambiarPestaña('buscador', event)">🌐 <span id="txt-btn-ecosystem">Ir al Ecosistema ZAARD</span></button>
+                <button class="action-btn" onclick="cambiarPestaña('buscador', event)" style="margin-top: 15px;">🌐 <span id="txt-btn-ecosystem">Ir al Ecosistema ZAARD</span></button>
             </div>
 
-            <!-- 2. STAKING / BLOQUEO ZARD -->
-            <div id="tab-staking" class="tab-content">
+            <!-- 2. STAKING -->
+            <div id="tab-staking" class="tab-content" style="display: none;">
                 <h2 style="color: #c084fc; margin-top: 0; font-size: 1.2rem;">ZAARD Staking & Yield</h2>
                 
                 <div class="staking-banner">
@@ -121,7 +156,7 @@
             </div>
 
             <!-- 3. BUSCADOR -->
-            <div id="tab-buscador" class="tab-content">
+            <div id="tab-buscador" class="tab-content" style="display: none;">
                 <h2 id="txt-browser-title" style="color: #34d399; margin-top: 0; font-size: 1.2rem;">Buscador y DApps</h2>
                 <p id="txt-browser-desc" style="color: #6ee7b7; font-size: 0.82rem;">Plataformas oficiales del protocolo:</p>
                 
@@ -146,7 +181,7 @@
             </div>
 
             <!-- 4. SWAP -->
-            <div id="tab-swap" class="tab-content">
+            <div id="tab-swap" class="tab-content" style="display: none;">
                 <h2 style="color: #34d399; margin-top: 0; font-size: 1.2rem;">Intercambio Rápido</h2>
                 <div class="balance-card">
                     <p id="txt-swap-desc">Operaciones descentralizadas con máxima liquidez en PancakeSwap.</p>
@@ -155,7 +190,7 @@
             </div>
 
             <!-- 5. SEGURIDAD -->
-            <div id="tab-seguridad" class="tab-content">
+            <div id="tab-seguridad" class="tab-content" style="display: none;">
                 <h2 style="color: #34d399; margin-top: 0; font-size: 1.2rem;">Seguridad de la Cartera</h2>
                 <div class="balance-card">
                     <p style="color: #fff; line-height: 1.6; font-size: 0.85rem;" id="security-info-text">
@@ -168,7 +203,7 @@
         </main>
 
         <!-- Barra de Navegación Inferior -->
-        <nav class="nav-tabs">
+        <nav class="nav-tabs mt-4">
             <button class="nav-btn active" onclick="cambiarPestaña('inicio', event)">
                 <span>🏠</span> <span class="nav-home">Inicio</span>
             </button>
@@ -184,7 +219,7 @@
             <button class="nav-btn" onclick="cambiarPestaña('seguridad', event)">
                 <span>🛡️</span> <span class="nav-security">Seguridad</span>
             </button>
-            <a href="https://figueredo56.github.io/zaard-tracker/" target="_blank" class="nav-btn">
+            <a href="https://figueredo56.github.io/zaard-tracker/" target="_blank" class="nav-btn" style="text-decoration: none;">
                 <span>📊</span> Tracker
             </a>
         </nav>
