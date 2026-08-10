@@ -1,1 +1,117 @@
-ZARD 
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ZAARD WALLET</title>
+    <!-- Metadatos de Open Graph para compartir link -->
+    <meta property="og:title" content="ZAARD WALLET">
+    <meta property="og:description" content="La billetera oficial del ecosistema ZAARD Innovation y Protocolo Panga.">
+    <meta property="og:image" content="https://figueredo56.github.io/zaard-official/assets/logo.png">
+    <meta property="og:url" content="https://figueredo56.github.io/zaard-wallet/">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="wallet-container">
+        
+        <!-- Cabecera e Idiomas Arriba a la Derecha -->
+        <div class="header-top">
+            <div class="wallet-title">
+                <h1>ZAARD</h1>
+                <h2>WALLET</h2>
+                <p>Confianza de PANGA</p>
+            </div>
+            <div class="lang-container">
+                <button class="lang-btn active" onclick="setLang('es')">ES</button>
+                <button class="lang-btn" onclick="setLang('en')">EN</button>
+                <button class="lang-btn" onclick="setLang('ar')">AR</button>
+                <button class="lang-btn" onclick="setLang('zh')">ZH</button>
+            </div>
+        </div>
+
+        <!-- Botones de Conexión Web3 -->
+        <div class="auth-box">
+            <button id="connectBtn" class="btn-connect" onclick="connectWeb3()">Conectar Billetera (BSC)</button>
+            <button id="disconnectBtn" class="btn-disconnect" onclick="disconnectWeb3()">Descartar</button>
+        </div>
+
+        <div class="section-title">Activos Principales</div>
+
+        <!-- Balance BNB -->
+        <div class="card-asset">
+            <div class="asset-info">
+                <h3>Balance BNB (BSC)</h3>
+                <p id="bnb-balance">0.0000 BNB</p>
+                <span class="asset-sub" id="bnb-usdt">≈ $0.00 USDT</span>
+            </div>
+        </div>
+
+        <!-- Balance ZARD con Logo corregido -->
+        <div class="card-asset">
+            <div class="asset-left">
+                <img src="https://figueredo56.github.io/zaard-official/assets/logo.png" alt="ZARD" class="asset-logo" onerror="this.src='https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/smartchain/assets/0xb133033d44b61746c022fb25c070c5599e55181e/logo.png'">
+            </div>
+            <div class="asset-info">
+                <h3>ZARD (ZAARD Innovation)</h3>
+                <p id="zard-balance">0.00 ZARD</p>
+                <span class="asset-sub" id="zard-usdt">≈ $0.00 USDT</span>
+            </div>
+        </div>
+
+        <!-- Enlace al Ecosistema -->
+        <a href="https://figueredo56.github.io/index.html/?img=zaard" target="_blank" class="btn-ecosystem">Ir al Ecosistema ZAARD</a>
+
+        <!-- Menú de Funciones -->
+        <div class="nav-grid">
+            <a href="https://figueredo56.github.io/zaard-official/" target="_blank" class="nav-item">
+                🏠 <span>Inicio</span>
+            </a>
+            <button class="nav-item" onclick="openStaking()">
+                💎 <span>Staking</span>
+            </button>
+            <button class="nav-item" onclick="openBrowser()">
+                🌐 <span>Buscador</span>
+            </button>
+            <a href="https://pancakeswap.finance/swap?outputCurrency=0xb133033d44b61746c022fb25c070c5599e55181e" target="_blank" class="nav-item">
+                🔄 <span>Swap</span>
+            </a>
+            <button class="nav-item" onclick="openSecurity()">
+                🛡️ <span>Seguridad</span>
+            </button>
+            <a href="https://dexscreener.com" target="_blank" class="nav-item">
+                📊 <span>Tracker</span>
+            </a>
+        </div>
+
+    </div>
+
+    <!-- Pantalla / Vista de Staking -->
+    <div id="stakingView" class="sub-view" style="display:none;">
+        <div class="sub-header">
+            <button onclick="closeSubView()" class="back-btn">← Volver</button>
+            <h2>Staking ZARD</h2>
+        </div>
+        <div class="sub-body">
+            <div class="staking-card">
+                <h3>💎 Protocolo de Staking Panga</h3>
+                <p>Esta opción aún no está habilitada. Pronto se pondrá en marcha, podrás hacer staking de tus ZARD y generar ganancias.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navegador Web3 Interno -->
+    <div id="browserView" class="sub-view" style="display:none;">
+        <div class="sub-header browser-bar">
+            <button onclick="closeSubView()" class="back-btn">✕</button>
+            <input type="text" id="browserUrlInput" placeholder="Busca o introduce URL..." value="https://google.com">
+            <button onclick="loadBrowserUrl()" class="go-btn">Ir</button>
+        </div>
+        <div class="sub-body" style="padding:0; flex:1; display:flex;">
+            <iframe id="webFrame" src="https://google.com" style="width:100%; height:100%; border:none; background:#fff;"></iframe>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
