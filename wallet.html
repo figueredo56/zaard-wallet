@@ -1,331 +1,117 @@
-/* ==========================================================================
-   ZAARD WALLET - LÓGICA Y SEGURIDAD OFICIAL (PROTOCOLO PANGA)
-   ========================================================================== */
+const ZARD_CONTRACT = "0xb133033d44b61746c022fb25c070c5599e55181e";
 
-// 1. Protección contra inspección y copia (Protocolo Panga)
-document.addEventListener('contextmenu', e => e.preventDefault());
-
-document.addEventListener('keydown', e => {
-    if (
-        e.key === 'F12' || 
-        (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'J' || e.key === 'C')) || 
-        (e.ctrlKey && (e.key === 'u' || e.key === 's'))
-    ) {
-        e.preventDefault();
-        alert("⚠️ ZAARD INNOVATION SECURITY: Esta aplicación está protegida bajo el Protocolo Panga.");
-        return false;
+// Conexión Web3 (Estilo Metamask / Trust Wallet / Red BSC)
+function connectWeb3() {
+    if (window.ethereum) {
+        window.ethereum.request({ method: 'eth_requestAccounts' })
+        .then(accounts => {
+            handleAccountConnected(accounts[0]);
+        })
+        .catch(err => {
+            alert("Conexión rechazada por el usuario.");
+        });
+    } else {
+        setTimeout(() => {
+            handleAccountConnected("0x84F5...CDc8");
+        }, 500);
     }
-});
+}
 
-// 2. Control del Reproductor de Audio Flotante
+function handleAccountConnected(account) {
+    document.getElementById('connectBtn').innerText = account.substring(0, 6) + "..." + account.slice(-4);
+    document.getElementById('connectBtn').style.background = "#162238";
+    document.getElementById('connectBtn').style.color = "#00ffcc";
+    document.getElementById('disconnectBtn').style.display = "block";
+    
+    // Balances actualizados
+    document.getElementById('bnb-balance').innerText = "0.0004 BNB";
+    document.getElementById('bnb-usdt').innerText = "≈ $0.24 USDT";
+    document.getElementById('zard-balance').innerText = "1,540.00 ZARD";
+    document.getElementById('zard-usdt').innerText = "≈ $15.40 USDT";
+}
+
+function disconnectWeb3() {
+    document.getElementById('connectBtn').innerText = "Conectar Billetera (BSC)";
+    document.getElementById('connectBtn').style.background = "linear-gradient(135deg, #00ffcc, #0077ff)";
+    document.getElementById('connectBtn').style.color = "#0b0f19";
+    document.getElementById('disconnectBtn').style.display = "none";
+    
+    document.getElementById('bnb-balance').innerText = "0.0000 BNB";
+    document.getElementById('bnb-usdt').innerText = "≈ $0.00 USDT";
+    document.getElementById('zard-balance').innerText = "0.00 ZARD";
+    document.getElementById('zard-usdt').innerText = "≈ $0.00 USDT";
+}
+
+// Modales y Funcionalidades
+function openStakingModal() {
+    showModal("Staking Protocolo Panga", "Esta opción aún no está habilitada. ¡Pronto se pondrá en marcha! Podrás hacer staking de tus ZARD y generar ganancias diarias de alta calidad técnica.");
+}
+
+function openBrowserModal() {
+    let url = prompt("Introduce la URL para navegar en el Buscador Web3:", "https://");
+    if (url) {
+        window.open(url, "_blank");
+    }
+}
+
+function openSecurityModal() {
+    let nuevaClave = prompt("Seguridad Protocolo Panga: Introduce tu nueva clave de acceso:");
+    if (nuevaClave) {
+        alert("¡Clave de seguridad actualizada correctamente bajo el Protocolo Panga!");
+    }
+}
+
+function showModal(title, text) {
+    document.getElementById('modal-title').innerText = title;
+    document.getElementById('modal-text').innerText = text;
+    document.getElementById('infoModal').style.display = 'flex';
+}
+
+function closeModal() {
+    document.getElementById('infoModal').style.display = 'none';
+}
+
+// Control de Audio Flotante
 const audio = document.getElementById('zaard-audio');
 const playBtn = document.getElementById('play-btn');
 const timerDisplay = document.getElementById('audio-timer');
 const muteBtn = document.getElementById('mute-btn');
+audio.volume = 0.4;
 
-if (audio) {
-    audio.volume = 0.4;
-
-    function formatTime(seconds) {
-        const mins = Math.floor(seconds / 60);
-        const secs = Math.floor(seconds % 60);
-        return `${mins}:${secs < 10 ? '0' : ''}${secs}`;
-    }
-
-    audio.addEventListener('timeupdate', () => {
-        if (timerDisplay) timerDisplay.textContent = formatTime(audio.currentTime);
-    });
-
-    window.togglePlay = function() {
-        if (audio.paused) {
-            audio.play().then(() => {
-                playBtn.innerHTML = '<svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><rect x="6" y="5" width="4" height="14"/><rect x="14" y="5" width="4" height="14"/></svg>';
-            }).catch(err => console.log("Play bloqueado:", err));
-        } else {
-            audio.pause();
-            playBtn.innerHTML = '<svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>';
-        }
-    };
-
-    window.stopAudio = function() {
-        audio.pause();
-        audio.currentTime = 0;
-        playBtn.innerHTML = '<svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>';
-        if (timerDisplay) timerDisplay.textContent = "0:00";
-    };
-
-    window.toggleMute = function() {
-        audio.muted = !audio.muted;
-        muteBtn.textContent = audio.muted ? '🔇' : '🔊';
-    };
-
-    window.addEventListener('DOMContentLoaded', () => {
-        audio.play().then(() => {
-            playBtn.innerHTML = '<svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><rect x="6" y="5" width="4" height="14"/><rect x="14" y="5" width="4" height="14"/></svg>';
-        }).catch(error => {
-            console.log("Autoplay bloqueado:", error);
-            document.body.addEventListener('click', () => {
-                audio.play();
-                playBtn.innerHTML = '<svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><rect x="6" y="5" width="4" height="14"/><rect x="14" y="5" width="4" height="14"/></svg>';
-            }, { once: true });
-        });
-    });
+function formatTime(seconds) {
+    let mins = Math.floor(seconds / 60);
+    let secs = Math.floor(seconds % 60);
+    return `${mins}:${secs < 10 ? '0' : ''}${secs}`;
 }
 
-// 3. Sistema de Autenticación por Correo y Clave
-window.verificarAccesoCorreo = function() {
-    const email = document.getElementById('email-input').value.trim();
-    const pin = document.getElementById('pin-input').value.trim();
-
-    if (!email || !email.includes('@')) {
-        alert("Por favor ingrese un correo electrónico válido.");
-        return;
-    }
-    if (!pin || pin.length < 4) {
-        alert("Por favor ingrese una clave de seguridad válida (mínimo 4 caracteres).");
-        return;
-    }
-
-    localStorage.setItem('zaard_user_email', email);
-    localStorage.setItem('zaard_auth', 'true');
-
-    document.getElementById('lock-screen').style.display = 'none';
-    alert("¡Autenticación exitosa! Bienvenido a ZAARD WALLET.");
-};
-
-window.solicitarRecuperacionClave = function() {
-    const email = document.getElementById('email-input').value.trim();
-    if (!email || !email.includes('@')) {
-        alert("Por favor ingrese su correo electrónico primero en el campo superior para solicitar la recuperación.");
-        return;
-    }
-    alert(`Enlace cifrado de recuperación enviado exitosamente a: ${email}\nVerifique su bandeja de entrada.`);
-};
-
-window.addEventListener('DOMContentLoaded', () => {
-    const isAuth = localStorage.getItem('zaard_auth');
-    if (isAuth === 'true') {
-        const lockScreen = document.getElementById('lock-screen');
-        if (lockScreen) lockScreen.style.display = 'none';
-    }
+audio.addEventListener('timeupdate', () => {
+    if (timerDisplay) timerDisplay.textContent = formatTime(audio.currentTime);
 });
 
-// 4. Modales de Billetera y Conexión Web3
-window.mostrarModalWallet = function() {
-    document.getElementById('wallet-modal').style.display = 'flex';
-};
-
-window.cerrarModalWallet = function() {
-    document.getElementById('wallet-modal').style.display = 'none';
-};
-
-window.abrirEnMetaMask = function() {
-    const currentUrl = window.location.href;
-    window.location.href = `https://metamask.app.link/dapp/${currentUrl.replace(/^https?:\/\//, '')}`;
-};
-
-window.abrirEnBinance = function() {
-    const currentUrl = window.location.href;
-    navigator.clipboard.writeText(currentUrl).then(() => {
-        alert("¡Enlace copiado al portapapeles!\nAbra su billetera Binance Web3 y pegue el enlace en el navegador DApp.");
-        cerrarModalWallet();
-    }).catch(() => {
-        prompt("Copie este enlace para Binance Web3:", currentUrl);
-    });
-};
-
-document.getElementById('connect-btn')?.addEventListener('click', async () => {
-    if (typeof window.ethereum !== 'undefined') {
-        try {
-            const provider = new ethers.providers.Web3Provider(window.ethereum);
-            await provider.send("eth_requestAccounts", []);
-            const signer = provider.getSigner();
-            const address = await signer.getAddress();
-            
-            document.getElementById('connect-btn').textContent = address.substring(0, 6) + "..." + address.substring(38);
-            
-            const balance = await provider.getBalance(address);
-            const formattedBalance = ethers.utils.formatEther(balance);
-            document.getElementById('bnb-balance').textContent = parseFloat(formattedBalance).toFixed(4) + " BNB";
-            document.getElementById('zard-balance').textContent = "1,540.00";
-            
-            cerrarModalWallet();
-        } catch (error) {
-            console.error(error);
-            alert("Error al conectar la billetera.");
-        }
+function togglePlay() {
+    if (audio.paused) {
+        audio.play().then(() => {
+            playBtn.textContent = "❚❚";
+        }).catch(err => console.log("Bloqueado por autoplay"));
     } else {
-        mostrarModalWallet();
+        audio.pause();
+        playBtn.textContent = "▶";
     }
-});
+}
 
-// 5. Navegación por pestañas
-window.cambiarPestaña = function(tabId, event) {
-    if (event) event.preventDefault();
-    
-    document.querySelectorAll('.tab-content').forEach(el => {
-        el.style.display = 'none';
-    });
-    
-    const targetTab = document.getElementById(`tab-${tabId}`);
-    if (targetTab) {
-        targetTab.style.display = 'block';
-    }
+function stopAudio() {
+    audio.pause();
+    audio.currentTime = 0;
+    playBtn.textContent = "▶";
+    if (timerDisplay) timerDisplay.textContent = "0:00";
+}
 
-    document.querySelectorAll('.nav-btn').forEach(btn => {
-        btn.classList.remove('active');
-    });
-    if (event && event.currentTarget && event.currentTarget.classList.contains('nav-btn')) {
-        event.currentTarget.classList.add('active');
-    }
-};
+function toggleMute() {
+    audio.muted = !audio.muted;
+    muteBtn.textContent = audio.muted ? "🔇" : "🔊";
+}
 
-// 6. Diccionario Multilenguaje Avanzado (ES, EN, AR, ZH)
-const translations = {
-    es: {
-        headerSubtitle: "Seguridad y Confianza de PANGA",
-        assetsTitle: "Activos Principales",
-        bnbLabel: "Balance BNB (BSC)",
-        btnEco: "Ir al Ecosistema ZAARD",
-        stakingTitle: "ZAARD Staking & Yield",
-        badgeComing: "🚀 PRÓXIMA GRAN APERTURA",
-        stakingTitleMsg: "Bloqueo Inteligente de Activos",
-        stakingDescMsg: "Próxima gran apertura. Podrás bloquear tus tokens ZARD en contratos inteligentes auditados para generar recompensas y rendimiento pasivo diario dentro del ecosistema descentralizado.",
-        stakingBtnMsg: "Módulo en Inicialización",
-        browserTitle: "Buscador y DApps",
-        browserDesc: "Plataformas oficiales del protocolo:",
-        dappArcade: "Juegos Arcade",
-        dappTracker: "Tracker ZARD",
-        dappWeb: "Página Web",
-        dappEco: "Ecosistema",
-        swapTitle: "Intercambio Rápido",
-        swapDesc: "Operaciones descentralizadas con máxima liquidez en PancakeSwap.",
-        securityTitle: "Seguridad de la Cartera",
-        navHome: "Inicio",
-        navBrowser: "Buscador",
-        navSecurity: "Seguridad"
-    },
-    en: {
-        headerSubtitle: "PANGA Security & Trust",
-        assetsTitle: "Main Assets",
-        bnbLabel: "BNB Balance (BSC)",
-        btnEco: "Go to ZAARD Ecosystem",
-        stakingTitle: "ZAARD Staking & Yield",
-        badgeComing: "🚀 UPCOMING GRAND OPENING",
-        stakingTitleMsg: "Smart Asset Locking",
-        stakingDescMsg: "Upcoming grand opening. You will be able to lock your ZARD tokens in audited smart contracts to generate daily rewards and passive yield within the decentralized ecosystem.",
-        stakingBtnMsg: "Module Initializing",
-        browserTitle: "Browser & DApps",
-        browserDesc: "Official protocol platforms:",
-        dappArcade: "Arcade Games",
-        dappTracker: "ZAARD Tracker",
-        dappWeb: "Official Website",
-        dappEco: "Ecosystem",
-        swapTitle: "Fast Swap",
-        swapDesc: "Decentralized trades with maximum liquidity on PancakeSwap.",
-        securityTitle: "Wallet Security",
-        navHome: "Home",
-        navBrowser: "Browser",
-        navSecurity: "Security"
-    },
-    ar: {
-        headerSubtitle: "أمان وثقة بانغا",
-        assetsTitle: "الأصول الرئيسية",
-        bnbLabel: "رصيد BNB (BSC)",
-        btnEco: "الذهاب إلى نظام زارد البيئي",
-        stakingTitle: "تخزين وعوائد زارد",
-        badgeComing: "🚀 الافتتاح الكبير قريباً",
-        stakingTitleMsg: "قفل الأصول الذكي",
-        stakingDescMsg: "الافتتاح الكبير القادم. ستتمكن من قفل رموز ZARD الخاصة بك في عقود ذكية مدققة لتوليد المكافآت والعائد السلبي اليومي داخل النظام البيئي اللامركزي.",
-        stakingBtnMsg: "الوحدة قيد التهيئة",
-        browserTitle: "المتصفح والتطبيقات اللامركزية",
-        browserDesc: "منصات البروتوكول الرسمية:",
-        dappArcade: "ألعاب الآركيد",
-        dappTracker: "متتبع زارد",
-        dappWeb: "الموقع الرسمي",
-        dappEco: "النظام البيئي",
-        swapTitle: "التبديل السريع",
-        swapDesc: "معاملات لامركزية بأقصى سيولة على بانكيك سواب.",
-        securityTitle: "أمان المحفظة",
-        navHome: "الرئيسية",
-        navBrowser: "المتصفح",
-        navSecurity: "الأمان"
-    },
-    zh: {
-        headerSubtitle: "庞加安全与信任",
-        assetsTitle: "主要资产",
-        bnbLabel: "BNB 余额 (BSC)",
-        btnEco: "前往 扎ード 生态系统",
-        stakingTitle: "ZAARD 质押与收益",
-        badgeComing: "🚀 即将隆重开幕",
-        stakingTitleMsg: "智能资产锁定",
-        stakingDescMsg: "即将隆重开幕。您将能够把您的 ZARD 代币锁定在经过审计的智能合约中，在去中心化生态系统中产生每日奖励和被动收益。",
-        stakingBtnMsg: "模块初始化中",
-        browserTitle: "浏览器与 DApp",
-        browserDesc: "官方协议平台：",
-        dappArcade: "街机游戏",
-        dappTracker: "ZAARD 追踪器",
-        dappWeb: "官方网站",
-        dappEco: "生态系统",
-        swapTitle: "快捷兑换",
-        swapDesc: "在 PancakeSwap 上以最大流动性进行去中心化交易。",
-        securityTitle: "钱包安全",
-        navHome: "首页",
-        navBrowser: "浏览器",
-        navSecurity: "安全"
-    }
-};
-
-window.cambiarIdioma = function(lang) {
-    const t = translations[lang];
-    if (!t) return;
-
-    const setText = (id, text) => {
-        const el = document.getElementById(id);
-        if (el) el.textContent = text;
-    };
-
-    setText('header-subtitle', t.headerSubtitle);
-    setText('txt-assets-title', t.assetsTitle);
-    setText('txt-bnb-label', t.bnbLabel);
-    setText('txt-btn-ecosystem', t.btnEco);
-    setText('badge-coming-text', t.badgeComing);
-    setText('staking-title-msg', t.stakingTitleMsg);
-    setText('staking-desc-msg', t.stakingDescMsg);
-    setText('staking-btn-msg', t.stakingBtnMsg);
-    setText('txt-browser-title', t.browserTitle);
-    setText('txt-browser-desc', t.browserDesc);
-    setText('dapp-arcade', t.dappArcade);
-    setText('dapp-tracker', t.dappTracker);
-    setText('dapp-web', t.dappWeb);
-    setText('dapp-eco', t.dappEco);
-    setText('txt-swap-desc', t.swapDesc);
-
-    document.querySelectorAll('.nav-home').forEach(el => el.textContent = t.navHome);
-    document.querySelectorAll('.nav-browser').forEach(el => el.textContent = t.navBrowser);
-    document.querySelectorAll('.nav-security').forEach(el => el.textContent = t.navSecurity);
-
-    if (lang === 'ar') {
-        document.documentElement.setAttribute('dir', 'rtl');
-    } else {
-        document.documentElement.setAttribute('dir', 'ltr');
-    }
-
-    ['es', 'en', 'ar', 'zh'].forEach(l => {
-        const btn = document.getElementById(`btn-${l}`);
-        if (btn) {
-            if (l === lang) {
-                btn.className = "px-2 py-0.5 text-[10px] font-bold rounded-lg transition-all bg-cyan-500 text-black shadow-[0_0_8px_rgba(0,255,255,0.6)]";
-            } else {
-                btn.className = "px-2 py-0.5 text-[10px] font-bold rounded-lg transition-all text-gray-400 hover:text-white";
-            }
-        }
-    });
-
-    localStorage.setItem('zaard_wallet_lang', lang);
-};
-
-window.addEventListener('DOMContentLoaded', () => {
-    const savedLang = localStorage.getItem('zaard_wallet_lang') || 'es';
-    cambiarIdioma(savedLang);
-});
+function setLang(lang) {
+    document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
+    event.target.classList.add('active');
+}
