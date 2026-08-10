@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ZAARD WALLET - Protocolo Panga</title>
+    <title>ZAARD WALLET</title>
     <!-- Metadatos de Open Graph para compartir link -->
     <meta property="og:title" content="ZAARD WALLET">
     <meta property="og:description" content="La billetera oficial del ecosistema ZAARD Innovation y Protocolo Panga.">
@@ -13,13 +13,9 @@
 </head>
 <body>
 
-    <audio id="zaard-audio" loop>
-        <source src="https://www.bensound.com/bensound-music/bensound-scifi.mp3" type="audio/mpeg">
-    </audio>
-
     <div class="wallet-container">
         
-        <!-- Cabecera e Idiomas -->
+        <!-- Cabecera e Idiomas Arriba a la Derecha -->
         <div class="header-top">
             <div class="wallet-title">
                 <h1>ZAARD</h1>
@@ -51,12 +47,13 @@
             </div>
         </div>
 
-        <!-- Balance ZARD (Contrato: 0xb133...) -->
+        <!-- Balance ZARD con Logo -->
         <div class="card-asset">
-            <div class="asset-info">
+            <img src="https://figueredo56.github.io/zaard-official/assets/logo.png" alt="ZARD" class="asset-logo" onerror="this.src='https://via.placeholder.com/32'">
+            <div class="asset-info" style="flex:1; margin-left: 10px;">
                 <h3>ZARD (ZAARD Innovation)</h3>
-                <p id="zard-balance">0.00 ZARD</p>
-                <span class="asset-sub" id="zard-usdt">≈ $0.00 USDT</span>
+                <p id="zard-balance">1,540.00 ZARD</p>
+                <span class="asset-sub" id="zard-usdt">≈ $15.40 USDT</span>
             </div>
         </div>
 
@@ -68,16 +65,16 @@
             <a href="https://figueredo56.github.io/zaard-official/" target="_blank" class="nav-item">
                 🏠 <span>Inicio</span>
             </a>
-            <button class="nav-item" onclick="openStakingModal()">
+            <button class="nav-item" onclick="openStaking()">
                 💎 <span>Staking</span>
             </button>
-            <button class="nav-item" onclick="openBrowserModal()">
+            <button class="nav-item" onclick="openBrowser()">
                 🌐 <span>Buscador</span>
             </button>
             <a href="https://pancakeswap.finance/swap?outputCurrency=0xb133033d44b61746c022fb25c070c5599e55181e" target="_blank" class="nav-item">
                 🔄 <span>Swap</span>
             </a>
-            <button class="nav-item" onclick="openSecurityModal()">
+            <button class="nav-item" onclick="openSecurity()">
                 🛡️ <span>Seguridad</span>
             </button>
             <a href="https://dexscreener.com" target="_blank" class="nav-item">
@@ -85,24 +82,31 @@
             </a>
         </div>
 
-        <!-- Reproductor de Audio -->
-        <div class="audio-player">
-            <div class="audio-controls">
-                <button class="audio-btn" id="play-btn" onclick="togglePlay()">▶</button>
-                <button class="audio-btn" onclick="stopAudio()">⏹</button>
-            </div>
-            <span id="audio-timer">0:00</span>
-            <button class="audio-btn" id="mute-btn" onclick="toggleMute()">🔊</button>
-        </div>
-
     </div>
 
-    <!-- Modales Informativos -->
-    <div id="infoModal" class="modal">
-        <div class="modal-content">
-            <h3 id="modal-title">Aviso</h3>
-            <p id="modal-text">Mensaje informativo.</p>
-            <button class="modal-close" onclick="closeModal()">Aceptar</button>
+    <!-- Pantalla / Vista de Staking -->
+    <div id="stakingView" class="sub-view" style="display:none;">
+        <div class="sub-header">
+            <button onclick="closeSubView()" class="back-btn">← Volver</button>
+            <h2>Staking ZARD</h2>
+        </div>
+        <div class="sub-body">
+            <div class="staking-card">
+                <h3>💎 Protocolo de Staking Panga</h3>
+                <p>Esta opción aún no está habilitada. ¡Pronto se pondrá en marcha! Podrás hacer staking de tus ZARD y generar ganancias diarias.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navegador Web3 Interno (Buscador estilo MetaMask/Trust Wallet) -->
+    <div id="browserView" class="sub-view" style="display:none;">
+        <div class="sub-header browser-bar">
+            <button onclick="closeSubView()" class="back-btn">✕</button>
+            <input type="text" id="browserUrlInput" placeholder="Busca o introduce URL..." value="https://google.com">
+            <button onclick="loadBrowserUrl()" class="go-btn">Ir</button>
+        </div>
+        <div class="sub-body" style="padding:0; flex:1; display:flex;">
+            <iframe id="webFrame" src="https://google.com" style="width:100%; height:100%; border:none; background:#fff;"></iframe>
         </div>
     </div>
 
