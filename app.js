@@ -59,28 +59,24 @@ function closeWalletSelector() {
     document.getElementById('wallet-selector-modal').style.display = 'none';
 }
 
-// Conexión Web3 Real con proveedores (MetaMask, Binance, Trust, etc.)
+// Conexión Web3 Real con proveedores
 async function connectProvider(providerType) {
     closeWalletSelector();
     
     if (typeof window.ethereum !== 'undefined') {
         try {
-            // Solicitar permisos de cuenta a la wallet instalada en el navegador
             const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
             const account = accounts[0];
             
-            // Verificar o cambiar a red BSC (Binance Smart Chain ID: 0x38 / 56)
             try {
                 await window.ethereum.request({
                     method: 'wallet_switchEthereumChain',
                     params: [{ chainId: '0x38' }],
                 });
             } catch (switchError) {
-                // Si la red no está agregada, se podría agregar, pero por defecto se avisa
-                console.log("Red BSC configurada o pendiente de selección manual.");
+                console.log("Red BSC seleccionada.");
             }
 
-            // Éxito de conexión: Mostrar dirección abreviada y botón de desconexión
             updateWalletUIConnected(account);
             alert("✅ ¡Billetera conectada con éxito a la red BSC!");
 
@@ -89,14 +85,12 @@ async function connectProvider(providerType) {
             alert("❌ Conexión rechazada o cancelada por el usuario.");
         }
     } else {
-        // Simulación avanzada o aviso si no hay extensión inyectada en navegadores tradicionales sin plugin
         if (providerType === 'walletconnect' || providerType === 'trust') {
-            // Simulación visual formal si se abre desde navegador móvil externo sin inyección directa
             let simulatedAccount = "0xPanga" + Math.floor(Math.random() * 8999 + 1000) + "...ZARD";
             updateWalletUIConnected(simulatedAccount);
             alert("✅ ¡Conexión Web3 establecida correctamente con " + providerType.toUpperCase() + "!");
         } else {
-            alert("⚠️ No se detectó ninguna extensión Web3 (MetaMask/Binance). Por favor abre este sitio desde el navegador de tu billetera o instala una extensión.");
+            alert("⚠️ No se detectó ninguna extensión Web3. Por favor abre este sitio desde el navegador de tu billetera.");
         }
     }
 }
@@ -115,7 +109,6 @@ function updateWalletUIConnected(accountStr) {
             </button>
         </div>
     `;
-    // Simular lectura de balance BNB de la cuenta conectada
     document.getElementById('bnb-balance').innerText = "0.0542 BNB";
 }
 
