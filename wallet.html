@@ -1,117 +1,181 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" class="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ZAARD WALLET</title>
-    <!-- Metadatos de Open Graph para compartir link -->
-    <meta property="og:title" content="ZAARD WALLET">
-    <meta property="og:description" content="La billetera oficial del ecosistema ZAARD Innovation y Protocolo Panga.">
-    <meta property="og:image" content="https://figueredo56.github.io/zaard-official/assets/logo.png">
-    <meta property="og:url" content="https://figueredo56.github.io/zaard-wallet/">
+    <title>ZAARD WALLET | Protocolo Panga - Acceso Seguro</title>
     <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
+<body class="min-h-screen flex flex-col items-center justify-center p-3">
 
-    <div class="wallet-container">
+    <!-- Modal de Bienvenida Épico (ZAARD WALLET) -->
+    <div id="welcome-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/85 backdrop-blur-md p-4">
+        <div class="frame-gold w-full max-w-md p-5 text-center space-y-4 space-nebula-bg relative shadow-2xl">
+            <div class="w-full h-32 rounded-xl overflow-hidden border border-cyan-400 shadow-[0_0_15px_rgba(0,255,255,0.4)]">
+                <img src="https://raw.githubusercontent.com/figueredo56/zaard-tracker/refs/heads/main/232%20sin%20t%C3%ADtulo_20260811110622_1.png" alt="ZAARD Wallet Welcome" class="w-full h-full object-cover">
+            </div>
+            <h2 class="text-xl font-extrabold title-gradient uppercase tracking-wider">Welcome to ZAARD WALLET</h2>
+            <p class="text-[11px] text-cyan-200 font-mono leading-relaxed px-1">
+                Official Panga Protocol Web3 Client. Securely manage assets, perform fast on-chain transactions, and verify your ZARD tokens with next-gen cryptographic standards.
+            </p>
+            <button onclick="closeWelcomeModal()" class="w-full py-2.5 rounded-xl bg-gradient-to-r from-cyan-500 via-purple-600 to-emerald-500 text-black font-extrabold text-xs uppercase tracking-widest shadow-[0_0_15px_rgba(0,255,255,0.6)] hover:scale-105 transition-all">
+                Access Wallet Suite 🚀
+            </button>
+        </div>
+    </div>
+
+    <!-- VISTA 1: LOGIN / ACCESO SEGURO (Centrado absoluto) -->
+    <div id="login-view" class="w-full flex items-center justify-center my-auto">
+        <div class="frame-gold w-full max-w-sm p-5 space-y-4 space-nebula-bg text-center shadow-2xl">
+            
+            <!-- Imagen solicitada arriba del contenedor de Login -->
+            <div class="w-full h-24 rounded-xl overflow-hidden border border-cyan-400/60 shadow-[0_0_15px_rgba(0,255,255,0.3)] mb-2">
+                <img src="https://raw.githubusercontent.com/figueredo56/zaard-tracker/refs/heads/main/232%20sin%20t%C3%ADtulo_20260811110622_1.png" alt="Portada Zaard Wallet" class="w-full h-full object-cover">
+            </div>
+
+            <div class="flex flex-col items-center">
+                <img src="https://raw.githubusercontent.com/figueredo56/zaard-tracker/refs/heads/main/189%20sin%20t%C3%ADtulo_20260811194341_1.png" alt="Logo" class="w-14 h-14 rounded-full border-2 border-cyan-400 p-0.5 shadow-[0_0_10px_rgba(0,255,255,0.5)] mb-2">
+                <h1 class="text-xl font-extrabold title-gradient uppercase tracking-wider">ZAARD WALLET</h1>
+                <p class="text-[11px] text-cyan-200 mt-0.5">Protocolo Panga - Acceso Seguro</p>
+            </div>
+
+            <div class="space-y-3 pt-2">
+                <input type="email" id="login-email" value="figueredo56aracelis@gmail.com" readonly class="w-full bg-black/60 border border-cyan-500/40 rounded-xl px-3 py-2 text-xs text-cyan-200 text-center font-mono focus:outline-none">
+                
+                <input type="password" id="login-pass" placeholder="Clave de acceso (ej. ZARD2026*)" class="w-full bg-black/70 border border-purple-500/60 rounded-xl px-3 py-2 text-xs text-white text-center font-mono focus:outline-none focus:border-cyan-400 shadow-inner">
+
+                <button onclick="handleLogin()" class="w-full py-2.5 rounded-xl bg-gradient-to-r from-cyan-500 via-purple-600 to-emerald-500 text-black font-extrabold text-xs uppercase tracking-widest shadow-[0_0_15px_rgba(0,255,255,0.6)] hover:scale-105 transition-all">
+                    Iniciar Sesión / Conectar
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- VISTA 2: WALLET PRINCIPAL (Oculta hasta iniciar sesión) -->
+    <div id="wallet-view" class="w-full max-w-md flex flex-col items-center gap-3 py-4" style="display: none;">
         
-        <!-- Cabecera e Idiomas Arriba a la Derecha -->
-        <div class="header-top">
-            <div class="wallet-title">
-                <h1>ZAARD</h1>
-                <h2>WALLET</h2>
-                <p>Confianza de PANGA</p>
-            </div>
-            <div class="lang-container">
-                <button class="lang-btn active" onclick="setLang('es')">ES</button>
-                <button class="lang-btn" onclick="setLang('en')">EN</button>
-                <button class="lang-btn" onclick="setLang('ar')">AR</button>
-                <button class="lang-btn" onclick="setLang('zh')">ZH</button>
-            </div>
+        <!-- Portada superior fuera del contenedor de la wallet -->
+        <div class="w-full h-32 rounded-2xl overflow-hidden border-2 border-cyan-400 shadow-[0_0_20px_rgba(0,255,255,0.4)] relative">
+            <img src="https://raw.githubusercontent.com/figueredo56/zaard-tracker/refs/heads/main/232%20sin%20t%C3%ADtulo_20260811110622_1.png" alt="Portada Principal Wallet" class="w-full h-full object-cover">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent"></div>
         </div>
 
-        <!-- Botones de Conexión Web3 -->
-        <div class="auth-box">
-            <button id="connectBtn" class="btn-connect" onclick="connectWeb3()">Conectar Billetera (BSC)</button>
-            <button id="disconnectBtn" class="btn-disconnect" onclick="disconnectWeb3()">Descartar</button>
-        </div>
+        <!-- Contenedor principal de la Wallet -->
+        <div class="frame-gold w-full p-4 space-y-3.5 space-nebula-bg shadow-2xl">
+            
+            <!-- Cabecera de la Billetera -->
+            <div class="flex justify-between items-center border-b border-cyan-500/30 pb-2">
+                <div class="flex items-center gap-2.5">
+                    <img src="https://raw.githubusercontent.com/figueredo56/zaard-tracker/refs/heads/main/189%20sin%20t%C3%ADtulo_20260811194341_1.png" alt="Logo" class="w-10 h-10 rounded-full border border-cyan-400 p-0.5">
+                    <div>
+                        <h2 class="text-sm font-extrabold title-gradient uppercase">ZAARD WALLET</h2>
+                        <span class="text-[10px] text-cyan-300">Confianza de PANGA</span>
+                    </div>
+                </div>
 
-        <div class="section-title">Activos Principales</div>
-
-        <!-- Balance BNB -->
-        <div class="card-asset">
-            <div class="asset-info">
-                <h3>Balance BNB (BSC)</h3>
-                <p id="bnb-balance">0.0000 BNB</p>
-                <span class="asset-sub" id="bnb-usdt">≈ $0.00 USDT</span>
+                <!-- Selector de Idioma Compacto -->
+                <div class="flex items-center gap-1 bg-black/60 border border-cyan-500/40 rounded-lg p-0.5">
+                    <button onclick="changeLanguage('es')" id="btn-es" class="px-1.5 py-0.5 text-[9px] font-bold rounded bg-cyan-500 text-black">ES</button>
+                    <button onclick="changeLanguage('en')" id="btn-en" class="px-1.5 py-0.5 text-[9px] font-bold rounded text-gray-400">EN</button>
+                    <button onclick="changeLanguage('ar')" id="btn-ar" class="px-1.5 py-0.5 text-[9px] font-bold rounded text-gray-400">AR</button>
+                    <button onclick="changeLanguage('zh')" id="btn-zh" class="px-1.5 py-0.5 text-[9px] font-bold rounded text-gray-400">ZH</button>
+                </div>
             </div>
-        </div>
 
-        <!-- Balance ZARD con Logo corregido -->
-        <div class="card-asset">
-            <div class="asset-left">
-                <img src="https://figueredo56.github.io/zaard-official/assets/logo.png" alt="ZARD" class="asset-logo" onerror="this.src='https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/smartchain/assets/0xb133033d44b61746c022fb25c070c5599e55181e/logo.png'">
-            </div>
-            <div class="asset-info">
-                <h3>ZARD (ZAARD Innovation)</h3>
-                <p id="zard-balance">0.00 ZARD</p>
-                <span class="asset-sub" id="zard-usdt">≈ $0.00 USDT</span>
-            </div>
-        </div>
-
-        <!-- Enlace al Ecosistema -->
-        <a href="https://figueredo56.github.io/index.html/?img=zaard" target="_blank" class="btn-ecosystem">Ir al Ecosistema ZAARD</a>
-
-        <!-- Menú de Funciones -->
-        <div class="nav-grid">
-            <a href="https://figueredo56.github.io/zaard-official/" target="_blank" class="nav-item">
-                🏠 <span>Inicio</span>
-            </a>
-            <button class="nav-item" onclick="openStaking()">
-                💎 <span>Staking</span>
+            <!-- Botón Conectar Billetera -->
+            <button class="w-full py-2 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 text-black font-extrabold text-xs uppercase tracking-wider shadow-[0_0_12px_rgba(0,255,255,0.5)] hover:scale-[1.02] transition-all">
+                Conectar Billetera (BSC)
             </button>
-            <button class="nav-item" onclick="openBrowser()">
-                🌐 <span>Buscador</span>
-            </button>
-            <a href="https://pancakeswap.finance/swap?outputCurrency=0xb133033d44b61746c022fb25c070c5599e55181e" target="_blank" class="nav-item">
-                🔄 <span>Swap</span>
-            </a>
-            <button class="nav-item" onclick="openSecurity()">
-                🛡️ <span>Seguridad</span>
-            </button>
-            <a href="https://dexscreener.com" target="_blank" class="nav-item">
-                📊 <span>Tracker</span>
-            </a>
-        </div>
 
-    </div>
+            <span class="text-xs font-bold text-cyan-400 uppercase tracking-wide block mt-1">Activos Principales</span>
 
-    <!-- Pantalla / Vista de Staking -->
-    <div id="stakingView" class="sub-view" style="display:none;">
-        <div class="sub-header">
-            <button onclick="closeSubView()" class="back-btn">← Volver</button>
-            <h2>Staking ZARD</h2>
-        </div>
-        <div class="sub-body">
-            <div class="staking-card">
-                <h3>💎 Protocolo de Staking Panga</h3>
-                <p>Esta opción aún no está habilitada. Pronto se pondrá en marcha, podrás hacer staking de tus ZARD y generar ganancias.</p>
+            <!-- Tarjeta Balance BNB -->
+            <div class="border border-cyan-500/40 rounded-xl p-3 bg-black/70 shadow-inner">
+                <span class="text-[11px] text-gray-300 font-medium">Balance BNB (BSC)</span>
+                <h3 class="text-lg font-mono font-bold text-cyan-300">0.0000 BNB</h3>
+                <span class="text-[10px] text-gray-400">≈ $0.00 USDT</span>
             </div>
-        </div>
-    </div>
 
-    <!-- Navegador Web3 Interno -->
-    <div id="browserView" class="sub-view" style="display:none;">
-        <div class="sub-header browser-bar">
-            <button onclick="closeSubView()" class="back-btn">✕</button>
-            <input type="text" id="browserUrlInput" placeholder="Busca o introduce URL..." value="https://google.com">
-            <button onclick="loadBrowserUrl()" class="go-btn">Ir</button>
-        </div>
-        <div class="sub-body" style="padding:0; flex:1; display:flex;">
-            <iframe id="webFrame" src="https://google.com" style="width:100%; height:100%; border:none; background:#fff;"></iframe>
+            <!-- Tarjeta ZARD Token -->
+            <div class="border border-purple-500/40 rounded-xl p-3 bg-black/70 flex items-center justify-between shadow-inner">
+                <div class="flex items-center gap-2.5">
+                    <img src="https://raw.githubusercontent.com/figueredo56/zaard-tracker/refs/heads/main/189%20sin%20t%C3%ADtulo_20260811194341_1.png" alt="ZARD" class="w-8 h-8 rounded-full border border-purple-400">
+                    <div>
+                        <span class="text-[11px] text-white font-bold block">ZARD (ZAARD Innovation)</span>
+                        <span class="text-[12px] font-mono font-extrabold text-green-400">0.00 ZARD</span>
+                    </div>
+                </div>
+                <span class="text-[10px] text-gray-400">≈ $0.00 USDT</span>
+            </div>
+
+            <!-- Enlace al Ecosistema -->
+            <a href="https://figueredo56.github.io/index.html/?img=zaard" target="_blank" class="w-full py-2 rounded-xl bg-gradient-to-r from-purple-600 via-cyan-500 to-emerald-500 text-black font-extrabold text-xs uppercase tracking-wider text-center block shadow-[0_0_12px_rgba(168,85,247,0.5)] hover:scale-[1.02] transition-all">
+                Ir al Ecosistema ZAARD 🌐
+            </a>
+
+            <!-- Cuadrícula de Navegación -->
+            <div class="grid grid-cols-3 gap-2 pt-1">
+                <a href="#" class="p-2.5 rounded-xl bg-black/60 border border-cyan-500/30 text-center hover:bg-cyan-950/40 transition-all flex flex-col items-center gap-1">
+                    <span class="text-sm">🏠</span>
+                    <span class="text-[10px] text-cyan-200 font-semibold">Inicio</span>
+                </a>
+                <a href="#" class="p-2.5 rounded-xl bg-black/60 border border-purple-500/30 text-center hover:bg-purple-950/40 transition-all flex flex-col items-center gap-1">
+                    <span class="text-sm">💎</span>
+                    <span class="text-[10px] text-purple-200 font-semibold">Staking</span>
+                </a>
+                <a href="https://figueredo56.github.io/zaard-tracker/" target="_blank" class="p-2.5 rounded-xl bg-black/60 border border-blue-500/30 text-center hover:bg-blue-950/40 transition-all flex flex-col items-center gap-1">
+                    <span class="text-sm">🌐</span>
+                    <span class="text-[10px] text-blue-200 font-semibold">Buscador</span>
+                </a>
+                <a href="#" class="p-2.5 rounded-xl bg-black/60 border border-emerald-500/30 text-center hover:bg-emerald-950/40 transition-all flex flex-col items-center gap-1">
+                    <span class="text-sm">🔄</span>
+                    <span class="text-[10px] text-emerald-200 font-semibold">Swap</span>
+                </a>
+                <a href="#" class="p-2.5 rounded-xl bg-black/60 border border-pink-500/30 text-center hover:bg-pink-950/40 transition-all flex flex-col items-center gap-1">
+                    <span class="text-sm">🛡️</span>
+                    <span class="text-[10px] text-pink-200 font-semibold">Seguridad</span>
+                </a>
+                <a href="https://figueredo56.github.io/zaard-tracker/" target="_blank" class="p-2.5 rounded-xl bg-black/60 border border-yellow-500/30 text-center hover:bg-yellow-950/40 transition-all flex flex-col items-center gap-1">
+                    <span class="text-sm">📊</span>
+                    <span class="text-[10px] text-yellow-200 font-semibold">Tracker</span>
+                </a>
+            </div>
+
         </div>
     </div>
 
-    <script src="app.js"></script>
+    <script>
+        function closeWelcomeModal() {
+            document.getElementById('welcome-modal').style.display = 'none';
+        }
+
+        // Validación real de contraseña (Contraseña configurada: ZARD2026*)
+        function handleLogin() {
+            const passInput = document.getElementById('login-pass').value.trim();
+            const correctPass = "ZARD2026*"; // Puedes cambiar la clave aquí si deseas
+
+            if (passInput === correctPass) {
+                document.getElementById('login-view').style.display = 'none';
+                document.getElementById('wallet-view').style.display = 'flex';
+            } else {
+                alert("❌ ACCESO DENEGADO: Contraseña incorrecta. Por favor ingrese la clave válida (Ej. ZARD2026*)");
+            }
+        }
+
+        function changeLanguage(lang) {
+            localStorage.setItem('zaard_wallet_lang', lang);
+            ['es', 'en', 'ar', 'zh'].forEach(l => {
+                const btn = document.getElementById(`btn-${l}`);
+                if (btn) {
+                    if (l === lang) {
+                        btn.className = "px-1.5 py-0.5 text-[9px] font-bold rounded bg-cyan-500 text-black";
+                    } else {
+                        btn.className = "px-1.5 py-0.5 text-[9px] font-bold rounded text-gray-400";
+                    }
+                }
+            });
+        }
+    </script>
 </body>
-</html>
+                    </html>
