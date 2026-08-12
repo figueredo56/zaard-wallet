@@ -65,7 +65,7 @@
                     </div>
                 </div>
 
-                <!-- Selector de Idiomas Activo -->
+                <!-- Selector de Idiomas -->
                 <div class="flex items-center gap-1 bg-black/60 border border-cyan-500/40 rounded-lg p-0.5">
                     <button onclick="changeLanguage('es')" id="btn-es" class="px-1.5 py-0.5 text-[9px] font-bold rounded bg-cyan-500 text-black">ES</button>
                     <button onclick="changeLanguage('en')" id="btn-en" class="px-1.5 py-0.5 text-[9px] font-bold rounded text-gray-400">EN</button>
@@ -74,15 +74,18 @@
                 </div>
             </div>
 
-            <button class="w-full py-2 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 text-black font-extrabold text-xs uppercase tracking-wider shadow-[0_0_12px_rgba(0,255,255,0.5)]">
-                Conectar Billetera (BSC)
-            </button>
+            <!-- Botón de Conexión de Billetera Dinámico -->
+            <div id="wallet-connect-container">
+                <button onclick="openWalletSelector()" id="connect-btn" class="w-full py-2.5 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 text-black font-extrabold text-xs uppercase tracking-wider shadow-[0_0_12px_rgba(0,255,255,0.5)] hover:scale-[1.02] transition-all">
+                    Conectar Billetera (BSC)
+                </button>
+            </div>
 
             <span id="txt-assets" class="text-xs font-bold text-cyan-400 uppercase tracking-wide block mt-1">Activos Principales</span>
 
             <div class="border border-cyan-500/40 rounded-xl p-3 bg-black/70 shadow-inner">
                 <span class="text-[11px] text-gray-300 font-medium">Balance BNB (BSC)</span>
-                <h3 class="text-lg font-mono font-bold text-cyan-300">0.0000 BNB</h3>
+                <h3 id="bnb-balance" class="text-lg font-mono font-bold text-cyan-300">0.0000 BNB</h3>
                 <span class="text-[10px] text-gray-400">≈ $0.00 USDT</span>
             </div>
 
@@ -102,34 +105,28 @@
                 Ir al Ecosistema ZAARD 🌐
             </a>
 
-            <!-- Cuadrícula de Navegación Actualizada -->
+            <!-- Cuadrícula de Navegación -->
             <div class="grid grid-cols-3 gap-2 pt-1">
-                <!-- Web (Antes Inicio) -->
                 <a href="https://figueredo56.github.io/zaard-official/" target="_blank" class="p-2.5 rounded-xl bg-black/60 border border-cyan-500/30 text-center hover:bg-cyan-950/40 transition-all flex flex-col items-center gap-1">
                     <span class="text-sm">🌐</span>
                     <span id="nav-web" class="text-[10px] text-cyan-200 font-semibold">Web</span>
                 </a>
-                <!-- Staking con aviso -->
                 <button onclick="openStakingInfo()" class="p-2.5 rounded-xl bg-black/60 border border-purple-500/30 text-center hover:bg-purple-950/40 transition-all flex flex-col items-center gap-1 w-full">
                     <span class="text-sm">💎</span>
                     <span id="nav-staking" class="text-[10px] text-purple-200 font-semibold">Staking</span>
                 </button>
-                <!-- Buscador tipo Web3 -->
                 <button onclick="openBrowserModal()" class="p-2.5 rounded-xl bg-black/60 border border-blue-500/30 text-center hover:bg-blue-950/40 transition-all flex flex-col items-center gap-1 w-full">
                     <span class="text-sm">🔍</span>
                     <span id="nav-browser" class="text-[10px] text-blue-200 font-semibold">Buscador</span>
                 </button>
-                <!-- Swap a PancakeSwap con par ZARD -->
                 <a href="https://pancakeswap.finance/swap?outputCurrency=0x...&inputCurrency=BNB" target="_blank" class="p-2.5 rounded-xl bg-black/60 border border-emerald-500/30 text-center hover:bg-emerald-950/40 transition-all flex flex-col items-center gap-1">
                     <span class="text-sm">🔄</span>
                     <span id="nav-swap" class="text-[10px] text-emerald-200 font-semibold">Swap</span>
                 </a>
-                <!-- Seguridad / Cambiar Contraseña -->
                 <button onclick="openSecuritySettings()" class="p-2.5 rounded-xl bg-black/60 border border-pink-500/30 text-center hover:bg-pink-950/40 transition-all flex flex-col items-center gap-1 w-full">
                     <span class="text-sm">🛡️</span>
                     <span id="nav-security" class="text-[10px] text-pink-200 font-semibold">Seguridad</span>
                 </button>
-                <!-- Tracker -->
                 <a href="https://figueredo56.github.io/zaard-tracker/" target="_blank" class="p-2.5 rounded-xl bg-black/60 border border-yellow-500/30 text-center hover:bg-yellow-950/40 transition-all flex flex-col items-center gap-1">
                     <span class="text-sm">📊</span>
                     <span id="nav-tracker" class="text-[10px] text-yellow-200 font-semibold">Tracker</span>
@@ -139,7 +136,32 @@
         </div>
     </div>
 
-    <!-- MODAL DE BUSCADOR WEB3 (Estilo Trust/MetaMask) -->
+    <!-- MODAL DE SELECCIÓN DE BILLETERAS (ROOM WEB3) -->
+    <div id="wallet-selector-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/85 backdrop-blur-md p-4" style="display: none;">
+        <div class="frame-gold w-full max-w-xs p-5 space-y-4 space-nebula-bg shadow-2xl text-center">
+            <div class="flex justify-between items-center border-b border-cyan-500/30 pb-2">
+                <h3 class="text-sm font-extrabold title-gradient uppercase">Conectar Billetera</h3>
+                <button onclick="closeWalletSelector()" class="text-cyan-400 font-bold text-xs px-2 py-1 bg-black/50 rounded-lg">✕</button>
+            </div>
+            <p class="text-[11px] text-cyan-200">Elige tu proveedor Web3 preferido para conectar de forma segura a la BSC:</p>
+            <div class="space-y-2">
+                <button onclick="connectProvider('metamask')" class="w-full py-2.5 px-3 bg-black/70 border border-orange-500/50 rounded-xl flex items-center gap-3 text-xs text-white font-bold hover:bg-orange-950/30 transition-all">
+                    🦊 MetaMask / Injected
+                </button>
+                <button onclick="connectProvider('binance')" class="w-full py-2.5 px-3 bg-black/70 border border-yellow-500/50 rounded-xl flex items-center gap-3 text-xs text-white font-bold hover:bg-yellow-950/30 transition-all">
+                    🟡 Binance Web3 Wallet
+                </button>
+                <button onclick="connectProvider('trust')" class="w-full py-2.5 px-3 bg-black/70 border border-blue-500/50 rounded-xl flex items-center gap-3 text-xs text-white font-bold hover:bg-blue-950/30 transition-all">
+                    🛡️ Trust Wallet
+                </button>
+                <button onclick="connectProvider('walletconnect')" class="w-full py-2.5 px-3 bg-black/70 border border-purple-500/50 rounded-xl flex items-center gap-3 text-xs text-white font-bold hover:bg-purple-950/30 transition-all">
+                    🔗 WalletConnect (Todas)
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL DE BUSCADOR WEB3 -->
     <div id="browser-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/85 backdrop-blur-md p-4" style="display: none;">
         <div class="frame-gold w-full max-w-md p-5 space-y-4 space-nebula-bg shadow-2xl">
             <div class="flex justify-between items-center border-b border-cyan-500/30 pb-2">
