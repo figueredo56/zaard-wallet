@@ -1,75 +1,70 @@
-* { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+/* ========================================================================= */
+/* ESTILOS Y VARIABLES DE ZAARD WALLET - PROTOCOLO PANGA                      */
+/* ========================================================================= */
 
-/* Fondo Espacio Sideral (Profundo con tonos morados y azules) */
-body { 
-    background: radial-gradient(circle at 50% 20%, #1c1135 0%, #0d091e 40%, #05050b 100%); 
-    color: #fff; 
-    min-height: 100vh; 
-    display: flex; 
-    flex-direction: column; 
-    align-items: center; 
-    justify-content: center; 
-    padding: 15px; 
+body {
+    background: radial-gradient(circle at 50% 20%, #2e0b4a 0%, #0d0221 50%, #03000f 100%);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    color: #fff;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    margin: 0;
+    padding: 10px;
+    user-select: none;
 }
 
-/* Animación de Borde Parpadeante Verde y Morado */
-@keyframes neonPulse {
-    0% { border-color: #00ffcc; box-shadow: 0 0 20px rgba(0, 255, 204, 0.3), inset 0 0 15px rgba(0,255,204,0.1); }
-    50% { border-color: #a259ff; box-shadow: 0 0 30px rgba(162, 89, 255, 0.5), inset 0 0 20px rgba(162,89,255,0.2); }
-    100% { border-color: #00ffcc; box-shadow: 0 0 20px rgba(0, 255, 204, 0.3), inset 0 0 15px rgba(0,255,204,0.1); }
+@keyframes triColorGlow {
+    0% {
+        border-color: #00ffff;
+        box-shadow: 0 0 25px rgba(0, 255, 255, 0.4), inset 0 0 15px rgba(0, 255, 255, 0.15);
+    }
+    33% {
+        border-color: #22c55e;
+        box-shadow: 0 0 30px rgba(34, 197, 94, 0.5), inset 0 0 15px rgba(34, 197, 94, 0.15);
+    }
+    66% {
+        border-color: #a855f7;
+        box-shadow: 0 0 35px rgba(168, 85, 247, 0.6), inset 0 0 20px rgba(168, 85, 247, 0.2);
+    }
+    100% {
+        border-color: #00ffff;
+        box-shadow: 0 0 25px rgba(0, 255, 255, 0.4), inset 0 0 15px rgba(0, 255, 255, 0.15);
+    }
 }
 
-.wallet-container { width: 100%; max-width: 420px; background: rgba(19, 26, 46, 0.95); backdrop-filter: blur(10px); border: 2px solid #00ffcc; border-radius: 20px; padding: 20px; animation: neonPulse 3s infinite; position: relative; }
+.frame-gold {
+    border: 2px solid #00ffff;
+    border-radius: 20px;
+    background: rgba(12, 6, 28, 0.92);
+    backdrop-filter: blur(16px);
+    animation: triColorGlow 6s infinite ease-in-out;
+}
 
-/* Cabecera y Logo */
-.header-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
-.wallet-title-flex { display: flex; align-items: center; gap: 10px; }
-.header-logo { width: 42px; height: 42px; border-radius: 50%; object-fit: cover; border: 2px solid #00ffcc; background: #0b0f19; flex-shrink: 0; }
-.wallet-title-flex h1 { font-size: 18px; color: #a259ff; font-weight: bold; line-height: 1; }
-.wallet-title-flex h2 { font-size: 15px; color: #fff; line-height: 1; }
-.wallet-title-flex p { font-size: 9px; color: #8a99ad; margin-top: 2px; }
+.title-gradient {
+    background: linear-gradient(135deg, #00ffff 0%, #a855f7 50%, #ffffff 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 0 0 20px rgba(168, 85, 247, 0.4);
+}
 
-.lang-container { display: flex; gap: 3px; background: rgba(11, 15, 25, 0.8); padding: 3px; border-radius: 10px; border: 1px solid #22304e; }
-.lang-btn { background: none; border: none; color: #fff; font-size: 10px; cursor: pointer; padding: 3px 5px; border-radius: 7px; }
-.lang-btn.active, .lang-btn:hover { background: #00ffcc; color: #0b0f19; font-weight: bold; }
+.space-nebula-bg {
+    background: radial-gradient(circle at 50% 30%, #4c1d95 0%, #1e1b4b 60%, #030712 100%);
+    box-shadow: inset 0 0 25px rgba(168, 85, 247, 0.25);
+}
 
-/* Botón Conectar */
-.auth-box { margin-bottom: 12px; display: flex; gap: 8px; }
-.btn-connect { flex: 1; background: linear-gradient(135deg, #00ffcc, #0077ff); color: #0b0f19; border: none; padding: 10px; border-radius: 10px; font-weight: bold; cursor: pointer; transition: 0.3s; }
-.btn-disconnect { background: #ff3366; color: #fff; border: none; padding: 10px 12px; border-radius: 10px; font-weight: bold; cursor: pointer; display: none; font-size: 12px; }
-
-/* Activos */
-.section-title { font-size: 13px; color: #00ffcc; margin-bottom: 8px; font-weight: 600; }
-.card-asset { background: rgba(27, 38, 59, 0.8); border: 1px solid #2d3e5f; border-radius: 12px; padding: 12px 14px; margin-bottom: 8px; display: flex; align-items: center; gap: 12px; }
-.asset-logo { width: 36px; height: 36px; border-radius: 50%; object-fit: cover; background: #0b0f19; flex-shrink: 0; border: 1px solid #00ffcc44; }
-.asset-info { display: flex; flex-direction: column; width: 100%; }
-.asset-info h3 { font-size: 12px; color: #a8b2d1; }
-.asset-info p { font-size: 16px; font-weight: bold; color: #00ffcc; margin-top: 1px; }
-.asset-sub { font-size: 11px; color: #8892b0; }
-
-/* Botón Ecosistema */
-.btn-ecosystem { display: block; width: 100%; text-align: center; background: linear-gradient(135deg, #a259ff, #00ffcc); color: #0b0f19; text-decoration: none; padding: 11px; border-radius: 12px; font-weight: bold; font-size: 13px; margin: 12px 0; cursor: pointer; border: none; }
-
-/* Menú */
-.nav-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; background: rgba(11, 15, 25, 0.8); padding: 10px; border-radius: 12px; border: 1px solid #22304e; }
-.nav-item { background: #162238; border: none; color: #fff; padding: 10px 5px; border-radius: 10px; font-size: 11px; display: flex; flex-direction: column; align-items: center; gap: 4px; cursor: pointer; text-decoration: none; transition: 0.2s; }
-.nav-item:hover { background: #22304e; color: #00ffcc; }
-
-/* Vistas Internas y Login */
-.sub-view { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: radial-gradient(circle at 50% 20%, #1c1135 0%, #05050b 100%); z-index: 2000; display: flex; flex-direction: column; }
-.sub-header { background: #131a2e; padding: 15px; display: flex; align-items: center; gap: 15px; border-bottom: 1px solid #22304e; }
-.back-btn { background: #162238; color: #00ffcc; border: 1px solid #00ffcc55; padding: 6px 12px; border-radius: 8px; cursor: pointer; font-weight: bold; }
-.sub-body { padding: 20px; flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; }
-
-.auth-card { background: rgba(19, 26, 46, 0.95); border: 2px solid #a259ff; padding: 30px 20px; border-radius: 20px; text-align: center; max-width: 340px; width: 90%; box-shadow: 0 0 30px rgba(162, 89, 255, 0.3); }
-.auth-logo { width: 60px; height: 60px; border-radius: 50%; margin-bottom: 15px; border: 2px solid #00ffcc; }
-.auth-card h2 { color: #a259ff; font-size: 20px; margin-bottom: 5px; }
-.auth-card p { font-size: 11px; color: #8a99ad; margin-bottom: 20px; }
-.auth-card input { width: 100%; background: #0b0f19; border: 1px solid #2d3e5f; color: #fff; padding: 10px 12px; border-radius: 10px; font-size: 13px; margin-bottom: 12px; }
-
-.staking-card { background: #131a2e; border: 2px solid #a259ff; padding: 25px; border-radius: 16px; text-align: center; max-width: 350px; }
-.staking-card h3 { color: #00ffcc; margin-bottom: 12px; font-size: 16px; }
-.staking-card p { font-size: 13px; color: #cbd5e1; line-height: 1.5; }
-
-.browser-bar input { flex: 1; background: #0b0f19; border: 1px solid #2d3e5f; color: #fff; padding: 8px 12px; border-radius: 8px; font-size: 13px; }
-.go-btn { background: #00ffcc; color: #0b0f19; border: none; padding: 8px 15px; border-radius: 8px; font-weight: bold; cursor: pointer; }
+::-webkit-scrollbar {
+    width: 5px;
+    height: 5px;
+}
+::-webkit-scrollbar-track {
+    background: #030008;
+}
+::-webkit-scrollbar-thumb {
+    background: #a855f7;
+    border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: #00ffff;
+} 
