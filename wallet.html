@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ZARD NEXUS V3.5 - ZARD INNOVATION</title>
+    <title>ZARD NEXUS V3.6 - ZARD INNOVATION</title>
     <!-- Google Fonts & FontAwesome -->
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;800;900&family=Rajdhani:wght@500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -16,6 +16,8 @@
             --neon-purple: #a855f7;
             --neon-blue: #00f3ff;
             --neon-pink: #ec4899;
+            --neon-green: #00ffcc;
+            --neon-red: #ff3366;
             --text-main: #f3f4f6;
             --text-muted: #9ca3af;
         }
@@ -117,7 +119,7 @@
 
         /* CONTENEDOR PRINCIPAL */
         .app-container {
-            max-width: 1200px;
+            max-width: 1300px;
             margin: 0 auto;
             padding: 20px;
             display: none;
@@ -292,6 +294,48 @@
             color: var(--neon-purple);
         }
 
+        /* TRACKER LAYOUT PROFESIONAL (GRÁFICO + ORDENES AL LADO Y DEBAJO) */
+        .tracker-layout {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 20px;
+        }
+
+        @media(max-width: 968px) {
+            .tracker-layout {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .order-book-box, .market-pairs-box {
+            background: #0c061a;
+            border: 1px solid var(--border-glow);
+            border-radius: 12px;
+            padding: 16px;
+            margin-top: 15px;
+        }
+
+        .order-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.85rem;
+            font-family: 'Orbitron', sans-serif;
+        }
+
+        .order-table th {
+            color: var(--text-muted);
+            text-align: left;
+            padding: 6px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .order-table td {
+            padding: 6px;
+        }
+
+        .buy-order { color: var(--neon-green); }
+        .sell-order { color: var(--neon-red); }
+
         /* SQUARE PUBLICACIONES */
         .square-input-box {
             width: 100%;
@@ -465,7 +509,7 @@
             <div class="brand-box">
                 <img src="https://photos.pinksale.finance/file/pinksale-logo-upload/1789411086014-7b67968ed9538e215f1948583ee37c7c.png" alt="Logo" onerror="this.src='https://raw.githubusercontent.com/figueredo56/zaard-official/main/logo.png'">
                 <div>
-                    <h1>ZARD NEXUS V3.5</h1>
+                    <h1>ZARD NEXUS V3.6</h1>
                     <p data-i18n="headSub">Cyber Ecosystem & Web3</p>
                 </div>
             </div>
@@ -514,13 +558,72 @@
             </div>
         </div>
 
-        <!-- PESTAÑA 2: TRACKER & VELAS EN VIVO -->
+        <!-- PESTAÑA 2: TRACKER & VELAS EN VIVO + ÓRDENES + PARES -->
         <div id="tab-tracker" class="tab-content">
-            <div class="card-grid">
-                <div class="fin-card" style="grid-column: span 2;">
-                    <h3><i class="fa-solid fa-chart-candlestick"></i> <span data-i18n="trkTitle">Gráfico de Velas en Vivo (DexScreener BSC)</span></h3>
-                    <div style="width: 100%; height: 500px; background: #0c061a; border-radius: 12px; overflow: hidden; border: 1px solid var(--border-glow);">
-                        <iframe src="https://dexscreener.com/bsc/0x973ba2c1dccd0820f1e026d6b1f01c55c4085d38?embed=1&theme=dark&trades=0&info=1" width="100%" height="100%" frameborder="0"></iframe>
+            <div class="tracker-layout">
+                <!-- Columna Izquierda: Gráfico Principal -->
+                <div>
+                    <div class="fin-card">
+                        <h3><i class="fa-solid fa-chart-candlestick"></i> <span data-i18n="trkTitle">Gráfico de Velas en Vivo (DexScreener BSC)</span></h3>
+                        <div style="width: 100%; height: 450px; background: #0c061a; border-radius: 12px; overflow: hidden; border: 1px solid var(--border-glow);">
+                            <iframe src="https://dexscreener.com/bsc/0x973ba2c1dccd0820f1e026d6b1f01c55c4085d38?embed=1&theme=dark&trades=0&info=1" width="100%" height="100%" frameborder="0"></iframe>
+                        </div>
+                    </div>
+
+                    <!-- Órdenes de Compra y Venta Debajo del Gráfico -->
+                    <div class="fin-card" style="margin-top: 20px;">
+                        <h3><i class="fa-solid fa-list-check"></i> <span data-i18n="ordersTitle">Órdenes de Compra y Venta en Vivo</span></h3>
+                        <div class="order-book-box">
+                            <table class="order-table">
+                                <thead>
+                                    <tr>
+                                        <th data-i18n="thType">Tipo</th>
+                                        <th data-i18n="thPrice">Precio (BNB)</th>
+                                        <th data-i18n="thAmount">Cantidad (ZARD)</th>
+                                        <th data-i18n="thTime">Hora</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="liveOrdersTable">
+                                    <!-- Inserción dinámica por JS -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Columna Derecha: Pares de Cambio & Libro Rápido al Lado -->
+                <div>
+                    <div class="fin-card">
+                        <h3><i class="fa-solid fa-pie-chart"></i> <span data-i18n="pairsTitle">Mercado & Pares ZARD</span></h3>
+                        <div class="market-pairs-box">
+                            <div class="data-row">
+                                <span>BNB / ZARD</span>
+                                <span style="color:var(--neon-green);">0.000112 BNB</span>
+                            </div>
+                            <div class="data-row">
+                                <span>USDT / ZARD</span>
+                                <span style="color:var(--neon-blue);">0.0645 USDT</span>
+                            </div>
+                            <div class="data-row">
+                                <span>BTC / ZARD</span>
+                                <span style="color:#F7931A;">0.00000091 BTC</span>
+                            </div>
+                        </div>
+
+                        <h3 style="margin-top: 25px; font-size: 1rem;"><i class="fa-solid fa-bolt"></i> <span data-i18n="sideBook">Libro Al Lado (Spread)</span></h3>
+                        <div class="order-book-box" style="max-height: 250px; overflow-y: auto;">
+                            <table class="order-table">
+                                <tbody>
+                                    <tr class="sell-order"><td>SELL</td><td>0.000115</td><td>12,500</td></tr>
+                                    <tr class="sell-order"><td>SELL</td><td>0.000114</td><td>8,200</td></tr>
+                                    <tr class="sell-order"><td>SELL</td><td>0.000113</td><td>15,000</td></tr>
+                                    <tr><td colspan="4" style="text-align:center; color:var(--neon-blue); font-weight:bold; border-top:1px dashed var(--border-glow); border-bottom:1px dashed var(--border-glow);">Spread Actual</td></tr>
+                                    <tr class="buy-order"><td>BUY</td><td>0.000111</td><td>20,000</td></tr>
+                                    <tr class="buy-order"><td>BUY</td><td>0.000110</td><td>45,000</td></tr>
+                                    <tr class="buy-order"><td>BUY</td><td>0.000109</td><td>10,000</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -550,7 +653,7 @@
             <div class="card-grid">
                 <div class="fin-card" style="text-align: center; padding: 40px 20px;">
                     <i class="fa-solid fa-right-left" style="font-size: 3rem; color: var(--neon-blue); margin-bottom: 20px;"></i>
-                    <h3 style="justify-content: center;">PancakeSwap DEX Exchange</h3>
+                    <h3>PancakeSwap DEX Exchange</h3>
                     <a href="https://pancakeswap.finance/swap?outputCurrency=0x973ba2c1dccd0820f1e026d6b1f01c55c4085d38" target="_blank" class="action-btn" style="display: inline-block; padding: 14px 35px; text-decoration: none;"><span data-i18n="swapBtn">Abrir PancakeSwap</span> <i class="fa-solid fa-external-link-alt"></i></a>
                 </div>
             </div>
@@ -596,6 +699,13 @@
                 sqPublish: "Publicar Ahora",
                 sqWall: "Muro de Publicaciones",
                 trkTitle: "Gráfico de Velas en Vivo (DexScreener BSC)",
+                ordersTitle: "Órdenes de Compra y Venta en Vivo",
+                pairsTitle: "Mercado & Pares ZARD",
+                sideBook: "Libro Al Lado (Spread)",
+                thType: "Tipo",
+                thPrice: "Precio (BNB)",
+                thAmount: "Cantidad (ZARD)",
+                thTime: "Hora",
                 balTitle: "Balance en tu Billetera Conectada",
                 balUpdate: "Actualizar Saldos",
                 swapBtn: "Abrir PancakeSwap",
@@ -625,6 +735,13 @@
                 sqPublish: "Publish Now",
                 sqWall: "Post Wall",
                 trkTitle: "Live Candlestick Chart (DexScreener BSC)",
+                ordersTitle: "Live Buy & Sell Orders",
+                pairsTitle: "Market & ZARD Pairs",
+                sideBook: "Side Order Book (Spread)",
+                thType: "Type",
+                thPrice: "Price (BNB)",
+                thAmount: "Amount (ZARD)",
+                thTime: "Time",
                 balTitle: "Connected Wallet Balance",
                 balUpdate: "Update Balances",
                 swapBtn: "Open PancakeSwap",
@@ -654,6 +771,13 @@
                 sqPublish: "انشر الآن",
                 sqWall: "حائط المنشورات",
                 trkTitle: "رسم بياني حي (DexScreener BSC)",
+                ordersTitle: "أوامر البيع والشراء الحية",
+                pairsTitle: "السوق وأزواج زارد",
+                sideBook: "دفتر الأوامر الجانبي",
+                thType: "النوع",
+                thPrice: "السعر (BNB)",
+                thAmount: "الكمية (ZARD)",
+                thTime: "الوقت",
                 balTitle: "رصيد المحفظة المتصلة",
                 balUpdate: "تحديث الأرصدة",
                 swapBtn: "فتح PancakeSwap",
@@ -683,6 +807,13 @@
                 sqPublish: "立即发布",
                 sqWall: "动态墙",
                 trkTitle: "实时 K 线图 (DexScreener BSC)",
+                ordersTitle: "实时买卖订单",
+                pairsTitle: "市场与 ZARD 交易对",
+                sideBook: "侧边订单薄 (Spread)",
+                thType: "类型",
+                thPrice: "价格 (BNB)",
+                thAmount: "数量 (ZARD)",
+                thTime: "时间",
                 balTitle: "已连接钱包余额",
                 balUpdate: "更新余额",
                 swapBtn: "打开 PancakeSwap",
@@ -698,6 +829,7 @@
 
         window.addEventListener('DOMContentLoaded', () => {
             cargarPublicaciones();
+            generarOrdenesSimuladas();
             cambiarIdiomaSelect('es');
             if (typeof window.ethereum !== 'undefined') {
                 window.ethereum.request({ method: 'eth_accounts' }).then(accounts => {
@@ -719,7 +851,6 @@
                 bodyEl.setAttribute('dir', 'ltr');
             }
 
-            // Traducir elementos con data-i18n
             document.querySelectorAll('[data-i18n]').forEach(el => {
                 const key = el.getAttribute('data-i18n');
                 if (dictionary[lang] && dictionary[lang][key]) {
@@ -727,7 +858,6 @@
                 }
             });
 
-            // Traducir placeholders
             document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
                 const key = el.getAttribute('data-i18n-placeholder');
                 if (dictionary[lang] && dictionary[lang][key]) {
@@ -750,6 +880,33 @@
             document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
             document.getElementById(tabId).classList.add('active');
             evt.currentTarget.classList.add('active');
+        }
+
+        // GENERADOR DE ÓRDENES EN VIVO DEBAJO
+        function generarOrdenesSimuladas() {
+            const tbody = document.getElementById('liveOrdersTable');
+            if(!tbody) return;
+            const tipos = [
+                {tipo: 'BUY', clase: 'buy-order'},
+                {tipo: 'SELL', clase: 'sell-order'}
+            ];
+            let html = '';
+            for(let i = 0; i < 6; i++) {
+                const randType = tipos[Math.floor(Math.random() * tipos.length)];
+                const precio = (0.000100 + Math.random() * 0.000020).toFixed(6);
+                const cantidad = (Math.floor(Math.random() * 50) + 5) * 1000;
+                const hora = new Date(Date.now() - i * 45000).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit', second:'2-digit'});
+                
+                html += `
+                    <tr>
+                        <td class="${randType.clase}" style="font-weight:bold;">${randType.tipo}</td>
+                        <td>${precio}</td>
+                        <td>${cantidad.toLocaleString()}</td>
+                        <td style="color:var(--text-muted);">${hora}</td>
+                    </tr>
+                `;
+            }
+            tbody.innerHTML = html;
         }
 
         // CONEXIÓN WALLET
