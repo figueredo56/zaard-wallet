@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ZARD NEXUS V3.4 - ZARD INNOVATION</title>
+    <title>ZARD NEXUS V3.5 - ZARD INNOVATION</title>
     <!-- Google Fonts & FontAwesome -->
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;800;900&family=Rajdhani:wght@500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -332,7 +332,6 @@
             margin-top: 15px;
         }
 
-        /* IMAGEN SIN CORTES (object-fit contain y altura automática adaptable) */
         .post-card img {
             width: 100%;
             max-height: 450px;
@@ -344,11 +343,11 @@
             display: block;
         }
 
-        /* MODAL WALLET */
+        /* MODAL DE WALLET ESTILO PINGSALE / DEEP LINK */
         #wallet-modal {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.8);
+            background: rgba(0,0,0,0.85);
             display: none;
             justify-content: center;
             align-items: center;
@@ -360,7 +359,7 @@
             padding: 30px;
             border-radius: 20px;
             width: 90%;
-            max-width: 400px;
+            max-width: 420px;
             text-align: center;
             box-shadow: 0 0 40px var(--neon-purple);
         }
@@ -370,7 +369,7 @@
             color: #fff;
             padding: 15px;
             border-radius: 12px;
-            margin: 10px 0;
+            margin: 12px 0;
             cursor: pointer;
             font-family: 'Orbitron', sans-serif;
             font-weight: bold;
@@ -400,14 +399,25 @@
         <button class="enter-btn" onclick="entrarNexus()"><i class="fa-solid fa-rocket"></i> INGRESAR AL NEXUS</button>
     </div>
 
-    <!-- MODAL SELECCIÓN DE WALLET -->
+    <!-- MODAL SELECCIÓN DE WALLET (ESTILO PINKINGSALE / DEEP LINK) -->
     <div id="wallet-modal">
         <div class="modal-box">
-            <h3 style="font-family:'Orbitron'; color:var(--neon-blue); margin-bottom:20px;">Conectar Web3 Wallet</h3>
-            <p style="color:var(--text-muted); font-size:0.85rem; margin-bottom:15px;">Selecciona tu proveedor para enviar la solicitud de permiso directo:</p>
-            <div class="wallet-option" onclick="conectarWeb3Directo()">
-                <i class="fa-solid fa-cube" style="color:#f6851b; font-size:1.5rem;"></i> <span>MetaMask / Trust / Injected</span>
+            <h3 style="font-family:'Orbitron'; color:var(--neon-blue); margin-bottom:10px;">Conectar Billetera Web3</h3>
+            <p style="color:var(--text-muted); font-size:0.85rem; margin-bottom:20px;">Abre tu app externa (Binance, Trust, MetaMask), firma el permiso y vuelve aquí automáticamente:</p>
+            
+            <div class="wallet-option" onclick="conectarPorDeepLink('binance')">
+                <i class="fa-solid fa-globe" style="color:#F0B90B; font-size:1.5rem;"></i> <span>Binance Web3 App</span>
             </div>
+            <div class="wallet-option" onclick="conectarPorDeepLink('trust')">
+                <i class="fa-solid fa-shield-halved" style="color:#3375bb; font-size:1.5rem;"></i> <span>Trust Wallet</span>
+            </div>
+            <div class="wallet-option" onclick="conectarPorDeepLink('metamask')">
+                <i class="fa-solid fa-cube" style="color:#f6851b; font-size:1.5rem;"></i> <span>MetaMask App</span>
+            </div>
+            <div class="wallet-option" onclick="conectarInyectadoLocal()">
+                <i class="fa-solid fa-bolt" style="color:var(--neon-blue); font-size:1.5rem;"></i> <span>Navegador Interno / Inyectado</span>
+            </div>
+
             <button onclick="cerrarModal()" style="background:transparent; border:none; color:var(--text-muted); margin-top:15px; cursor:pointer;">Cancelar</button>
         </div>
     </div>
@@ -420,7 +430,7 @@
             <div class="brand-box">
                 <img src="https://photos.pinksale.finance/file/pinksale-logo-upload/1789411086014-7b67968ed9538e215f1948583ee37c7c.png" alt="Logo">
                 <div>
-                    <h1>ZARD NEXUS V3.4</h1>
+                    <h1>ZARD NEXUS V3.5</h1>
                     <p>Cyber Ecosystem & Web3</p>
                 </div>
             </div>
@@ -560,7 +570,7 @@
             evt.currentTarget.classList.add('active');
         }
 
-        /* CONEXIÓN WEB3 DIRECTA (LANZA PERMISO POPUP NATIVO EN LA APP) */
+        /* SISTEMA DE CONEXIÓN DEEP LINK (ESTILO PINGSALE / BINDING EXTERNO) */
         function abrirModalWallet() {
             document.getElementById('wallet-modal').style.display = 'flex';
         }
@@ -568,21 +578,38 @@
             document.getElementById('wallet-modal').style.display = 'none';
         }
 
-        async function conectarWeb3Directo() {
+        function conectarPorDeepLink(walletType) {
+            cerrarModal();
+            const currentUrl = window.location.href;
+            let deepLinkUrl = "";
+
+            // Redirección profunda exacta para abrir la app oficial externa y retornar al sitio web tras firmar
+            if (walletType === 'binance') {
+                deepLinkUrl = `https://app.binance.com/en/download?ref=app_browser&url=${encodeURIComponent(currentUrl)}`;
+            } else if (walletType === 'trust') {
+                deepLinkUrl = `https://link.trustwallet.com/open_url?coin_id=20000714&url=${encodeURIComponent(currentUrl)}`;
+            } else if (walletType === 'metamask') {
+                deepLinkUrl = `https://metamask.app.link/dapp/${currentUrl.replace(/^https?:\/\//, '')}`;
+            }
+
+            // Abre el enlace externo de la app de la wallet
+            window.location.href = deepLinkUrl;
+        }
+
+        async function conectarInyectadoLocal() {
             cerrarModal();
             if (typeof window.ethereum !== 'undefined') {
                 try {
-                    // Envía el comando eth_requestAccounts que obliga a la wallet (MetaMask/Trust/Binance) a sacar su ventanita de permiso al usuario
                     const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
                     cuentaActual = accounts[0];
                     mostrarWalletConectada(cuentaActual);
                     consultarSaldosReal();
                 } catch (error) {
                     console.error(error);
-                    alert("El usuario rechazó la conexión o la billetera está ocupada.");
+                    alert("Conexión rechazada por el usuario.");
                 }
             } else {
-                alert("Abre esta página desde el navegador integrado (dApp Browser) de tu MetaMask, Trust Wallet o Binance Web3 para conectar directamente.");
+                alert("No se detectó un proveedor Web3 inyectado. Usa los accesos directos de Binance, Trust o MetaMask de arriba.");
             }
         }
 
