@@ -5,16 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ZARD NEXUS V3.2 - ZARD INNOVATION</title>
     <!-- Google Fonts & FontAwesome -->
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;800&family=Rajdhani:wght@500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;800;900&family=Rajdhani:wght@500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
         :root {
-            --bg-deep: #030712;
-            --bg-card: rgba(13, 20, 38, 0.75);
-            --border-glow: rgba(212, 175, 55, 0.4);
-            --gold: #d4af37;
-            --cyan: #00f3ff;
+            --bg-deep: #05020a;
+            --bg-card: rgba(18, 10, 35, 0.85);
+            --border-glow: rgba(168, 85, 247, 0.4);
+            --neon-purple: #a855f7;
+            --neon-blue: #00f3ff;
+            --neon-pink: #ec4899;
             --text-main: #f3f4f6;
             --text-muted: #9ca3af;
         }
@@ -31,23 +32,25 @@
             color: var(--text-main);
             min-height: 100vh;
             overflow-x: hidden;
-            background-image: radial-gradient(circle at 50% 10%, #111b33 0%, var(--bg-deep) 70%);
+            background-image: radial-gradient(circle at 50% 10%, #1a0b36 0%, var(--bg-deep) 70%);
         }
 
-        /* EFECTO WOW BIENVENIDA */
+        /* BIENVENIDA MAJESTUOSA (EFECTO WOW) */
         #welcome-screen {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: #000;
+            background: #030107;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             z-index: 9999;
             transition: opacity 0.8s ease, visibility 0.8s ease;
+            padding: 20px;
+            text-align: center;
         }
 
         #welcome-screen.fade-out {
@@ -56,155 +59,170 @@
         }
 
         .welcome-logo {
-            width: 160px;
-            height: 160px;
+            width: 180px;
+            height: 180px;
             border-radius: 50%;
-            border: 3px solid var(--gold);
-            box-shadow: 0 0 30px var(--cyan), inset 0 0 20px var(--gold);
-            animation: pulseLogo 2s infinite alternate;
-            margin-bottom: 20px;
+            border: 3px solid var(--neon-blue);
+            box-shadow: 0 0 50px var(--neon-purple), inset 0 0 30px var(--neon-blue);
+            animation: majesticPulse 2.5s infinite alternate;
+            margin-bottom: 25px;
             object-fit: cover;
         }
 
         .welcome-title {
             font-family: 'Orbitron', sans-serif;
-            font-size: 1.8rem;
-            color: var(--gold);
-            text-align: center;
-            letter-spacing: 3px;
-            margin-bottom: 10px;
-            text-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
+            font-size: 2.2rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, var(--neon-blue), var(--neon-purple), var(--neon-pink));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: 4px;
+            margin-bottom: 15px;
+            text-shadow: 0 0 20px rgba(168, 85, 247, 0.4);
         }
 
         .welcome-sub {
-            color: var(--cyan);
-            font-size: 1.1rem;
-            margin-bottom: 30px;
-            letter-spacing: 1px;
+            color: var(--text-muted);
+            font-size: 1.15rem;
+            margin-bottom: 35px;
+            letter-spacing: 2px;
+            max-width: 500px;
         }
 
         .enter-btn {
-            background: linear-gradient(135deg, var(--gold), #b8860b);
-            color: #000;
+            background: linear-gradient(135deg, var(--neon-purple), var(--neon-blue));
+            color: #fff;
             border: none;
-            padding: 12px 35px;
+            padding: 14px 40px;
             font-family: 'Orbitron', sans-serif;
             font-weight: 800;
-            font-size: 1rem;
-            border-radius: 30px;
+            font-size: 1.1rem;
+            border-radius: 35px;
             cursor: pointer;
-            box-shadow: 0 0 20px rgba(212, 175, 55, 0.6);
+            box-shadow: 0 0 30px rgba(0, 243, 255, 0.5);
             transition: 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 2px;
         }
 
         .enter-btn:hover {
-            transform: scale(1.05);
-            box-shadow: 0 0 30px var(--cyan);
+            transform: scale(1.08);
+            box-shadow: 0 0 50px var(--neon-purple);
         }
 
-        @keyframes pulseLogo {
-            0% { transform: scale(0.95); box-shadow: 0 0 20px var(--cyan); }
-            100% { transform: scale(1.05); box-shadow: 0 0 40px var(--gold); }
+        @keyframes majesticPulse {
+            0% { transform: scale(0.95); box-shadow: 0 0 30px var(--neon-purple); }
+            100% { transform: scale(1.05); box-shadow: 0 0 60px var(--neon-blue); }
         }
 
         /* CONTENEDOR PRINCIPAL */
         .app-container {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 15px;
+            padding: 20px;
             display: none;
         }
 
-        /* CABECERA ESTILO BINANCE */
+        /* CABECERA ESTILO BINANCE NEO */
         header {
             display: flex;
             justify-content: space-between;
             align-items: center;
             background: var(--bg-card);
             border: 1px solid var(--border-glow);
-            padding: 12px 20px;
-            border-radius: 12px;
-            backdrop-filter: blur(10px);
-            margin-bottom: 20px;
+            padding: 15px 25px;
+            border-radius: 16px;
+            backdrop-filter: blur(12px);
+            margin-bottom: 25px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
             flex-wrap: wrap;
-            gap: 10px;
+            gap: 15px;
         }
 
         .brand-box {
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 15px;
         }
 
         .brand-box img {
-            width: 45px;
-            height: 45px;
+            width: 50px;
+            height: 50px;
             border-radius: 50%;
-            border: 2px solid var(--gold);
+            border: 2px solid var(--neon-blue);
+            box-shadow: 0 0 15px var(--neon-purple);
         }
 
         .brand-box h1 {
             font-family: 'Orbitron', sans-serif;
-            font-size: 1.2rem;
-            color: var(--gold);
+            font-size: 1.3rem;
+            color: var(--neon-blue);
+            letter-spacing: 1px;
         }
 
         .brand-box p {
-            font-size: 0.75rem;
+            font-size: 0.8rem;
             color: var(--text-muted);
+            letter-spacing: 0.5px;
         }
 
         .controls-bar {
             display: flex;
-            gap: 10px;
+            gap: 12px;
             align-items: center;
         }
 
         select, .wallet-btn {
-            background: #0b1329;
+            background: #0c061a;
             color: var(--text-main);
             border: 1px solid var(--border-glow);
-            padding: 8px 12px;
-            border-radius: 8px;
-            font-size: 0.9rem;
+            padding: 10px 16px;
+            border-radius: 10px;
+            font-size: 0.95rem;
             outline: none;
             cursor: pointer;
+            transition: 0.3s;
+        }
+
+        select:hover, .wallet-btn:hover {
+            border-color: var(--neon-blue);
         }
 
         .wallet-btn {
-            background: linear-gradient(135deg, rgba(212, 175, 55, 0.2), rgba(0, 243, 255, 0.2));
-            color: var(--gold);
+            background: linear-gradient(135deg, rgba(168, 85, 247, 0.3), rgba(0, 243, 255, 0.3));
+            color: var(--neon-blue);
             font-weight: 700;
             font-family: 'Orbitron', sans-serif;
+            box-shadow: 0 0 15px rgba(0, 243, 255, 0.2);
         }
 
-        /* PESTAÑAS (TABS) */
+        /* PESTAÑAS (TABS) SUPERIORES */
         .tabs-nav {
             display: flex;
-            gap: 8px;
+            gap: 10px;
             overflow-x: auto;
-            padding-bottom: 8px;
-            margin-bottom: 20px;
+            padding-bottom: 10px;
+            margin-bottom: 25px;
         }
 
         .tab-btn {
-            background: rgba(13, 20, 38, 0.5);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(18, 10, 35, 0.6);
+            border: 1px solid rgba(168, 85, 247, 0.2);
             color: var(--text-muted);
-            padding: 10px 18px;
-            border-radius: 8px;
+            padding: 12px 22px;
+            border-radius: 12px;
             font-family: 'Orbitron', sans-serif;
-            font-size: 0.85rem;
+            font-size: 0.9rem;
             white-space: nowrap;
             cursor: pointer;
             transition: 0.3s;
         }
 
         .tab-btn.active, .tab-btn:hover {
-            background: rgba(0, 243, 255, 0.1);
-            color: var(--cyan);
-            border-color: var(--cyan);
-            box-shadow: 0 0 15px rgba(0, 243, 255, 0.2);
+            background: rgba(0, 243, 255, 0.15);
+            color: var(--neon-blue);
+            border-color: var(--neon-blue);
+            box-shadow: 0 0 20px rgba(0, 243, 255, 0.3);
         }
 
         /* CONTENIDO DE LAS PESTAÑAS */
@@ -218,78 +236,125 @@
         }
 
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(5px); }
+            from { opacity: 0; transform: translateY(8px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* TARJETAS ESTILO CUADRO FINO */
+        /* CUADROS FINOS ESTILO BINANCE */
         .card-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 15px;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 20px;
         }
 
         .fin-card {
             background: var(--bg-card);
             border: 1px solid var(--border-glow);
-            border-radius: 12px;
-            padding: 20px;
-            backdrop-filter: blur(10px);
-            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+            border-radius: 16px;
+            padding: 24px;
+            backdrop-filter: blur(12px);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
         }
 
         .fin-card h3 {
             font-family: 'Orbitron', sans-serif;
-            font-size: 1rem;
-            color: var(--gold);
-            margin-bottom: 15px;
+            font-size: 1.1rem;
+            color: var(--neon-blue);
+            margin-bottom: 20px;
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 10px;
         }
 
         .data-row {
             display: flex;
             justify-content: space-between;
-            margin-bottom: 10px;
-            font-size: 0.95rem;
+            margin-bottom: 12px;
+            font-size: 1rem;
             border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-            padding-bottom: 6px;
+            padding-bottom: 8px;
         }
 
         .data-row span:last-child {
             font-weight: 700;
-            color: var(--cyan);
+            color: var(--neon-purple);
         }
 
-        /* BUSCADOR Y ENLACES */
-        .search-box-container {
-            display: flex;
-            gap: 10px;
-            margin-top: 15px;
-        }
-
-        .search-box-container input {
-            flex: 1;
-            background: #0b1329;
+        /* FORMULARIO SQUARE (PUBLICACIONES CON IMÁGENES) */
+        .square-input-box {
+            width: 100%;
+            background: #0c061a;
             border: 1px solid var(--border-glow);
-            padding: 10px;
-            border-radius: 8px;
+            border-radius: 12px;
+            padding: 14px;
+            color: #fff;
+            height: 100px;
+            outline: none;
+            resize: none;
+            font-size: 1rem;
+            margin-bottom: 15px;
+        }
+
+        .file-upload-label {
+            display: inline-block;
+            background: rgba(168, 85, 247, 0.2);
+            border: 1px dashed var(--neon-purple);
+            color: var(--neon-blue);
+            padding: 10px 18px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+            transition: 0.3s;
+        }
+
+        .file-upload-label:hover {
+            background: rgba(0, 243, 255, 0.2);
+            border-color: var(--neon-blue);
+        }
+
+        /* BUSCADOR WEB INTERNET */
+        .search-engine-box {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .search-engine-box input {
+            flex: 1;
+            background: #0c061a;
+            border: 1px solid var(--border-glow);
+            padding: 14px;
+            border-radius: 12px;
             color: var(--text-main);
             outline: none;
+            font-size: 1rem;
         }
 
-        .search-box-container button {
-            background: var(--gold);
+        .search-engine-box input:focus {
+            border-color: var(--neon-blue);
+            box-shadow: 0 0 15px rgba(0, 243, 255, 0.3);
+        }
+
+        .action-btn {
+            background: linear-gradient(135deg, var(--neon-purple), var(--neon-blue));
+            color: #fff;
             border: none;
-            padding: 0 20px;
-            border-radius: 8px;
+            padding: 0 25px;
+            border-radius: 12px;
+            font-family: 'Orbitron', sans-serif;
             font-weight: bold;
             cursor: pointer;
-            color: #000;
+            transition: 0.3s;
+            box-shadow: 0 0 15px rgba(168, 85, 247, 0.4);
         }
 
-        /* RESPONSIVE MÓVIL PERFECTO */
+        .action-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 25px var(--neon-blue);
+        }
+
+        /* RESPONSIVE MÓVIL */
         @media(max-width: 768px) {
             header {
                 flex-direction: column;
@@ -303,11 +368,11 @@
 </head>
 <body>
 
-    <!-- PANTALLA DE BIENVENIDA WOW -->
+    <!-- BIENVENIDA MAJESTUOSA (EFECTO WOW CON TU LOGO EXACTO) -->
     <div id="welcome-screen">
-        <img src="https://i.postimg.cc/85z1g51F/logo.png" alt="ZARD Logo" class="welcome-logo" onerror="this.src='https://raw.githubusercontent.com/figueredo56/zaard-tracker/main/logo.png'">
+        <img src="https://photos.pinksale.finance/file/pinksale-logo-upload/1789411086014-7b67968ed9538e215f1948583ee37c7c.png" alt="ZARD Logo" class="welcome-logo">
         <div class="welcome-title">ZARD INNOVATION</div>
-        <div class="welcome-sub" id="txt-welcome-sub">Renacimiento & Inteligencia Artificial</div>
+        <div class="welcome-sub" id="txt-welcome-sub">Renacimiento Cibernético & Inteligencia Artificial</div>
         <button class="enter-btn" onclick="entrarNexus()"><i class="fa-solid fa-rocket"></i> <span id="txt-enter">INGRESAR AL NEXUS</span></button>
     </div>
 
@@ -317,10 +382,10 @@
         <!-- CABECERA -->
         <header>
             <div class="brand-box">
-                <img src="https://i.postimg.cc/85z1g51F/logo.png" alt="Logo" onerror="this.src='https://raw.githubusercontent.com/figueredo56/zaard-tracker/main/logo.png'">
+                <img src="https://photos.pinksale.finance/file/pinksale-logo-upload/1789411086014-7b67968ed9538e215f1948583ee37c7c.png" alt="Logo">
                 <div>
                     <h1>ZARD NEXUS V3.2</h1>
-                    <p>Cyber Wallet Web3 & Square</p>
+                    <p>Cyber Ecosystem & Web3</p>
                 </div>
             </div>
             <div class="controls-bar">
@@ -330,76 +395,90 @@
                     <option value="ar">🇸🇦 AR</option>
                     <option value="zh">🇨🇳 ZH</option>
                 </select>
-                <button class="wallet-btn" onclick="conectarWallet()"><i class="fa-solid fa-wallet"></i> Conectar</button>
+                <button class="wallet-btn" onclick="conectarWallet()"><i class="fa-solid fa-wallet"></i> Conectar Wallet</button>
             </div>
         </header>
 
         <!-- NAVEGACIÓN POR PESTAÑAS (TABS) -->
         <div class="tabs-nav">
-            <button class="tab-btn active" onclick="switchTab(event, 'tab-trade')"><i class="fa-solid fa-chart-line"></i> Trade & Velas</button>
-            <button class="tab-btn" onclick="switchTab(event, 'tab-searcher')"><i class="fa-solid fa-magnifying-glass"></i> Buscador Web3</button>
-            <button class="tab-btn" onclick="switchTab(event, 'tab-square')"><i class="fa-solid fa-comments"></i> ZARD Square</button>
-            <button class="tab-btn" onclick="switchTab(event, 'tab-pool')"><i class="fa-solid fa-water"></i> Liquidity Pool</button>
+            <button class="tab-btn active" onclick="switchTab(event, 'tab-square')"><i class="fa-solid fa-comments"></i> ZARD Square</button>
+            <button class="tab-btn" onclick="switchTab(event, 'tab-tracker')"><i class="fa-solid fa-chart-line"></i> Tracker & Velas</button>
+            <button class="tab-btn" onclick="switchTab(event, 'tab-swap')"><i class="fa-solid fa-right-left"></i> Cambiar / Swap</button>
+            <button class="tab-btn" onclick="switchTab(event, 'tab-browser')"><i class="fa-solid fa-globe"></i> Buscador Web</button>
         </div>
 
-        <!-- PESTAÑA 1: TRADE & VELAS -->
-        <div id="tab-trade" class="tab-content active">
-            <div class="card-grid">
-                <div class="fin-card">
-                    <h3><i class="fa-solid fa-chart-candlestick"></i> ZARD / USDT (M15)</h3>
-                    <div class="data-row"><span>Máx 24h:</span><span>$0.051 USD</span></div>
-                    <div class="data-row"><span>Mín 24h:</span><span>$0.039 USD</span></div>
-                    <div class="data-row"><span>Volumen:</span><span>$1,482,900</span></div>
-                    <div class="data-row"><span>Precio Actual:</span><span>$0.04825 USD (+18.4%)</span></div>
-                </div>
-                <div class="fin-card">
-                    <h3><i class="fa-solid fa-book-open"></i> Órdenes de Compra / Venta</h3>
-                    <div class="data-row" style="color:#ff4d4d;"><span>Ventas (Ask):</span><span>0.0483024 ZARD</span></div>
-                    <div class="data-row" style="color:#ff4d4d;"><span></span><span>0.0482812 ZARD</span></div>
-                    <div class="data-row" style="color:#00ffcc;"><span>Compras (Bid):</span><span>0.0482418 ZARD</span></div>
-                    <div class="data-row" style="color:#00ffcc;"><span></span><span>0.0482250 ZARD</span></div>
-                </div>
-            </div>
-        </div>
-
-        <!-- PESTAÑA 2: BUSCADOR WEB3 -->
-        <div id="tab-searcher" class="tab-content">
+        <!-- PESTAÑA 1: ZARD SQUARE (PUBLICACIONES CON IMÁGENES) -->
+        <div id="tab-square" class="tab-content active">
             <div class="card-grid">
                 <div class="fin-card" style="grid-column: span 2;">
-                    <h3><i class="fa-solid fa-globe"></i> Buscador Web3 ZARD</h3>
-                    <p style="color:var(--text-muted); font-size: 0.9rem; margin-bottom: 10px;">Conéctate instantáneamente a la red descentralizada, busca contratos, dApps o proyectos.</p>
-                    <div class="search-box-container">
-                        <input type="text" placeholder="Busca contrato (ej. 0x973b...)">
-                        <button onclick="alert('Buscando contrato en BSC...')">Buscar</button>
+                    <h3><i class="fa-solid fa-pen-nib"></i> Crear Publicación en ZARD Square</h3>
+                    <textarea class="square-input-box" placeholder="¿Qué está pasando en el ecosistema ZARD? Comparte tu análisis, meme o proyecto..."></textarea>
+                    
+                    <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
+                        <label class="file-upload-label">
+                            <i class="fa-solid fa-image"></i> Adjuntar Imagen / Meme <input type="file" accept="image/*" style="display: none;">
+                        </label>
+                        <button class="action-btn" style="padding: 10px 30px;" onclick="alert('¡Publicación enviada al feed de ZARD Square con éxito!')">Publicar Ahora</button>
                     </div>
-                    <div style="margin-top: 20px;">
-                        <div class="data-row"><span>Contrato Oficial:</span><span style="font-size: 0.8rem;">0x973ba2c1dccd0820f1e026d6b1f01c55c4085d38</span></div>
-                        <div class="data-row"><span>Estado BscScan:</span><span style="color:#00ffcc;">Verificado BSC (BEP-20)</span></div>
+                </div>
+
+                <div class="fin-card">
+                    <h3><i class="fa-solid fa-bullhorn"></i> Feed Comunidad</h3>
+                    <p style="color:var(--text-muted); font-size: 0.95rem;">Explora las últimas novedades compartidas por creadores y traders del ecosistema.</p>
+                    <div style="margin-top: 15px; border-left: 2px solid var(--neon-blue); padding-left: 10px;">
+                        <strong style="color:var(--neon-blue);">ZARD Creator</strong>
+                        <p style="font-size: 0.9rem; color: #d1d5db; margin-top: 5px;">¡Nueva quema de tokens completada en BSC! Seguimos avanzando rumbo al renacimiento cibernético. 🚀</p>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- PESTAÑA 3: ZARD SQUARE -->
-        <div id="tab-square" class="tab-content">
+        <!-- PESTAÑA 2: TRACKER & VELAS EN VIVO -->
+        <div id="tab-tracker" class="tab-content">
             <div class="card-grid">
                 <div class="fin-card">
-                    <h3><i class="fa-solid fa-pen-nib"></i> ZARD Creator Square</h3>
-                    <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 15px;">¿Qué está pasando en el ecosistema ZARD? Comparte tus ideas con la comunidad.</p>
-                    <textarea style="width:100%; background:#0b1329; border:1px solid var(--border-glow); border-radius:8px; padding:10px; color:#fff; height:80px; outline:none;" placeholder="Escribe tu publicación..."></textarea>
-                    <button class="enter-btn" style="margin-top: 10px; padding: 8px 20px; font-size: 0.85rem;" onclick="alert('Publicado con éxito en Square')">Publicar</button>
+                    <h3><i class="fa-solid fa-chart-candlestick"></i> ZARD / USDT (Gráfico en Vivo M15)</h3>
+                    <div class="data-row"><span>Precio Actual:</span><span>$0.04825 USD</span></div>
+                    <div class="data-row"><span>Cambio 24h:</span><span style="color:#00ffcc;">+18.4% 📈</span></div>
+                    <div class="data-row"><span>Máx / Mín 24h:</span><span>$0.051 / $0.039</span></div>
+                    <div class="data-row"><span>Volumen Total:</span><span>$1,482,900</span></div>
+                </div>
+                <div class="fin-card">
+                    <h3><i class="fa-solid fa-list-check"></i> Órdenes de Compra y Venta (Order Book)</h3>
+                    <div class="data-row" style="color:#ff4d4d;"><span>Venta (Ask): 0.04830</span><span>12,500 ZARD</span></div>
+                    <div class="data-row" style="color:#ff4d4d;"><span>Venta (Ask): 0.04828</span><span>8,400 ZARD</span></div>
+                    <div class="data-row" style="color:#00ffcc;"><span>Compra (Bid): 0.04824</span><span>15,000 ZARD</span></div>
+                    <div class="data-row" style="color:#00ffcc;"><span>Compra (Bid): 0.04822</span><span>22,100 ZARD</span></div>
                 </div>
             </div>
         </div>
 
-        <!-- PESTAÑA 4: LIQUIDITY POOL -->
-        <div id="tab-pool" class="tab-content">
+        <!-- PESTAÑA 3: CAMBIAR / SWAP (LLEVA A PANCAKESWAP) -->
+        <div id="tab-swap" class="tab-content">
             <div class="card-grid">
-                <div class="fin-card">
-                    <h3><i class="fa-solid fa-water"></i> PancakeSwap Liquidity V2</h3>
-                    <div class="data-row"><span>Par:</span><span>ZARD / BNB</span></div>
-                    <div class="data-row"><span>Liquidez Total:</span><span>$48,290 USD</span></div>
-                    <div class="data-row"><span>Bloqueo LP:</span><span>Mudra Manager / Verificado</span></div>
+                <div class="fin-card" style="text-align: center; padding: 40px 20px;">
+                    <i class="fa-solid fa-right-left" style="font-size: 3rem; color: var(--neon-blue); margin-bottom: 20px;"></i>
+                    <h3 style="justify-content: center;">PancakeSwap DEX Exchange</h3>
+                    <p style="color: var(--text-muted); margin-bottom: 25px; font-size: 1.05rem;">Realiza tus intercambios (Comprar y Vender ZARD) de forma instantánea, segura y con la tarifa más baja de la red BNB Smart Chain.</p>
+                    <a href="https://pancakeswap.finance/swap?outputCurrency=0x973ba2c1dccd0820f1e026d6b1f01c55c4085d38" target="_blank" class="action-btn" style="display: inline-block; padding: 14px 35px; text-decoration: none;">Abrir PancakeSwap Oficial <i class="fa-solid fa-external-link-alt"></i></a>
+                </div>
+            </div>
+        </div>
+
+        <!-- PESTAÑA 4: BUSCADOR WEB (CONECTADO A INTERNET) -->
+        <div id="tab-browser" class="tab-content">
+            <div class="card-grid">
+                <div class="fin-card" style="grid-column: span 2;">
+                    <h3><i class="fa-solid fa-globe"></i> Buscador Web Descentralizado ZARD</h3>
+                    <p style="color:var(--text-muted); font-size: 0.95rem; margin-bottom: 15px;">Navega por la red o busca contratos inteligentes, dApps, noticias y proyectos en internet de forma instantánea.</p>
+                    <div class="search-engine-box">
+                        <input type="text" id="webSearchInput" placeholder="Busca en la web o introduce dirección de contrato (ej. 0x973b...)">
+                        <button class="action-btn" onclick="buscarEnInternet()">Buscar</button>
+                    </div>
+                    <div style="background: #0c061a; border-radius: 10px; padding: 15px; border: 1px solid rgba(255,255,255,0.05);">
+                        <span style="font-size: 0.85rem; color: var(--neon-blue);"><i class="fa-solid fa-shield-halved"></i> Contrato Oficial Verificado:</span>
+                        <p style="font-size: 0.85rem; color: #fff; word-break: break-all; margin-top: 5px;">0x973ba2c1dccd0820f1e026d6b1f01c55c4085d38 (BscScan)</p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -407,7 +486,7 @@
     </div>
 
     <script>
-        // Transición de Bienvenida (Efecto Wow)
+        // Transición de Bienvenida (Efecto Wow Majestuoso)
         function entrarNexus() {
             const welcome = document.getElementById('welcome-screen');
             const app = document.getElementById('main-app');
@@ -428,6 +507,16 @@
 
             document.getElementById(tabId).classList.add('active');
             evt.currentTarget.classList.add('active');
+        }
+
+        // Buscador web hacia Google o exploradores
+        function buscarEnInternet() {
+            const query = document.getElementById('webSearchInput').value;
+            if(query.trim() !== "") {
+                window.open('https://www.google.com/search?q=' + encodeURIComponent(query), '_blank');
+            } else {
+                alert("Por favor escribe algo para buscar.");
+            }
         }
 
         // Simulación de Conexión de Wallet
