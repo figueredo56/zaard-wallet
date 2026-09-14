@@ -1,700 +1,448 @@
 <!DOCTYPE html>
-<html lang="es" class="dark">
+<html lang="es" dir="ltr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ZARD Innovation - Web3 Cyber Nexus & Binance-Style Feed</title>
-    <!-- Tailwind CSS CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            darkMode: 'class',
-            theme: {
-                extend: {
-                    colors: {
-                        cyber: {
-                            purple: '#9333ea',
-                            darkpurple: '#581c87',
-                            neonblue: '#06b6d4',
-                            deepblue: '#0f172a',
-                            darkbg: '#030712'
-                        }
-                    },
-                    boxShadow: {
-                        'neon-purple': '0 0 25px rgba(147, 51, 234, 0.6)',
-                        'neon-blue': '0 0 25px rgba(6, 182, 212, 0.6)',
-                        'neon-box': '0 0 35px rgba(147, 51, 234, 0.3), inset 0 0 15px rgba(6, 182, 212, 0.2)'
-                    },
-                    animation: {
-                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
-                        'float': 'float 3s ease-in-out infinite',
-                    },
-                    keyframes: {
-                        float: {
-                            '0%, 100%': { transform: 'translateY(0px)' },
-                            '50%': { transform: 'translateY(-10px)' }
-                        }
-                    }
-                }
-            }
-        }
-    </script>
-    <!-- FontAwesome para Iconos -->
+    <title>ZARD NEXUS V3.2 - ZARD INNOVATION</title>
+    <!-- Google Fonts & FontAwesome -->
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;800&family=Rajdhani:wght@500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Google Fonts: Orbitron & Inter -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
+    
     <style>
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: #030712;
-            color: #f3f4f6;
-            overflow-x: hidden;
+        :root {
+            --bg-deep: #030712;
+            --bg-card: rgba(13, 20, 38, 0.75);
+            --border-glow: rgba(212, 175, 55, 0.4);
+            --gold: #d4af37;
+            --cyan: #00f3ff;
+            --text-main: #f3f4f6;
+            --text-muted: #9ca3af;
         }
-        .font-orbitron {
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Rajdhani', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-deep);
+            color: var(--text-main);
+            min-height: 100vh;
+            overflow-x: hidden;
+            background-image: radial-gradient(circle at 50% 10%, #111b33 0%, var(--bg-deep) 70%);
+        }
+
+        /* EFECTO WOW BIENVENIDA */
+        #welcome-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #000;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 0.8s ease, visibility 0.8s ease;
+        }
+
+        #welcome-screen.fade-out {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .welcome-logo {
+            width: 160px;
+            height: 160px;
+            border-radius: 50%;
+            border: 3px solid var(--gold);
+            box-shadow: 0 0 30px var(--cyan), inset 0 0 20px var(--gold);
+            animation: pulseLogo 2s infinite alternate;
+            margin-bottom: 20px;
+            object-fit: cover;
+        }
+
+        .welcome-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.8rem;
+            color: var(--gold);
+            text-align: center;
+            letter-spacing: 3px;
+            margin-bottom: 10px;
+            text-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
+        }
+
+        .welcome-sub {
+            color: var(--cyan);
+            font-size: 1.1rem;
+            margin-bottom: 30px;
+            letter-spacing: 1px;
+        }
+
+        .enter-btn {
+            background: linear-gradient(135deg, var(--gold), #b8860b);
+            color: #000;
+            border: none;
+            padding: 12px 35px;
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 800;
+            font-size: 1rem;
+            border-radius: 30px;
+            cursor: pointer;
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.6);
+            transition: 0.3s;
+        }
+
+        .enter-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 30px var(--cyan);
+        }
+
+        @keyframes pulseLogo {
+            0% { transform: scale(0.95); box-shadow: 0 0 20px var(--cyan); }
+            100% { transform: scale(1.05); box-shadow: 0 0 40px var(--gold); }
+        }
+
+        /* CONTENEDOR PRINCIPAL */
+        .app-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 15px;
+            display: none;
+        }
+
+        /* CABECERA ESTILO BINANCE */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: var(--bg-card);
+            border: 1px solid var(--border-glow);
+            padding: 12px 20px;
+            border-radius: 12px;
+            backdrop-filter: blur(10px);
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .brand-box {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .brand-box img {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            border: 2px solid var(--gold);
+        }
+
+        .brand-box h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.2rem;
+            color: var(--gold);
+        }
+
+        .brand-box p {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+
+        .controls-bar {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        select, .wallet-btn {
+            background: #0b1329;
+            color: var(--text-main);
+            border: 1px solid var(--border-glow);
+            padding: 8px 12px;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            outline: none;
+            cursor: pointer;
+        }
+
+        .wallet-btn {
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.2), rgba(0, 243, 255, 0.2));
+            color: var(--gold);
+            font-weight: 700;
             font-family: 'Orbitron', sans-serif;
         }
-        .cyber-grid {
-            background-image: linear-gradient(to right, rgba(147, 51, 234, 0.05) 1px, transparent 1px),
-                              linear-gradient(to bottom, rgba(6, 182, 212, 0.05) 1px, transparent 1px);
-            background-size: 30px 30px;
+
+        /* PESTAÑAS (TABS) */
+        .tabs-nav {
+            display: flex;
+            gap: 8px;
+            overflow-x: auto;
+            padding-bottom: 8px;
+            margin-bottom: 20px;
         }
-        ::-webkit-scrollbar {
-            width: 8px;
-            height: 8px;
+
+        .tab-btn {
+            background: rgba(13, 20, 38, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--text-muted);
+            padding: 10px 18px;
+            border-radius: 8px;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.85rem;
+            white-space: nowrap;
+            cursor: pointer;
+            transition: 0.3s;
         }
-        ::-webkit-scrollbar-track {
-            background: #030712;
+
+        .tab-btn.active, .tab-btn:hover {
+            background: rgba(0, 243, 255, 0.1);
+            color: var(--cyan);
+            border-color: var(--cyan);
+            box-shadow: 0 0 15px rgba(0, 243, 255, 0.2);
         }
-        ::-webkit-scrollbar-thumb {
-            background: #581c87;
-            border-radius: 4px;
+
+        /* CONTENIDO DE LAS PESTAÑAS */
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.4s ease;
         }
-        ::-webkit-scrollbar-thumb:hover {
-            background: #9333ea;
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(5px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* TARJETAS ESTILO CUADRO FINO */
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 15px;
+        }
+
+        .fin-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-glow);
+            border-radius: 12px;
+            padding: 20px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+        }
+
+        .fin-card h3 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1rem;
+            color: var(--gold);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .data-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            font-size: 0.95rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            padding-bottom: 6px;
+        }
+
+        .data-row span:last-child {
+            font-weight: 700;
+            color: var(--cyan);
+        }
+
+        /* BUSCADOR Y ENLACES */
+        .search-box-container {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .search-box-container input {
+            flex: 1;
+            background: #0b1329;
+            border: 1px solid var(--border-glow);
+            padding: 10px;
+            border-radius: 8px;
+            color: var(--text-main);
+            outline: none;
+        }
+
+        .search-box-container button {
+            background: var(--gold);
+            border: none;
+            padding: 0 20px;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            color: #000;
+        }
+
+        /* RESPONSIVE MÓVIL PERFECTO */
+        @media(max-width: 768px) {
+            header {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            .controls-bar {
+                justify-content: space-between;
+            }
         }
     </style>
 </head>
-<body class="cyber-grid min-h-screen flex flex-col justify-between selection:bg-cyber-purple selection:text-white">
+<body>
 
-    <!-- ========================================== -->
-    <!-- PANTALLA DE BIENVENIDA MAGESTUOSA (EFECTO WOW) -->
-    <!-- ========================================== -->
-    <div id="welcome-screen" class="fixed inset-0 z-50 flex flex-col items-center justify-center bg-cyber-darkbg transition-all duration-1000">
-        <div class="absolute w-96 h-96 bg-cyber-purple/20 rounded-full blur-3xl animate-pulse-slow pointer-events-none"></div>
-        <div class="absolute w-96 h-96 bg-cyber-neonblue/20 rounded-full blur-3xl animate-pulse-slow pointer-events-none" style="animation-delay: 2s;"></div>
-
-        <div class="relative z-10 flex flex-col items-center text-center px-4 max-w-2xl">
-            <div class="relative mb-8 animate-float">
-                <div class="absolute -inset-2 bg-gradient-to-r from-cyber-purple to-cyber-neonblue rounded-full blur-xl opacity-75 animate-pulse"></div>
-                <img src="https://photos.pinksale.finance/file/pinksale-logo-upload/1789411086014-7b67968ed9538e215f1948583ee37c7c.png" alt="ZARD Logo" class="relative w-36 h-36 md:w-44 md:h-44 object-contain drop-shadow-[0_0_20px_rgba(6,182,212,0.8)]">
-            </div>
-
-            <h1 id="welcome-title" class="font-orbitron text-4xl md:text-6xl font-black tracking-wider text-transparent bg-clip-text bg-gradient-to-r from-cyber-purple via-white to-cyber-neonblue mb-4 drop-shadow-[0_0_15px_rgba(147,51,234,0.5)]">
-                ZARD INNOVATION
-            </h1>
-            <p id="welcome-subtitle" class="text-cyber-neonblue tracking-widest text-sm md:text-lg mb-8 uppercase font-semibold">
-                Next-Gen Web3 Cyber Wallet & Square Experience
-            </p>
-
-            <button onclick="enterApp()" class="relative group px-8 py-4 font-orbitron font-bold text-lg text-white bg-gradient-to-r from-cyber-darkpurple to-cyber-purple rounded-xl shadow-neon-purple hover:shadow-[0_0_35px_rgba(147,51,234,0.9)] transition-all duration-300 transform hover:-translate-y-0.5 active:translate-y-0 border border-cyber-neonblue/40">
-                <span class="absolute inset-0 w-full h-full bg-white/10 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity"></span>
-                <span id="btn-enter" class="flex items-center justify-center gap-3">
-                    <i class="fa-solid fa-bolt-lightning text-cyber-neonblue"></i> INGRESAR AL NEXUS
-                </span>
-            </button>
-        </div>
+    <!-- PANTALLA DE BIENVENIDA WOW -->
+    <div id="welcome-screen">
+        <img src="https://i.postimg.cc/85z1g51F/logo.png" alt="ZARD Logo" class="welcome-logo" onerror="this.src='https://raw.githubusercontent.com/figueredo56/zaard-tracker/main/logo.png'">
+        <div class="welcome-title">ZARD INNOVATION</div>
+        <div class="welcome-sub" id="txt-welcome-sub">Renacimiento & Inteligencia Artificial</div>
+        <button class="enter-btn" onclick="entrarNexus()"><i class="fa-solid fa-rocket"></i> <span id="txt-enter">INGRESAR AL NEXUS</span></button>
     </div>
 
-    <!-- ========================================== -->
-    <!-- MODAL DE SELECCIÓN DE WALLET (MULTICOPATIBILIDAD) -->
-    <!-- ========================================== -->
-    <div id="wallet-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-md hidden opacity-0 transition-opacity duration-300">
-        <div class="relative w-full max-w-md bg-cyber-deepblue border border-cyber-purple/50 rounded-2xl p-6 shadow-neon-box mx-4">
-            <div class="flex justify-between items-center mb-6 border-b border-cyber-purple/30 pb-4">
-                <h3 class="font-orbitron font-bold text-white text-lg flex items-center gap-2">
-                    <i class="fa-solid fa-wallet text-cyber-neonblue"></i> Conectar Web3 Wallet
-                </h3>
-                <button onclick="closeWalletModal()" class="text-gray-400 hover:text-white text-lg"><i class="fa-solid fa-xmark"></i></button>
-            </div>
-            
-            <div class="space-y-3">
-                <button onclick="selectWallet('MetaMask')" class="w-full flex items-center justify-between p-4 rounded-xl bg-cyber-darkbg border border-cyber-purple/30 hover:border-cyber-neonblue hover:bg-cyber-purple/10 transition-all group">
-                    <div class="flex items-center gap-3">
-                        <div class="w-10 h-10 rounded-lg bg-orange-500/10 border border-orange-500/40 flex items-center justify-center text-orange-400 font-bold"><i class="fa-solid fa-mask"></i></div>
-                        <div class="text-left">
-                            <span class="font-orbitron font-bold text-white block">MetaMask</span>
-                            <span class="text-xs text-gray-400">Conexión de navegador y extensión</span>
-                        </div>
-                    </div>
-                    <i class="fa-solid fa-chevron-right text-cyber-neonblue group-hover:translate-x-1 transition-transform"></i>
-                </button>
-
-                <button onclick="selectWallet('Binance Web3')" class="w-full flex items-center justify-between p-4 rounded-xl bg-cyber-darkbg border border-cyber-purple/30 hover:border-cyber-neonblue hover:bg-cyber-purple/10 transition-all group">
-                    <div class="flex items-center gap-3">
-                        <div class="w-10 h-10 rounded-lg bg-yellow-500/10 border border-yellow-500/40 flex items-center justify-center text-yellow-400 font-bold"><i class="fa-solid fa-coins"></i></div>
-                        <div class="text-left">
-                            <span class="font-orbitron font-bold text-white block">Binance Web3 Wallet</span>
-                            <span class="text-xs text-gray-400">Ecosistema oficial BNB Chain</span>
-                        </div>
-                    </div>
-                    <i class="fa-solid fa-chevron-right text-cyber-neonblue group-hover:translate-x-1 transition-transform"></i>
-                </button>
-
-                <button onclick="selectWallet('Trust Wallet')" class="w-full flex items-center justify-between p-4 rounded-xl bg-cyber-darkbg border border-cyber-purple/30 hover:border-cyber-neonblue hover:bg-cyber-purple/10 transition-all group">
-                    <div class="flex items-center gap-3">
-                        <div class="w-10 h-10 rounded-lg bg-blue-500/10 border border-blue-500/40 flex items-center justify-center text-blue-400 font-bold"><i class="fa-solid fa-shield-halved"></i></div>
-                        <div class="text-left">
-                            <span class="font-orbitron font-bold text-white block">Trust Wallet</span>
-                            <span class="text-xs text-gray-400">Multi-chain descentralizada</span>
-                        </div>
-                    </div>
-                    <i class="fa-solid fa-chevron-right text-cyber-neonblue group-hover:translate-x-1 transition-transform"></i>
-                </button>
-
-                <button onclick="selectWallet('WalletConnect')" class="w-full flex items-center justify-between p-4 rounded-xl bg-cyber-darkbg border border-cyber-purple/30 hover:border-cyber-neonblue hover:bg-cyber-purple/10 transition-all group">
-                    <div class="flex items-center gap-3">
-                        <div class="w-10 h-10 rounded-lg bg-purple-500/10 border border-purple-500/40 flex items-center justify-center text-cyber-neonblue font-bold"><i class="fa-solid fa-qrcode"></i></div>
-                        <div class="text-left">
-                            <span class="font-orbitron font-bold text-white block">WalletConnect</span>
-                            <span class="text-xs text-gray-400">Código QR universal para móviles</span>
-                        </div>
-                    </div>
-                    <i class="fa-solid fa-chevron-right text-cyber-neonblue group-hover:translate-x-1 transition-transform"></i>
-                </button>
-            </div>
-        </div>
-    </div>
-
-    <!-- ========================================== -->
     <!-- APLICACIÓN PRINCIPAL -->
-    <!-- ========================================== -->
-    <div id="main-app" class="opacity-0 pointer-events-none transition-opacity duration-1000 flex flex-col min-h-screen">
+    <div class="app-container" id="main-app">
         
-        <!-- HEADER CYBER -->
-        <header class="border-b border-cyber-purple/30 bg-cyber-darkbg/80 backdrop-blur-md sticky top-0 z-40">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
-                
-                <!-- Logo & Brand -->
-                <div class="flex items-center gap-3 cursor-pointer" onclick="switchTab('trade')">
-                    <div class="relative">
-                        <div class="absolute -inset-1 bg-gradient-to-r from-cyber-purple to-cyber-neonblue rounded-lg blur opacity-70"></div>
-                        <img src="https://photos.pinksale.finance/file/pinksale-logo-upload/1789411086014-7b67968ed9538e215f1948583ee37c7c.png" alt="ZARD Logo" class="relative w-10 h-10 object-contain">
-                    </div>
-                    <div>
-                        <span class="font-orbitron font-black text-xl tracking-wider text-white">ZARD</span>
-                        <span class="text-xs block text-cyber-neonblue font-mono">NEXUS V3.2</span>
-                    </div>
-                </div>
-
-                <!-- ControlesSuperiores (Idioma, Compartir, Descarga, Conectar) -->
-                <div class="flex items-center gap-2 sm:gap-3">
-                    <!-- Selector de Idioma -->
-                    <div class="relative">
-                        <select id="language-select" onchange="changeLanguage(this.value)" class="bg-cyber-deepblue border border-cyber-purple/50 text-cyber-neonblue font-mono text-xs md:text-sm rounded-lg px-2 py-2 outline-none focus:border-cyber-neonblue shadow-[0_0_10px_rgba(147,51,234,0.2)] cursor-pointer">
-                            <option value="es">🇪🇸 ES</option>
-                            <option value="en">🇬🇧 EN</option>
-                            <option value="ar">🇸🇦 AR</option>
-                            <option value="zh">🇨🇳 中文</option>
-                        </select>
-                    </div>
-
-                    <!-- Botón Compartir -->
-                    <button onclick="shareWallet()" title="Compartir ZARD Wallet" class="p-2.5 rounded-lg bg-cyber-deepblue border border-cyber-purple/50 text-cyber-neonblue hover:bg-cyber-purple/20 hover:shadow-neon-purple transition-all duration-300">
-                        <i class="fa-solid fa-share-nodes"></i>
-                    </button>
-
-                    <!-- Botón Descargar Imagen / Logo -->
-                    <a href="https://photos.pinksale.finance/file/pinksale-logo-upload/1789411086014-7b67968ed9538e215f1948583ee37c7c.png" download="ZARD_Logo.png" target="_blank" title="Descargar Logo Oficial" class="p-2.5 rounded-lg bg-cyber-deepblue border border-cyber-purple/50 text-cyber-neonblue hover:bg-cyber-purple/20 hover:shadow-neon-purple transition-all duration-300">
-                        <i class="fa-solid fa-download"></i>
-                    </a>
-
-                    <!-- Botón Conectar Wallet -->
-                    <button id="connect-wallet-btn" onclick="openWalletModal()" class="flex items-center gap-2 font-orbitron text-xs font-bold px-3 sm:px-4 py-2.5 rounded-xl bg-gradient-to-r from-cyber-purple to-cyber-neonblue text-white shadow-neon-purple hover:shadow-[0_0_20px_rgba(6,182,212,0.8)] transition-all">
-                        <i class="fa-solid fa-wallet"></i> <span id="connect-text">Conectar</span>
-                    </button>
+        <!-- CABECERA -->
+        <header>
+            <div class="brand-box">
+                <img src="https://i.postimg.cc/85z1g51F/logo.png" alt="Logo" onerror="this.src='https://raw.githubusercontent.com/figueredo56/zaard-tracker/main/logo.png'">
+                <div>
+                    <h1>ZARD NEXUS V3.2</h1>
+                    <p>Cyber Wallet Web3 & Square</p>
                 </div>
             </div>
-
-            <!-- NAVEGACIÓN INFERIOR / PESTAÑAS PRINCIPALES -->
-            <div class="border-t border-cyber-purple/20 bg-cyber-darkbg/90">
-                <div class="max-w-7xl mx-auto px-4 flex justify-around sm:justify-start gap-2 sm:gap-6 overflow-x-auto py-2">
-                    <button onclick="switchTab('trade')" id="tab-btn-trade" class="tab-btn flex items-center gap-2 px-4 py-2 rounded-lg font-orbitron text-xs sm:text-sm font-bold text-cyber-neonblue bg-cyber-purple/20 border border-cyber-purple/40 transition-all">
-                        <i class="fa-solid fa-chart-candlestick"></i> <span id="nav-trade">Trade & Velas</span>
-                    </button>
-                    <button onclick="switchTab('search')" id="tab-btn-search" class="tab-btn flex items-center gap-2 px-4 py-2 rounded-lg font-orbitron text-xs sm:text-sm font-bold text-gray-400 hover:text-white hover:bg-cyber-purple/10 transition-all">
-                        <i class="fa-solid fa-globe"></i> <span id="nav-search">Buscador Web3</span>
-                    </button>
-                    <button onclick="switchTab('square')" id="tab-btn-square" class="tab-btn flex items-center gap-2 px-4 py-2 rounded-lg font-orbitron text-xs sm:text-sm font-bold text-gray-400 hover:text-white hover:bg-cyber-purple/10 transition-all">
-                        <i class="fa-solid fa-comments"></i> <span id="nav-square">ZARD Square</span>
-                    </button>
-                </div>
+            <div class="controls-bar">
+                <select id="langSelect" onchange="cambiarIdioma()">
+                    <option value="es">🇪🇸 ES</option>
+                    <option value="en">🇬🇧 EN</option>
+                    <option value="ar">🇸🇦 AR</option>
+                    <option value="zh">🇨🇳 ZH</option>
+                </select>
+                <button class="wallet-btn" onclick="conectarWallet()"><i class="fa-solid fa-wallet"></i> Conectar</button>
             </div>
         </header>
 
-        <!-- CONTENIDO DE LAS PESTAÑAS -->
-        <main class="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 w-full">
-            
-            <!-- ========================================== -->
-            <!-- PESTAÑA 1: TRADE, ÓRDENES Y VELAS (PANCAKESWAP STYLE) -->
-            <!-- ========================================== -->
-            <div id="tab-trade" class="tab-content space-y-6">
-                
-                <!-- Banner superior con PancakeSwap Link -->
-                <div class="relative rounded-2xl bg-gradient-to-br from-cyber-deepblue via-[#0c0f1d] to-cyber-darkbg border border-cyber-purple/40 p-6 shadow-neon-box flex flex-col md:flex-row justify-between items-center gap-6">
-                    <div>
-                        <span class="text-xs uppercase font-mono tracking-widest text-cyber-neonblue" id="lbl-zard-pool">ZARD / BNB Liquidity Pool</span>
-                        <div class="font-orbitron text-2xl md:text-3xl font-black text-white mt-1 flex items-center gap-3">
-                            <span>$0.04825 USD</span>
-                            <span class="text-xs font-mono px-2 py-1 rounded bg-emerald-500/20 text-emerald-400 border border-emerald-500/40">+18.4%</span>
-                        </div>
-                        <p class="text-xs text-gray-400 mt-1 font-mono">Contrato: <span class="text-cyber-neonblue">0x973b...d38</span></p>
-                    </div>
+        <!-- NAVEGACIÓN POR PESTAÑAS (TABS) -->
+        <div class="tabs-nav">
+            <button class="tab-btn active" onclick="switchTab(event, 'tab-trade')"><i class="fa-solid fa-chart-line"></i> Trade & Velas</button>
+            <button class="tab-btn" onclick="switchTab(event, 'tab-searcher')"><i class="fa-solid fa-magnifying-glass"></i> Buscador Web3</button>
+            <button class="tab-btn" onclick="switchTab(event, 'tab-square')"><i class="fa-solid fa-comments"></i> ZARD Square</button>
+            <button class="tab-btn" onclick="switchTab(event, 'tab-pool')"><i class="fa-solid fa-water"></i> Liquidity Pool</button>
+        </div>
 
-                    <a href="https://pancakeswap.finance/swap?outputCurrency=0x973ba2c1dccd0820f1e026d6b1f01c55c4085d38" target="_blank" rel="noopener noreferrer" class="flex items-center justify-center gap-3 font-orbitron font-bold text-sm px-6 py-4 rounded-xl bg-gradient-to-r from-pink-600 to-purple-600 text-white shadow-[0_0_20px_rgba(219,39,119,0.5)] hover:shadow-[0_0_30px_rgba(219,39,119,0.8)] transition-all transform hover:-scale-105">
-                        <i class="fa-solid fa-rotate text-lg"></i>
-                        <span id="btn-pancake">SWAP DIRECTO EN PANCAKESWAP</span>
-                    </a>
+        <!-- PESTAÑA 1: TRADE & VELAS -->
+        <div id="tab-trade" class="tab-content active">
+            <div class="card-grid">
+                <div class="fin-card">
+                    <h3><i class="fa-solid fa-chart-candlestick"></i> ZARD / USDT (M15)</h3>
+                    <div class="data-row"><span>Máx 24h:</span><span>$0.051 USD</span></div>
+                    <div class="data-row"><span>Mín 24h:</span><span>$0.039 USD</span></div>
+                    <div class="data-row"><span>Volumen:</span><span>$1,482,900</span></div>
+                    <div class="data-row"><span>Precio Actual:</span><span>$0.04825 USD (+18.4%)</span></div>
                 </div>
-
-                <!-- Gráfico de Velas y Libro de Órdenes -->
-                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                    
-                    <!-- Simulación de Gráfico de Velas -->
-                    <div class="lg:col-span-2 rounded-2xl bg-cyber-deepblue/80 border border-cyber-purple/30 p-6 flex flex-col justify-between shadow-lg">
-                        <div class="flex justify-between items-center mb-4">
-                            <div>
-                                <h3 class="font-orbitron font-bold text-white text-base">ZARD / USDT <span class="text-xs text-cyber-neonblue font-mono">(Gráfico de Velas M15)</span></h3>
-                            </div>
-                            <div class="flex gap-2 font-mono text-xs">
-                                <span class="px-2 py-1 rounded bg-cyber-purple/20 text-cyber-neonblue border border-cyber-purple/40">15m</span>
-                                <span class="px-2 py-1 rounded bg-cyber-darkbg text-gray-400">1H</span>
-                                <span class="px-2 py-1 rounded bg-cyber-darkbg text-gray-400">1D</span>
-                            </div>
-                        </div>
-
-                        <!-- Lienzo Visual de Velas Cyber -->
-                        <div class="h-64 sm:h-80 w-full bg-cyber-darkbg/90 rounded-xl border border-cyber-purple/20 p-4 relative flex items-end justify-between gap-1 overflow-hidden">
-                            <!-- Líneas de fondo de precio -->
-                            <div class="absolute inset-0 flex flex-col justify-between p-4 opacity-10 pointer-events-none">
-                                <div class="border-b border-cyber-neonblue w-full"></div>
-                                <div class="border-b border-cyber-neonblue w-full"></div>
-                                <div class="border-b border-cyber-neonblue w-full"></div>
-                                <div class="border-b border-cyber-neonblue w-full"></div>
-                            </div>
-                            <!-- Velas dinámicas simuladas -->
-                            <div class="w-full flex justify-around items-end h-full z-10">
-                                <div class="flex flex-col items-center h-full justify-end"><div class="w-0.5 h-8 bg-emerald-400"></div><div class="w-3 h-20 bg-emerald-500 rounded-sm shadow-[0_0_10px_rgba(52,211,153,0.5)]"></div></div>
-                                <div class="flex flex-col items-center h-full justify-end"><div class="w-0.5 h-12 bg-red-400"></div><div class="w-3 h-14 bg-red-500 rounded-sm shadow-[0_0_10px_rgba(248,113,113,0.5)]"></div></div>
-                                <div class="flex flex-col items-center h-full justify-end"><div class="w-0.5 h-6 bg-emerald-400"></div><div class="w-3 h-28 bg-emerald-500 rounded-sm shadow-[0_0_10px_rgba(52,211,153,0.5)]"></div></div>
-                                <div class="flex flex-col items-center h-full justify-end"><div class="w-0.5 h-16 bg-emerald-400"></div><div class="w-3 h-36 bg-emerald-500 rounded-sm shadow-[0_0_10px_rgba(52,211,153,0.5)]"></div></div>
-                                <div class="flex flex-col items-center h-full justify-end"><div class="w-0.5 h-10 bg-red-400"></div><div class="w-3 h-18 bg-red-500 rounded-sm shadow-[0_0_10px_rgba(248,113,113,0.5)]"></div></div>
-                                <div class="flex flex-col items-center h-full justify-end"><div class="w-0.5 h-14 bg-emerald-400"></div><div class="w-3 h-32 bg-emerald-500 rounded-sm shadow-[0_0_10px_rgba(52,211,153,0.5)]"></div></div>
-                                <div class="flex flex-col items-center h-full justify-end"><div class="w-0.5 h-8 bg-emerald-400"></div><div class="w-3 h-40 bg-emerald-500 rounded-sm shadow-[0_0_10px_rgba(52,211,153,0.5)]"></div></div>
-                            </div>
-                        </div>
-
-                        <div class="mt-4 flex justify-between items-center text-xs font-mono text-gray-400">
-                            <span>Máx 24h: <strong class="text-white">$0.051</strong></span>
-                            <span>Mín 24h: <strong class="text-white">$0.039</strong></span>
-                            <span>Volumen: <strong class="text-cyber-neonblue">$1,482,900</strong></span>
-                        </div>
-                    </div>
-
-                    <!-- Libro de Órdenes de Compra y Venta -->
-                    <div class="rounded-2xl bg-cyber-deepblue/80 border border-cyber-purple/30 p-6 flex flex-col justify-between shadow-lg">
-                        <div>
-                            <h3 id="orderbook-title" class="font-orbitron font-bold text-white text-base mb-4 flex items-center gap-2">
-                                <i class="fa-solid fa-list-check text-cyber-neonblue"></i> Órdenes de Compra / Venta
-                            </h3>
-
-                            <!-- Órdenes de Venta (Rojas) -->
-                            <div class="space-y-1 font-mono text-xs mb-3">
-                                <div class="text-gray-400 text-[10px] uppercase mb-1">Ventas (Ask)</div>
-                                <div class="flex justify-between text-red-400 bg-red-500/10 px-2 py-1 rounded"><span>0.04830</span><span>24,500 ZARD</span></div>
-                                <div class="flex justify-between text-red-400 bg-red-500/10 px-2 py-1 rounded"><span>0.04828</span><span>12,000 ZARD</span></div>
-                                <div class="flex justify-between text-red-400 bg-red-500/10 px-2 py-1 rounded"><span>0.04826</span><span>5,800 ZARD</span></div>
-                            </div>
-
-                            <div class="py-2 text-center font-orbitron font-black text-emerald-400 text-sm border-y border-cyber-purple/20 my-2">
-                                $0.04825 <i class="fa-solid fa-arrow-up text-xs"></i>
-                            </div>
-
-                            <!-- Órdenes de Compra (Verdes) -->
-                            <div class="space-y-1 font-mono text-xs">
-                                <div class="text-gray-400 text-[10px] uppercase mb-1">Compras (Bid)</div>
-                                <div class="flex justify-between text-emerald-400 bg-emerald-500/10 px-2 py-1 rounded"><span>0.04824</span><span>18,200 ZARD</span></div>
-                                <div class="flex justify-between text-emerald-400 bg-emerald-500/10 px-2 py-1 rounded"><span>0.04822</span><span>50,000 ZARD</span></div>
-                                <div class="flex justify-between text-emerald-400 bg-emerald-500/10 px-2 py-1 rounded"><span>0.04820</span><span>105,400 ZARD</span></div>
-                            </div>
-                        </div>
-
-                        <div class="mt-6">
-                            <a href="https://pancakeswap.finance/swap?outputCurrency=0x973ba2c1dccd0820f1e026d6b1f01c55c4085d38" target="_blank" class="w-full py-3 rounded-xl bg-cyber-purple/20 border border-cyber-purple/50 text-cyber-neonblue font-orbitron font-bold text-xs flex items-center justify-center gap-2 hover:bg-cyber-purple/40 hover:text-white transition-all">
-                                Operar en PancakeSwap <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
-                            </a>
-                        </div>
-                    </div>
-
+                <div class="fin-card">
+                    <h3><i class="fa-solid fa-book-open"></i> Órdenes de Compra / Venta</h3>
+                    <div class="data-row" style="color:#ff4d4d;"><span>Ventas (Ask):</span><span>0.0483024 ZARD</span></div>
+                    <div class="data-row" style="color:#ff4d4d;"><span></span><span>0.0482812 ZARD</span></div>
+                    <div class="data-row" style="color:#00ffcc;"><span>Compras (Bid):</span><span>0.0482418 ZARD</span></div>
+                    <div class="data-row" style="color:#00ffcc;"><span></span><span>0.0482250 ZARD</span></div>
                 </div>
             </div>
+        </div>
 
-            <!-- ========================================== -->
-            <!-- PESTAÑA 2: BUSCADOR WEB3 INTEGRADO -->
-            <!-- ========================================== -->
-            <div id="tab-search" class="tab-content hidden space-y-6">
-                <div class="max-w-3xl mx-auto text-center py-8">
-                    <h2 class="font-orbitron text-2xl md:text-3xl font-black text-white mb-3 flex items-center justify-center gap-3">
-                        <i class="fa-solid fa-globe text-cyber-neonblue"></i> Buscador Web3 ZARD
-                    </h2>
-                    <p class="text-gray-400 text-sm mb-6 font-mono">Conéctate instantáneamente a la red descentralizada, busca contratos, dApps, información o proyectos.</p>
-                    
-                    <!-- Barra de Búsqueda -->
-                    <div class="flex items-center bg-cyber-deepblue border-2 border-cyber-purple/50 rounded-2xl p-2 shadow-neon-box focus-within:border-cyber-neonblue transition-all">
-                        <i class="fa-solid fa-magnifying-glass text-cyber-neonblue px-4 text-lg"></i>
-                        <input type="text" id="web3-search-input" placeholder="Busca contratos (ej. 0x973b...), dApps, tokens o temas en la red..." class="w-full bg-transparent text-white font-mono text-sm outline-none px-2">
-                        <button onclick="performWeb3Search()" class="px-6 py-3 rounded-xl bg-gradient-to-r from-cyber-purple to-cyber-neonblue font-orbitron text-xs font-bold text-white shadow-neon-purple hover:shadow-[0_0_20px_rgba(6,182,212,0.8)] transition-all">
-                            Buscar
-                        </button>
+        <!-- PESTAÑA 2: BUSCADOR WEB3 -->
+        <div id="tab-searcher" class="tab-content">
+            <div class="card-grid">
+                <div class="fin-card" style="grid-column: span 2;">
+                    <h3><i class="fa-solid fa-globe"></i> Buscador Web3 ZARD</h3>
+                    <p style="color:var(--text-muted); font-size: 0.9rem; margin-bottom: 10px;">Conéctate instantáneamente a la red descentralizada, busca contratos, dApps o proyectos.</p>
+                    <div class="search-box-container">
+                        <input type="text" placeholder="Busca contrato (ej. 0x973b...)">
+                        <button onclick="alert('Buscando contrato en BSC...')">Buscar</button>
                     </div>
-
-                    <!-- Resultados simulados de búsqueda en red -->
-                    <div id="search-results-container" class="mt-8 text-left space-y-4">
-                        <div class="p-4 rounded-xl bg-cyber-deepblue/60 border border-cyber-purple/30 hover:border-cyber-neonblue transition-all cursor-pointer" onclick="window.open('https://bscscan.com/token/0x973ba2c1dccd0820f1e026d6b1f01c55c4085d38', '_blank')">
-                            <div class="flex justify-between items-start">
-                                <h4 class="font-orbitron font-bold text-white text-sm flex items-center gap-2">
-                                    <i class="fa-solid fa-shield-halved text-emerald-400"></i> ZARD Official Smart Contract (BscScan)
-                                </h4>
-                                <span class="text-xs font-mono text-cyber-neonblue">Verificado BSC</span>
-                            </div>
-                            <p class="text-xs text-gray-400 mt-1 font-mono">0x973ba2c1dccd0820f1e026d6b1f01c55c4085d38 - Token BEP-20 oficial del ecosistema ZARD Innovation.</p>
-                        </div>
-
-                        <div class="p-4 rounded-xl bg-cyber-deepblue/60 border border-cyber-purple/30 hover:border-cyber-neonblue transition-all cursor-pointer" onclick="window.open('https://pancakeswap.finance/swap?outputCurrency=0x973ba2c1dccd0820f1e026d6b1f01c55c4085d38', '_blank')">
-                            <div class="flex justify-between items-start">
-                                <h4 class="font-orbitron font-bold text-white text-sm flex items-center gap-2">
-                                    <i class="fa-solid fa-rotate text-pink-400"></i> PancakeSwap Liquidity Pool V2
-                                </h4>
-                                <span class="text-xs font-mono text-pink-400">DEX Exchange</span>
-                            </div>
-                            <p class="text-xs text-gray-400 mt-1 font-mono">Intercambio instantáneo de ZARD con BNB, USDT y otros activos con la tarifa más baja de la red.</p>
-                        </div>
+                    <div style="margin-top: 20px;">
+                        <div class="data-row"><span>Contrato Oficial:</span><span style="font-size: 0.8rem;">0x973ba2c1dccd0820f1e026d6b1f01c55c4085d38</span></div>
+                        <div class="data-row"><span>Estado BscScan:</span><span style="color:#00ffcc;">Verificado BSC (BEP-20)</span></div>
                     </div>
                 </div>
             </div>
+        </div>
 
-            <!-- ========================================== -->
-            <!-- PESTAÑA 3: ZARD SQUARE (ESTILO BINANCE SQUARE) -->
-            <!-- ========================================== -->
-            <div id="tab-square" class="tab-content hidden space-y-6">
-                <div class="max-w-2xl mx-auto space-y-6">
-                    
-                    <!-- Tarjeta para Crear Publicación -->
-                    <div class="rounded-2xl bg-cyber-deepblue/90 border border-cyber-purple/40 p-5 shadow-neon-box">
-                        <div class="flex items-center gap-3 mb-3">
-                            <img src="https://photos.pinksale.finance/file/pinksale-logo-upload/1789411086014-7b67968ed9538e215f1948583ee37c7c.png" alt="Avatar" class="w-10 h-10 object-contain rounded-full bg-cyber-darkbg border border-cyber-purple/50 p-1">
-                            <div>
-                                <span class="font-orbitron font-bold text-white text-sm block">ZARD Creator</span>
-                                <span class="text-xs text-cyber-neonblue font-mono">Comparte con la comunidad Web3</span>
-                            </div>
-                        </div>
-
-                        <!-- Textarea de publicación -->
-                        <textarea id="post-content" rows="3" placeholder="¿Qué está pasando en el ecosistema ZARD? Comparte tu análisis o predicción..." class="w-full bg-cyber-darkbg border border-cyber-purple/30 rounded-xl p-3 text-white font-mono text-sm outline-none focus:border-cyber-neonblue resize-none"></textarea>
-
-                        <!-- Vista previa de imagen seleccionada -->
-                        <div id="image-preview-container" class="hidden relative mt-2 mb-3">
-                            <img id="image-preview" src="" alt="Preview" class="max-h-48 rounded-lg border border-cyber-purple/40 object-cover">
-                            <button onclick="removeImage()" class="absolute top-2 right-2 p-1 rounded-full bg-black/70 text-white text-xs hover:bg-red-600"><i class="fa-solid fa-xmark"></i></button>
-                        </div>
-
-                        <div class="flex justify-between items-center mt-3 pt-3 border-t border-cyber-purple/20">
-                            <!-- Botón para adjuntar imagen -->
-                            <label class="cursor-pointer flex items-center gap-2 text-cyber-neonblue font-mono text-xs hover:text-white transition-colors">
-                                <i class="fa-solid fa-image text-base"></i> <span id="lbl-add-img">Añadir Imagen</span>
-                                <input type="file" id="post-image-input" accept="image/*" onchange="previewPostImage(event)" class="hidden">
-                            </label>
-
-                            <!-- Botón Publicar -->
-                            <button onclick="createPost()" class="px-6 py-2.5 rounded-xl bg-gradient-to-r from-cyber-purple to-cyber-neonblue font-orbitron font-bold text-xs text-white shadow-neon-purple hover:shadow-[0_0_20px_rgba(6,182,212,0.8)] transition-all">
-                                Publicar
-                            </button>
-                        </div>
-                    </div>
-
-                    <!-- Feed de Publicaciones -->
-                    <div id="posts-feed" class="space-y-4">
-                        
-                        <!-- Publicación de Ejemplo 1 -->
-                        <div class="rounded-2xl bg-cyber-deepblue/70 border border-cyber-purple/30 p-5 shadow-lg">
-                            <div class="flex items-center justify-between mb-3">
-                                <div class="flex items-center gap-3">
-                                    <img src="https://photos.pinksale.finance/file/pinksale-logo-upload/1789411086014-7b67968ed9538e215f1948583ee37c7c.png" alt="ZARD" class="w-10 h-10 object-contain rounded-full bg-cyber-darkbg border border-cyber-purple/50 p-1">
-                                    <div>
-                                        <span class="font-orbitron font-bold text-white text-sm block">ZARD Innovation ⚡</span>
-                                        <span class="text-xs text-gray-400 font-mono">Hace 15 minutos • BNB Chain</span>
-                                    </div>
-                                </div>
-                                <span class="text-xs font-mono px-2 py-1 rounded bg-cyber-purple/20 text-cyber-neonblue border border-cyber-purple/40">Oficial</span>
-                            </div>
-                            <p class="text-sm text-gray-200 font-mono mb-3">¡El ecosistema ZARD sigue expandiéndose! Nueva integración de Cyber Wallet con soporte multired (MetaMask, Binance Web3, Trust Wallet) y gráficos en vivo. ¡Hagamos historia en la Web3! 🚀</p>
-                            
-                            <div class="flex items-center gap-6 text-gray-400 text-xs font-mono pt-3 border-t border-cyber-purple/20">
-                                <button onclick="likePost(this)" class="flex items-center gap-1.5 hover:text-cyber-neonblue transition-colors"><i class="fa-regular fa-heart"></i> <span>142</span></button>
-                                <button class="flex items-center gap-1.5 hover:text-cyber-neonblue transition-colors"><i class="fa-regular fa-comment"></i> <span>28</span></button>
-                                <button class="flex items-center gap-1.5 hover:text-cyber-neonblue transition-colors"><i class="fa-solid fa-share"></i> Compartir</button>
-                            </div>
-                        </div>
-
-                    </div>
-
+        <!-- PESTAÑA 3: ZARD SQUARE -->
+        <div id="tab-square" class="tab-content">
+            <div class="card-grid">
+                <div class="fin-card">
+                    <h3><i class="fa-solid fa-pen-nib"></i> ZARD Creator Square</h3>
+                    <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 15px;">¿Qué está pasando en el ecosistema ZARD? Comparte tus ideas con la comunidad.</p>
+                    <textarea style="width:100%; background:#0b1329; border:1px solid var(--border-glow); border-radius:8px; padding:10px; color:#fff; height:80px; outline:none;" placeholder="Escribe tu publicación..."></textarea>
+                    <button class="enter-btn" style="margin-top: 10px; padding: 8px 20px; font-size: 0.85rem;" onclick="alert('Publicado con éxito en Square')">Publicar</button>
                 </div>
             </div>
+        </div>
 
-        </main>
-
-        <!-- FOOTER -->
-        <footer class="border-t border-cyber-purple/30 bg-cyber-darkbg py-6 text-center text-xs text-gray-500 font-mono">
-            <p>&copy; 2026 ZARD Innovation. Todos los derechos reservados. Red BNB Smart Chain.</p>
-        </footer>
+        <!-- PESTAÑA 4: LIQUIDITY POOL -->
+        <div id="tab-pool" class="tab-content">
+            <div class="card-grid">
+                <div class="fin-card">
+                    <h3><i class="fa-solid fa-water"></i> PancakeSwap Liquidity V2</h3>
+                    <div class="data-row"><span>Par:</span><span>ZARD / BNB</span></div>
+                    <div class="data-row"><span>Liquidez Total:</span><span>$48,290 USD</span></div>
+                    <div class="data-row"><span>Bloqueo LP:</span><span>Mudra Manager / Verificado</span></div>
+                </div>
+            </div>
+        </div>
 
     </div>
 
-    <!-- Script de Interactividad & Efectos -->
     <script>
-        let attachedImageBase64 = null;
-        let selectedWalletName = null;
-
-        // Traducciones dinámicas para IDIOMAS
-        const translations = {
-            es: {
-                welcomeTitle: "ZARD INNOVATION",
-                welcomeSubtitle: "Experiencia Cyber Wallet Web3 y Square de Próxima Generación",
-                btnEnter: "INGRESAR AL NEXUS",
-                connectText: "Conectar",
-                navTrade: "Trade & Velas",
-                navSearch: "Buscador Web3",
-                navSquare: "ZARD Square",
-                btnPancake: "SWAP DIRECTO EN PANCAKESWAP",
-                lblZardPool: "ZARD / BNB Liquidity Pool",
-                orderbookTitle: "Órdenes de Compra / Venta",
-                lblAddImg: "Añadir Imagen"
-            },
-            en: {
-                welcomeTitle: "ZARD INNOVATION",
-                welcomeSubtitle: "Next-Gen Web3 Cyber Wallet & Square Experience",
-                btnEnter: "ENTER THE NEXUS",
-                connectText: "Connect",
-                navTrade: "Trade & Candles",
-                navSearch: "Web3 Search",
-                navSquare: "ZARD Square",
-                btnPancake: "DIRECT SWAP ON PANCAKESWAP",
-                lblZardPool: "ZARD / BNB Liquidity Pool",
-                orderbookTitle: "Buy / Sell Orders",
-                lblAddImg: "Add Image"
-            },
-            ar: {
-                welcomeTitle: "زارد إنوفेशन",
-                welcomeSubtitle: "تجربة محفظة الجيل القادم لـ Web3 Cyber و Square",
-                btnEnter: "ادخل النطاق",
-                connectText: "اتصال",
-                navTrade: "التداول والشموع",
-                navSearch: "بحث Web3",
-                navSquare: "مربع زارد",
-                btnPancake: "التبادل المباشر على PANCAKESWAP",
-                lblZardPool: "مجمع السيولة ZARD / BNB",
-                orderbookTitle: "أوامر الشراء والبيع",
-                lblAddImg: "إضافة صورة"
-            },
-            zh: {
-                welcomeTitle: "ZARD 创新",
-                welcomeSubtitle: "下一代 Web3 网络钱包与广场体验",
-                btnEnter: "进入核心",
-                connectText: "连接钱包",
-                navTrade: "交易与K线",
-                navSearch: "Web3 搜索",
-                navSquare: "ZARD 广场",
-                btnPancake: "在 PANCAKESWAP 直接兑换",
-                lblZardPool: "ZARD / BNB 流动性池",
-                orderbookTitle: "买卖订单簿",
-                lblAddImg: "添加图片"
-            }
-        };
-
-        // Entrar a la app con efecto wow
-        function enterApp() {
-            const welcomeScreen = document.getElementById('welcome-screen');
-            const mainApp = document.getElementById('main-app');
-
-            welcomeScreen.style.opacity = '0';
+        // Transición de Bienvenida (Efecto Wow)
+        function entrarNexus() {
+            const welcome = document.getElementById('welcome-screen');
+            const app = document.getElementById('main-app');
+            welcome.classList.add('fade-out');
             setTimeout(() => {
-                welcomeScreen.style.display = 'none';
-                mainApp.classList.remove('opacity-0', 'pointer-events-none');
-                mainApp.classList.add('opacity-100');
+                welcome.style.display = 'none';
+                app.style.display = 'block';
             }, 800);
         }
 
-        // Gestión de Pestañas (Tabs)
-        function switchTab(tabId) {
-            document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
-            document.querySelectorAll('.tab-btn').forEach(el => {
-                el.classList.remove('text-cyber-neonblue', 'bg-cyber-purple/20', 'border', 'border-cyber-purple/40');
-                el.classList.add('text-gray-400');
-            });
+        // Sistema de Pestañas (Tabs)
+        function switchTab(evt, tabId) {
+            const contents = document.querySelectorAll('.tab-content');
+            contents.forEach(c => c.classList.remove('active'));
 
-            document.getElementById(`tab-${tabId}`).classList.remove('hidden');
-            const activeBtn = document.getElementById(`tab-btn-${tabId}`);
-            activeBtn.classList.remove('text-gray-400');
-            activeBtn.classList.add('text-cyber-neonblue', 'bg-cyber-purple/20', 'border', 'border-cyber-purple/40');
+            const buttons = document.querySelectorAll('.tab-btn');
+            buttons.forEach(b => b.classList.remove('active'));
+
+            document.getElementById(tabId).classList.add('active');
+            evt.currentTarget.classList.add('active');
         }
 
-        // Modales de Wallet (MetaMask, Binance, Trust, etc.)
-        function openWalletModal() {
-            const modal = document.getElementById('wallet-modal');
-            modal.classList.remove('hidden');
-            setTimeout(() => modal.classList.remove('opacity-0'), 10);
+        // Simulación de Conexión de Wallet
+        function conectarWallet() {
+            alert("Conectando con Binance Web3 Wallet / MetaMask...");
         }
 
-        function closeWalletModal() {
-            const modal = document.getElementById('wallet-modal');
-            modal.classList.add('opacity-0');
-            setTimeout(() => modal.classList.add('hidden'), 300);
-        }
-
-        function selectWallet(walletName) {
-            selectedWalletName = walletName;
-            closeWalletModal();
-            const btn = document.getElementById('connect-text');
-            btn.innerText = `${walletName}: 0x973b...d38`;
-            alert(`¡Conectado exitosamente con ${walletName} en la BNB Smart Chain!`);
-        }
-
-        // Cambio de Idioma
-        function changeLanguage(lang) {
-            const t = translations[lang];
-            if (!t) return;
-
-            document.getElementById('welcome-title').innerText = t.welcomeTitle;
-            document.getElementById('welcome-subtitle').innerText = t.welcomeSubtitle;
-            document.getElementById('btn-enter').innerHTML = `<i class="fa-solid fa-bolt-lightning text-cyber-neonblue"></i> ${t.btnEnter}`;
-            document.getElementById('connect-text').innerText = selectedWalletName ? `${selectedWalletName}: 0x973b...d38` : t.connectText;
-            document.getElementById('nav-trade').innerText = t.navTrade;
-            document.getElementById('nav-search').innerText = t.navSearch;
-            document.getElementById('nav-square').innerText = t.navSquare;
-            document.getElementById('btn-pancake').innerText = t.btnPancake;
-            document.getElementById('lbl-zard-pool').innerText = t.lblZardPool;
-            document.getElementById('orderbook-title').innerHTML = `<i class="fa-solid fa-list-check text-cyber-neonblue"></i> ${t.orderbookTitle}`;
-            document.getElementById('lbl-add-img').innerText = t.lblAddImg;
-
-            if (lang === 'ar') {
-                document.body.dir = 'rtl';
+        // Selector de Idioma Simple
+        function cambiarIdioma() {
+            const lang = document.getElementById('langSelect').value;
+            if(lang === 'ar') {
+                document.documentElement.setAttribute('dir', 'rtl');
             } else {
-                document.body.dir = 'ltr';
+                document.documentElement.setAttribute('dir', 'ltr');
             }
-        }
-
-        // Compartir Wallet
-        function shareWallet() {
-            if (navigator.share) {
-                navigator.share({
-                    title: 'ZARD Innovation Cyber Nexus',
-                    text: '¡Descubre la Web3 Cyber Wallet de ZARD con gráficos en tiempo real, buscador y ZARD Square!',
-                    url: window.location.href,
-                }).catch(() => {});
-            } else {
-                navigator.clipboard.writeText(window.location.href);
-                alert('¡Enlace de la ZARD Wallet copiado al portapapeles!');
-            }
-        }
-
-        // Buscador Web3 Simulado
-        function performWeb3Search() {
-            const query = document.getElementById('web3-search-input').value.trim();
-            if(!query) {
-                alert('Por favor ingresa un término de búsqueda.');
-                return;
-            }
-            alert(`Buscando "${query}" en la red descentralizada de la BNB Smart Chain...`);
-        }
-
-        // ZARD Square: Vista previa de imagen al crear publicación
-        function previewPostImage(event) {
-            const file = event.target.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    attachedImageBase64 = e.target.result;
-                    document.getElementById('image-preview').src = attachedImageBase64;
-                    document.getElementById('image-preview-container').classList.remove('hidden');
-                }
-                reader.readAsDataURL(file);
-            }
-        }
-
-        function removeImage() {
-            attachedImageBase64 = null;
-            document.getElementById('image-preview-container').classList.add('hidden');
-            document.getElementById('post-image-input').value = '';
-        }
-
-        // ZARD Square: Crear Publicación
-        function createPost() {
-            const content = document.getElementById('post-content').value.trim();
-            if(!content && !attachedImageBase64) {
-                alert('Escribe algo o añade una imagen para publicar.');
-                return;
-            }
-
-            const feed = document.getElementById('posts-feed');
-            const postHTML = `
-                <div class="rounded-2xl bg-cyber-deepblue/70 border border-cyber-purple/30 p-5 shadow-lg animate-fade-in">
-                    <div class="flex items-center justify-between mb-3">
-                        <div class="flex items-center gap-3">
-                            <img src="https://photos.pinksale.finance/file/pinksale-logo-upload/1789411086014-7b67968ed9538e215f1948583ee37c7c.png" alt="ZARD" class="w-10 h-10 object-contain rounded-full bg-cyber-darkbg border border-cyber-purple/50 p-1">
-                            <div>
-                                <span class="font-orbitron font-bold text-white text-sm block">ZARD Holder</span>
-                                <span class="text-xs text-gray-400 font-mono">Justo ahora • BNB Chain</span>
-                            </div>
-                        </div>
-                        <span class="text-xs font-mono px-2 py-1 rounded bg-cyber-neonblue/20 text-cyber-neonblue border border-cyber-neonblue/40">Community</span>
-                    </div>
-                    <p class="text-sm text-gray-200 font-mono mb-3">${escapeHtml(content)}</p>
-                    ${attachedImageBase64 ? `<div class="mb-3"><img src="${attachedImageBase64}" class="rounded-lg max-h-64 w-full object-cover border border-cyber-purple/30"></div>` : ''}
-                    <div class="flex items-center gap-6 text-gray-400 text-xs font-mono pt-3 border-t border-cyber-purple/20">
-                        <button onclick="likePost(this)" class="flex items-center gap-1.5 hover:text-cyber-neonblue transition-colors"><i class="fa-regular fa-heart"></i> <span>1</span></button>
-                        <button class="flex items-center gap-1.5 hover:text-cyber-neonblue transition-colors"><i class="fa-regular fa-comment"></i> <span>0</span></button>
-                        <button class="flex items-center gap-1.5 hover:text-cyber-neonblue transition-colors"><i class="fa-solid fa-share"></i> Compartir</button>
-                    </div>
-                </div>
-            `;
-
-            feed.insertAdjacentHTML('afterbegin', postHTML);
-
-            // Limpiar formulario
-            document.getElementById('post-content').value = '';
-            removeImage();
-            alert('¡Publicación creada exitosamente en ZARD Square!');
-        }
-
-        function likePost(btn) {
-            const span = btn.querySelector('span');
-            let count = parseInt(span.innerText);
-            const icon = btn.querySelector('i');
-            if(icon.classList.contains('fa-regular')) {
-                icon.classList.remove('fa-regular');
-                icon.classList.add('fa-solid');
-                icon.style.color = '#06b6d4';
-                span.innerText = count + 1;
-            } else {
-                icon.classList.remove('fa-solid');
-                icon.classList.add('fa-regular');
-                icon.style.color = '';
-                span.innerText = count - 1;
-            }
-        }
-
-        function escapeHtml(text) {
-            const map = { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;' };
-            return text.replace(/[&<>"']/g, function(m) { return map[m]; });
         }
     </script>
 </body>
