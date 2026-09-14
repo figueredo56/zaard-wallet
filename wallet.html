@@ -197,11 +197,16 @@
             background: rgba(236, 72, 153, 0.2);
             border: 1px solid var(--neon-pink);
             color: var(--neon-pink);
-            padding: 10px 14px;
+            padding: 8px 14px;
             border-radius: 10px;
             cursor: pointer;
             font-weight: bold;
             font-family: 'Orbitron', sans-serif;
+            transition: 0.2s;
+        }
+        .disconnect-btn:hover {
+            background: rgba(236, 72, 153, 0.4);
+            box-shadow: 0 0 10px var(--neon-pink);
         }
 
         /* NAVEGACIÓN POR PESTAÑAS (TABS) */
@@ -433,7 +438,7 @@
     <div id="wallet-modal">
         <div class="modal-box">
             <h3 style="font-family:'Orbitron'; color:var(--neon-blue); margin-bottom:10px;">Conectar Billetera Web3</h3>
-            <p style="color:var(--text-muted); font-size:0.85rem; margin-bottom:20px;">Abre tu app externa (Binance, Trust, MetaMask), firma el permiso y vuelve aquí automáticamente:</p>
+            <p style="color:var(--text-muted); font-size:0.85rem; margin-bottom:20px;">Abre tu app externa (Binance, Trust, MetaMask) o conecta directamente tu navegador:</p>
             
             <div class="wallet-option" onclick="conectarPorDeepLink('binance')">
                 <i class="fa-solid fa-globe" style="color:#F0B90B; font-size:1.5rem;"></i> <span>Binance Web3 App</span>
@@ -445,7 +450,7 @@
                 <i class="fa-solid fa-cube" style="color:#f6851b; font-size:1.5rem;"></i> <span>MetaMask App</span>
             </div>
             <div class="wallet-option" onclick="conectarInyectadoLocal()">
-                <i class="fa-solid fa-bolt" style="color:var(--neon-blue); font-size:1.5rem;"></i> <span>Navegador Interno / Inyectado</span>
+                <i class="fa-solid fa-bolt" style="color:var(--neon-blue); font-size:1.5rem;"></i> <span>Navegador / Inyectado Web3</span>
             </div>
 
             <button onclick="cerrarModal()" style="background:transparent; border:none; color:var(--text-muted); margin-top:15px; cursor:pointer;">Cancelar</button>
@@ -570,9 +575,18 @@
         let imagenBase64Temp = "";
         let cuentaActual = null;
 
-        // Cargar publicaciones al iniciar la página
         window.addEventListener('DOMContentLoaded', () => {
             cargarPublicaciones();
+            // Comprobar si ya estaba conectada previamente en la sesión del navegador
+            if (typeof window.ethereum !== 'undefined') {
+                window.ethereum.request({ method: 'eth_accounts' }).then(accounts => {
+                    if (accounts && accounts.length > 0) {
+                        cuentaActual = accounts[0];
+                        mostrarWalletConectada(cuentaActual);
+                        consultarSaldosReal();
+                    }
+                }).catch(err => console.log(err));
+            }
         });
 
         function entrarNexus() {
@@ -591,7 +605,7 @@
             evt.currentTarget.classList.add('active');
         }
 
-        // CONEXIÓN WALLET DEEP LINK
+        // CONEXIÓN WALLET
         function abrirModalWallet() { document.getElementById('wallet-modal').style.display = 'flex'; }
         function cerrarModal() { document.getElementById('wallet-modal').style.display = 'none'; }
 
@@ -618,10 +632,11 @@
                     mostrarWalletConectada(cuentaActual);
                     consultarSaldosReal();
                 } catch (error) {
-                    console.error(error);
+                    console.error("Error al conectar Web3:", error);
+                    alert("Conexión rechazada o denegada.");
                 }
             } else {
-                alert("No se detectó un proveedor Web3 inyectado.");
+                alert("Aviso: No se detectó un proveedor Web3 inyectado. Usa los accesos directos de Binance, Trust o MetaMask si estás en móvil.");
             }
         }
 
@@ -632,7 +647,7 @@
                     <span style="background:rgba(0,243,255,0.1); border:1px solid var(--neon-blue); padding:8px 12px; border-radius:10px; font-size:0.85rem; color:var(--neon-blue); font-family:'Orbitron';">
                         <i class="fa-solid fa-circle-dot" style="color:#00ffcc; font-size:0.6rem;"></i> ${shortAddr}
                     </span>
-                    <button class="disconnect-btn" onclick="desconectarWallet()">Salir</button>
+                    <button class="disconnect-btn" onclick="desconectarWallet()">Desconectar</button>
                 </div>
             `;
         }
@@ -653,7 +668,7 @@
             } catch (e) { console.error(e); }
         }
 
-        // SQUARE & GESTIÓN DE IMÁGENES / DESCARGA / COMPARTIR
+        // SQUARE & GESTIÓN DE IMÁGENES
         function verImagenSeleccionada(event) {
             const file = event.target.files[0];
             if (file) {
