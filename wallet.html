@@ -11,7 +11,7 @@
     <style>
         :root {
             --bg-deep: #05020a;
-            --bg-card: rgba(18, 10, 35, 0.85);
+            --bg-card: rgba(18, 10, 35, 0.9);
             --border-glow: rgba(168, 85, 247, 0.4);
             --neon-purple: #a855f7;
             --neon-blue: #00f3ff;
@@ -35,7 +35,7 @@
             background-image: radial-gradient(circle at 50% 10%, #1a0b36 0%, var(--bg-deep) 70%);
         }
 
-        /* BIENVENIDA MAJESTUOSA (EFECTO WOW) */
+        /* BIENVENIDA MAJESTUOSA */
         #welcome-screen {
             position: fixed;
             top: 0;
@@ -78,7 +78,6 @@
             -webkit-text-fill-color: transparent;
             letter-spacing: 4px;
             margin-bottom: 15px;
-            text-shadow: 0 0 20px rgba(168, 85, 247, 0.4);
         }
 
         .welcome-sub {
@@ -123,7 +122,7 @@
             display: none;
         }
 
-        /* CABECERA ESTILO BINANCE NEO */
+        /* CABECERA */
         header {
             display: flex;
             justify-content: space-between;
@@ -157,19 +156,18 @@
             font-family: 'Orbitron', sans-serif;
             font-size: 1.3rem;
             color: var(--neon-blue);
-            letter-spacing: 1px;
         }
 
         .brand-box p {
             font-size: 0.8rem;
             color: var(--text-muted);
-            letter-spacing: 0.5px;
         }
 
         .controls-bar {
             display: flex;
             gap: 12px;
             align-items: center;
+            flex-wrap: wrap;
         }
 
         select, .wallet-btn {
@@ -184,10 +182,6 @@
             transition: 0.3s;
         }
 
-        select:hover, .wallet-btn:hover {
-            border-color: var(--neon-blue);
-        }
-
         .wallet-btn {
             background: linear-gradient(135deg, rgba(168, 85, 247, 0.3), rgba(0, 243, 255, 0.3));
             color: var(--neon-blue);
@@ -196,7 +190,18 @@
             box-shadow: 0 0 15px rgba(0, 243, 255, 0.2);
         }
 
-        /* PESTAÑAS (TABS) SUPERIORES */
+        .disconnect-btn {
+            background: rgba(236, 72, 153, 0.2);
+            border: 1px solid var(--neon-pink);
+            color: var(--neon-pink);
+            padding: 10px 14px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: bold;
+            font-family: 'Orbitron', sans-serif;
+        }
+
+        /* PESTAÑAS (TABS) */
         .tabs-nav {
             display: flex;
             gap: 10px;
@@ -225,7 +230,6 @@
             box-shadow: 0 0 20px rgba(0, 243, 255, 0.3);
         }
 
-        /* CONTENIDO DE LAS PESTAÑAS */
         .tab-content {
             display: none;
             animation: fadeIn 0.4s ease;
@@ -240,7 +244,7 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* CUADROS FINOS ESTILO BINANCE */
+        /* TARJETAS */
         .card-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
@@ -280,7 +284,7 @@
             color: var(--neon-purple);
         }
 
-        /* FORMULARIO SQUARE (PUBLICACIONES CON IMÁGENES) */
+        /* SQUARE PUBLICACIONES */
         .square-input-box {
             width: 100%;
             background: #0c061a;
@@ -288,11 +292,11 @@
             border-radius: 12px;
             padding: 14px;
             color: #fff;
-            height: 100px;
+            height: 90px;
             outline: none;
             resize: none;
             font-size: 1rem;
-            margin-bottom: 15px;
+            margin-bottom: 12px;
         }
 
         .file-upload-label {
@@ -304,43 +308,14 @@
             border-radius: 10px;
             cursor: pointer;
             font-size: 0.9rem;
-            margin-bottom: 15px;
             transition: 0.3s;
-        }
-
-        .file-upload-label:hover {
-            background: rgba(0, 243, 255, 0.2);
-            border-color: var(--neon-blue);
-        }
-
-        /* BUSCADOR WEB INTERNET */
-        .search-engine-box {
-            display: flex;
-            gap: 12px;
-            margin-bottom: 20px;
-        }
-
-        .search-engine-box input {
-            flex: 1;
-            background: #0c061a;
-            border: 1px solid var(--border-glow);
-            padding: 14px;
-            border-radius: 12px;
-            color: var(--text-main);
-            outline: none;
-            font-size: 1rem;
-        }
-
-        .search-engine-box input:focus {
-            border-color: var(--neon-blue);
-            box-shadow: 0 0 15px rgba(0, 243, 255, 0.3);
         }
 
         .action-btn {
             background: linear-gradient(135deg, var(--neon-purple), var(--neon-blue));
             color: #fff;
             border: none;
-            padding: 0 25px;
+            padding: 10px 25px;
             border-radius: 12px;
             font-family: 'Orbitron', sans-serif;
             font-weight: bold;
@@ -349,31 +324,93 @@
             box-shadow: 0 0 15px rgba(168, 85, 247, 0.4);
         }
 
-        .action-btn:hover {
-            transform: scale(1.05);
-            box-shadow: 0 0 25px var(--neon-blue);
+        .post-card {
+            background: #0c061a;
+            border: 1px solid rgba(168, 85, 247, 0.2);
+            border-radius: 12px;
+            padding: 15px;
+            margin-top: 15px;
         }
 
-        /* RESPONSIVE MÓVIL */
+        .post-card img {
+            width: 100%;
+            max-height: 250px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-top: 10px;
+        }
+
+        /* MODAL WALLET */
+        #wallet-modal {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.8);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 10000;
+        }
+        .modal-box {
+            background: #0c061a;
+            border: 2px solid var(--neon-blue);
+            padding: 30px;
+            border-radius: 20px;
+            width: 90%;
+            max-width: 400px;
+            text-align: center;
+            box-shadow: 0 0 40px var(--neon-purple);
+        }
+        .wallet-option {
+            background: rgba(18, 10, 35, 0.9);
+            border: 1px solid var(--border-glow);
+            color: #fff;
+            padding: 15px;
+            border-radius: 12px;
+            margin: 10px 0;
+            cursor: pointer;
+            font-family: 'Orbitron', sans-serif;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            transition: 0.3s;
+        }
+        .wallet-option:hover {
+            border-color: var(--neon-blue);
+            background: rgba(0, 243, 255, 0.1);
+        }
+
         @media(max-width: 768px) {
-            header {
-                flex-direction: column;
-                align-items: stretch;
-            }
-            .controls-bar {
-                justify-content: space-between;
-            }
+            header { flex-direction: column; align-items: stretch; }
+            .controls-bar { justify-content: space-between; }
         }
     </style>
 </head>
 <body>
 
-    <!-- BIENVENIDA MAJESTUOSA (EFECTO WOW CON TU LOGO EXACTO) -->
+    <!-- BIENVENIDA MAJESTUOSA -->
     <div id="welcome-screen">
         <img src="https://photos.pinksale.finance/file/pinksale-logo-upload/1789411086014-7b67968ed9538e215f1948583ee37c7c.png" alt="ZARD Logo" class="welcome-logo">
         <div class="welcome-title">ZARD INNOVATION</div>
-        <div class="welcome-sub" id="txt-welcome-sub">Renacimiento Cibernético & Inteligencia Artificial</div>
-        <button class="enter-btn" onclick="entrarNexus()"><i class="fa-solid fa-rocket"></i> <span id="txt-enter">INGRESAR AL NEXUS</span></button>
+        <div class="welcome-sub">Renacimiento Cibernético & Inteligencia Artificial</div>
+        <button class="enter-btn" onclick="entrarNexus()"><i class="fa-solid fa-rocket"></i> INGRESAR AL NEXUS</button>
+    </div>
+
+    <!-- MODAL SELECCIÓN DE WALLET -->
+    <div id="wallet-modal">
+        <div class="modal-box">
+            <h3 style="font-family:'Orbitron'; color:var(--neon-blue); margin-bottom:20px;">Conectar Web3 Wallet</h3>
+            <div class="wallet-option" onclick="conectarCon('MetaMask')">
+                <i class="fa-solid fa-cube" style="color:#f6851b; font-size:1.5rem;"><span>MetaMask</span></i>
+            </div>
+            <div class="wallet-option" onclick="conectarCon('Trust Wallet')">
+                <i class="fa-solid fa-shield-halved" style="color:#3375bb; font-size:1.5rem;"><span>Trust Wallet</span></i>
+            </div>
+            <div class="wallet-option" onclick="conectarCon('Binance Web3 Wallet')">
+                <i class="fa-solid fa-wallet" style="color:#fcd535; font-size:1.5rem;"><span>Binance Web3 Wallet</span></i>
+            </div>
+            <button onclick="cerrarModal()" style="background:transparent; border:none; color:var(--text-muted); margin-top:15px; cursor:pointer;">Cancelar</button>
+        </div>
     </div>
 
     <!-- APLICACIÓN PRINCIPAL -->
@@ -395,39 +432,40 @@
                     <option value="ar">🇸🇦 AR</option>
                     <option value="zh">🇨🇳 ZH</option>
                 </select>
-                <button class="wallet-btn" onclick="conectarWallet()"><i class="fa-solid fa-wallet"></i> Conectar Wallet</button>
+                <div id="wallet-container">
+                    <button class="wallet-btn" onclick="abrirModalWallet()"><i class="fa-solid fa-wallet"></i> Conectar Wallet</button>
+                </div>
             </div>
         </header>
 
         <!-- NAVEGACIÓN POR PESTAÑAS (TABS) -->
         <div class="tabs-nav">
-            <button class="tab-btn active" onclick="switchTab(event, 'tab-square')"><i class="fa-solid fa-comments"></i> ZARD Square</button>
-            <button class="tab-btn" onclick="switchTab(event, 'tab-tracker')"><i class="fa-solid fa-chart-line"></i> Tracker & Velas</button>
-            <button class="tab-btn" onclick="switchTab(event, 'tab-swap')"><i class="fa-solid fa-right-left"></i> Cambiar / Swap</button>
-            <button class="tab-btn" onclick="switchTab(event, 'tab-browser')"><i class="fa-solid fa-globe"></i> Buscador Web</button>
+            <button class="tab-btn active" onclick="switchTab(event, 'tab-square')"><i class="fa-solid fa-comments"></i> 1. ZARD Square (Publicaciones)</button>
+            <button class="tab-btn" onclick="switchTab(event, 'tab-tracker')"><i class="fa-solid fa-chart-line"></i> 2. Tracker & Velas en Vivo</button>
+            <button class="tab-btn" onclick="switchTab(event, 'tab-swap')"><i class="fa-solid fa-right-left"></i> 3. Cambiar / Swap (PancakeSwap)</button>
+            <button class="tab-btn" onclick="switchTab(event, 'tab-browser')"><i class="fa-solid fa-globe"></i> 4. Buscador Web</button>
         </div>
 
-        <!-- PESTAÑA 1: ZARD SQUARE (PUBLICACIONES CON IMÁGENES) -->
+        <!-- PESTAÑA 1: ZARD SQUARE (PUBLICACIONES CON IMÁGENES REALES) -->
         <div id="tab-square" class="tab-content active">
             <div class="card-grid">
                 <div class="fin-card" style="grid-column: span 2;">
                     <h3><i class="fa-solid fa-pen-nib"></i> Crear Publicación en ZARD Square</h3>
-                    <textarea class="square-input-box" placeholder="¿Qué está pasando en el ecosistema ZARD? Comparte tu análisis, meme o proyecto..."></textarea>
+                    <textarea id="postText" class="square-input-box" placeholder="¿Qué está pasando en el ecosistema ZARD? Comparte tu análisis, meme o proyecto..."></textarea>
                     
-                    <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; margin-bottom: 20px;">
                         <label class="file-upload-label">
-                            <i class="fa-solid fa-image"></i> Adjuntar Imagen / Meme <input type="file" accept="image/*" style="display: none;">
+                            <i class="fa-solid fa-image"></i> Adjuntar Imagen <input type="file" id="postImage" accept="image/*" style="display: none;" onchange="verImagenSeleccionada(event)">
                         </label>
-                        <button class="action-btn" style="padding: 10px 30px;" onclick="alert('¡Publicación enviada al feed de ZARD Square con éxito!')">Publicar Ahora</button>
+                        <span id="fileNameDisplay" style="font-size: 0.85rem; color: var(--neon-blue);"></span>
+                        <button class="action-btn" onclick="crearPublicacion()">Publicar Ahora</button>
                     </div>
-                </div>
 
-                <div class="fin-card">
-                    <h3><i class="fa-solid fa-bullhorn"></i> Feed Comunidad</h3>
-                    <p style="color:var(--text-muted); font-size: 0.95rem;">Explora las últimas novedades compartidas por creadores y traders del ecosistema.</p>
-                    <div style="margin-top: 15px; border-left: 2px solid var(--neon-blue); padding-left: 10px;">
-                        <strong style="color:var(--neon-blue);">ZARD Creator</strong>
-                        <p style="font-size: 0.9rem; color: #d1d5db; margin-top: 5px;">¡Nueva quema de tokens completada en BSC! Seguimos avanzando rumbo al renacimiento cibernético. 🚀</p>
+                    <div style="border-top: 1px solid rgba(255,255,255,0.1); padding-top: 20px;">
+                        <h3 style="font-size: 1rem; color: var(--text-muted);"><i class="fa-solid id fa-stream"></i> Muro de Publicaciones de la Comunidad</h3>
+                        <div id="muroPublicaciones">
+                            <!-- Las publicaciones aparecerán aquí dinámicamente -->
+                        </div>
                     </div>
                 </div>
             </div>
@@ -436,13 +474,21 @@
         <!-- PESTAÑA 2: TRACKER & VELAS EN VIVO -->
         <div id="tab-tracker" class="tab-content">
             <div class="card-grid">
+                <div class="fin-card" style="grid-column: span 2;">
+                    <h3><i class="fa-solid fa-chart-candlestick"></i> Gráfico de Velas en Vivo (ZARD / BNB)</h3>
+                    <div style="width: 100%; height: 450px; background: #0c061a; border-radius: 12px; overflow: hidden; border: 1px solid var(--border-glow);">
+                        <iframe src="https://dexscreener.com/bsc/0x973ba2c1dccd0820f1e026d6b1f01c55c4085d38?embed=1&theme=dark&trades=0&info=0" width="100%" height="100%" frameborder="0"></iframe>
+                    </div>
+                </div>
+
                 <div class="fin-card">
-                    <h3><i class="fa-solid fa-chart-candlestick"></i> ZARD / USDT (Gráfico en Vivo M15)</h3>
+                    <h3><i class="fa-solid fa-chart-line"></i> Métricas del Mercado</h3>
                     <div class="data-row"><span>Precio Actual:</span><span>$0.04825 USD</span></div>
                     <div class="data-row"><span>Cambio 24h:</span><span style="color:#00ffcc;">+18.4% 📈</span></div>
                     <div class="data-row"><span>Máx / Mín 24h:</span><span>$0.051 / $0.039</span></div>
                     <div class="data-row"><span>Volumen Total:</span><span>$1,482,900</span></div>
                 </div>
+
                 <div class="fin-card">
                     <h3><i class="fa-solid fa-list-check"></i> Órdenes de Compra y Venta (Order Book)</h3>
                     <div class="data-row" style="color:#ff4d4d;"><span>Venta (Ask): 0.04830</span><span>12,500 ZARD</span></div>
@@ -453,31 +499,27 @@
             </div>
         </div>
 
-        <!-- PESTAÑA 3: CAMBIAR / SWAP (LLEVA A PANCAKESWAP) -->
+        <!-- PESTAÑA 3: CAMBIAR / SWAP -->
         <div id="tab-swap" class="tab-content">
             <div class="card-grid">
                 <div class="fin-card" style="text-align: center; padding: 40px 20px;">
                     <i class="fa-solid fa-right-left" style="font-size: 3rem; color: var(--neon-blue); margin-bottom: 20px;"></i>
                     <h3 style="justify-content: center;">PancakeSwap DEX Exchange</h3>
-                    <p style="color: var(--text-muted); margin-bottom: 25px; font-size: 1.05rem;">Realiza tus intercambios (Comprar y Vender ZARD) de forma instantánea, segura y con la tarifa más baja de la red BNB Smart Chain.</p>
-                    <a href="https://pancakeswap.finance/swap?outputCurrency=0x973ba2c1dccd0820f1e026d6b1f01c55c4085d38" target="_blank" class="action-btn" style="display: inline-block; padding: 14px 35px; text-decoration: none;">Abrir PancakeSwap Oficial <i class="fa-solid fa-external-link-alt"></i></a>
+                    <p style="color: var(--text-muted); margin-bottom: 25px; font-size: 1.05rem;">Realiza tus intercambios de forma instantánea, segura y con la tarifa más baja en BNB Smart Chain.</p>
+                    <a href="https://pancakeswap.finance/swap?outputCurrency=0x973ba2c1dccd0820f1e026d6b1f01c55c4085d38" target="_blank" class="action-btn" style="display: inline-block; padding: 14px 35px; text-decoration: none;">Abrir PancakeSwap <i class="fa-solid fa-external-link-alt"></i></a>
                 </div>
             </div>
         </div>
 
-        <!-- PESTAÑA 4: BUSCADOR WEB (CONECTADO A INTERNET) -->
+        <!-- PESTAÑA 4: BUSCADOR WEB -->
         <div id="tab-browser" class="tab-content">
             <div class="card-grid">
                 <div class="fin-card" style="grid-column: span 2;">
                     <h3><i class="fa-solid fa-globe"></i> Buscador Web Descentralizado ZARD</h3>
-                    <p style="color:var(--text-muted); font-size: 0.95rem; margin-bottom: 15px;">Navega por la red o busca contratos inteligentes, dApps, noticias y proyectos en internet de forma instantánea.</p>
-                    <div class="search-engine-box">
-                        <input type="text" id="webSearchInput" placeholder="Busca en la web o introduce dirección de contrato (ej. 0x973b...)">
+                    <p style="color:var(--text-muted); font-size: 0.95rem; margin-bottom: 15px;">Navega por la red o busca contratos inteligentes, dApps y proyectos.</p>
+                    <div style="display: flex; gap: 12px; margin-bottom: 20px;">
+                        <input type="text" id="webSearchInput" placeholder="Busca en internet o contrato..." style="flex:1; background:#0c061a; border:1px solid var(--border-glow); padding:14px; border-radius:12px; color:#fff; outline:none;">
                         <button class="action-btn" onclick="buscarEnInternet()">Buscar</button>
-                    </div>
-                    <div style="background: #0c061a; border-radius: 10px; padding: 15px; border: 1px solid rgba(255,255,255,0.05);">
-                        <span style="font-size: 0.85rem; color: var(--neon-blue);"><i class="fa-solid fa-shield-halved"></i> Contrato Oficial Verificado:</span>
-                        <p style="font-size: 0.85rem; color: #fff; word-break: break-all; margin-top: 5px;">0x973ba2c1dccd0820f1e026d6b1f01c55c4085d38 (BscScan)</p>
                     </div>
                 </div>
             </div>
@@ -486,51 +528,130 @@
     </div>
 
     <script>
-        // Transición de Bienvenida (Efecto Wow Majestuoso)
+        let imagenBase64Temp = "";
+
         function entrarNexus() {
-            const welcome = document.getElementById('welcome-screen');
-            const app = document.getElementById('main-app');
-            welcome.classList.add('fade-out');
+            document.getElementById('welcome-screen').classList.add('fade-out');
             setTimeout(() => {
-                welcome.style.display = 'none';
-                app.style.display = 'block';
+                document.getElementById('welcome-screen').style.display = 'none';
+                document.getElementById('main-app').style.display = 'block';
+                cargarPublicaciones();
             }, 800);
         }
 
-        // Sistema de Pestañas (Tabs)
         function switchTab(evt, tabId) {
-            const contents = document.querySelectorAll('.tab-content');
-            contents.forEach(c => c.classList.remove('active'));
-
-            const buttons = document.querySelectorAll('.tab-btn');
-            buttons.forEach(b => b.classList.remove('active'));
-
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
             document.getElementById(tabId).classList.add('active');
             evt.currentTarget.classList.add('active');
         }
 
-        // Buscador web hacia Google o exploradores
+        /* GESTIÓN DE WALLET WEB3 */
+        function abrirModalWallet() {
+            document.getElementById('wallet-modal').style.display = 'flex';
+        }
+        function cerrarModal() {
+            document.getElementById('wallet-modal').style.display = 'none';
+        }
+
+        function conectarCon(walletName) {
+            cerrarModal();
+            // Simular aprobación de permisos Web3
+            alert(`Solicitando permiso de conexión segura con ${walletName}... Por favor aprueba en tu billetera.`);
+            
+            setTimeout(() => {
+                const mockAddress = "0x7F5...39A";
+                const container = document.getElementById('wallet-container');
+                container.innerHTML = `
+                    <div style="display:flex; align-items:center; gap:8px;">
+                        <span style="background:rgba(0,243,255,0.1); border:1px solid var(--neon-blue); padding:8px 12px; border-radius:10px; font-size:0.85rem; color:var(--neon-blue); font-family:'Orbitron';">
+                            <i class="fa-solid fa-circle-dot" style="color:#00ffcc; font-size:0.6rem;"></i> ${mockAddress}
+                        </span>
+                        <button class="disconnect-btn" onclick="desconectarWallet()">Desconectar</button>
+                    </div>
+                `;
+            }, 1000);
+        }
+
+        function desconectarWallet() {
+            const container = document.getElementById('wallet-container');
+            container.innerHTML = `<button class="wallet-btn" onclick="abrirModalWallet()"><i class="fa-solid fa-wallet"></i> Conectar Wallet</button>`;
+            alert("Billetera desconectada con éxito.");
+        }
+
+        /* GESTIÓN DE PUBLICACIONES (ZARD SQUARE) */
+        function verImagenSeleccionada(event) {
+            const file = event.target.files[0];
+            if (file) {
+                document.getElementById('fileNameDisplay').innerText = "Imagen cargada: " + file.name;
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    imagenBase64Temp = e.target.result;
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
+        function crearPublicacion() {
+            const texto = document.getElementById('postText').value.trim();
+            if (texto === "" && !imagenBase64Temp) {
+                alert("Escribe un texto o adjunta una imagen para publicar.");
+                return;
+            }
+
+            let publicaciones = JSON.parse(localStorage.getItem('zard_posts') || '[]');
+            
+            const nuevaPub = {
+                autor: "ZARD Creator",
+                texto: texto,
+                imagen: imagenBase64Temp,
+                fecha: new Date().toLocaleDateString() + " " + new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})
+            };
+
+            publicaciones.unshift(nuevaPub);
+            localStorage.setItem('zard_posts', JSON.stringify(publicaciones));
+
+            // Limpiar campos
+            document.getElementById('postText').value = "";
+            document.getElementById('postImage').value = "";
+            document.getElementById('fileNameDisplay').innerText = "";
+            imagenBase64Temp = "";
+
+            cargarPublicaciones();
+            alert("¡Publicación compartida con éxito en ZARD Square!");
+        }
+
+        function cargarPublicaciones() {
+            const muro = document.getElementById('muroPublicaciones');
+            let publicaciones = JSON.parse(localStorage.getItem('zard_posts') || '[]');
+            
+            if (publicaciones.length === 0) {
+                muro.innerHTML = `<p style="color:var(--text-muted); font-size:0.9rem; margin-top:15px;">Aún no hay publicaciones. ¡Sé el primero en compartir algo!</p>`;
+                return;
+            }
+
+            let html = "";
+            publicaciones.forEach(pub => {
+                html += `
+                    <div class="post-card">
+                        <div style="display:flex; justify-content:space-between; align-items:center;">
+                            <strong style="color:var(--neon-blue); font-family:'Orbitron'; font-size:0.9rem;"><i class="fa-solid fa-user-astronaut"></i> ${pub.autor}</strong>
+                            <span style="font-size:0.75rem; color:var(--text-muted);">${pub.fecha}</span>
+                        </div>
+                        <p style="margin-top:8px; font-size:0.95rem; color:#fff; word-break:break-word;">${pub.texto}</p>
+                        ${pub.imagen ? `<img src="${pub.imagen}" alt="Post Image">` : ''}
+                    </div>
+                `;
+            });
+            muro.innerHTML = html;
+        }
+
         function buscarEnInternet() {
             const query = document.getElementById('webSearchInput').value;
             if(query.trim() !== "") {
                 window.open('https://www.google.com/search?q=' + encodeURIComponent(query), '_blank');
             } else {
                 alert("Por favor escribe algo para buscar.");
-            }
-        }
-
-        // Simulación de Conexión de Wallet
-        function conectarWallet() {
-            alert("Conectando con Binance Web3 Wallet / MetaMask...");
-        }
-
-        // Selector de Idioma Simple
-        function cambiarIdioma() {
-            const lang = document.getElementById('langSelect').value;
-            if(lang === 'ar') {
-                document.documentElement.setAttribute('dir', 'rtl');
-            } else {
-                document.documentElement.setAttribute('dir', 'ltr');
             }
         }
     </script>
