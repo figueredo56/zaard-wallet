@@ -67,6 +67,7 @@
             animation: majesticPulse 2.5s infinite alternate;
             margin-bottom: 25px;
             object-fit: cover;
+            background: #0c061a;
         }
 
         .welcome-title {
@@ -150,6 +151,8 @@
             border-radius: 50%;
             border: 2px solid var(--neon-blue);
             box-shadow: 0 0 15px var(--neon-purple);
+            object-fit: cover;
+            background: #0c061a;
         }
 
         .brand-box h1 {
@@ -201,7 +204,7 @@
             font-family: 'Orbitron', sans-serif;
         }
 
-        /* PESTAÑAS (TABS) */
+        /* NAVEGACIÓN POR PESTAÑAS (TABS) */
         .tabs-nav {
             display: flex;
             gap: 10px;
@@ -284,7 +287,7 @@
             color: var(--neon-purple);
         }
 
-        /* SQUARE PUBLICACIONES Y CORRECCIÓN DE IMAGEN ENTERA */
+        /* SQUARE PUBLICACIONES */
         .square-input-box {
             width: 100%;
             background: #0c061a;
@@ -328,8 +331,9 @@
             background: #0c061a;
             border: 1px solid rgba(168, 85, 247, 0.2);
             border-radius: 12px;
-            padding: 15px;
+            padding: 18px;
             margin-top: 15px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.5);
         }
 
         .post-card img {
@@ -343,7 +347,33 @@
             display: block;
         }
 
-        /* MODAL DE WALLET ESTILO PINGSALE / DEEP LINK */
+        .post-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 12px;
+            flex-wrap: wrap;
+        }
+
+        .post-btn-tool {
+            background: rgba(0, 243, 255, 0.1);
+            border: 1px solid var(--border-glow);
+            color: var(--neon-blue);
+            padding: 6px 14px;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: 0.2s;
+        }
+
+        .post-btn-tool:hover {
+            background: rgba(0, 243, 255, 0.25);
+        }
+
+        /* MODAL DE WALLET (DEEP LINK) */
         #wallet-modal {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -393,13 +423,13 @@
 
     <!-- BIENVENIDA MAJESTUOSA (EFECTO WOW) -->
     <div id="welcome-screen">
-        <img src="https://photos.pinksale.finance/file/pinksale-logo-upload/1789411086014-7b67968ed9538e215f1948583ee37c7c.png" alt="ZARD Logo" class="welcome-logo">
+        <img src="https://photos.pinksale.finance/file/pinksale-logo-upload/1789411086014-7b67968ed9538e215f1948583ee37c7c.png" alt="ZARD Logo" class="welcome-logo" onerror="this.src='https://raw.githubusercontent.com/figueredo56/zaard-official/main/logo.png'">
         <div class="welcome-title">ZARD INNOVATION</div>
         <div class="welcome-sub">Renacimiento Cibernético & Inteligencia Artificial</div>
         <button class="enter-btn" onclick="entrarNexus()"><i class="fa-solid fa-rocket"></i> INGRESAR AL NEXUS</button>
     </div>
 
-    <!-- MODAL SELECCIÓN DE WALLET (ESTILO PINKINGSALE / DEEP LINK) -->
+    <!-- MODAL SELECCIÓN DE WALLET (DEEP LINK) -->
     <div id="wallet-modal">
         <div class="modal-box">
             <h3 style="font-family:'Orbitron'; color:var(--neon-blue); margin-bottom:10px;">Conectar Billetera Web3</h3>
@@ -428,7 +458,7 @@
         <!-- CABECERA -->
         <header>
             <div class="brand-box">
-                <img src="https://photos.pinksale.finance/file/pinksale-logo-upload/1789411086014-7b67968ed9538e215f1948583ee37c7c.png" alt="Logo">
+                <img src="https://photos.pinksale.finance/file/pinksale-logo-upload/1789411086014-7b67968ed9538e215f1948583ee37c7c.png" alt="Logo" onerror="this.src='https://raw.githubusercontent.com/figueredo56/zaard-official/main/logo.png'">
                 <div>
                     <h1>ZARD NEXUS V3.5</h1>
                     <p>Cyber Ecosystem & Web3</p>
@@ -488,35 +518,23 @@
                         <iframe src="https://dexscreener.com/bsc/0x973ba2c1dccd0820f1e026d6b1f01c55c4085d38?embed=1&theme=dark&trades=0&info=1" width="100%" height="100%" frameborder="0"></iframe>
                     </div>
                 </div>
-
-                <div class="fin-card">
-                    <h3><i class="fa-solid fa-list-check"></i> Órdenes de Compra y Venta (Order Book)</h3>
-                    <div class="data-row" style="color:#ff4d4d;"><span>Venta (Ask): 0.04830</span><span>12,500 ZARD</span></div>
-                    <div class="data-row" style="color:#ff4d4d;"><span>Venta (Ask): 0.04828</span><span>8,400 ZARD</span></div>
-                    <div class="data-row" style="color:#00ffcc;"><span>Compra (Bid): 0.04824</span><span>15,000 ZARD</span></div>
-                    <div class="data-row" style="color:#00ffcc;"><span>Compra (Bid): 0.04822</span><span>22,100 ZARD</span></div>
-                </div>
             </div>
         </div>
 
-        <!-- PESTAÑA 3: MI BALANCE DE ZARD & BNB -->
+        <!-- PESTAÑA 3: MI BALANCE -->
         <div id="tab-balance" class="tab-content">
             <div class="card-grid">
                 <div class="fin-card" style="text-align: center; padding: 30px;">
                     <i class="fa-solid fa-coins" style="font-size: 3rem; color: var(--neon-blue); margin-bottom: 15px;"></i>
                     <h3 style="justify-content: center;">Balance en tu Billetera Conectada</h3>
-                    <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 25px;">Saldos oficiales leídos directamente de la red BNB Smart Chain.</p>
-                    
                     <div class="data-row" style="padding: 15px; background: #0c061a; border-radius: 10px; margin-bottom: 15px;">
                         <span style="font-family:'Orbitron'; color:var(--neon-blue);">BNB (Gas & Red):</span>
                         <span id="bnbBalanceVal" style="font-size: 1.1rem; color:#fff;">0.00 BNB</span>
                     </div>
-
                     <div class="data-row" style="padding: 15px; background: #0c061a; border-radius: 10px; margin-bottom: 20px;">
                         <span style="font-family:'Orbitron'; color:var(--neon-purple);">ZARD Token:</span>
                         <span id="zardBalanceVal" style="font-size: 1.1rem; color:#00ffcc;">0.00 ZARD</span>
                     </div>
-
                     <button class="action-btn" onclick="consultarSaldosReal()">Actualizar Saldos</button>
                 </div>
             </div>
@@ -528,18 +546,16 @@
                 <div class="fin-card" style="text-align: center; padding: 40px 20px;">
                     <i class="fa-solid fa-right-left" style="font-size: 3rem; color: var(--neon-blue); margin-bottom: 20px;"></i>
                     <h3 style="justify-content: center;">PancakeSwap DEX Exchange</h3>
-                    <p style="color: var(--text-muted); margin-bottom: 25px; font-size: 1.05rem;">Comprar y vender ZARD de forma instantánea en PancakeSwap.</p>
                     <a href="https://pancakeswap.finance/swap?outputCurrency=0x973ba2c1dccd0820f1e026d6b1f01c55c4085d38" target="_blank" class="action-btn" style="display: inline-block; padding: 14px 35px; text-decoration: none;">Abrir PancakeSwap <i class="fa-solid fa-external-link-alt"></i></a>
                 </div>
             </div>
         </div>
 
-        <!-- PESTAÑA 5: BUSCADOR WEB -->
+        <!-- PESTAÑA 5: BUSCADOR -->
         <div id="tab-browser" class="tab-content">
             <div class="card-grid">
                 <div class="fin-card" style="grid-column: span 2;">
                     <h3><i class="fa-solid fa-globe"></i> Buscador Web Descentralizado ZARD</h3>
-                    <p style="color:var(--text-muted); font-size: 0.95rem; margin-bottom: 15px;">Navega por la red o busca contratos inteligentes y dApps.</p>
                     <div style="display: flex; gap: 12px; margin-bottom: 20px;">
                         <input type="text" id="webSearchInput" placeholder="Busca en internet..." style="flex:1; background:#0c061a; border:1px solid var(--border-glow); padding:14px; border-radius:12px; color:#fff; outline:none;">
                         <button class="action-btn" onclick="buscarEnInternet()">Buscar</button>
@@ -553,6 +569,11 @@
     <script>
         let imagenBase64Temp = "";
         let cuentaActual = null;
+
+        // Cargar publicaciones al iniciar la página
+        window.addEventListener('DOMContentLoaded', () => {
+            cargarPublicaciones();
+        });
 
         function entrarNexus() {
             document.getElementById('welcome-screen').classList.add('fade-out');
@@ -570,20 +591,14 @@
             evt.currentTarget.classList.add('active');
         }
 
-        /* SISTEMA DE CONEXIÓN DEEP LINK (ESTILO PINGSALE / BINDING EXTERNO) */
-        function abrirModalWallet() {
-            document.getElementById('wallet-modal').style.display = 'flex';
-        }
-        function cerrarModal() {
-            document.getElementById('wallet-modal').style.display = 'none';
-        }
+        // CONEXIÓN WALLET DEEP LINK
+        function abrirModalWallet() { document.getElementById('wallet-modal').style.display = 'flex'; }
+        function cerrarModal() { document.getElementById('wallet-modal').style.display = 'none'; }
 
         function conectarPorDeepLink(walletType) {
             cerrarModal();
             const currentUrl = window.location.href;
             let deepLinkUrl = "";
-
-            // Redirección profunda exacta para abrir la app oficial externa y retornar al sitio web tras firmar
             if (walletType === 'binance') {
                 deepLinkUrl = `https://app.binance.com/en/download?ref=app_browser&url=${encodeURIComponent(currentUrl)}`;
             } else if (walletType === 'trust') {
@@ -591,8 +606,6 @@
             } else if (walletType === 'metamask') {
                 deepLinkUrl = `https://metamask.app.link/dapp/${currentUrl.replace(/^https?:\/\//, '')}`;
             }
-
-            // Abre el enlace externo de la app de la wallet
             window.location.href = deepLinkUrl;
         }
 
@@ -606,51 +619,41 @@
                     consultarSaldosReal();
                 } catch (error) {
                     console.error(error);
-                    alert("Conexión rechazada por el usuario.");
                 }
             } else {
-                alert("No se detectó un proveedor Web3 inyectado. Usa los accesos directos de Binance, Trust o MetaMask de arriba.");
+                alert("No se detectó un proveedor Web3 inyectado.");
             }
         }
 
         function mostrarWalletConectada(address) {
             const shortAddr = address.substring(0, 6) + "..." + address.substring(address.length - 4);
-            const container = document.getElementById('wallet-container');
-            container.innerHTML = `
+            document.getElementById('wallet-container').innerHTML = `
                 <div style="display:flex; align-items:center; gap:8px;">
                     <span style="background:rgba(0,243,255,0.1); border:1px solid var(--neon-blue); padding:8px 12px; border-radius:10px; font-size:0.85rem; color:var(--neon-blue); font-family:'Orbitron';">
                         <i class="fa-solid fa-circle-dot" style="color:#00ffcc; font-size:0.6rem;"></i> ${shortAddr}
                     </span>
-                    <button class="disconnect-btn" onclick="desconectarWallet()">Desconectar</button>
+                    <button class="disconnect-btn" onclick="desconectarWallet()">Salir</button>
                 </div>
             `;
         }
 
         function desconectarWallet() {
             cuentaActual = null;
-            const container = document.getElementById('wallet-container');
-            container.innerHTML = `<button class="wallet-btn" onclick="abrirModalWallet()"><i class="fa-solid fa-wallet"></i> Conectar Wallet</button>`;
+            document.getElementById('wallet-container').innerHTML = `<button class="wallet-btn" onclick="abrirModalWallet()"><i class="fa-solid fa-wallet"></i> Conectar Wallet</button>`;
             document.getElementById('bnbBalanceVal').innerText = "0.00 BNB";
             document.getElementById('zardBalanceVal').innerText = "0.00 ZARD";
-            alert("Billetera desconectada.");
         }
 
         async function consultarSaldosReal() {
             if (!cuentaActual) return;
             try {
-                const balanceWei = await window.ethereum.request({
-                    method: 'eth_getBalance',
-                    params: [cuentaActual, 'latest']
-                });
-                const bnbBalance = parseInt(balanceWei, 16) / 1e18;
-                document.getElementById('bnbBalanceVal').innerText = bnbBalance.toFixed(4) + " BNB";
+                const balanceWei = await window.ethereum.request({ method: 'eth_getBalance', params: [cuentaActual, 'latest'] });
+                document.getElementById('bnbBalanceVal').innerText = (parseInt(balanceWei, 16) / 1e18).toFixed(4) + " BNB";
                 document.getElementById('zardBalanceVal').innerText = "1,450.00 ZARD";
-            } catch (e) {
-                console.error(e);
-            }
+            } catch (e) { console.error(e); }
         }
 
-        /* PUBLICACIONES ZARD SQUARE CON IMAGEN COMPLETA SIN CORTES */
+        // SQUARE & GESTIÓN DE IMÁGENES / DESCARGA / COMPARTIR
         function verImagenSeleccionada(event) {
             const file = event.target.files[0];
             if (file) {
@@ -672,6 +675,7 @@
             const autorVisible = cuentaActual ? (cuentaActual.substring(0,6) + "...") : "ZARD Creator";
             
             const nuevaPub = {
+                id: Date.now(),
                 autor: autorVisible,
                 texto: texto,
                 imagen: imagenBase64Temp,
@@ -687,11 +691,11 @@
             imagenBase64Temp = "";
 
             cargarPublicaciones();
-            alert("¡Publicación compartida con éxito!");
         }
 
         function cargarPublicaciones() {
             const muro = document.getElementById('muroPublicaciones');
+            if (!muro) return;
             let publicaciones = JSON.parse(localStorage.getItem('zard_posts') || '[]');
             
             if (publicaciones.length === 0) {
@@ -708,11 +712,34 @@
                             <span style="font-size:0.75rem; color:var(--text-muted);">${pub.fecha}</span>
                         </div>
                         <p style="margin-top:8px; font-size:0.95rem; color:#fff; word-break:break-word;">${pub.texto}</p>
-                        ${pub.imagen ? `<img src="${pub.imagen}" alt="Post Image">` : ''}
+                        ${pub.imagen ? `
+                            <img src="${pub.imagen}" alt="Post Image">
+                            <div class="post-actions">
+                                <a href="${pub.imagen}" download="zard-square-${pub.id}.png" class="post-btn-tool"><i class="fa-solid fa-download"></i> Descargar Imagen</a>
+                                <button class="post-btn-tool" onclick="compartirImagen('${pub.imagen}')"><i class="fa-solid fa-share-nodes"></i> Compartir</button>
+                            </div>
+                        ` : ''}
                     </div>
                 `;
             });
             muro.innerHTML = html;
+        }
+
+        function compartirImagen(dataUrl) {
+            if (navigator.share) {
+                fetch(dataUrl)
+                    .then(res => res.blob())
+                    .then(blob => {
+                        const file = new File([blob], "zard-share.png", { type: "image/png" });
+                        navigator.share({
+                            title: 'ZARD Square',
+                            text: '¡Mirá esta publicación del ecosistema ZARD!',
+                            files: [file]
+                        }).catch(() => {});
+                    });
+            } else {
+                alert("La función de compartir directamente no está soportada en este navegador, pero puedes usar el botón de descargar.");
+            }
         }
 
         function buscarEnInternet() {
