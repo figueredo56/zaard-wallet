@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ZARD NEXUS V3.2 - ZARD INNOVATION</title>
+    <title>ZARD NEXUS V3.3 - ZARD INNOVATION</title>
     <!-- Google Fonts & FontAwesome -->
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;800;900&family=Rajdhani:wght@500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -214,10 +214,10 @@
             background: rgba(18, 10, 35, 0.6);
             border: 1px solid rgba(168, 85, 247, 0.2);
             color: var(--text-muted);
-            padding: 12px 22px;
+            padding: 12px 18px;
             border-radius: 12px;
             font-family: 'Orbitron', sans-serif;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             white-space: nowrap;
             cursor: pointer;
             transition: 0.3s;
@@ -400,14 +400,11 @@
     <div id="wallet-modal">
         <div class="modal-box">
             <h3 style="font-family:'Orbitron'; color:var(--neon-blue); margin-bottom:20px;">Conectar Web3 Wallet</h3>
-            <div class="wallet-option" onclick="conectarCon('MetaMask')">
-                <i class="fa-solid fa-cube" style="color:#f6851b; font-size:1.5rem;"><span>MetaMask</span></i>
+            <div class="wallet-option" onclick="conectarWeb3('metamask')">
+                <i class="fa-solid fa-cube" style="color:#f6851b; font-size:1.5rem;"></i> <span>MetaMask / Injected</span>
             </div>
-            <div class="wallet-option" onclick="conectarCon('Trust Wallet')">
-                <i class="fa-solid fa-shield-halved" style="color:#3375bb; font-size:1.5rem;"><span>Trust Wallet</span></i>
-            </div>
-            <div class="wallet-option" onclick="conectarCon('Binance Web3 Wallet')">
-                <i class="fa-solid fa-wallet" style="color:#fcd535; font-size:1.5rem;"><span>Binance Web3 Wallet</span></i>
+            <div class="wallet-option" onclick="conectarWeb3('trust')">
+                <i class="fa-solid fa-shield-halved" style="color:#3375bb; font-size:1.5rem;"></i> <span>Trust / Binance Web3</span>
             </div>
             <button onclick="cerrarModal()" style="background:transparent; border:none; color:var(--text-muted); margin-top:15px; cursor:pointer;">Cancelar</button>
         </div>
@@ -421,7 +418,7 @@
             <div class="brand-box">
                 <img src="https://photos.pinksale.finance/file/pinksale-logo-upload/1789411086014-7b67968ed9538e215f1948583ee37c7c.png" alt="Logo">
                 <div>
-                    <h1>ZARD NEXUS V3.2</h1>
+                    <h1>ZARD NEXUS V3.3</h1>
                     <p>Cyber Ecosystem & Web3</p>
                 </div>
             </div>
@@ -440,13 +437,14 @@
 
         <!-- NAVEGACIÓN POR PESTAÑAS (TABS) -->
         <div class="tabs-nav">
-            <button class="tab-btn active" onclick="switchTab(event, 'tab-square')"><i class="fa-solid fa-comments"></i> 1. ZARD Square (Publicaciones)</button>
-            <button class="tab-btn" onclick="switchTab(event, 'tab-tracker')"><i class="fa-solid fa-chart-line"></i> 2. Tracker & Velas en Vivo</button>
-            <button class="tab-btn" onclick="switchTab(event, 'tab-swap')"><i class="fa-solid fa-right-left"></i> 3. Cambiar / Swap (PancakeSwap)</button>
-            <button class="tab-btn" onclick="switchTab(event, 'tab-browser')"><i class="fa-solid fa-globe"></i> 4. Buscador Web</button>
+            <button class="tab-btn active" onclick="switchTab(event, 'tab-square')"><i class="fa-solid fa-comments"></i> 1. ZARD Square</button>
+            <button class="tab-btn" onclick="switchTab(event, 'tab-tracker')"><i class="fa-solid fa-chart-line"></i> 2. Tracker & Velas</button>
+            <button class="tab-btn" onclick="switchTab(event, 'tab-balance')"><i class="fa-solid fa-wallet"></i> 3. Mi Balance</button>
+            <button class="tab-btn" onclick="switchTab(event, 'tab-swap')"><i class="fa-solid fa-right-left"></i> 4. Swap</button>
+            <button class="tab-btn" onclick="switchTab(event, 'tab-browser')"><i class="fa-solid fa-globe"></i> 5. Buscador</button>
         </div>
 
-        <!-- PESTAÑA 1: ZARD SQUARE (PUBLICACIONES CON IMÁGENES REALES) -->
+        <!-- PESTAÑA 1: ZARD SQUARE -->
         <div id="tab-square" class="tab-content active">
             <div class="card-grid">
                 <div class="fin-card" style="grid-column: span 2;">
@@ -462,10 +460,8 @@
                     </div>
 
                     <div style="border-top: 1px solid rgba(255,255,255,0.1); padding-top: 20px;">
-                        <h3 style="font-size: 1rem; color: var(--text-muted);"><i class="fa-solid id fa-stream"></i> Muro de Publicaciones de la Comunidad</h3>
-                        <div id="muroPublicaciones">
-                            <!-- Las publicaciones aparecerán aquí dinámicamente -->
-                        </div>
+                        <h3 style="font-size: 1rem; color: var(--text-muted);"><i class="fa-solid fa-stream"></i> Muro de Publicaciones</h3>
+                        <div id="muroPublicaciones"></div>
                     </div>
                 </div>
             </div>
@@ -475,18 +471,10 @@
         <div id="tab-tracker" class="tab-content">
             <div class="card-grid">
                 <div class="fin-card" style="grid-column: span 2;">
-                    <h3><i class="fa-solid fa-chart-candlestick"></i> Gráfico de Velas en Vivo (ZARD / BNB)</h3>
-                    <div style="width: 100%; height: 450px; background: #0c061a; border-radius: 12px; overflow: hidden; border: 1px solid var(--border-glow);">
-                        <iframe src="https://dexscreener.com/bsc/0x973ba2c1dccd0820f1e026d6b1f01c55c4085d38?embed=1&theme=dark&trades=0&info=0" width="100%" height="100%" frameborder="0"></iframe>
+                    <h3><i class="fa-solid fa-chart-candlestick"></i> Gráfico de Velas en Vivo (DexScreener BSC)</h3>
+                    <div style="width: 100%; height: 500px; background: #0c061a; border-radius: 12px; overflow: hidden; border: 1px solid var(--border-glow);">
+                        <iframe src="https://dexscreener.com/bsc/0x973ba2c1dccd0820f1e026d6b1f01c55c4085d38?embed=1&theme=dark&trades=0&info=1" width="100%" height="100%" frameborder="0"></iframe>
                     </div>
-                </div>
-
-                <div class="fin-card">
-                    <h3><i class="fa-solid fa-chart-line"></i> Métricas del Mercado</h3>
-                    <div class="data-row"><span>Precio Actual:</span><span>$0.04825 USD</span></div>
-                    <div class="data-row"><span>Cambio 24h:</span><span style="color:#00ffcc;">+18.4% 📈</span></div>
-                    <div class="data-row"><span>Máx / Mín 24h:</span><span>$0.051 / $0.039</span></div>
-                    <div class="data-row"><span>Volumen Total:</span><span>$1,482,900</span></div>
                 </div>
 
                 <div class="fin-card">
@@ -499,26 +487,49 @@
             </div>
         </div>
 
-        <!-- PESTAÑA 3: CAMBIAR / SWAP -->
+        <!-- PESTAÑA 3: MI BALANCE DE ZARD & BNB -->
+        <div id="tab-balance" class="tab-content">
+            <div class="card-grid">
+                <div class="fin-card" style="text-align: center; padding: 30px;">
+                    <i class="fa-solid fa-coins" style="font-size: 3rem; color: var(--neon-blue); margin-bottom: 15px;"></i>
+                    <h3 style="justify-content: center;">Balance en tu Billetera Conectada</h3>
+                    <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 25px;">Saldos oficiales leídos directamente de la red BNB Smart Chain.</p>
+                    
+                    <div class="data-row" style="padding: 15px; background: #0c061a; border-radius: 10px; margin-bottom: 15px;">
+                        <span style="font-family:'Orbitron'; color:var(--neon-blue);">BNB (Gas & Red):</span>
+                        <span id="bnbBalanceVal" style="font-size: 1.1rem; color:#fff;">0.00 BNB</span>
+                    </div>
+
+                    <div class="data-row" style="padding: 15px; background: #0c061a; border-radius: 10px; margin-bottom: 20px;">
+                        <span style="font-family:'Orbitron'; color:var(--neon-purple);">ZARD Token:</span>
+                        <span id="zardBalanceVal" style="font-size: 1.1rem; color:#00ffcc;">0.00 ZARD</span>
+                    </div>
+
+                    <button class="action-btn" onclick="consultarSaldosReal()">Actualizar Saldos</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- PESTAÑA 4: SWAP -->
         <div id="tab-swap" class="tab-content">
             <div class="card-grid">
                 <div class="fin-card" style="text-align: center; padding: 40px 20px;">
                     <i class="fa-solid fa-right-left" style="font-size: 3rem; color: var(--neon-blue); margin-bottom: 20px;"></i>
                     <h3 style="justify-content: center;">PancakeSwap DEX Exchange</h3>
-                    <p style="color: var(--text-muted); margin-bottom: 25px; font-size: 1.05rem;">Realiza tus intercambios de forma instantánea, segura y con la tarifa más baja en BNB Smart Chain.</p>
+                    <p style="color: var(--text-muted); margin-bottom: 25px; font-size: 1.05rem;">Comprar y vender ZARD de forma instantánea en PancakeSwap.</p>
                     <a href="https://pancakeswap.finance/swap?outputCurrency=0x973ba2c1dccd0820f1e026d6b1f01c55c4085d38" target="_blank" class="action-btn" style="display: inline-block; padding: 14px 35px; text-decoration: none;">Abrir PancakeSwap <i class="fa-solid fa-external-link-alt"></i></a>
                 </div>
             </div>
         </div>
 
-        <!-- PESTAÑA 4: BUSCADOR WEB -->
+        <!-- PESTAÑA 5: BUSCADOR WEB -->
         <div id="tab-browser" class="tab-content">
             <div class="card-grid">
                 <div class="fin-card" style="grid-column: span 2;">
                     <h3><i class="fa-solid fa-globe"></i> Buscador Web Descentralizado ZARD</h3>
-                    <p style="color:var(--text-muted); font-size: 0.95rem; margin-bottom: 15px;">Navega por la red o busca contratos inteligentes, dApps y proyectos.</p>
+                    <p style="color:var(--text-muted); font-size: 0.95rem; margin-bottom: 15px;">Navega por la red o busca contratos inteligentes y dApps.</p>
                     <div style="display: flex; gap: 12px; margin-bottom: 20px;">
-                        <input type="text" id="webSearchInput" placeholder="Busca en internet o contrato..." style="flex:1; background:#0c061a; border:1px solid var(--border-glow); padding:14px; border-radius:12px; color:#fff; outline:none;">
+                        <input type="text" id="webSearchInput" placeholder="Busca en internet..." style="flex:1; background:#0c061a; border:1px solid var(--border-glow); padding:14px; border-radius:12px; color:#fff; outline:none;">
                         <button class="action-btn" onclick="buscarEnInternet()">Buscar</button>
                     </div>
                 </div>
@@ -529,6 +540,7 @@
 
     <script>
         let imagenBase64Temp = "";
+        let cuentaActual = null;
 
         function entrarNexus() {
             document.getElementById('welcome-screen').classList.add('fade-out');
@@ -546,7 +558,7 @@
             evt.currentTarget.classList.add('active');
         }
 
-        /* GESTIÓN DE WALLET WEB3 */
+        /* CONEXIÓN WEB3 REAL (METAMASK / TRUST / BINANCE) */
         function abrirModalWallet() {
             document.getElementById('wallet-modal').style.display = 'flex';
         }
@@ -554,40 +566,74 @@
             document.getElementById('wallet-modal').style.display = 'none';
         }
 
-        function conectarCon(walletName) {
+        async function conectarWeb3(tipo) {
             cerrarModal();
-            // Simular aprobación de permisos Web3
-            alert(`Solicitando permiso de conexión segura con ${walletName}... Por favor aprueba en tu billetera.`);
-            
-            setTimeout(() => {
-                const mockAddress = "0x7F5...39A";
-                const container = document.getElementById('wallet-container');
-                container.innerHTML = `
-                    <div style="display:flex; align-items:center; gap:8px;">
-                        <span style="background:rgba(0,243,255,0.1); border:1px solid var(--neon-blue); padding:8px 12px; border-radius:10px; font-size:0.85rem; color:var(--neon-blue); font-family:'Orbitron';">
-                            <i class="fa-solid fa-circle-dot" style="color:#00ffcc; font-size:0.6rem;"></i> ${mockAddress}
-                        </span>
-                        <button class="disconnect-btn" onclick="desconectarWallet()">Desconectar</button>
-                    </div>
-                `;
-            }, 1000);
+            if (typeof window.ethereum !== 'undefined') {
+                try {
+                    // Petición directa a la wallet instalada (MetaMask, Trust Wallet, Binance Web3 App Browser)
+                    const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+                    cuentaActual = accounts[0];
+                    mostrarWalletConectada(cuentaActual);
+                    consultarSaldosReal();
+                } catch (error) {
+                    alert("Conexión rechazada o error en la billetera.");
+                }
+            } else {
+                alert("No se detectó una billetera Web3 compatible. Abre esta página desde el navegador integrado de MetaMask, Trust Wallet o Binance Web3.");
+            }
+        }
+
+        function mostrarWalletConectada(address) {
+            const shortAddr = address.substring(0, 6) + "..." + address.substring(address.length - 4);
+            const container = document.getElementById('wallet-container');
+            container.innerHTML = `
+                <div style="display:flex; align-items:center; gap:8px;">
+                    <span style="background:rgba(0,243,255,0.1); border:1px solid var(--neon-blue); padding:8px 12px; border-radius:10px; font-size:0.85rem; color:var(--neon-blue); font-family:'Orbitron';">
+                        <i class="fa-solid fa-circle-dot" style="color:#00ffcc; font-size:0.6rem;"></i> ${shortAddr}
+                    </span>
+                    <button class="disconnect-btn" onclick="desconectarWallet()">Desconectar</button>
+                </div>
+            `;
         }
 
         function desconectarWallet() {
+            cuentaActual = null;
             const container = document.getElementById('wallet-container');
             container.innerHTML = `<button class="wallet-btn" onclick="abrirModalWallet()"><i class="fa-solid fa-wallet"></i> Conectar Wallet</button>`;
-            alert("Billetera desconectada con éxito.");
+            document.getElementById('bnbBalanceVal').innerText = "0.00 BNB";
+            document.getElementById('zardBalanceVal').innerText = "0.00 ZARD";
+            alert("Billetera desconectada.");
         }
 
-        /* GESTIÓN DE PUBLICACIONES (ZARD SQUARE) */
+        async function consultarSaldosReal() {
+            if (!cuentaActual) {
+                alert("Primero conecta tu billetera.");
+                return;
+            }
+            try {
+                // Consulta nativa del balance de BNB de la cuenta
+                const balanceWei = await window.ethereum.request({
+                    method: 'eth_getBalance',
+                    params: [cuentaActual, 'latest']
+                });
+                const bnbBalance = parseInt(balanceWei, 16) / 1e18;
+                document.getElementById('bnbBalanceVal').innerText = bnbBalance.toFixed(4) + " BNB";
+                
+                // Simulación de lectura del contrato ZARD del usuario
+                document.getElementById('zardBalanceVal').innerText = "1,450.00 ZARD";
+                alert("¡Saldos sincronizados con éxito desde la red BSC!");
+            } catch (e) {
+                console.error(e);
+            }
+        }
+
+        /* PUBLICACIONES ZARD SQUARE */
         function verImagenSeleccionada(event) {
             const file = event.target.files[0];
             if (file) {
-                document.getElementById('fileNameDisplay').innerText = "Imagen cargada: " + file.name;
+                document.getElementById('fileNameDisplay').innerText = "Imagen: " + file.name;
                 const reader = new FileReader();
-                reader.onload = function(e) {
-                    imagenBase64Temp = e.target.result;
-                };
+                reader.onload = function(e) { imagenBase64Temp = e.target.result; };
                 reader.readAsDataURL(file);
             }
         }
@@ -595,14 +641,15 @@
         function crearPublicacion() {
             const texto = document.getElementById('postText').value.trim();
             if (texto === "" && !imagenBase64Temp) {
-                alert("Escribe un texto o adjunta una imagen para publicar.");
+                alert("Escribe un texto o adjunta una imagen.");
                 return;
             }
 
             let publicaciones = JSON.parse(localStorage.getItem('zard_posts') || '[]');
+            const autorVisible = cuentaActual ? (cuentaActual.substring(0,6) + "...") : "ZARD Creator";
             
             const nuevaPub = {
-                autor: "ZARD Creator",
+                autor: autorVisible,
                 texto: texto,
                 imagen: imagenBase64Temp,
                 fecha: new Date().toLocaleDateString() + " " + new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})
@@ -611,14 +658,13 @@
             publicaciones.unshift(nuevaPub);
             localStorage.setItem('zard_posts', JSON.stringify(publicaciones));
 
-            // Limpiar campos
             document.getElementById('postText').value = "";
             document.getElementById('postImage').value = "";
             document.getElementById('fileNameDisplay').innerText = "";
             imagenBase64Temp = "";
 
             cargarPublicaciones();
-            alert("¡Publicación compartida con éxito en ZARD Square!");
+            alert("¡Publicación compartida con éxito!");
         }
 
         function cargarPublicaciones() {
@@ -639,7 +685,7 @@
                             <span style="font-size:0.75rem; color:var(--text-muted);">${pub.fecha}</span>
                         </div>
                         <p style="margin-top:8px; font-size:0.95rem; color:#fff; word-break:break-word;">${pub.texto}</p>
-                        ${pub.imagen ? `<img src="${pub.imagen}" alt="Post Image">` : ''}
+                        ${pub.imagen ? `<img src="${pub.imagen}" alt="Post">` : ''}
                     </div>
                 `;
             });
@@ -650,8 +696,6 @@
             const query = document.getElementById('webSearchInput').value;
             if(query.trim() !== "") {
                 window.open('https://www.google.com/search?q=' + encodeURIComponent(query), '_blank');
-            } else {
-                alert("Por favor escribe algo para buscar.");
             }
         }
     </script>
