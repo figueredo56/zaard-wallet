@@ -378,7 +378,7 @@
             background: rgba(0, 243, 255, 0.25);
         }
 
-        /* MODAL DE WALLET (DEEP LINK) */
+        /* MODAL DE WALLET */
         #wallet-modal {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -424,21 +424,21 @@
         }
     </style>
 </head>
-<body>
+<body dir="ltr">
 
     <!-- BIENVENIDA MAJESTUOSA (EFECTO WOW) -->
     <div id="welcome-screen">
         <img src="https://photos.pinksale.finance/file/pinksale-logo-upload/1789411086014-7b67968ed9538e215f1948583ee37c7c.png" alt="ZARD Logo" class="welcome-logo" onerror="this.src='https://raw.githubusercontent.com/figueredo56/zaard-official/main/logo.png'">
-        <div class="welcome-title">ZARD INNOVATION</div>
-        <div class="welcome-sub">Renacimiento Cibernético & Inteligencia Artificial</div>
-        <button class="enter-btn" onclick="entrarNexus()"><i class="fa-solid fa-rocket"></i> INGRESAR AL NEXUS</button>
+        <div class="welcome-title" data-i18n="welTitle">ZARD INNOVATION</div>
+        <div class="welcome-sub" data-i18n="welSub">Renacimiento Cibernético & Inteligencia Artificial</div>
+        <button class="enter-btn" onclick="entrarNexus()"><i class="fa-solid fa-rocket"></i> <span data-i18n="welBtn">INGRESAR AL NEXUS</span></button>
     </div>
 
-    <!-- MODAL SELECCIÓN DE WALLET (DEEP LINK) -->
+    <!-- MODAL SELECCIÓN DE WALLET -->
     <div id="wallet-modal">
         <div class="modal-box">
-            <h3 style="font-family:'Orbitron'; color:var(--neon-blue); margin-bottom:10px;">Conectar Billetera Web3</h3>
-            <p style="color:var(--text-muted); font-size:0.85rem; margin-bottom:20px;">Abre tu app externa (Binance, Trust, MetaMask) o conecta directamente tu navegador:</p>
+            <h3 style="font-family:'Orbitron'; color:var(--neon-blue); margin-bottom:10px;" data-i18n="modTitle">Conectar Billetera Web3</h3>
+            <p style="color:var(--text-muted); font-size:0.85rem; margin-bottom:20px;" data-i18n="modDesc">Abre tu app externa o conecta directamente tu navegador:</p>
             
             <div class="wallet-option" onclick="conectarPorDeepLink('binance')">
                 <i class="fa-solid fa-globe" style="color:#F0B90B; font-size:1.5rem;"></i> <span>Binance Web3 App</span>
@@ -450,10 +450,10 @@
                 <i class="fa-solid fa-cube" style="color:#f6851b; font-size:1.5rem;"></i> <span>MetaMask App</span>
             </div>
             <div class="wallet-option" onclick="conectarInyectadoLocal()">
-                <i class="fa-solid fa-bolt" style="color:var(--neon-blue); font-size:1.5rem;"></i> <span>Navegador / Inyectado Web3</span>
+                <i class="fa-solid fa-bolt" style="color:var(--neon-blue); font-size:1.5rem;"></i> <span data-i18n="modLocal">Navegador / Inyectado Web3</span>
             </div>
 
-            <button onclick="cerrarModal()" style="background:transparent; border:none; color:var(--text-muted); margin-top:15px; cursor:pointer;">Cancelar</button>
+            <button onclick="cerrarModal()" style="background:transparent; border:none; color:var(--text-muted); margin-top:15px; cursor:pointer;" data-i18n="modCancel">Cancelar</button>
         </div>
     </div>
 
@@ -466,48 +466,48 @@
                 <img src="https://photos.pinksale.finance/file/pinksale-logo-upload/1789411086014-7b67968ed9538e215f1948583ee37c7c.png" alt="Logo" onerror="this.src='https://raw.githubusercontent.com/figueredo56/zaard-official/main/logo.png'">
                 <div>
                     <h1>ZARD NEXUS V3.5</h1>
-                    <p>Cyber Ecosystem & Web3</p>
+                    <p data-i18n="headSub">Cyber Ecosystem & Web3</p>
                 </div>
             </div>
             <div class="controls-bar">
-                <select id="langSelect" onchange="cambiarIdioma()">
+                <select id="langSelect" onchange="cambiarIdiomaSelect(this.value)">
                     <option value="es">🇪🇸 ES</option>
                     <option value="en">🇬🇧 EN</option>
                     <option value="ar">🇸🇦 AR</option>
                     <option value="zh">🇨🇳 ZH</option>
                 </select>
                 <div id="wallet-container">
-                    <button class="wallet-btn" onclick="abrirModalWallet()"><i class="fa-solid fa-wallet"></i> Conectar Wallet</button>
+                    <button class="wallet-btn" onclick="abrirModalWallet()"><i class="fa-solid fa-wallet"></i> <span data-i18n="connectWallet">Conectar Wallet</span></button>
                 </div>
             </div>
         </header>
 
         <!-- NAVEGACIÓN POR PESTAÑAS (TABS) -->
         <div class="tabs-nav">
-            <button class="tab-btn active" onclick="switchTab(event, 'tab-square')"><i class="fa-solid fa-comments"></i> 1. ZARD Square</button>
-            <button class="tab-btn" onclick="switchTab(event, 'tab-tracker')"><i class="fa-solid fa-chart-line"></i> 2. Tracker & Velas</button>
-            <button class="tab-btn" onclick="switchTab(event, 'tab-balance')"><i class="fa-solid fa-wallet"></i> 3. Mi Balance</button>
-            <button class="tab-btn" onclick="switchTab(event, 'tab-swap')"><i class="fa-solid fa-right-left"></i> 4. Swap</button>
-            <button class="tab-btn" onclick="switchTab(event, 'tab-browser')"><i class="fa-solid fa-globe"></i> 5. Buscador</button>
+            <button class="tab-btn active" onclick="switchTab(event, 'tab-square')"><i class="fa-solid fa-comments"></i> <span data-i18n="tab1">1. ZARD Square</span></button>
+            <button class="tab-btn" onclick="switchTab(event, 'tab-tracker')"><i class="fa-solid fa-chart-line"></i> <span data-i18n="tab2">2. Tracker & Velas</span></button>
+            <button class="tab-btn" onclick="switchTab(event, 'tab-balance')"><i class="fa-solid fa-wallet"></i> <span data-i18n="tab3">3. Mi Balance</span></button>
+            <button class="tab-btn" onclick="switchTab(event, 'tab-swap')"><i class="fa-solid fa-right-left"></i> <span data-i18n="tab4">4. Swap</span></button>
+            <button class="tab-btn" onclick="switchTab(event, 'tab-browser')"><i class="fa-solid fa-globe"></i> <span data-i18n="tab5">5. Buscador</span></button>
         </div>
 
         <!-- PESTAÑA 1: ZARD SQUARE -->
         <div id="tab-square" class="tab-content active">
             <div class="card-grid">
                 <div class="fin-card" style="grid-column: span 2;">
-                    <h3><i class="fa-solid fa-pen-nib"></i> Crear Publicación en ZARD Square</h3>
-                    <textarea id="postText" class="square-input-box" placeholder="¿Qué está pasando en el ecosistema ZARD? Comparte tu análisis, meme o proyecto..."></textarea>
+                    <h3><i class="fa-solid fa-pen-nib"></i> <span data-i18n="sqTitle">Crear Publicación en ZARD Square</span></h3>
+                    <textarea id="postText" class="square-input-box" data-i18n-placeholder="sqPlaceholder" placeholder="¿Qué está pasando en el ecosistema ZARD? Comparte tu análisis, meme o proyecto..."></textarea>
                     
                     <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; margin-bottom: 20px;">
                         <label class="file-upload-label">
-                            <i class="fa-solid fa-image"></i> Adjuntar Imagen <input type="file" id="postImage" accept="image/*" style="display: none;" onchange="verImagenSeleccionada(event)">
+                            <i class="fa-solid fa-image"></i> <span data-i18n="sqAttach">Adjuntar Imagen</span> <input type="file" id="postImage" accept="image/*" style="display: none;" onchange="verImagenSeleccionada(event)">
                         </label>
                         <span id="fileNameDisplay" style="font-size: 0.85rem; color: var(--neon-blue);"></span>
-                        <button class="action-btn" onclick="crearPublicacion()">Publicar Ahora</button>
+                        <button class="action-btn" onclick="crearPublicacion()" data-i18n="sqPublish">Publicar Ahora</button>
                     </div>
 
                     <div style="border-top: 1px solid rgba(255,255,255,0.1); padding-top: 20px;">
-                        <h3 style="font-size: 1rem; color: var(--text-muted);"><i class="fa-solid fa-stream"></i> Muro de Publicaciones</h3>
+                        <h3 style="font-size: 1rem; color: var(--text-muted);"><i class="fa-solid fa-stream"></i> <span data-i18n="sqWall">Muro de Publicaciones</span></h3>
                         <div id="muroPublicaciones"></div>
                     </div>
                 </div>
@@ -518,7 +518,7 @@
         <div id="tab-tracker" class="tab-content">
             <div class="card-grid">
                 <div class="fin-card" style="grid-column: span 2;">
-                    <h3><i class="fa-solid fa-chart-candlestick"></i> Gráfico de Velas en Vivo (DexScreener BSC)</h3>
+                    <h3><i class="fa-solid fa-chart-candlestick"></i> <span data-i18n="trkTitle">Gráfico de Velas en Vivo (DexScreener BSC)</span></h3>
                     <div style="width: 100%; height: 500px; background: #0c061a; border-radius: 12px; overflow: hidden; border: 1px solid var(--border-glow);">
                         <iframe src="https://dexscreener.com/bsc/0x973ba2c1dccd0820f1e026d6b1f01c55c4085d38?embed=1&theme=dark&trades=0&info=1" width="100%" height="100%" frameborder="0"></iframe>
                     </div>
@@ -531,16 +531,16 @@
             <div class="card-grid">
                 <div class="fin-card" style="text-align: center; padding: 30px;">
                     <i class="fa-solid fa-coins" style="font-size: 3rem; color: var(--neon-blue); margin-bottom: 15px;"></i>
-                    <h3 style="justify-content: center;">Balance en tu Billetera Conectada</h3>
+                    <h3 style="justify-content: center;" data-i18n="balTitle">Balance en tu Billetera Conectada</h3>
                     <div class="data-row" style="padding: 15px; background: #0c061a; border-radius: 10px; margin-bottom: 15px;">
-                        <span style="font-family:'Orbitron'; color:var(--neon-blue);">BNB (Gas & Red):</span>
+                        <span style="font-family:'Orbitron'; color:var(--neon-blue);">BNB:</span>
                         <span id="bnbBalanceVal" style="font-size: 1.1rem; color:#fff;">0.00 BNB</span>
                     </div>
                     <div class="data-row" style="padding: 15px; background: #0c061a; border-radius: 10px; margin-bottom: 20px;">
                         <span style="font-family:'Orbitron'; color:var(--neon-purple);">ZARD Token:</span>
                         <span id="zardBalanceVal" style="font-size: 1.1rem; color:#00ffcc;">0.00 ZARD</span>
                     </div>
-                    <button class="action-btn" onclick="consultarSaldosReal()">Actualizar Saldos</button>
+                    <button class="action-btn" onclick="consultarSaldosReal()" data-i18n="balUpdate">Actualizar Saldos</button>
                 </div>
             </div>
         </div>
@@ -551,7 +551,7 @@
                 <div class="fin-card" style="text-align: center; padding: 40px 20px;">
                     <i class="fa-solid fa-right-left" style="font-size: 3rem; color: var(--neon-blue); margin-bottom: 20px;"></i>
                     <h3 style="justify-content: center;">PancakeSwap DEX Exchange</h3>
-                    <a href="https://pancakeswap.finance/swap?outputCurrency=0x973ba2c1dccd0820f1e026d6b1f01c55c4085d38" target="_blank" class="action-btn" style="display: inline-block; padding: 14px 35px; text-decoration: none;">Abrir PancakeSwap <i class="fa-solid fa-external-link-alt"></i></a>
+                    <a href="https://pancakeswap.finance/swap?outputCurrency=0x973ba2c1dccd0820f1e026d6b1f01c55c4085d38" target="_blank" class="action-btn" style="display: inline-block; padding: 14px 35px; text-decoration: none;"><span data-i18n="swapBtn">Abrir PancakeSwap</span> <i class="fa-solid fa-external-link-alt"></i></a>
                 </div>
             </div>
         </div>
@@ -560,10 +560,10 @@
         <div id="tab-browser" class="tab-content">
             <div class="card-grid">
                 <div class="fin-card" style="grid-column: span 2;">
-                    <h3><i class="fa-solid fa-globe"></i> Buscador Web Descentralizado ZARD</h3>
+                    <h3><i class="fa-solid fa-globe"></i> <span data-i18n="webTitle">Buscador Web Descentralizado ZARD</span></h3>
                     <div style="display: flex; gap: 12px; margin-bottom: 20px;">
-                        <input type="text" id="webSearchInput" placeholder="Busca en internet..." style="flex:1; background:#0c061a; border:1px solid var(--border-glow); padding:14px; border-radius:12px; color:#fff; outline:none;">
-                        <button class="action-btn" onclick="buscarEnInternet()">Buscar</button>
+                        <input type="text" id="webSearchInput" data-i18n-placeholder="webPlaceholder" placeholder="Busca en internet..." style="flex:1; background:#0c061a; border:1px solid var(--border-glow); padding:14px; border-radius:12px; color:#fff; outline:none;">
+                        <button class="action-btn" onclick="buscarEnInternet()" data-i18n="webBtn">Buscar</button>
                     </div>
                 </div>
             </div>
@@ -572,12 +572,133 @@
     </div>
 
     <script>
+        // TRADUCCIONES COMPLETAS (ES, EN, AR, ZH)
+        const dictionary = {
+            es: {
+                welTitle: "ZARD INNOVATION",
+                welSub: "Renacimiento Cibernético & Inteligencia Artificial",
+                welBtn: "INGRESAR AL NEXUS",
+                modTitle: "Conectar Billetera Web3",
+                modDesc: "Abre tu app externa o conecta directamente tu navegador:",
+                modLocal: "Navegador / Inyectado Web3",
+                modCancel: "Cancelar",
+                headSub: "Cyber Ecosystem & Web3",
+                connectWallet: "Conectar Wallet",
+                disconnectWallet: "Desconectar",
+                tab1: "1. ZARD Square",
+                tab2: "2. Tracker & Velas",
+                tab3: "3. Mi Balance",
+                tab4: "4. Swap",
+                tab5: "5. Buscador",
+                sqTitle: "Crear Publicación en ZARD Square",
+                sqPlaceholder: "¿Qué está pasando en el ecosistema ZARD? Comparte tu análisis, meme o proyecto...",
+                sqAttach: "Adjuntar Imagen",
+                sqPublish: "Publicar Ahora",
+                sqWall: "Muro de Publicaciones",
+                trkTitle: "Gráfico de Velas en Vivo (DexScreener BSC)",
+                balTitle: "Balance en tu Billetera Conectada",
+                balUpdate: "Actualizar Saldos",
+                swapBtn: "Abrir PancakeSwap",
+                webTitle: "Buscador Web Descentralizado ZARD",
+                webPlaceholder: "Busca en internet...",
+                webBtn: "Buscar"
+            },
+            en: {
+                welTitle: "ZARD INNOVATION",
+                welSub: "Cybernetic Renaissance & Artificial Intelligence",
+                welBtn: "ENTER THE NEXUS",
+                modTitle: "Connect Web3 Wallet",
+                modDesc: "Open your external app or connect your browser directly:",
+                modLocal: "Browser / Injected Web3",
+                modCancel: "Cancel",
+                headSub: "Cyber Ecosystem & Web3",
+                connectWallet: "Connect Wallet",
+                disconnectWallet: "Disconnect",
+                tab1: "1. ZARD Square",
+                tab2: "2. Tracker & Charts",
+                tab3: "3. My Balance",
+                tab4: "4. Swap",
+                tab5: "5. Browser",
+                sqTitle: "Create Post in ZARD Square",
+                sqPlaceholder: "What's happening in the ZARD ecosystem? Share your analysis, meme or project...",
+                sqAttach: "Attach Image",
+                sqPublish: "Publish Now",
+                sqWall: "Post Wall",
+                trkTitle: "Live Candlestick Chart (DexScreener BSC)",
+                balTitle: "Connected Wallet Balance",
+                balUpdate: "Update Balances",
+                swapBtn: "Open PancakeSwap",
+                webTitle: "ZARD Decentralized Web Browser",
+                webPlaceholder: "Search the web...",
+                webBtn: "Search"
+            },
+            ar: {
+                welTitle: "ابتكار زارد",
+                welSub: "النهضة السيبرانية والذكاء الاصطناعي",
+                welBtn: "الدخول إلى النكسوس",
+                modTitle: "اتصال محفظة Web3",
+                modDesc: "افتح تطبيقك الخارجي أو اتصل مباشرة من المتصفح:",
+                modLocal: "متصفح / محفظة مدمجة",
+                modCancel: "إلغاء",
+                headSub: "النظام البيئي السيبراني و Web3",
+                connectWallet: "اتصال المحفظة",
+                disconnectWallet: "قطع الاتصال",
+                tab1: "1. مربع زارد",
+                tab2: "2. المتتبع والرسوم البيانية",
+                tab3: "3. رصيدي",
+                tab4: "4. مبادلة",
+                tab5: "5. المتصفح",
+                sqTitle: "إنشاء منشور في زارد سكوير",
+                sqPlaceholder: "ما الذي يحدث في النظام البيئي لزارد؟ شارك تحليلك أو ميم أو مشروعك...",
+                sqAttach: "إرفاق صورة",
+                sqPublish: "انشر الآن",
+                sqWall: "حائط المنشورات",
+                trkTitle: "رسم بياني حي (DexScreener BSC)",
+                balTitle: "رصيد المحفظة المتصلة",
+                balUpdate: "تحديث الأرصدة",
+                swapBtn: "فتح PancakeSwap",
+                webTitle: "متصفح الويب اللامركزي زارد",
+                webPlaceholder: "ابحث في الإنترنت...",
+                webBtn: "بحث"
+            },
+            zh: {
+                welTitle: "ZARD 创新",
+                welSub: "赛博复兴与人工智能",
+                welBtn: "进入核心枢纽",
+                modTitle: "连接 Web3 钱包",
+                modDesc: "打开外部应用程序或直接连接浏览器：",
+                modLocal: "浏览器 / 内置钱包",
+                modCancel: "取消",
+                headSub: "赛博生态系统与 Web3",
+                connectWallet: "连接钱包",
+                disconnectWallet: "断开连接",
+                tab1: "1. ZARD 广场",
+                tab2: "2. 追踪器与K线图",
+                tab3: "3. 我的余额",
+                tab4: "4. 兑换 (Swap)",
+                tab5: "5. 浏览器",
+                sqTitle: "在 ZARD 广场发布动态",
+                sqPlaceholder: "ZARD 生态系统正在发生什么？分享您的分析、表情包或项目...",
+                sqAttach: "添加图片",
+                sqPublish: "立即发布",
+                sqWall: "动态墙",
+                trkTitle: "实时 K 线图 (DexScreener BSC)",
+                balTitle: "已连接钱包余额",
+                balUpdate: "更新余额",
+                swapBtn: "打开 PancakeSwap",
+                webTitle: "ZARD 去中心化网页浏览器",
+                webPlaceholder: "在互联网上搜索...",
+                webBtn: "搜索"
+            }
+        };
+
+        let currentLang = 'es';
         let imagenBase64Temp = "";
         let cuentaActual = null;
 
         window.addEventListener('DOMContentLoaded', () => {
             cargarPublicaciones();
-            // Comprobar si ya estaba conectada previamente en la sesión del navegador
+            cambiarIdiomaSelect('es');
             if (typeof window.ethereum !== 'undefined') {
                 window.ethereum.request({ method: 'eth_accounts' }).then(accounts => {
                     if (accounts && accounts.length > 0) {
@@ -588,6 +709,32 @@
                 }).catch(err => console.log(err));
             }
         });
+
+        function cambiarIdiomaSelect(lang) {
+            currentLang = lang;
+            const bodyEl = document.body;
+            if (lang === 'ar') {
+                bodyEl.setAttribute('dir', 'rtl');
+            } else {
+                bodyEl.setAttribute('dir', 'ltr');
+            }
+
+            // Traducir elementos con data-i18n
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (dictionary[lang] && dictionary[lang][key]) {
+                    el.innerText = dictionary[lang][key];
+                }
+            });
+
+            // Traducir placeholders
+            document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+                const key = el.getAttribute('data-i18n-placeholder');
+                if (dictionary[lang] && dictionary[lang][key]) {
+                    el.setAttribute('placeholder', dictionary[lang][key]);
+                }
+            });
+        }
 
         function entrarNexus() {
             document.getElementById('welcome-screen').classList.add('fade-out');
@@ -642,19 +789,21 @@
 
         function mostrarWalletConectada(address) {
             const shortAddr = address.substring(0, 6) + "..." + address.substring(address.length - 4);
+            const textSalir = dictionary[currentLang] ? dictionary[currentLang].disconnectWallet : "Desconectar";
             document.getElementById('wallet-container').innerHTML = `
                 <div style="display:flex; align-items:center; gap:8px;">
                     <span style="background:rgba(0,243,255,0.1); border:1px solid var(--neon-blue); padding:8px 12px; border-radius:10px; font-size:0.85rem; color:var(--neon-blue); font-family:'Orbitron';">
                         <i class="fa-solid fa-circle-dot" style="color:#00ffcc; font-size:0.6rem;"></i> ${shortAddr}
                     </span>
-                    <button class="disconnect-btn" onclick="desconectarWallet()">Desconectar</button>
+                    <button class="disconnect-btn" onclick="desconectarWallet()">${textSalir}</button>
                 </div>
             `;
         }
 
         function desconectarWallet() {
             cuentaActual = null;
-            document.getElementById('wallet-container').innerHTML = `<button class="wallet-btn" onclick="abrirModalWallet()"><i class="fa-solid fa-wallet"></i> Conectar Wallet</button>`;
+            const textConnect = dictionary[currentLang] ? dictionary[currentLang].connectWallet : "Conectar Wallet";
+            document.getElementById('wallet-container').innerHTML = `<button class="wallet-btn" onclick="abrirModalWallet()"><i class="fa-solid fa-wallet"></i> ${textConnect}</button>`;
             document.getElementById('bnbBalanceVal').innerText = "0.00 BNB";
             document.getElementById('zardBalanceVal').innerText = "0.00 ZARD";
         }
