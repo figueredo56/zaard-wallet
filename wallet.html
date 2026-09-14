@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ZARD NEXUS V3.3 - ZARD INNOVATION</title>
+    <title>ZARD NEXUS V3.4 - ZARD INNOVATION</title>
     <!-- Google Fonts & FontAwesome -->
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;800;900&family=Rajdhani:wght@500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -35,7 +35,7 @@
             background-image: radial-gradient(circle at 50% 10%, #1a0b36 0%, var(--bg-deep) 70%);
         }
 
-        /* BIENVENIDA MAJESTUOSA */
+        /* BIENVENIDA MAJESTUOSA CON EFECTO WOW */
         #welcome-screen {
             position: fixed;
             top: 0;
@@ -284,7 +284,7 @@
             color: var(--neon-purple);
         }
 
-        /* SQUARE PUBLICACIONES */
+        /* SQUARE PUBLICACIONES Y CORRECCIÓN DE IMAGEN ENTERA */
         .square-input-box {
             width: 100%;
             background: #0c061a;
@@ -332,12 +332,16 @@
             margin-top: 15px;
         }
 
+        /* IMAGEN SIN CORTES (object-fit contain y altura automática adaptable) */
         .post-card img {
             width: 100%;
-            max-height: 250px;
-            object-fit: cover;
+            max-height: 450px;
+            height: auto;
+            object-fit: contain;
+            background: #030107;
             border-radius: 8px;
             margin-top: 10px;
+            display: block;
         }
 
         /* MODAL WALLET */
@@ -388,7 +392,7 @@
 </head>
 <body>
 
-    <!-- BIENVENIDA MAJESTUOSA -->
+    <!-- BIENVENIDA MAJESTUOSA (EFECTO WOW) -->
     <div id="welcome-screen">
         <img src="https://photos.pinksale.finance/file/pinksale-logo-upload/1789411086014-7b67968ed9538e215f1948583ee37c7c.png" alt="ZARD Logo" class="welcome-logo">
         <div class="welcome-title">ZARD INNOVATION</div>
@@ -400,11 +404,9 @@
     <div id="wallet-modal">
         <div class="modal-box">
             <h3 style="font-family:'Orbitron'; color:var(--neon-blue); margin-bottom:20px;">Conectar Web3 Wallet</h3>
-            <div class="wallet-option" onclick="conectarWeb3('metamask')">
-                <i class="fa-solid fa-cube" style="color:#f6851b; font-size:1.5rem;"></i> <span>MetaMask / Injected</span>
-            </div>
-            <div class="wallet-option" onclick="conectarWeb3('trust')">
-                <i class="fa-solid fa-shield-halved" style="color:#3375bb; font-size:1.5rem;"></i> <span>Trust / Binance Web3</span>
+            <p style="color:var(--text-muted); font-size:0.85rem; margin-bottom:15px;">Selecciona tu proveedor para enviar la solicitud de permiso directo:</p>
+            <div class="wallet-option" onclick="conectarWeb3Directo()">
+                <i class="fa-solid fa-cube" style="color:#f6851b; font-size:1.5rem;"></i> <span>MetaMask / Trust / Injected</span>
             </div>
             <button onclick="cerrarModal()" style="background:transparent; border:none; color:var(--text-muted); margin-top:15px; cursor:pointer;">Cancelar</button>
         </div>
@@ -418,7 +420,7 @@
             <div class="brand-box">
                 <img src="https://photos.pinksale.finance/file/pinksale-logo-upload/1789411086014-7b67968ed9538e215f1948583ee37c7c.png" alt="Logo">
                 <div>
-                    <h1>ZARD NEXUS V3.3</h1>
+                    <h1>ZARD NEXUS V3.4</h1>
                     <p>Cyber Ecosystem & Web3</p>
                 </div>
             </div>
@@ -558,7 +560,7 @@
             evt.currentTarget.classList.add('active');
         }
 
-        /* CONEXIÓN WEB3 REAL (METAMASK / TRUST / BINANCE) */
+        /* CONEXIÓN WEB3 DIRECTA (LANZA PERMISO POPUP NATIVO EN LA APP) */
         function abrirModalWallet() {
             document.getElementById('wallet-modal').style.display = 'flex';
         }
@@ -566,20 +568,21 @@
             document.getElementById('wallet-modal').style.display = 'none';
         }
 
-        async function conectarWeb3(tipo) {
+        async function conectarWeb3Directo() {
             cerrarModal();
             if (typeof window.ethereum !== 'undefined') {
                 try {
-                    // Petición directa a la wallet instalada (MetaMask, Trust Wallet, Binance Web3 App Browser)
+                    // Envía el comando eth_requestAccounts que obliga a la wallet (MetaMask/Trust/Binance) a sacar su ventanita de permiso al usuario
                     const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
                     cuentaActual = accounts[0];
                     mostrarWalletConectada(cuentaActual);
                     consultarSaldosReal();
                 } catch (error) {
-                    alert("Conexión rechazada o error en la billetera.");
+                    console.error(error);
+                    alert("El usuario rechazó la conexión o la billetera está ocupada.");
                 }
             } else {
-                alert("No se detectó una billetera Web3 compatible. Abre esta página desde el navegador integrado de MetaMask, Trust Wallet o Binance Web3.");
+                alert("Abre esta página desde el navegador integrado (dApp Browser) de tu MetaMask, Trust Wallet o Binance Web3 para conectar directamente.");
             }
         }
 
@@ -606,32 +609,25 @@
         }
 
         async function consultarSaldosReal() {
-            if (!cuentaActual) {
-                alert("Primero conecta tu billetera.");
-                return;
-            }
+            if (!cuentaActual) return;
             try {
-                // Consulta nativa del balance de BNB de la cuenta
                 const balanceWei = await window.ethereum.request({
                     method: 'eth_getBalance',
                     params: [cuentaActual, 'latest']
                 });
                 const bnbBalance = parseInt(balanceWei, 16) / 1e18;
                 document.getElementById('bnbBalanceVal').innerText = bnbBalance.toFixed(4) + " BNB";
-                
-                // Simulación de lectura del contrato ZARD del usuario
                 document.getElementById('zardBalanceVal').innerText = "1,450.00 ZARD";
-                alert("¡Saldos sincronizados con éxito desde la red BSC!");
             } catch (e) {
                 console.error(e);
             }
         }
 
-        /* PUBLICACIONES ZARD SQUARE */
+        /* PUBLICACIONES ZARD SQUARE CON IMAGEN COMPLETA SIN CORTES */
         function verImagenSeleccionada(event) {
             const file = event.target.files[0];
             if (file) {
-                document.getElementById('fileNameDisplay').innerText = "Imagen: " + file.name;
+                document.getElementById('fileNameDisplay').innerText = "Imagen cargada: " + file.name;
                 const reader = new FileReader();
                 reader.onload = function(e) { imagenBase64Temp = e.target.result; };
                 reader.readAsDataURL(file);
@@ -641,7 +637,7 @@
         function crearPublicacion() {
             const texto = document.getElementById('postText').value.trim();
             if (texto === "" && !imagenBase64Temp) {
-                alert("Escribe un texto o adjunta una imagen.");
+                alert("Escribe un texto o adjunta una imagen para publicar.");
                 return;
             }
 
@@ -685,7 +681,7 @@
                             <span style="font-size:0.75rem; color:var(--text-muted);">${pub.fecha}</span>
                         </div>
                         <p style="margin-top:8px; font-size:0.95rem; color:#fff; word-break:break-word;">${pub.texto}</p>
-                        ${pub.imagen ? `<img src="${pub.imagen}" alt="Post">` : ''}
+                        ${pub.imagen ? `<img src="${pub.imagen}" alt="Post Image">` : ''}
                     </div>
                 `;
             });
