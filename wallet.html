@@ -558,7 +558,7 @@
             </div>
         </div>
 
-        <!-- PESTAÑA 2: TRACKER & VELAS EN VIVO + ÓRDENES + PARES -->
+<!-- PESTAÑA 2: TRACKER & VELAS EN VIVO + ÓRDENES + PARES -->
         <div id="tab-tracker" class="tab-content">
             <div class="tracker-layout">
                 <!-- Columna Izquierda: Gráfico Principal -->
@@ -566,7 +566,7 @@
                     <div class="fin-card">
                         <h3><i class="fa-solid fa-chart-candlestick"></i> <span data-i18n="trkTitle">Gráfico de Velas en Vivo (DexScreener BSC)</span></h3>
                         <div style="width: 100%; height: 450px; background: #0c061a; border-radius: 12px; overflow: hidden; border: 1px solid var(--border-glow);">
-                            <iframe src="https://dexscreener.com/bsc/0x973ba2c1dccd0820f1e026d6b1f01c55c4085d38?embed=1&theme=dark&trades=0&info=1" width="100%" height="100%" frameborder="0"></iframe>
+                            <iframe src="https://dexscreener.com/bsc/0xAdE78Fba566c2D8CFd9537dDb1129D65347744d6?embed=1&theme=dark&trades=0&info=1" width="100%" height="100%" frameborder="0"></iframe>
                         </div>
                     </div>
 
@@ -590,6 +590,8 @@
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
 
                 <!-- Columna Derecha: Pares de Cambio & Libro Rápido al Lado -->
                 <div>
@@ -627,9 +629,9 @@
                     </div>
                 </div>
             </div>
-        </div>
+</div>
 
-        <!-- PESTAÑA 3: MI BALANCE -->
+    <!-- PESTAÑA 3: MI BALANCE -->
         <div id="tab-balance" class="tab-content">
             <div class="card-grid">
                 <div class="fin-card" style="text-align: center; padding: 30px;">
@@ -654,25 +656,98 @@
                 <div class="fin-card" style="text-align: center; padding: 40px 20px;">
                     <i class="fa-solid fa-right-left" style="font-size: 3rem; color: var(--neon-blue); margin-bottom: 20px;"></i>
                     <h3>PancakeSwap DEX Exchange</h3>
-                    <a href="https://pancakeswap.finance/swap?outputCurrency=0x973ba2c1dccd0820f1e026d6b1f01c55c4085d38" target="_blank" class="action-btn" style="display: inline-block; padding: 14px 35px; text-decoration: none;"><span data-i18n="swapBtn">Abrir PancakeSwap</span> <i class="fa-solid fa-external-link-alt"></i></a>
+                    <a href="https://pancakeswap.finance/swap?outputCurrency=0xAdE78Fba566c2D8CFd9537dDb1129D65347744d6" target="_blank" class="action-btn" style="display: inline-block; padding: 14px 35px; text-decoration: none;"><span data-i18n="swapBtn">Abrir PancakeSwap</span> <i class="fa-solid fa-external-link-alt"></i></a>
                 </div>
             </div>
         </div>
-
-        <!-- PESTAÑA 5: BUSCADOR -->
+    
+ <!-- PESTAÑA 5: BUSCADOR ÉPICO ZARD -->
         <div id="tab-browser" class="tab-content">
             <div class="card-grid">
-                <div class="fin-card" style="grid-column: span 2;">
-                    <h3><i class="fa-solid fa-globe"></i> <span data-i18n="webTitle">Buscador Web Descentralizado ZARD</span></h3>
-                    <div style="display: flex; gap: 12px; margin-bottom: 20px;">
-                        <input type="text" id="webSearchInput" data-i18n-placeholder="webPlaceholder" placeholder="Busca en internet..." style="flex:1; background:#0c061a; border:1px solid var(--border-glow); padding:14px; border-radius:12px; color:#fff; outline:none;">
-                        <button class="action-btn" onclick="buscarEnInternet()" data-i18n="webBtn">Buscar</button>
+                <div class="fin-card" style="grid-column: span 2; text-align: center; padding: 40px 20px; background: linear-gradient(135deg, rgba(15,15,25,0.95), rgba(10,25,35,0.9)); border: 2px solid var(--neon-blue); box-shadow: 0 0 35px rgba(0,255,204,0.2);">
+                    
+                    <!-- Logotipo Estilo Buscador Épico -->
+                    <div style="margin-bottom: 25px;">
+                        <img src="https://photos.pinksale.finance/file/pinksale-logo-upload/1790285851823-4955b8f5511ea8235af22dfb82371c91.png" 
+                             alt="ZARD Search Engine" 
+                             style="max-width: 130px; width: 100%; height: auto; filter: drop-shadow(0 0 12px rgba(0,255,204,0.6)); animation: pulseGlow 3s infinite ease-in-out;">
+                        <h2 style="font-family: 'Orbitron', sans-serif; color: #00ffcc; font-size: 1.6em; margin-top: 15px; text-shadow: 0 0 10px rgba(0,255,204,0.4);">
+                            ZAARD WEB SEARCH
+                        </h2>
+                        <p style="color: #94a3b8; font-size: 0.9em; margin-top: 5px;">
+                            Buscador descentralizado del ecosistema
+                        </p>
                     </div>
+
+                    <!-- Barra de Búsqueda -->
+                    <div style="display: flex; gap: 12px; max-width: 700px; margin: 0 auto 35px auto;">
+                        <input type="text" id="webSearchInput" data-i18n-placeholder="webPlaceholder" placeholder="Busca en la red o internet..." style="flex:1; background:#0c061a; border:1px solid var(--border-glow); padding:16px 20px; border-radius:14px; color:#fff; outline:none; font-size: 1rem; box-shadow: inset 0 0 10px rgba(0,0,0,0.5);">
+                        <button class="action-btn" onclick="buscarEnInternet()" data-i18n="webBtn" style="padding: 0 30px; font-family: 'Orbitron', sans-serif; font-weight: bold;">Buscar</button>
+                    </div>
+
+                    <!-- Accesos Directos y Apps Predeterminadas de ZARD -->
+                    <div style="text-align: left; margin-top: 20px; border-top: 1px dashed var(--border-glow); padding-top: 25px;">
+                        <h3 style="font-family: 'Orbitron', sans-serif; font-size: 1.1rem; color: var(--neon-blue); margin-bottom: 20px; text-align: center;">
+                            <i class="fa-solid fa-rocket"></i> Apps y Accesos Directos ZARD
+                        </h3>
+                        
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 15px;">
+                            
+                            <!-- DAI Oficial -->
+                            <a href="https://figueredo56.github.io/DAIoficial/" target="_blank" class="fin-card" style="padding: 15px; text-align: center; text-decoration: none; transition: transform 0.3s ease, border-color 0.3s ease; display: block;" onmouseover="this.style.transform='translateY(-4px)'; this.style.borderColor='#00ffcc';" onmouseout="this.style.transform='translateY(0)'; this.style.borderColor='var(--border-glow)';">
+                                <i class="fa-solid fa-coins" style="font-size: 1.8rem; color: #f59e0b; margin-bottom: 8px;"></i>
+                                <div style="font-family: 'Orbitron'; font-size: 0.9rem; color: #fff; font-weight: bold;">DAI Oficial</div>
+                                <div style="font-size: 0.75rem; color: #94a3b8; margin-top: 4px;">Portal DApp</div>
+                            </a>
+
+                            <!-- ZAARD Innovation DApp -->
+                            <a href="https://figueredo56.github.io/zaard-innovation-dapp/" target="_blank" class="fin-card" style="padding: 15px; text-align: center; text-decoration: none; transition: transform 0.3s ease, border-color 0.3s ease; display: block;" onmouseover="this.style.transform='translateY(-4px)'; this.style.borderColor='#00ffcc';" onmouseout="this.style.transform='translateY(0)'; this.style.borderColor='var(--border-glow)';">
+                                <i class="fa-solid fa-shield-halved" style="font-size: 1.8rem; color: #00ffcc; margin-bottom: 8px;"></i>
+                                <div style="font-family: 'Orbitron'; font-size: 0.9rem; color: #fff; font-weight: bold;">ZAARD Ecosystem</div>
+                                <div style="font-size: 0.75rem; color: #94a3b8; margin-top: 4px;">Plataforma Central</div>
+                            </a>
+
+                            <!-- BscScan -->
+                            <a href="https://bscscan.com/token/0xAdE78Fba566c2D8CFd9537dDb1129D65347744d6" target="_blank" class="fin-card" style="padding: 15px; text-align: center; text-decoration: none; transition: transform 0.3s ease, border-color 0.3s ease; display: block;" onmouseover="this.style.transform='translateY(-4px)'; this.style.borderColor='#00ffcc';" onmouseout="this.style.transform='translateY(0)'; this.style.borderColor='var(--border-glow)';">
+                                <i class="fa-solid fa-file-contract" style="font-size: 1.8rem; color: #3b82f6; margin-bottom: 8px;"></i>
+                                <div style="font-family: 'Orbitron'; font-size: 0.9rem; color: #fff; font-weight: bold;">BscScan</div>
+                                <div style="font-size: 0.75rem; color: #94a3b8; margin-top: 4px;">Contrato Verificado</div>
+                            </a>
+
+                            <!-- PancakeSwap -->
+                            <a href="https://pancakeswap.finance/swap?outputCurrency=0xAdE78Fba566c2D8CFd9537dDb1129D65347744d6" target="_blank" class="fin-card" style="padding: 15px; text-align: center; text-decoration: none; transition: transform 0.3s ease, border-color 0.3s ease; display: block;" onmouseover="this.style.transform='translateY(-4px)'; this.style.borderColor='#00ffcc';" onmouseout="this.style.transform='translateY(0)'; this.style.borderColor='var(--border-glow)';">
+                                <i class="fa-solid fa-right-left" style="font-size: 1.8rem; color: #ec4899; margin-bottom: 8px;"></i>
+                                <div style="font-family: 'Orbitron'; font-size: 0.9rem; color: #fff; font-weight: bold;">PancakeSwap</div>
+                                <div style="font-size: 0.75rem; color: #94a3b8; margin-top: 4px;">DEX Exchange</div>
+                            </a>
+
+                            <!-- PinkSale -->
+                            <a href="https://www.pinksale.finance/" target="_blank" class="fin-card" style="padding: 15px; text-align: center; text-decoration: none; transition: transform 0.3s ease, border-color 0.3s ease; display: block;" onmouseover="this.style.transform='translateY(-4px)'; this.style.borderColor='#00ffcc';" onmouseout="this.style.transform='translateY(0)'; this.style.borderColor='var(--border-glow)';">
+                                <i class="fa-solid fa-lock" style="font-size: 1.8rem; color: #8b5cf6; margin-bottom: 8px;"></i>
+                                <div style="font-family: 'Orbitron'; font-size: 0.9rem; color: #fff; font-weight: bold;">PinkSale</div>
+                                <div style="font-size: 0.75rem; color: #94a3b8; margin-top: 4px;">Liquidez Segura</div>
+                            </a>
+
+                            <!-- GeckoTerminal -->
+                            <a href="https://www.geckoterminal.com/" target="_blank" class="fin-card" style="padding: 15px; text-align: center; text-decoration: none; transition: transform 0.3s ease, border-color 0.3s ease; display: block;" onmouseover="this.style.transform='translateY(-4px)'; this.style.borderColor='#00ffcc';" onmouseout="this.style.transform='translateY(0)'; this.style.borderColor='var(--border-glow)';">
+                                <i class="fa-solid fa-chart-line" style="font-size: 1.8rem; color: #10b981; margin-bottom: 8px;"></i>
+                                <div style="font-family: 'Orbitron'; font-size: 0.9rem; color: #fff; font-weight: bold;">GeckoTerminal</div>
+                                <div style="font-size: 0.75rem; color: #94a3b8; margin-top: 4px;">Métricas de Mercado</div>
+                            </a>
+
+                            <!-- TokenSniffer -->
+                            <a href="https://tokensniffer.com/" target="_blank" class="fin-card" style="padding: 15px; text-align: center; text-decoration: none; transition: transform 0.3s ease, border-color 0.3s ease; display: block;" onmouseover="this.style.transform='translateY(-4px)'; this.style.borderColor='#00ffcc';" onmouseout="this.style.transform='translateY(0)'; this.style.borderColor='var(--border-glow)';">
+                                <i class="fa-solid fa-shield-virus" style="font-size: 1.8rem; color: #06b6d4; margin-bottom: 8px;"></i>
+                                <div style="font-family: 'Orbitron'; font-size: 0.9rem; color: #fff; font-weight: bold;">TokenSniffer</div>
+                                <div style="font-size: 0.75rem; color: #94a3b8; margin-top: 4px;">Auditoría y Seguridad</div>
+                            </a>
+
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </div>
-
-    </div>
 
     <script>
         // TRADUCCIONES COMPLETAS (ES, EN, AR, ZH)
