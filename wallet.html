@@ -566,106 +566,112 @@
         </div>
 
 <!-- PESTAÑA 2: TRACKER & VELAS EN VIVO + ÓRDENES + PARES -->
-        <div id="tab-tracker" class="tab-content">
-            <div class="tracker-layout">
-                <!-- Columna Izquierda: Gráfico Principal -->
-                <div>
-                    <div class="fin-card">
-                        <h3><i class="fa-solid fa-chart-candlestick"></i> <span data-i18n="trkTitle">Gráfico de Velas en Vivo (DexScreener BSC)</span></h3>
-                        <div style="width: 100%; height: 450px; background: #0c061a; border-radius: 12px; overflow: hidden; border: 1px solid var(--border-glow);">
-                            <iframe src="https://dexscreener.com/bsc/0x472d59538effe1c85382e3e62e1b2ec995d382ef?embed=1&theme=dark&trades=0&info=1" width="100%" height="100%" frameborder="0"></iframe>
-                        </div>
-                    </div>
+<div id="tab-tracker" class="tab-content">
+    <div class="tracker-layout">
+        <!-- Columna Izquierda: Gráfico Principal -->
+        <div>
+            <div class="fin-card">
+                <h3><i class="fa-solid fa-chart-candlestick"></i> <span data-i18n="trkTitle">Gráfico de Velas en Vivo (DexScreener BSC)</span></h3>
+                <div style="width: 100%; height: 450px; background: #0c061a; border-radius: 12px; overflow: hidden; border: 1px solid var(--border-glow);">
+                    <iframe src="https://dexscreener.com/bsc/0x973ba2c1dccd0820f1e026d6b1f01c55c4085d38?embed=1&theme=dark&trades=0&info=1" width="100%" height="100%" frameborder="0"></iframe>
+                </div>
+            </div>
 
-                    <!-- Órdenes de Compra y Venta Debajo del Gráfico -->
-                    <div class="fin-card" style="margin-top: 20px;">
-                        <h3><i class="fa-solid fa-list-check"></i> <span data-i18n="ordersTitle">Órdenes de Compra y Venta en Vivo</span></h3>
-                        <div class="order-book-box">
-                            <table class="order-table">
-                                <thead>
-                                    <tr>
-                                        <th data-i18n="thType">Tipo</th>
-                                        <th data-i18n="thPrice">Precio (BNB)</th>
-                                        <th data-i18n="thAmount">Cantidad (ZARD)</th>
-                                        <th data-i18n="thTime">Hora</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="liveOrdersTable">
-                                    <!-- Inserción dinámica por JS con el CA oficial de ZARD -->
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
+            <!-- Órdenes de Compra y Venta Debajo del Gráfico -->
+            <div class="fin-card" style="margin-top: 20px;">
+                <h3><i class="fa-solid fa-list-check"></i> <span data-i18n="ordersTitle">Órdenes de Compra y Venta en Vivo</span></h3>
+                <div class="order-book-box">
+                    <table class="order-table">
+                        <thead>
+                            <tr>
+                                <th data-i18n="thType">Tipo</th>
+                                <th data-i18n="thPrice">Precio (BNB)</th>
+                                <th data-i18n="thAmount">Cantidad (ZARD)</th>
+                                <th data-i18n="thTime">Hora</th>
+                            </tr>
+                        </thead>
+                        <tbody id="liveOrdersTable">
+                            <!-- Inserción dinámica por JS con el CA oficial de ZARD -->
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
-                <!-- Columna Derecha: Pares de Cambio & Libro Rápido al Lado -->
-                <div>
-                    <div class="fin-card">
-                        <h3><i class="fa-solid fa-pie-chart"></i> <span data-i18n="pairsTitle">Mercado & Pares ZARD</span></h3>
-                        <div class="market-pairs-box">
-                            <div class="data-row">
-                                <span>BNB / ZARD</span>
-                                <span style="color:var(--neon-green);">0.000112 BNB</span>
-                            </div>
-                            <div class="data-row">
-                                <span>USDT / ZARD</span>
-                                <span style="color:var(--neon-blue);">0.0645 USDT</span>
-                            </div>
-                            <div class="data-row">
-                                <span>BTC / ZARD</span>
-                                <span style="color:#F7931A;">0.00000091 BTC</span>
-                            </div>
-                        </div>
 
-                        <h3 style="margin-top: 25px; font-size: 1rem;"><i class="fa-solid fa-bolt"></i> <span data-i18n="sideBook">Libro Al Lado (Spread)</span></h3>
-                        <div class="order-book-box" style="max-height: 250px; overflow-y: auto;">
-                            <table class="order-table">
-                                <tbody>
-                                    <tr class="sell-order"><td>SELL</td><td>0.000115</td><td>12,500</td></tr>
-                                    <tr class="sell-order"><td>SELL</td><td>0.000114</td><td>8,200</td></tr>
-                                    <tr class="sell-order"><td>SELL</td><td>0.000113</td><td>15,000</td></tr>
-                                    <tr><td colspan="4" style="text-align:center; color:var(--neon-blue); font-weight:bold; border-top:1px dashed var(--border-glow); border-bottom:1px dashed var(--border-glow);">Spread Actual</td></tr>
-                                    <tr class="buy-order"><td>BUY</td><td>0.000111</td><td>20,000</td></tr>
-                                    <tr class="buy-order"><td>BUY</td><td>0.000110</td><td>45,000</td></tr>
-                                    <tr class="buy-order"><td>BUY</td><td>0.000109</td><td>10,000</td></tr>
-                                </tbody>
-                            </table>
-                        </div>
+        <!-- Columna Derecha: Pares de Cambio & Libro Rápido al Lado -->
+        <div>
+            <div class="fin-card">
+                <h3><i class="fa-solid fa-pie-chart"></i> <span data-i18n="pairsTitle">Mercado & Pares ZARD</span></h3>
+                <div class="market-pairs-box">
+                    <div class="data-row">
+                        <span>BNB / ZARD</span>
+                        <span style="color:var(--neon-green);">0.000112 BNB</span>
+                    </div>
+                    <div class="data-row">
+                        <span>USDT / ZARD</span>
+                        <span style="color:var(--neon-blue);">0.0645 USDT</span>
+                    </div>
+                    <div class="data-row">
+                        <span>BTC / ZARD</span>
+                        <span style="color:#F7931A;">0.00000091 BTC</span>
                     </div>
                 </div>
+
+                <!-- Enlace Directo Web3 Binance opcional -->
+                <div style="margin-top: 15px; text-align: center;">
+                    <a href="https://app.binance.com/uni-qr/web3-token-details?utm_medium=share&tokenCA=0x973ba2c1dccd0820f1e026d6b1f01c55c4085d38&binanceChainId=56&chain=bsc" target="_blank" style="color: var(--neon-blue); text-decoration: none; font-size: 0.9rem;">
+                        <i class="fa-solid fa-external-link-alt"></i> Ver en Binance Web3
+                    </a>
+                </div>
+
+                <h3 style="margin-top: 25px; font-size: 1rem;"><i class="fa-solid fa-bolt"></i> <span data-i18n="sideBook">Libro Al Lado (Spread)</span></h3>
+                <div class="order-book-box" style="max-height: 250px; overflow-y: auto;">
+                    <table class="order-table">
+                        <tbody>
+                            <tr class="sell-order"><td>SELL</td><td>0.000115</td><td>12,500</td></tr>
+                            <tr class="sell-order"><td>SELL</td><td>0.000114</td><td>8,200</td></tr>
+                            <tr class="sell-order"><td>SELL</td><td>0.000113</td><td>15,000</td></tr>
+                            <tr><td colspan="4" style="text-align:center; color:var(--neon-blue); font-weight:bold; border-top:1px dashed var(--border-glow); border-bottom:1px dashed var(--border-glow);">Spread Actual</td></tr>
+                            <tr class="buy-order"><td>BUY</td><td>0.000111</td><td>20,000</td></tr>
+                            <tr class="buy-order"><td>BUY</td><td>0.000110</td><td>45,000</td></tr>
+                            <tr class="buy-order"><td>BUY</td><td>0.000109</td><td>10,000</td></tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
+        </div>
+    </div>
 </div>
 
-    <!-- PESTAÑA 3: MI BALANCE -->
-        <div id="tab-balance" class="tab-content">
-            <div class="card-grid">
-                <div class="fin-card" style="text-align: center; padding: 30px;">
-                    <i class="fa-solid fa-coins" style="font-size: 3rem; color: var(--neon-blue); margin-bottom: 15px;"></i>
-                    <h3 style="justify-content: center;" data-i18n="balTitle">Balance en tu Billetera Conectada</h3>
-                    <div class="data-row" style="padding: 15px; background: #0c061a; border-radius: 10px; margin-bottom: 15px;">
-                        <span style="font-family:'Orbitron'; color:var(--neon-blue);">BNB:</span>
-                        <span id="bnbBalanceVal" style="font-size: 1.1rem; color:#fff;">0.00 BNB</span>
-                    </div>
-                    <div class="data-row" style="padding: 15px; background: #0c061a; border-radius: 10px; margin-bottom: 20px;">
-                        <span style="font-family:'Orbitron'; color:var(--neon-purple);">ZARD Token:</span>
-                        <span id="zardBalanceVal" style="font-size: 1.1rem; color:#00ffcc;">0.00 ZARD</span>
-                    </div>
-                    <button class="action-btn" onclick="consultarSaldosReal()" data-i18n="balUpdate">Actualizar Saldos</button>
+<!-- PESTAÑA 3: MI BALANCE -->
+    <div id="tab-balance" class="tab-content">
+        <div class="card-grid">
+            <div class="fin-card" style="text-align: center; padding: 30px;">
+                <i class="fa-solid fa-coins" style="font-size: 3rem; color: var(--neon-blue); margin-bottom: 15px;"></i>
+                <h3 style="justify-content: center;" data-i18n="balTitle">Balance en tu Billetera Conectada</h3>
+                <div class="data-row" style="padding: 15px; background: #0c061a; border-radius: 10px; margin-bottom: 15px;">
+                    <span style="font-family:'Orbitron'; color:var(--neon-blue);">BNB:</span>
+                    <span id="bnbBalanceVal" style="font-size: 1.1rem; color:#fff;">0.00 BNB</span>
                 </div>
+                <div class="data-row" style="padding: 15px; background: #0c061a; border-radius: 10px; margin-bottom: 20px;">
+                    <span style="font-family:'Orbitron'; color:var(--neon-purple);">ZARD Token:</span>
+                    <span id="zardBalanceVal" style="font-size: 1.1rem; color:#00ffcc;">0.00 ZARD</span>
+                </div>
+                <button class="action-btn" onclick="consultarSaldosReal()" data-i18n="balUpdate">Actualizar Saldos</button>
             </div>
         </div>
+    </div>
 
-<!-- PESTAÑA 4: SWAP -->
-        <div id="tab-swap" class="tab-content">
-            <div class="card-grid">
-                <div class="fin-card" style="text-align: center; padding: 40px 20px;">
-                    <i class="fa-solid fa-right-left" style="font-size: 3rem; color: var(--neon-blue); margin-bottom: 20px;"></i>
-                    <h3>PancakeSwap DEX Exchange</h3>
-                    <a href="https://pancakeswap.finance/swap?outputCurrency=0x472d59538effe1c85382e3e62e1b2ec995d382ef" target="_blank" class="action-btn" style="display: inline-block; padding: 14px 35px; text-decoration: none;"><span data-i18n="swapBtn">Abrir PancakeSwap</span> <i class="fa-solid fa-external-link-alt"></i></a>
-                </div>
+    <!-- PESTAÑA 4: SWAP -->
+    <div id="tab-swap" class="tab-content">
+        <div class="card-grid">
+            <div class="fin-card" style="text-align: center; padding: 40px 20px;">
+                <i class="fa-solid fa-right-left" style="font-size: 3rem; color: var(--neon-blue); margin-bottom: 20px;"></i>
+                <h3>PancakeSwap DEX Exchange</h3>
+                <a href="https://pancakeswap.finance/swap?outputCurrency=0x973ba2c1dccd0820f1e026d6b1f01c55c4085d38" target="_blank" class="action-btn" style="display: inline-block; padding: 14px 35px; text-decoration: none;"><span data-i18n="swapBtn">Abrir PancakeSwap</span> <i class="fa-solid fa-external-link-alt"></i></a>
             </div>
         </div>
+    </div>
     
  <!-- PESTAÑA 5: BUSCADOR ÉPICO ZARD -->
         <div id="tab-browser" class="tab-content">
