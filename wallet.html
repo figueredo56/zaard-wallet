@@ -39,7 +39,7 @@
             background-image: radial-gradient(circle at 50% 10%, #1a0b36 0%, var(--bg-deep) 70%);
         }
 
-        /* BIENVENIDA & PERFIL */
+        /* BIENVENIDA & PERFIL CON MEMORIA */
         #welcome-screen {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: #030107; display: flex; flex-direction: column; justify-content: center; align-items: center;
@@ -47,18 +47,18 @@
         }
         #welcome-screen.fade-out { opacity: 0; visibility: hidden; }
         .welcome-logo {
-            width: 180px; height: 180px; border-radius: 50%; border: 3px solid var(--neon-blue);
+            width: 150px; height: 150px; border-radius: 50%; border: 3px solid var(--neon-blue);
             box-shadow: 0 0 50px var(--neon-purple), inset 0 0 30px var(--neon-blue);
-            animation: majesticPulse 2.5s infinite alternate; margin-bottom: 25px; object-fit: cover; background: #0c061a;
+            animation: majesticPulse 2.5s infinite alternate; margin-bottom: 20px; object-fit: cover; background: #0c061a;
         }
         .welcome-title {
-            font-family: 'Orbitron', sans-serif; font-size: 2.2rem; font-weight: 900;
+            font-family: 'Orbitron', sans-serif; font-size: 2rem; font-weight: 900;
             background: linear-gradient(135deg, var(--neon-blue), var(--neon-purple), var(--neon-pink));
             -webkit-background-clip: text; -webkit-text-fill-color: transparent; letter-spacing: 4px; margin-bottom: 15px;
         }
         .profile-input {
             background: #0c061a; border: 1px solid var(--neon-blue); padding: 12px 20px;
-            border-radius: 12px; color: #fff; font-size: 1rem; outline: none; margin-bottom: 20px; width: 100%; max-width: 320px; text-align: center;
+            border-radius: 12px; color: #fff; font-size: 1rem; outline: none; margin-bottom: 15px; width: 100%; max-width: 320px; text-align: center;
         }
         .enter-btn {
             background: linear-gradient(135deg, var(--neon-purple), var(--neon-blue)); color: #fff; border: none;
@@ -104,25 +104,18 @@
             color: var(--neon-pink); padding: 8px 14px; border-radius: 10px; cursor: pointer; font-weight: bold;
         }
 
-        /* NAVEGACIÓN PESTAÑAS: MORADO NEÓN / ACTIVA VERDE NEÓN */
+        /* NAVEGACIÓN PESTAÑAS */
         .tabs-nav { display: flex; gap: 10px; overflow-x: auto; padding-bottom: 10px; margin-bottom: 25px; }
         .tab-btn, .tab-link {
-            background: rgba(18, 10, 35, 0.8);
-            border: 1px solid var(--neon-purple);
-            color: var(--text-muted);
-            padding: 12px 18px; border-radius: 12px;
-            font-family: 'Orbitron', sans-serif; font-size: 0.85rem;
-            white-space: nowrap; cursor: pointer; transition: 0.3s;
-            text-decoration: none; display: inline-flex; align-items: center; gap: 8px;
+            background: rgba(18, 10, 35, 0.8); border: 1px solid var(--neon-purple); color: var(--text-muted);
+            padding: 12px 18px; border-radius: 12px; font-family: 'Orbitron', sans-serif; font-size: 0.85rem;
+            white-space: nowrap; cursor: pointer; transition: 0.3s; text-decoration: none; display: inline-flex; align-items: center; gap: 8px;
             box-shadow: 0 0 10px rgba(168, 85, 247, 0.15);
         }
         .tab-btn:hover, .tab-link:hover { border-color: var(--neon-blue); color: var(--neon-blue); }
         .tab-btn.active {
-            background: rgba(0, 255, 204, 0.15);
-            color: var(--neon-green);
-            border-color: var(--neon-green);
-            box-shadow: 0 0 20px rgba(0, 255, 204, 0.4);
-            font-weight: bold;
+            background: rgba(0, 255, 204, 0.15); color: var(--neon-green); border-color: var(--neon-green);
+            box-shadow: 0 0 20px rgba(0, 255, 204, 0.4); font-weight: bold;
         }
 
         .tab-content { display: none; animation: fadeIn 0.4s ease; }
@@ -174,17 +167,34 @@
         /* CARRUSEL DE SALAS DE VOZ */
         .voice-carousel { display: flex; gap: 15px; overflow-x: auto; padding-bottom: 10px; margin-bottom: 20px; }
         .voice-room-card {
-            min-width: 240px; background: #0c061a; border: 1px solid var(--neon-purple);
-            border-radius: 12px; padding: 15px; text-align: center; flex-shrink: 0;
-            box-shadow: 0 0 15px rgba(168, 85, 247, 0.2);
+            min-width: 250px; background: #0c061a; border: 1px solid var(--neon-green);
+            border-radius: 14px; padding: 18px; text-align: center; flex-shrink: 0;
+            box-shadow: 0 0 20px rgba(0,255,204,0.2);
         }
         .voice-room-card img {
-            width: 60px; height: 60px; border-radius: 50%; object-fit: cover;
+            width: 70px; height: 70px; border-radius: 50%; object-fit: cover;
             border: 2px solid var(--neon-green); margin-bottom: 10px;
         }
 
-        /* MODALES */
-        #wallet-modal, #voice-modal {
+        /* FONDO DE AGUA CLARITO PARA LA TRANSMISIÓN EN VIVO */
+        #activeVoiceRoomBox {
+            background: linear-gradient(135deg, rgba(12, 6, 26, 0.94), rgba(21, 10, 40, 0.94)),
+                        url('https://photos.pinksale.finance/file/pinksale-logo-upload/1790375348672-4de629a77b910ca4b3f245dda1b233f0.png');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        /* FLOTANTE / MINIMIZADO (PICTURE-IN-PICTURE DE VOZ) */
+        #floatingVoiceBar {
+            position: fixed; bottom: 20px; right: 20px; z-index: 99999;
+            background: rgba(12, 6, 26, 0.95); border: 2px solid var(--neon-green);
+            border-radius: 16px; padding: 12px 20px; display: none; align-items: center; gap: 15px;
+            box-shadow: 0 0 30px rgba(0,255,204,0.4); backdrop-filter: blur(10px);
+        }
+
+        /* MODAL WALLET */
+        #wallet-modal {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(0,0,0,0.85); display: none; justify-content: center; align-items: center; z-index: 10000;
         }
@@ -202,16 +212,23 @@
             background: rgba(0,255,204,0.15); border: 1px solid var(--neon-green); color: var(--neon-green);
             padding: 4px 10px; border-radius: 6px; font-size: 0.75rem; cursor: pointer; font-weight: bold; margin-left: 10px;
         }
+        .profile-avatar-small {
+            width: 40px; height: 40px; border-radius: 50%; object-fit: cover; border: 1px solid var(--neon-blue);
+        }
     </style>
 </head>
 <body dir="ltr">
 
-    <!-- BIENVENIDA & CONFIGURACIÓN DE PERFIL -->
+    <!-- BIENVENIDA & PERFIL CON MEMORIA -->
     <div id="welcome-screen">
         <img src="https://photos.pinksale.finance/file/pinksale-logo-upload/1789411086014-7b67968ed9538e215f1948583ee37c7c.png" alt="ZARD Logo" class="welcome-logo">
         <div class="welcome-title">ZARD INNOVATION</div>
-        <div class="welcome-sub">Crea tu perfil con nombre personalizado para el Ecosistema</div>
+        <div class="welcome-sub" style="color:var(--text-muted); margin-bottom:20px;">Configura tu Perfil Web3 Exclusivo</div>
         <input type="text" id="userInputName" class="profile-input" placeholder="Tu Nombre o Alias (ej: Panga)">
+        <label class="file-upload-label" style="margin-bottom: 20px; font-size: 0.85rem;">
+            <i class="fa-solid fa-camera"></i> Subir Foto de Perfil <input type="file" id="userAvatarFile" accept="image/*" style="display: none;" onchange="cargarAvatarMemoria(event)">
+        </label>
+        <br>
         <button class="enter-btn" onclick="entrarNexus()"><i class="fa-solid fa-rocket"></i> INGRESAR AL NEXUS</button>
     </div>
 
@@ -228,29 +245,15 @@
         </div>
     </div>
 
-    <!-- MODAL DE SALA DE VOZ (CON CONTROL TOTAL DE CIERRE PARA EL HOST) -->
-    <div id="voice-modal">
-        <div class="modal-box" style="max-width: 500px; border-color: var(--neon-green);">
-            <h3 id="modalRoomTitle" style="color: var(--neon-green); font-family: 'Orbitron'; margin-bottom: 5px;">Sala de Voz</h3>
-            <p id="modalRoomHost" style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 15px;">Anfitrión: Panga</p>
-            <div id="modalRoomImgContainer" style="margin-bottom: 15px;"></div>
-            
-            <div style="background: rgba(0,0,0,0.6); border-radius: 8px; padding: 10px; max-height: 150px; overflow-y: auto; text-align: left; margin-bottom: 15px;" id="roomChatBox">
-                <div style="font-size: 0.8rem; margin-bottom: 5px;"><strong style="color: var(--neon-blue);">Sistema:</strong> Conectado a la llamada de voz en alta voz.</div>
-            </div>
-
-            <div style="display: flex; gap: 8px; margin-bottom: 15px;">
-                <input type="text" id="roomChatInput" placeholder="Escribe un mensaje..." style="flex:1; background:#05020a; border:1px solid var(--border-glow); padding:8px; border-radius:6px; color:#fff; outline:none;">
-                <button class="action-btn" onclick="enviarMensajeSala()" style="padding: 8px 15px;">Enviar</button>
-            </div>
-
-            <div style="display: flex; justify-content: center; gap: 10px; flex-wrap: wrap;">
-                <button class="action-btn" onclick="pedirLaPalabraSala()" style="background: rgba(0,255,204,0.2); border:1px solid var(--neon-green); color:var(--neon-green); font-size: 0.8rem;"><i class="fa-solid fa-hand"></i> Pedir la Palabra</button>
-                <button class="action-btn" onclick="compartirEnlaceSala()" style="background: rgba(0,243,255,0.2); border:1px solid var(--neon-blue); color:var(--neon-blue); font-size: 0.8rem;"><i class="fa-solid fa-share-nodes"></i> Compartir Link</button>
-                <!-- Botón de cierre para el Host o salida para oyentes -->
-                <button class="action-btn" onclick="cerrarSalaVoz()" style="background: rgba(255,51,102,0.2); border:1px solid var(--neon-red); color:var(--neon-red); font-size: 0.8rem;"><i class="fa-solid fa-power-off"></i> Cerrar / Salir Transmisión</button>
-            </div>
+    <!-- BARRA FLOTANTE / MINIMIZADA DE LA SALA DE VOZ (PICTURE-IN-PICTURE) -->
+    <div id="floatingVoiceBar">
+        <i class="fa-solid fa-microphone-lines fa-bounce" style="color:var(--neon-green); font-size: 1.4rem;"></i>
+        <div>
+            <div id="floatingRoomTitle" style="font-family:'Orbitron'; font-size:0.85rem; color:#fff;">Sala Activa</div>
+            <div style="font-size:0.75rem; color:var(--neon-green);" id="floatingStatusText">EN VIVO (Micrófono Abierto)</div>
         </div>
+        <button class="action-btn" onclick="maximizarSalaVoz()" style="padding: 6px 12px; font-size:0.75rem;"><i class="fa-solid fa-expand"></i> Maximizar</button>
+        <button class="action-btn" onclick="cerrarSalaVozPorCompleto()" style="background:rgba(255,51,102,0.3); border:1px solid var(--neon-red); color:var(--neon-red); padding: 6px 10px; font-size:0.75rem;"><i class="fa-solid fa-power-off"></i></button>
     </div>
 
     <!-- APLICACIÓN PRINCIPAL -->
@@ -259,7 +262,7 @@
         <!-- CABECERA -->
         <header>
             <div class="brand-box">
-                <img src="https://photos.pinksale.finance/file/pinksale-logo-upload/1789411086014-7b67968ed9538e215f1948583ee37c7c.png" alt="Logo">
+                <img id="headerUserAvatar" src="https://photos.pinksale.finance/file/pinksale-logo-upload/1789411086014-7b67968ed9538e215f1948583ee37c7c.png" alt="Avatar">
                 <div>
                     <h1 id="headerUserTitle">ZARD NEXUS <span style="font-size: 0.7rem; background: rgba(0,255,204,0.2); border: 1px solid var(--neon-green); color: var(--neon-green); padding: 2px 6px; border-radius: 6px; margin-left: 8px;" id="displayProfileTag">@Usuario</span></h1>
                     <p>Cyber Ecosystem & Web3</p>
@@ -272,15 +275,15 @@
             </div>
         </header>
 
-        <!-- NAVEGACIÓN PESTAÑAS (TABS LIMPIAS SEGÚN SOLICITUD) -->
+        <!-- NAVEGACIÓN PESTAÑAS -->
         <div class="tabs-nav">
-            <button class="tab-btn active" onclick="switchTab(event, 'tab-square')"><i class="fa-solid fa-comments"></i> ZARD Square & Audio Spaces</button>
+            <button class="tab-btn active" onclick="switchTab(event, 'tab-square')"><i class="fa-solid fa-comments"></i> Square & Audio Spaces</button>
             <a href="https://figueredo56.github.io/index.html/?img=zaard" target="_blank" class="tab-link"><i class="fa-solid fa-shield-halved"></i> ZAARD FINANCE</a>
             <button class="tab-btn" onclick="irTracker()"><i class="fa-solid fa-chart-line"></i> Tracker & Velas</button>
             <button class="tab-btn" onclick="switchTab(event, 'tab-coins')"><i class="fa-solid fa-coins"></i> Monedas & Subs</button>
             <button class="tab-btn" onclick="switchTab(event, 'tab-balance')"><i class="fa-solid fa-wallet"></i> Mi Balance</button>
             <button class="tab-btn" onclick="switchTab(event, 'tab-swap')"><i class="fa-solid fa-right-left"></i> Swap DEX</button>
-            <button class="tab-btn" onclick="switchTab(event, 'tab-browser')"><i class="fa-solid fa-globe"></i> Buscador</button>
+            <button class="tab-btn" onclick="switchTab(event, 'tab-browser')"><i class="fa-solid fa-globe"></i> Buscador Web3</button>
         </div>
 
         <!-- PESTAÑA 1: SQUARE & AUDIO SPACES -->
@@ -289,33 +292,69 @@
                 <div class="fin-card" style="grid-column: span 2;">
                     
                     <!-- CARRUSEL DE SALAS DE VOZ -->
-                    <div style="background: #0c061a; border: 1px solid var(--neon-green); border-radius: 14px; padding: 18px; margin-bottom: 25px;">
+                    <div style="background: #0c061a; border: 1px solid var(--neon-green); border-radius: 14px; padding: 20px; margin-bottom: 25px;">
                         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; flex-wrap: wrap; gap: 10px;">
-                            <h3 style="color: var(--neon-green); font-size: 1.1rem; margin:0;"><i class="fa-solid fa-microphone-lines"></i> ZARD Audio Spaces (Transmisiones de Voz)</h3>
-                            <button class="action-btn" onclick="abrirCrearSalaModal()" style="background: linear-gradient(135deg, #00ffcc, #00f3ff); color: #030107; font-size: 0.85rem; padding: 8px 16px;"><i class="fa-solid fa-plus"></i> Iniciar Sala de Voz</button>
+                            <h3 style="color: var(--neon-green); font-size: 1.2rem; margin:0;"><i class="fa-solid fa-microphone-lines"></i> ZARD Audio Spaces (Salas de Voz en Vivo)</h3>
+                            <button class="action-btn" onclick="abrirCrearSalaModal()" style="background: linear-gradient(135deg, #00ffcc, #00f3ff); color: #030107; font-size: 0.85rem; padding: 10px 18px;"><i class="fa-solid fa-plus"></i> Iniciar Sala de Voz</button>
                         </div>
-                        <p style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 15px;">Salas de llamadas en alta voz con control total del host y opción de compartir enlace.</p>
+                        <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 15px;">Salas de llamadas en alta voz con control total, silenciar micrófono y minimizado flotante.</p>
                         
                         <div class="voice-carousel" id="voiceRoomsCarousel">
                             <div class="voice-room-card" id="room-default">
                                 <img src="https://photos.pinksale.finance/file/pinksale-logo-upload/1789411086014-7b67968ed9538e215f1948583ee37c7c.png" alt="Host">
-                                <h4 style="color: #fff; font-size: 0.9rem; font-family: 'Orbitron'; margin-bottom: 4px;">Análisis ZARD & PANGA</h4>
-                                <p style="color: var(--text-muted); font-size: 0.75rem; margin-bottom: 10px;">Host: @Panga</p>
-                                <button class="action-btn" onclick="unirseSalaVoz('Análisis ZARD & PANGA', '@Panga', 'https://photos.pinksale.finance/file/pinksale-logo-upload/1789411086014-7b67968ed9538e215f1948583ee37c7c.png', 'room-default')" style="padding: 6px 12px; font-size: 0.8rem;">Escuchar</button>
+                                <h4 style="color: #fff; font-size: 0.95rem; font-family: 'Orbitron'; margin-bottom: 4px;">Análisis ZARD & PANGA</h4>
+                                <p style="color: var(--text-muted); font-size: 0.8rem; margin-bottom: 12px;">Host: @Panga</p>
+                                <button class="action-btn" onclick="unirseSalaVoz('Análisis ZARD & PANGA', '@Panga', 'https://photos.pinksale.finance/file/pinksale-logo-upload/1789411086014-7b67968ed9538e215f1948583ee37c7c.png', 'room-default')" style="padding: 8px 16px; font-size: 0.85rem;">Escuchar</button>
                             </div>
                         </div>
                     </div>
 
-                    <!-- CREAR SALA DE VOZ (PANEL) -->
-                    <div id="createRoomBox" style="display: none; background: #05020a; border: 1px solid var(--border-glow); border-radius: 12px; padding: 15px; margin-bottom: 25px;">
-                        <h4 style="color: var(--neon-blue); font-family: 'Orbitron'; font-size: 0.95rem; margin-bottom: 10px;">Crear Sala de Voz con tu Perfil</h4>
-                        <input type="text" id="roomTopicInput" placeholder="Tema de la sala..." style="width:100%; background:#0c061a; border:1px solid var(--border-glow); padding:10px; border-radius:8px; color:#fff; outline:none; margin-bottom:10px;">
-                        <div style="display: flex; gap: 10px; align-items: center;">
-                            <label class="file-upload-label" style="font-size: 0.8rem; padding: 8px 12px;">
-                                <i class="fa-solid fa-image"></i> Imagen <input type="file" id="roomImageFile" accept="image/*" style="display: none;" onchange="verImagenSala(event)">
+                    <!-- REPRODUCTOR / SALA DE VOZ ACTIVA EN GRANDE (CON FONDO DE AGUA CLARITO) -->
+                    <div id="activeVoiceRoomBox" class="fin-card" style="display: none; border: 2px solid var(--neon-green); margin-bottom: 25px; padding: 25px;">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                            <h3 id="liveRoomTitleBig" style="color: var(--neon-green); font-family: 'Orbitron'; font-size: 1.3rem; margin: 0;"><i class="fa-solid fa-broadcast-tower"></i> Sala Activa</h3>
+                            <div style="display: flex; gap: 8px;">
+                                <button class="action-btn" onclick="minimizarSalaVoz()" style="background: rgba(0,243,255,0.2); border: 1px solid var(--neon-blue); color: var(--neon-blue); padding: 5px 12px; font-size: 0.8rem;"><i class="fa-solid fa-window-minimize"></i> Minimizar</button>
+                                <span style="background: rgba(255,51,102,0.2); border: 1px solid var(--neon-red); color: var(--neon-red); padding: 4px 10px; border-radius: 8px; font-size: 0.8rem; font-weight: bold;"><i class="fa-solid fa-circle-dot"></i> EN VIVO</span>
+                            </div>
+                        </div>
+                        
+                        <div style="display: flex; align-items: center; gap: 20px; margin-bottom: 20px; flex-wrap: wrap;">
+                            <div id="liveRoomImgBigContainer"></div>
+                            <div>
+                                <h4 id="liveRoomTopicBig" style="color: #fff; font-family: 'Orbitron'; font-size: 1.1rem; margin-bottom: 5px;">Tema</h4>
+                                <p id="liveRoomHostBig" style="color: var(--text-muted); font-size: 0.9rem;">Host: @Panga</p>
+                            </div>
+                        </div>
+
+                        <!-- Chat en Vivo de la Transmisión (Con Traducción a Inglés) -->
+                        <div style="background: rgba(0,0,0,0.65); border-radius: 10px; padding: 12px; height: 180px; overflow-y: auto; text-align: left; margin-bottom: 15px; border: 1px solid var(--border-glow);" id="roomChatBox">
+                            <div style="font-size: 0.85rem; margin-bottom: 8px;"><strong style="color: var(--neon-blue);">Sistema:</strong> Conectado a la sala de voz en alta voz.</div>
+                        </div>
+
+                        <div style="display: flex; gap: 10px; margin-bottom: 15px;">
+                            <input type="text" id="roomChatInput" placeholder="Escribe un comentario..." style="flex:1; background:#05020a; border:1px solid var(--border-glow); padding:10px 14px; border-radius:8px; color:#fff; outline:none; font-size: 0.95rem;">
+                            <button class="action-btn" onclick="enviarMensajeSala()" style="padding: 10px 20px;">Enviar</button>
+                        </div>
+
+                        <div style="display: flex; justify-content: center; gap: 10px; flex-wrap: wrap;">
+                            <button id="muteMicBtn" class="action-btn" onclick="toggleSilenciarMic()" style="background: rgba(255,193,7,0.2); border:1px solid #ffc107; color:#ffc107; font-size: 0.85rem;"><i class="fa-solid fa-microphone"></i> Silenciar Micrófono</button>
+                            <button class="action-btn" onclick="pedirLaPalabraSala()" style="background: rgba(0,255,204,0.2); border:1px solid var(--neon-green); color:var(--neon-green); font-size: 0.85rem;"><i class="fa-solid fa-hand"></i> Pedir la Palabra</button>
+                            <button class="action-btn" onclick="compartirEnlaceSala()" style="background: rgba(0,243,255,0.2); border:1px solid var(--neon-blue); color:var(--neon-blue); font-size: 0.85rem;"><i class="fa-solid fa-share-nodes"></i> Compartir Link</button>
+                            <button class="action-btn" onclick="cerrarSalaVozPorCompleto()" style="background: rgba(255,51,102,0.2); border:1px solid var(--neon-red); color:var(--neon-red); font-size: 0.85rem;"><i class="fa-solid fa-power-off"></i> Cerrar Transmisión</button>
+                        </div>
+                    </div>
+
+                    <!-- PANEL CREAR SALA -->
+                    <div id="createRoomBox" style="display: none; background: #05020a; border: 1px solid var(--border-glow); border-radius: 12px; padding: 18px; margin-bottom: 25px;">
+                        <h4 style="color: var(--neon-blue); font-family: 'Orbitron'; font-size: 1rem; margin-bottom: 12px;">Iniciar Sala de Voz con tu Perfil</h4>
+                        <input type="text" id="roomTopicInput" placeholder="Tema de la conversación..." style="width:100%; background:#0c061a; border:1px solid var(--border-glow); padding:12px; border-radius:8px; color:#fff; outline:none; margin-bottom:12px;">
+                        <div style="display: flex; gap: 10px; align-items: center; flex-wrap: wrap;">
+                            <label class="file-upload-label" style="font-size: 0.85rem; padding: 8px 14px;">
+                                <i class="fa-solid fa-image"></i> Imagen de Sala <input type="file" id="roomImageFile" accept="image/*" style="display: none;" onchange="verImagenSala(event)">
                             </label>
-                            <span id="roomImgName" style="font-size:0.8rem; color:var(--neon-blue);"></span>
-                            <button class="action-btn" onclick="lanzarSalaVoz()" style="padding: 8px 18px; font-size: 0.85rem;">Transmitir</button>
+                            <span id="roomImgName" style="font-size:0.85rem; color:var(--neon-blue);"></span>
+                            <button class="action-btn" onclick="lanzarSalaVoz()" style="padding: 9px 20px; font-size: 0.9rem;">Transmitir Voz</button>
                         </div>
                     </div>
 
@@ -341,7 +380,7 @@
             </div>
         </div>
 
-        <!-- PESTAÑA 2: MONEDAS & SUBSCRIPCIONES -->
+        <!-- PESTAÑA 2: MONEDAS & SUBS -->
         <div id="tab-coins" class="tab-content">
             <div class="card-grid">
                 <div class="fin-card">
@@ -366,9 +405,10 @@
 
                 <div class="fin-card">
                     <h3><i class="fa-solid fa-user-circle"></i> Tu Perfil Activo</h3>
-                    <div style="text-align: center; padding: 15px; background: #0c061a; border-radius: 12px; border: 1px solid var(--neon-blue); margin-bottom: 15px;">
-                        <h4 style="font-family: 'Orbitron'; color: #fff;" id="profileDisplayName">@Usuario</h4>
-                        <p style="font-size: 0.8rem; color: var(--text-muted);" id="profileAddress">Billetera no conectada</p>
+                    <div style="text-align: center; padding: 20px; background: #0c061a; border-radius: 12px; border: 1px solid var(--neon-blue); margin-bottom: 15px;">
+                        <img id="profileAvatarDisplay" src="" alt="Avatar" style="width: 70px; height: 70px; border-radius: 50%; object-fit: cover; border: 2px solid var(--neon-green); margin-bottom: 10px; display: none;">
+                        <h4 style="font-family: 'Orbitron'; color: #fff; font-size: 1.1rem;" id="profileDisplayName">@Usuario</h4>
+                        <p style="font-size: 0.8rem; color: var(--text-muted); margin-top: 5px;" id="profileAddress">Billetera no conectada</p>
                     </div>
                 </div>
             </div>
@@ -393,28 +433,66 @@
             </div>
         </div>
 
-        <!-- PESTAÑA 4: SWAP -->
+        <!-- PESTAÑA 4: SWAP MULTIDIRECCIONAL -->
         <div id="tab-swap" class="tab-content">
             <div class="card-grid">
                 <div class="fin-card" style="text-align: center; padding: 40px 20px;">
                     <i class="fa-solid fa-right-left" style="font-size: 3rem; color: var(--neon-blue); margin-bottom: 20px;"></i>
                     <h3>PancakeSwap DEX Exchange Oficial</h3>
-                    <div style="display: flex; justify-content: center; gap: 15px; flex-wrap: wrap; margin-top: 20px;">
-                        <a href="https://pancakeswap.finance/swap?outputCurrency=0x973ba2c1dccd0820f1e026d6b1f01c55c4085d38" target="_blank" class="action-btn" style="text-decoration: none; padding: 12px 25px;">Swap ZARD / BNB</a>
-                        <a href="https://pancakeswap.finance/swap?outputCurrency=0x6a7cc7d5749e028c8f78f29c1d6ac8eda0eefad2" target="_blank" class="action-btn" style="text-decoration: none; padding: 12px 25px; background: linear-gradient(135deg, #00ffcc, #00f3ff); color:#030107;">Swap PANGA / BNB</a>
+                    <p style="color: var(--text-muted); margin-bottom: 25px; font-size: 0.95rem;">Selecciona el par de intercambio instantáneo en Binance Smart Chain:</p>
+                    
+                    <div style="display: flex; justify-content: center; gap: 15px; flex-wrap: wrap;">
+                        <a href="https://pancakeswap.finance/swap?outputCurrency=0x973ba2c1dccd0820f1e026d6b1f01c55c4085d38" target="_blank" class="action-btn" style="text-decoration: none; padding: 12px 22px;">Swap BNB ⇄ ZARD</a>
+                        <a href="https://pancakeswap.finance/swap?outputCurrency=0x6a7cc7d5749e028c8f78f29c1d6ac8eda0eefad2" target="_blank" class="action-btn" style="text-decoration: none; padding: 12px 22px; background: linear-gradient(135deg, #00ffcc, #00f3ff); color:#030107;">Swap BNB ⇄ PANGA</a>
+                        <a href="https://pancakeswap.finance/swap?inputCurrency=0x6a7cc7d5749e028c8f78f29c1d6ac8eda0eefad2&outputCurrency=0x973ba2c1dccd0820f1e026d6b1f01c55c4085d38" target="_blank" class="action-btn" style="text-decoration: none; padding: 12px 22px; background: linear-gradient(135deg, #a855f7, #ec4899);">Swap PANGA ⇄ ZARD</a>
                     </div>
                 </div>
             </div>
         </div>
         
-        <!-- PESTAÑA 5: BUSCADOR -->
+        <!-- PESTAÑA 5: BUSCADOR WEB3 ÉPICO -->
         <div id="tab-browser" class="tab-content">
             <div class="card-grid">
                 <div class="fin-card" style="grid-column: span 2; text-align: center; padding: 40px 20px;">
-                    <h2 style="font-family: 'Orbitron', sans-serif; color: #00ffcc; font-size: 1.6em; margin-bottom: 15px;">ZAARD WEB SEARCH</h2>
+                    <h2 style="font-family: 'Orbitron', sans-serif; color: #00ffcc; font-size: 1.6em; margin-bottom: 15px;">ZAARD WEB SEARCH & APPS</h2>
+                    <p style="color: var(--text-muted); margin-bottom: 25px; font-size: 0.95rem;">Buscador descentralizado y herramientas clave del ecosistema cripto:</p>
+                    
                     <div style="display: flex; gap: 12px; max-width: 700px; margin: 0 auto 35px auto;">
-                        <input type="text" id="webSearchInput" placeholder="Busca en la red..." style="flex:1; background:#0c061a; border:1px solid var(--border-glow); padding:16px 20px; border-radius:14px; color:#fff; outline:none; font-size: 1rem;">
+                        <input type="text" id="webSearchInput" placeholder="Busca en internet..." style="flex:1; background:#0c061a; border:1px solid var(--border-glow); padding:16px 20px; border-radius:14px; color:#fff; outline:none; font-size: 1rem;">
                         <button class="action-btn" onclick="buscarEnInternet()">Buscar</button>
+                    </div>
+
+                    <!-- ACCESOS DIRECTOS WEB3 -->
+                    <h3 style="font-size: 1rem; color: var(--neon-blue); margin-bottom: 15px; font-family:'Orbitron';">Accesos Directos Web3 Oficiales</h3>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; max-width: 900px; margin: 0 auto;">
+                        <a href="https://figueredo56.github.io/DAIoficial/" target="_blank" class="fin-card" style="padding: 12px; text-decoration: none; text-align: center;">
+                            <i class="fa-solid fa-globe" style="color:var(--neon-green); font-size:1.5rem; margin-bottom:6px;"></i>
+                            <div style="color:#fff; font-size:0.85rem; font-weight:bold;">ZAARD Web</div>
+                        </a>
+                        <a href="https://bscscan.com/token/0x973ba2c1dccd0820f1e026d6b1f01c55c4085d38" target="_blank" class="fin-card" style="padding: 12px; text-decoration: none; text-align: center;">
+                            <i class="fa-solid fa-magnifying-glass-chart" style="color:#3375bb; font-size:1.5rem; margin-bottom:6px;"></i>
+                            <div style="color:#fff; font-size:0.85rem; font-weight:bold;">BscScan</div>
+                        </a>
+                        <a href="https://www.pinksale.finance/" target="_blank" class="fin-card" style="padding: 12px; text-decoration: none; text-align: center;">
+                            <i class="fa-solid fa-fire" style="color:#f6851b; font-size:1.5rem; margin-bottom:6px;"></i>
+                            <div style="color:#fff; font-size:0.85rem; font-weight:bold;">PinkSale</div>
+                        </a>
+                        <a href="https://pancakeswap.finance/" target="_blank" class="fin-card" style="padding: 12px; text-decoration: none; text-align: center;">
+                            <i class="fa-solid fa-right-left" style="color:#00ffcc; font-size:1.5rem; margin-bottom:6px;"></i>
+                            <div style="color:#fff; font-size:0.85rem; font-weight:bold;">PancakeSwap</div>
+                        </a>
+                        <a href="https://tokensniffer.com/" target="_blank" class="fin-card" style="padding: 12px; text-decoration: none; text-align: center;">
+                            <i class="fa-solid fa-shield-dog" style="color:#ec4899; font-size:1.5rem; margin-bottom:6px;"></i>
+                            <div style="color:#fff; font-size:0.85rem; font-weight:bold;">Token Sniffer</div>
+                        </a>
+                        <a href="https://coinmarketcap.com/" target="_blank" class="fin-card" style="padding: 12px; text-decoration: none; text-align: center;">
+                            <i class="fa-solid fa-chart-pie" style="color:#3375bb; font-size:1.5rem; margin-bottom:6px;"></i>
+                            <div style="color:#fff; font-size:0.85rem; font-weight:bold;">CoinMarketCap</div>
+                        </a>
+                        <a href="https://www.geckoterminal.com/" target="_blank" class="fin-card" style="padding: 12px; text-decoration: none; text-align: center;">
+                            <i class="fa-solid fa-chart-line" style="color:#00ffcc; font-size:1.5rem; margin-bottom:6px;"></i>
+                            <div style="color:#fff; font-size:0.85rem; font-weight:bold;">GeckoTerminal</div>
+                        </a>
                     </div>
                 </div>
             </div>
@@ -423,24 +501,55 @@
     </div>
 
     <script>
-        let userName = "Panga";
+        let userName = localStorage.getItem('zard_username') || "Panga";
+        let userAvatar = localStorage.getItem('zard_useravatar') || "";
         let cuentaActual = null;
         let mediaBase64Temp = "";
         let mediaTypeTemp = "image";
         let roomImageBase64 = "";
-        let currentRoomId = null;
+        let activeRoomData = null;
+        let isMicMuted = false;
+        let currentRoomTopic = "";
+
+        window.onload = function() {
+            if(localStorage.getItem('zard_username')) {
+                document.getElementById('userInputName').value = userName;
+            }
+        };
+
+        function cargarAvatarMemoria(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                userAvatar = e.target.result;
+            };
+            reader.readAsDataURL(file);
+        }
 
         function entrarNexus() {
             const inputVal = document.getElementById('userInputName').value.trim();
             if (inputVal !== "") {
                 userName = inputVal;
+                localStorage.setItem('zard_username', userName);
             }
+            if (userAvatar !== "") {
+                localStorage.setItem('zard_useravatar', userAvatar);
+            }
+
             document.getElementById('welcome-screen').classList.add('fade-out');
             setTimeout(() => {
                 document.getElementById('welcome-screen').style.display = 'none';
                 document.getElementById('main-app').style.display = 'block';
                 document.getElementById('displayProfileTag').innerText = "@" + userName;
                 document.getElementById('profileDisplayName').innerText = "@" + userName;
+                
+                if(userAvatar) {
+                    document.getElementById('headerUserAvatar').src = userAvatar;
+                    const avDisp = document.getElementById('profileAvatarDisplay');
+                    avDisp.src = userAvatar;
+                    avDisp.style.display = 'block';
+                }
                 cargarPublicaciones();
             }, 800);
         }
@@ -516,7 +625,7 @@
             } catch (e) { console.error(e); }
         }
 
-        // SALAS DE VOZ (CARRUSEL CON CIERRE TOTAL DE TRANSMISIÓN)
+        // SALAS DE VOZ (MINIMIZAR, MUTE, CERRAR)
         function abrirCrearSalaModal() {
             const box = document.getElementById('createRoomBox');
             box.style.display = box.style.display === 'none' ? 'block' : 'none';
@@ -535,9 +644,10 @@
             const topic = document.getElementById('roomTopicInput').value.trim();
             if (!topic) { alert("Escribe el tema de la sala."); return; }
 
+            currentRoomTopic = topic;
             const carousel = document.getElementById('voiceRoomsCarousel');
             const hostName = "@" + userName;
-            const roomImg = roomImageBase64 || "https://photos.pinksale.finance/file/pinksale-logo-upload/1789411086014-7b67968ed9538e215f1948583ee37c7c.png";
+            const roomImg = roomImageBase64 || userAvatar || "https://photos.pinksale.finance/file/pinksale-logo-upload/1789411086014-7b67968ed9538e215f1948583ee37c7c.png";
             const roomId = "room-" + Date.now();
 
             const newCard = document.createElement('div');
@@ -545,36 +655,69 @@
             newCard.id = roomId;
             newCard.innerHTML = `
                 <img src="${roomImg}" alt="Room">
-                <h4 style="color: #fff; font-size: 0.9rem; font-family: 'Orbitron'; margin-bottom: 4px;">${topic}</h4>
-                <p style="color: var(--text-muted); font-size: 0.75rem; margin-bottom: 10px;">Host: ${hostName}</p>
-                <button class="action-btn" onclick="unirseSalaVoz('${topic}', '${hostName}', '${roomImg}', '${roomId}')" style="padding: 6px 12px; font-size: 0.8rem;">Escuchar</button>
+                <h4 style="color: #fff; font-size: 0.95rem; font-family: 'Orbitron'; margin-bottom: 4px;">${topic}</h4>
+                <p style="color: var(--text-muted); font-size: 0.8rem; margin-bottom: 12px;">Host: ${hostName}</p>
+                <button class="action-btn" onclick="unirseSalaVoz('${topic}', '${hostName}', '${roomImg}', '${roomId}')" style="padding: 8px 16px; font-size: 0.85rem;">Escuchar</button>
             `;
             carousel.prepend(newCard);
             document.getElementById('roomTopicInput').value = "";
             document.getElementById('createRoomBox').style.display = 'none';
-            alert("¡Sala de voz iniciada con tu perfil!");
+            alert("¡Sala de voz en vivo iniciada!");
             unirseSalaVoz(topic, hostName, roomImg, roomId);
         }
 
         function unirseSalaVoz(topic, host, img, roomId) {
-            currentRoomId = roomId;
-            document.getElementById('modalRoomTitle').innerText = topic;
-            document.getElementById('modalRoomHost').innerText = "Anfitrión: " + host;
-            document.getElementById('modalRoomImgContainer').innerHTML = `<img src="${img}" style="width:80px; height:80px; border-radius:50%; border:2px solid var(--neon-green); object-fit:cover;">`;
-            document.getElementById('voice-modal').style.display = 'flex';
+            activeRoomData = roomId;
+            currentRoomTopic = topic;
+            document.getElementById('liveRoomTopicBig').innerText = topic;
+            document.getElementById('liveRoomHostBig').innerText = "Anfitrión: " + host;
+            document.getElementById('liveRoomImgBigContainer').innerHTML = `<img src="${img}" style="width:90px; height:90px; border-radius:50%; border:3px solid var(--neon-green); object-fit:cover;">`;
+            document.getElementById('activeVoiceRoomBox').style.display = 'block';
+            document.getElementById('floatingVoiceBar').style.display = 'none';
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
-        // El Host puede cerrar/desconectar su transmisión por completo sin perder el enfoque
-        function cerrarSalaVoz() {
-            document.getElementById('voice-modal').style.display = 'none';
-            if (currentRoomId && document.getElementById(currentRoomId)) {
-                // Si el usuario actual es el creador o decide cerrar la sala, se borra del carrusel
-                document.getElementById(currentRoomId).remove();
-                alert("Transmisión de voz cerrada y finalizada con éxito.");
+        function minimizarSalaVoz() {
+            document.getElementById('activeVoiceRoomBox').style.display = 'none';
+            document.getElementById('floatingRoomTitle').innerText = currentRoomTopic;
+            document.getElementById('floatingVoiceBar').style.display = 'flex';
+        }
+
+        function maximizarSalaVoz() {
+            document.getElementById('floatingVoiceBar').style.display = 'none';
+            document.getElementById('activeVoiceRoomBox').style.display = 'block';
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function toggleSilenciarMic() {
+            isMicMuted = !isMicMuted;
+            const btn = document.getElementById('muteMicBtn');
+            const statusText = document.getElementById('floatingStatusText');
+            if(isMicMuted) {
+                btn.innerHTML = `<i class="fa-solid fa-microphone-slash"></i> Micrófono Silenciado`;
+                btn.style.borderColor = "var(--neon-red)";
+                btn.style.color = "var(--neon-red)";
+                statusText.innerText = "EN VIVO (Silenciado 🔇)";
+                statusText.style.color = "var(--neon-red)";
             } else {
-                alert("Has salido de la sala de voz.");
+                btn.innerHTML = `<i class="fa-solid fa-microphone"></i> Silenciar Micrófono`;
+                btn.style.borderColor = "#ffc107";
+                btn.style.color = "#ffc107";
+                statusText.innerText = "EN VIVO (Micrófono Abierto)";
+                statusText.style.color = "var(--neon-green)";
             }
-            currentRoomId = null;
+        }
+
+        function cerrarSalaVozPorCompleto() {
+            document.getElementById('activeVoiceRoomBox').style.display = 'none';
+            document.getElementById('floatingVoiceBar').style.display = 'none';
+            if (activeRoomData && document.getElementById(activeRoomData)) {
+                document.getElementById(activeRoomData).remove();
+                alert("Has cerrado y finalizado la transmisión de voz por completo.");
+            } else {
+                alert("Has salido de la sala activa.");
+            }
+            activeRoomData = null;
         }
 
         function pedirLaPalabraSala() {
@@ -583,7 +726,7 @@
 
         function compartirEnlaceSala() {
             navigator.clipboard.writeText(window.location.href);
-            alert("¡Enlace de la transmisión de voz copiado al portapapeles!");
+            alert("¡Enlace de la transmisión copiado al portapapeles!");
         }
 
         function enviarMensajeSala() {
@@ -593,23 +736,22 @@
             
             const msgId = "msg-" + Date.now();
             chatBox.innerHTML += `
-                <div style="font-size: 0.8rem; margin-bottom: 5px;" id="${msgId}">
+                <div style="font-size: 0.85rem; margin-bottom: 8px;" id="${msgId}">
                     <strong style="color: var(--neon-purple);">@${userName}:</strong> <span class="msg-text">${input.value}</span>
-                    <button onclick="traducirChatIngles('${msgId}')" style="background:none; border:none; color:var(--neon-green); cursor:pointer; font-size:0.7rem; margin-left:6px;"><i class="fa-solid fa-language"></i> Translate to EN</button>
+                    <button onclick="traducirChatIngles('${msgId}')" style="background:none; border:none; color:var(--neon-green); cursor:pointer; font-size:0.75rem; margin-left:8px;"><i class="fa-solid fa-language"></i> Translate to EN</button>
                 </div>
             `;
             input.value = "";
             chatBox.scrollTop = chatBox.scrollHeight;
         }
 
-        // Traducción a Inglés en el chat de voz
         function traducirChatIngles(msgId) {
             const container = document.getElementById(msgId);
             const textSpan = container.querySelector('.msg-text');
             textSpan.innerText = "[Translated to EN]: " + textSpan.innerText.split('').reverse().join('');
         }
 
-        // SQUARE NORMAL (PERFIL + SEGUIR)
+        // SQUARE NORMAL (PERFIL + MULTIMEDIA + SEGUIR)
         function verMediaSeleccionada(event) {
             const file = event.target.files[0];
             if (!file) return;
@@ -626,10 +768,12 @@
             if (texto === "" && !mediaBase64Temp) { alert("Escribe algo o adjunta multimedia."); return; }
             let publicaciones = JSON.parse(localStorage.getItem('zard_posts') || '[]');
             const autorVisible = "@" + userName;
+            const avatarPub = userAvatar || "https://photos.pinksale.finance/file/pinksale-logo-upload/1789411086014-7b67968ed9538e215f1948583ee37c7c.png";
 
             const nuevaPub = {
                 id: Date.now(),
                 autor: autorVisible,
+                avatar: avatarPub,
                 texto: texto,
                 media: mediaBase64Temp,
                 type: mediaTypeTemp,
@@ -654,16 +798,20 @@
             }
             let html = '';
             publicaciones.forEach(pub => {
+                const av = pub.avatar || "https://photos.pinksale.finance/file/pinksale-logo-upload/1789411086014-7b67968ed9538e215f1948583ee37c7c.png";
                 html += `
                     <div class="post-card">
                         <div style="display:flex; justify-content:space-between; align-items:center;">
-                            <div>
-                                <strong style="color:var(--neon-blue); font-family:'Orbitron';"><i class="fa-solid fa-circle-user"></i> ${pub.autor}</strong>
-                                <button class="follow-btn" onclick="seguirUsuario('${pub.autor}')"><i class="fa-solid fa-user-plus"></i> Seguir</button>
+                            <div style="display:flex; align-items:center; gap:10px;">
+                                <img src="${av}" class="profile-avatar-small" alt="Avatar">
+                                <div>
+                                    <strong style="color:var(--neon-blue); font-family:'Orbitron'; font-size:0.9rem;">${pub.autor}</strong>
+                                    <button class="follow-btn" onclick="seguirUsuario('${pub.autor}')"><i class="fa-solid fa-user-plus"></i> Seguir</button>
+                                </div>
                             </div>
                             <span style="font-size:0.75rem; color:var(--text-muted);">${pub.fecha}</span>
                         </div>
-                        <p style="margin-top:8px; font-size:0.95rem; color:#fff; word-break:break-word;">${pub.texto}</p>
+                        <p style="margin-top:12px; font-size:0.95rem; color:#fff; word-break:break-word;">${pub.texto}</p>
                         ${pub.media ? (pub.type === 'video' ? `<video controls src="${pub.media}"></video>` : `<img src="${pub.media}" alt="Media">`) : ''}
                     </div>
                 `;
