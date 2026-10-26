@@ -72,7 +72,7 @@
             100% { transform: scale(1.05); box-shadow: 0 0 60px var(--neon-blue); }
         }
 
-        .app-container { max-width: 1300px; margin: 0 auto; padding: 20px; display: none; }
+        .app-container { max-width: 1300px; margin: 0 auto; padding: 20px; display: none; padding-bottom: 80px; }
 
         /* CABECERA */
         header {
@@ -176,9 +176,9 @@
             border: 2px solid var(--neon-green); margin-bottom: 10px;
         }
 
-        /* FONDO DE AGUA CLARITO EN LA SALA EN VIVO */
+        /* FONDO DE AGUA CLARITO EN LA SALA EN VIVO AMPLIADA */
         #activeVoiceRoomBox {
-            background: linear-gradient(135deg, rgba(12, 6, 26, 0.94), rgba(21, 10, 40, 0.94)),
+            background: linear-gradient(135deg, rgba(12, 6, 26, 0.92), rgba(21, 10, 40, 0.92)),
                         url('https://photos.pinksale.finance/file/pinksale-logo-upload/1790375348672-4de629a77b910ca4b3f245dda1b233f0.png');
             background-size: cover;
             background-position: center;
@@ -276,7 +276,7 @@
             </div>
         </header>
 
-        <!-- NAVEGACIÓN PESTAÑAS (TRACKER Y SITIOS EXTERNOS ABREN EN PESTAÑA NUEVA PARA NO CERRAR LA SALA DE VOZ) -->
+        <!-- NAVEGACIÓN PESTAÑAS -->
         <div class="tabs-nav">
             <button class="tab-btn active" onclick="switchTab(event, 'tab-square')"><i class="fa-solid fa-comments"></i> Square & Audio Spaces</button>
             <a href="https://figueredo56.github.io/index.html/?img=zaard" target="_blank" class="tab-link"><i class="fa-solid fa-shield-halved"></i> ZAARD FINANCE</a>
@@ -310,7 +310,7 @@
                         </div>
                     </div>
 
-                    <!-- REPRODUCTOR / SALA DE VOZ ACTIVA EN GRANDE (CON FONDO DE AGUA CLARITO) -->
+                    <!-- REPRODUCTOR / SALA DE VOZ ACTIVA EN GRANDE Y OPTIMIZADA PARA MÓVIL Y TECLADO -->
                     <div id="activeVoiceRoomBox" class="fin-card" style="display: none; border: 2px solid var(--neon-green); margin-bottom: 25px; padding: 25px;">
                         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
                             <h3 id="liveRoomTitleBig" style="color: var(--neon-green); font-family: 'Orbitron'; font-size: 1.3rem; margin: 0;"><i class="fa-solid fa-broadcast-tower"></i> Sala Activa</h3>
@@ -328,14 +328,15 @@
                             </div>
                         </div>
 
-                        <!-- Chat en Vivo de la Transmisión (Con Traducción a Inglés) -->
-                        <div style="background: rgba(0,0,0,0.65); border-radius: 10px; padding: 12px; height: 180px; overflow-y: auto; text-align: left; margin-bottom: 15px; border: 1px solid var(--border-glow);" id="roomChatBox">
-                            <div style="font-size: 0.85rem; margin-bottom: 8px;"><strong style="color: var(--neon-blue);">Sistema:</strong> Conectado a la sala de voz en alta voz.</div>
+                        <!-- Chat en Vivo Amplio (Lectura Clara) -->
+                        <div style="background: rgba(0,0,0,0.7); border-radius: 10px; padding: 15px; height: 240px; overflow-y: auto; text-align: left; margin-bottom: 15px; border: 1px solid var(--border-glow);" id="roomChatBox">
+                            <div style="font-size: 0.9rem; margin-bottom: 10px;"><strong style="color: var(--neon-blue);">Sistema:</strong> Conectado a la sala de voz en alta voz. Escribe abajo o presiona Enter para enviar.</div>
                         </div>
 
+                        <!-- Input con soporte para enviar con la tecla Enter / Flechita del teclado -->
                         <div style="display: flex; gap: 10px; margin-bottom: 15px;">
-                            <input type="text" id="roomChatInput" placeholder="Escribe un comentario..." style="flex:1; background:#05020a; border:1px solid var(--border-glow); padding:10px 14px; border-radius:8px; color:#fff; outline:none; font-size: 0.95rem;">
-                            <button class="action-btn" onclick="enviarMensajeSala()" style="padding: 10px 20px;">Enviar</button>
+                            <input type="text" id="roomChatInput" placeholder="Escribe un mensaje..." onkeydown="chequearEnterChat(event)" style="flex:1; background:#05020a; border:1px solid var(--border-glow); padding:12px 16px; border-radius:10px; color:#fff; outline:none; font-size: 1rem;">
+                            <button class="action-btn" onclick="enviarMensajeSala()" style="padding: 12px 22px;"><i class="fa-solid fa-paper-plane"></i> Enviar</button>
                         </div>
 
                         <div style="display: flex; justify-content: center; gap: 10px; flex-wrap: wrap;">
@@ -512,7 +513,7 @@
         let isMicMuted = false;
         let currentRoomTopic = "";
 
-        // AUTO-LOGIN: Si la memoria reconoce al usuario, entra automáticamente sin pedir perfil
+        // AUTO-LOGIN & RESTAURAR SALA ACTIVA
         window.onload = function() {
             const savedName = localStorage.getItem('zard_username');
             if (savedName) {
@@ -521,7 +522,6 @@
                 entrarNexusDirecto();
             }
             
-            // Restaurar sala activa si existía previamente
             const savedRoom = localStorage.getItem('zard_active_room');
             if (savedRoom) {
                 const roomObj = JSON.parse(savedRoom);
@@ -639,7 +639,7 @@
             } catch (e) { console.error(e); }
         }
 
-        // SALAS DE VOZ (CON PERSISTENCIA Y CONTROLES)
+        // SALAS DE VOZ (CON PERSISTENCIA Y SOPORTE DE TECLADO / ENTER)
         function abrirCrearSalaModal() {
             const box = document.getElementById('createRoomBox');
             box.style.display = box.style.display === 'none' ? 'block' : 'none';
@@ -684,7 +684,6 @@
             activeRoomData = roomId;
             currentRoomTopic = topic;
             
-            // Guardar estado de sala en localStorage para evitar que se pierda la llamada
             localStorage.setItem('zard_active_room', JSON.stringify({ topic, host, img, roomId }));
 
             document.getElementById('liveRoomTopicBig').innerText = topic;
@@ -748,6 +747,14 @@
             alert("¡Enlace de la transmisión copiado al portapapeles!");
         }
 
+        // Enviar al presionar Enter o la flechita del teclado virtual
+        function chequearEnterChat(event) {
+            if (event.key === 'Enter') {
+                event.preventDefault();
+                enviarMensajeSala();
+            }
+        }
+
         function enviarMensajeSala() {
             const input = document.getElementById('roomChatInput');
             const chatBox = document.getElementById('roomChatBox');
@@ -755,13 +762,15 @@
             
             const msgId = "msg-" + Date.now();
             chatBox.innerHTML += `
-                <div style="font-size: 0.85rem; margin-bottom: 8px;" id="${msgId}">
+                <div style="font-size: 0.9rem; margin-bottom: 10px;" id="${msgId}">
                     <strong style="color: var(--neon-purple);">@${userName}:</strong> <span class="msg-text">${input.value}</span>
                     <button onclick="traducirChatIngles('${msgId}')" style="background:none; border:none; color:var(--neon-green); cursor:pointer; font-size:0.75rem; margin-left:8px;"><i class="fa-solid fa-language"></i> Translate to EN</button>
                 </div>
             `;
             input.value = "";
             chatBox.scrollTop = chatBox.scrollHeight;
+            // Asegura que el input y los botones se mantengan a la vista al escribir con el teclado móvil
+            input.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
         }
 
         function traducirChatIngles(msgId) {
