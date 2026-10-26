@@ -39,7 +39,7 @@
             background-image: radial-gradient(circle at 50% 10%, #1a0b36 0%, var(--bg-deep) 70%);
         }
 
-        /* BIENVENIDA & PERFIL CON MEMORIA */
+        /* BIENVENIDA & PERFIL CON AUTO-LOGIN */
         #welcome-screen {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: #030107; display: flex; flex-direction: column; justify-content: center; align-items: center;
@@ -176,7 +176,7 @@
             border: 2px solid var(--neon-green); margin-bottom: 10px;
         }
 
-        /* FONDO DE AGUA CLARITO PARA LA TRANSMISIÓN EN VIVO */
+        /* FONDO DE AGUA CLARITO EN LA SALA EN VIVO */
         #activeVoiceRoomBox {
             background: linear-gradient(135deg, rgba(12, 6, 26, 0.94), rgba(21, 10, 40, 0.94)),
                         url('https://photos.pinksale.finance/file/pinksale-logo-upload/1790375348672-4de629a77b910ca4b3f245dda1b233f0.png');
@@ -219,7 +219,7 @@
 </head>
 <body dir="ltr">
 
-    <!-- BIENVENIDA & PERFIL CON MEMORIA -->
+    <!-- BIENVENIDA & PERFIL -->
     <div id="welcome-screen">
         <img src="https://photos.pinksale.finance/file/pinksale-logo-upload/1789411086014-7b67968ed9538e215f1948583ee37c7c.png" alt="ZARD Logo" class="welcome-logo">
         <div class="welcome-title">ZARD INNOVATION</div>
@@ -272,14 +272,15 @@
                 <div id="wallet-container">
                     <button class="wallet-btn" onclick="abrirModalWallet()"><i class="fa-solid fa-wallet"></i> Conectar Wallet</button>
                 </div>
+                <button onclick="cambiarPerfil()" style="background:rgba(168,85,247,0.2); border:1px solid var(--neon-purple); color:#fff; padding:8px 12px; border-radius:8px; cursor:pointer; font-size:0.8rem;"><i class="fa-solid fa-user-pen"></i> Editar Perfil</button>
             </div>
         </header>
 
-        <!-- NAVEGACIÓN PESTAÑAS -->
+        <!-- NAVEGACIÓN PESTAÑAS (TRACKER Y SITIOS EXTERNOS ABREN EN PESTAÑA NUEVA PARA NO CERRAR LA SALA DE VOZ) -->
         <div class="tabs-nav">
             <button class="tab-btn active" onclick="switchTab(event, 'tab-square')"><i class="fa-solid fa-comments"></i> Square & Audio Spaces</button>
             <a href="https://figueredo56.github.io/index.html/?img=zaard" target="_blank" class="tab-link"><i class="fa-solid fa-shield-halved"></i> ZAARD FINANCE</a>
-            <button class="tab-btn" onclick="irTracker()"><i class="fa-solid fa-chart-line"></i> Tracker & Velas</button>
+            <a href="https://figueredo56.github.io/zaard-tracker/" target="_blank" class="tab-link"><i class="fa-solid fa-chart-line"></i> Tracker & Velas</a>
             <button class="tab-btn" onclick="switchTab(event, 'tab-coins')"><i class="fa-solid fa-coins"></i> Monedas & Subs</button>
             <button class="tab-btn" onclick="switchTab(event, 'tab-balance')"><i class="fa-solid fa-wallet"></i> Mi Balance</button>
             <button class="tab-btn" onclick="switchTab(event, 'tab-swap')"><i class="fa-solid fa-right-left"></i> Swap DEX</button>
@@ -511,9 +512,20 @@
         let isMicMuted = false;
         let currentRoomTopic = "";
 
+        // AUTO-LOGIN: Si la memoria reconoce al usuario, entra automáticamente sin pedir perfil
         window.onload = function() {
-            if(localStorage.getItem('zard_username')) {
+            const savedName = localStorage.getItem('zard_username');
+            if (savedName) {
+                userName = savedName;
                 document.getElementById('userInputName').value = userName;
+                entrarNexusDirecto();
+            }
+            
+            // Restaurar sala activa si existía previamente
+            const savedRoom = localStorage.getItem('zard_active_room');
+            if (savedRoom) {
+                const roomObj = JSON.parse(savedRoom);
+                unirseSalaVoz(roomObj.topic, roomObj.host, roomObj.img, roomObj.roomId);
             }
         };
 
@@ -536,22 +548,28 @@
             if (userAvatar !== "") {
                 localStorage.setItem('zard_useravatar', userAvatar);
             }
+            entrarNexusDirecto();
+        }
 
-            document.getElementById('welcome-screen').classList.add('fade-out');
-            setTimeout(() => {
-                document.getElementById('welcome-screen').style.display = 'none';
-                document.getElementById('main-app').style.display = 'block';
-                document.getElementById('displayProfileTag').innerText = "@" + userName;
-                document.getElementById('profileDisplayName').innerText = "@" + userName;
-                
-                if(userAvatar) {
-                    document.getElementById('headerUserAvatar').src = userAvatar;
-                    const avDisp = document.getElementById('profileAvatarDisplay');
-                    avDisp.src = userAvatar;
-                    avDisp.style.display = 'block';
-                }
-                cargarPublicaciones();
-            }, 800);
+        function entrarNexusDirecto() {
+            document.getElementById('welcome-screen').style.display = 'none';
+            document.getElementById('main-app').style.display = 'block';
+            document.getElementById('displayProfileTag').innerText = "@" + userName;
+            document.getElementById('profileDisplayName').innerText = "@" + userName;
+            
+            if (userAvatar) {
+                document.getElementById('headerUserAvatar').src = userAvatar;
+                const avDisp = document.getElementById('profileAvatarDisplay');
+                avDisp.src = userAvatar;
+                avDisp.style.display = 'block';
+            }
+            cargarPublicaciones();
+        }
+
+        function cambiarPerfil() {
+            document.getElementById('welcome-screen').style.display = 'flex';
+            document.getElementById('welcome-screen').classList.remove('fade-out');
+            document.getElementById('main-app').style.display = 'none';
         }
 
         function switchTab(evt, tabId) {
@@ -559,10 +577,6 @@
             document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
             document.getElementById(tabId).classList.add('active');
             evt.currentTarget.classList.add('active');
-        }
-
-        function irTracker() {
-            window.location.href = "https://figueredo56.github.io/zaard-tracker/";
         }
 
         // WALLET
@@ -625,7 +639,7 @@
             } catch (e) { console.error(e); }
         }
 
-        // SALAS DE VOZ (MINIMIZAR, MUTE, CERRAR)
+        // SALAS DE VOZ (CON PERSISTENCIA Y CONTROLES)
         function abrirCrearSalaModal() {
             const box = document.getElementById('createRoomBox');
             box.style.display = box.style.display === 'none' ? 'block' : 'none';
@@ -669,6 +683,10 @@
         function unirseSalaVoz(topic, host, img, roomId) {
             activeRoomData = roomId;
             currentRoomTopic = topic;
+            
+            // Guardar estado de sala en localStorage para evitar que se pierda la llamada
+            localStorage.setItem('zard_active_room', JSON.stringify({ topic, host, img, roomId }));
+
             document.getElementById('liveRoomTopicBig').innerText = topic;
             document.getElementById('liveRoomHostBig').innerText = "Anfitrión: " + host;
             document.getElementById('liveRoomImgBigContainer').innerHTML = `<img src="${img}" style="width:90px; height:90px; border-radius:50%; border:3px solid var(--neon-green); object-fit:cover;">`;
@@ -711,6 +729,7 @@
         function cerrarSalaVozPorCompleto() {
             document.getElementById('activeVoiceRoomBox').style.display = 'none';
             document.getElementById('floatingVoiceBar').style.display = 'none';
+            localStorage.removeItem('zard_active_room');
             if (activeRoomData && document.getElementById(activeRoomData)) {
                 document.getElementById(activeRoomData).remove();
                 alert("Has cerrado y finalizado la transmisión de voz por completo.");
