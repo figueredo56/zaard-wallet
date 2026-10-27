@@ -424,21 +424,38 @@
             </div>
         </div>
 
-        <!-- PESTAÑA 3: BALANCE -->
+        <!-- PESTAÑA 3: BALANCE MULTITOKEN -->
         <div id="tab-balance" class="tab-content">
             <div class="card-grid">
-                <div class="fin-card" style="text-align: center; padding: 30px;">
-                    <i class="fa-solid fa-coins" style="font-size: 3rem; color: var(--neon-blue); margin-bottom: 15px;"></i>
-                    <h3 style="justify-content: center;" id="balanceTitleText">Balance en tu Billetera Conectada</h3>
-                    <div class="data-row" style="padding: 15px; background: #0c061a; border-radius: 10px; margin-bottom: 15px;">
-                        <span style="font-family:'Orbitron'; color:var(--neon-blue);">BNB (BSC):</span>
-                        <span id="bnbBalanceVal" style="font-size: 1.1rem; color:#fff;">0.00 BNB</span>
+                <div class="fin-card" style="text-align: center; padding: 30px; grid-column: span 2;">
+                    <i class="fa-solid fa-vault" style="font-size: 3rem; color: var(--neon-blue); margin-bottom: 15px;"></i>
+                    <h3 style="justify-content: center;" id="balanceTitleText">Balance Multitoken en tu Billetera Conectada</h3>
+                    <p style="color: var(--text-muted); margin-bottom: 25px; font-size: 0.95rem;">Monitoreo en tiempo real en la red Binance Smart Chain (BSC):</p>
+                    
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-bottom: 25px;">
+                        <div style="padding: 16px; background: #0c061a; border-radius: 12px; border: 1px solid var(--border-glow);">
+                            <span style="font-family:'Orbitron'; color:var(--neon-blue); display:block; margin-bottom:6px; font-size:0.9rem;">BNB (Nativo):</span>
+                            <span id="bnbBalanceVal" style="font-size: 1.15rem; color:#fff; font-weight:bold;">0.00 BNB</span>
+                        </div>
+                        <div style="padding: 16px; background: #0c061a; border-radius: 12px; border: 1px solid var(--neon-purple);">
+                            <span style="font-family:'Orbitron'; color:var(--neon-purple); display:block; margin-bottom:6px; font-size:0.9rem;">ZARD Token:</span>
+                            <span id="zardBalanceVal" style="font-size: 1.15rem; color:#00ffcc; font-weight:bold;">0.00 ZARD</span>
+                        </div>
+                        <div style="padding: 16px; background: #0c061a; border-radius: 12px; border: 1px solid var(--neon-green);">
+                            <span style="font-family:'Orbitron'; color:var(--neon-green); display:block; margin-bottom:6px; font-size:0.9rem;">PANGA Token:</span>
+                            <span id="pangaBalanceVal" style="font-size: 1.15rem; color:#fff; font-weight:bold;">0.00 PANGA</span>
+                        </div>
+                        <div style="padding: 16px; background: #0c061a; border-radius: 12px; border: 1px solid #f6851b;">
+                            <span style="font-family:'Orbitron'; color:#f6851b; display:block; margin-bottom:6px; font-size:0.9rem;">BTCB (Bitcoin):</span>
+                            <span id="btcbBalanceVal" style="font-size: 1.15rem; color:#fff; font-weight:bold;">0.00 BTCB</span>
+                        </div>
+                        <div style="padding: 16px; background: #0c061a; border-radius: 12px; border: 1px solid #26a17b;">
+                            <span style="font-family:'Orbitron'; color:#26a17b; display:block; margin-bottom:6px; font-size:0.9rem;">USDT (BEP-20):</span>
+                            <span id="usdtBalanceVal" style="font-size: 1.15rem; color:#fff; font-weight:bold;">0.00 USDT</span>
+                        </div>
                     </div>
-                    <div class="data-row" style="padding: 15px; background: #0c061a; border-radius: 10px; margin-bottom: 20px;">
-                        <span style="font-family:'Orbitron'; color:var(--neon-purple);">ZARD Token:</span>
-                        <span id="zardBalanceVal" style="font-size: 1.1rem; color:#00ffcc;">0.00 ZARD</span>
-                    </div>
-                    <button class="action-btn" onclick="consultarSaldosReal()" id="refreshBalanceBtn">Actualizar Saldos</button>
+
+                    <button class="action-btn" onclick="consultarSaldosReal()" id="refreshBalanceBtn">Actualizar Saldos en Vivo</button>
                 </div>
             </div>
         </div>
@@ -522,6 +539,12 @@
         let currentRoomTopic = "";
         let currentLang = localStorage.getItem('zard_lang') || "es";
 
+        // CONTRATOS OFICIALES EN BSC
+        const CONTRACT_ZARD = "0x973ba2c1dccd0820f1e026d6b1f01c55c4085d38";
+        const CONTRACT_PANGA = "0x6a7cc7d5749e028c8f78f29c1d6ac8eda0eefad2";
+        const CONTRACT_BTCB = "0x7130d2A12B9BCbFAe4f2634d864a1Ee1Ce3Ead9c";
+        const CONTRACT_USDT = "0x55d398326f99059fF775485246999027B3197955";
+
         // DICCIONARIO DE IDIOMAS
         const i18n = {
             es: {
@@ -563,8 +586,8 @@
                 subBtn: "Suscribirse",
                 activeProfileTitle: "Tu Perfil Activo",
                 walletNotConnected: "Billetera no conectada",
-                balanceTitle: "Balance en tu Billetera Conectada",
-                refreshBalance: "Actualizar Saldos",
+                balanceTitle: "Balance Multitoken en tu Billetera Conectada",
+                refreshBalance: "Actualizar Saldos en Vivo",
                 swapTitle: "PancakeSwap DEX Exchange Oficial",
                 swapSub: "Selecciona el par de intercambio instantáneo en Binance Smart Chain:",
                 browserTitle: "ZAARD WEB SEARCH & APPS",
@@ -611,8 +634,8 @@
                 subBtn: "Subscribe",
                 activeProfileTitle: "Your Active Profile",
                 walletNotConnected: "Wallet not connected",
-                balanceTitle: "Balance in your Connected Wallet",
-                refreshBalance: "Refresh Balances",
+                balanceTitle: "Multitoken Balance in Connected Wallet",
+                refreshBalance: "Refresh Live Balances",
                 swapTitle: "PancakeSwap Official DEX Exchange",
                 swapSub: "Select instant swap pair on Binance Smart Chain:",
                 browserTitle: "ZAARD WEB SEARCH & APPS",
@@ -659,8 +682,8 @@
                 subBtn: "اشتراك",
                 activeProfileTitle: "ملفك الشخصي النشط",
                 walletNotConnected: "المحفظة غير متصلة",
-                balanceTitle: "الرصيد في محفظتك المتصلة",
-                refreshBalance: "تحديث الأرصدة",
+                balanceTitle: "رصيد العملات المتعددة في محفظتك المتصلة",
+                refreshBalance: "تحديث الأرصدة الحية",
                 swapTitle: "منصة التبادل الرسمية PancakeSwap",
                 swapSub: "اختر زوج التبادل الفوري على سلسلة بينانس الذكية:",
                 browserTitle: "بحث ويب ZAARD والتطبيقات",
@@ -707,8 +730,8 @@
                 subBtn: "订阅",
                 activeProfileTitle: "您的活跃资料",
                 walletNotConnected: "钱包未连接",
-                balanceTitle: "已连接钱包中的余额",
-                refreshBalance: "刷新余额",
+                balanceTitle: "已连接钱包中的多币种余额",
+                refreshBalance: "刷新实时余额",
                 swapTitle: "PancakeSwap 官方 DEX 交易所",
                 swapSub: "在币安智能链上选择即时兑换交易对：",
                 browserTitle: "ZAARD 网页搜索与应用",
@@ -904,20 +927,67 @@
             document.getElementById('wallet-container').innerHTML = `<button class="wallet-btn" onclick="abrirModalWallet()"><i class="fa-solid fa-wallet"></i> Conectar Wallet</button>`;
             document.getElementById('bnbBalanceVal').innerText = "0.00 BNB";
             document.getElementById('zardBalanceVal').innerText = "0.00 ZARD";
+            document.getElementById('pangaBalanceVal').innerText = "0.00 PANGA";
+            document.getElementById('btcbBalanceVal').innerText = "0.00 BTCB";
+            document.getElementById('usdtBalanceVal').innerText = "0.00 USDT";
             document.getElementById('profileAddress').innerText = i18n[currentLang].walletNotConnected;
         }
 
+        // CONSULTA REAL EN LA BLOCKCHAIN DE BSC (BNB, ZARD, PANGA, BTCB, USDT)
         async function consultarSaldosReal() {
-            if (!cuentaActual) { alert("Conecta tu billetera primero."); return; }
+            if (!cuentaActual) { 
+                alert("Conecta tu billetera primero para consultar tus saldos en vivo."); 
+                abrirModalWallet();
+                return; 
+            }
             try {
+                // 1. Saldo BNB Nativo
                 const balanceWei = await window.ethereum.request({ method: 'eth_getBalance', params: [cuentaActual, 'latest'] });
                 const bnbVal = (parseInt(balanceWei, 16) / 1e18).toFixed(4);
                 document.getElementById('bnbBalanceVal').innerText = bnbVal + " BNB";
-                document.getElementById('zardBalanceVal').innerText = "1,450.00 ZARD";
-            } catch (e) { console.error(e); }
+
+                // 2. Saldo ZARD
+                const zardBal = await getERC20Balance(CONTRACT_ZARD, cuentaActual);
+                document.getElementById('zardBalanceVal').innerText = zardBal + " ZARD";
+
+                // 3. Saldo PANGA
+                const pangaBal = await getERC20Balance(CONTRACT_PANGA, cuentaActual);
+                document.getElementById('pangaBalanceVal').innerText = pangaBal + " PANGA";
+
+                // 4. Saldo BTCB
+                const btcbBal = await getERC20Balance(CONTRACT_BTCB, cuentaActual);
+                document.getElementById('btcbBalanceVal').innerText = btcbBal + " BTCB";
+
+                // 5. Saldo USDT
+                const usdtBal = await getERC20Balance(CONTRACT_USDT, cuentaActual);
+                document.getElementById('usdtBalanceVal').innerText = usdtBal + " USDT";
+
+            } catch (e) { 
+                console.error("Error consultando saldos:", e); 
+                alert("Error al consultar los saldos en la red BSC.");
+            }
         }
 
-        // SALAS DE VOZ (BLOQUEO DE MÚLTIPLES TRANSMISIONES SIMULTÁNEAS)
+        async function getERC20Balance(tokenAddress, walletAddress) {
+            try {
+                // balanceOf(address) selector: 0x70a08231 + padded address
+                const data = "0x70a08231" + walletAddress.substring(2).toLowerCase().padStart(64, '0');
+                const result = await window.ethereum.request({
+                    method: 'eth_call',
+                    params: [{ to: tokenAddress, data: data }, 'latest']
+                });
+                if (result && result !== '0x') {
+                    const balanceWei = BigInt(result);
+                    const balanceFormatted = Number(balanceWei) / 1e18;
+                    return balanceFormatted.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 4 });
+                }
+            } catch (e) {
+                console.error("Error al consultar token " + tokenAddress, e);
+            }
+            return "0.00";
+        }
+
+        // SALAS DE VOZ
         function abrirCrearSalaModal() {
             if (activeRoomData) {
                 alert("Ya tienes una transmisión o sala activa. Debes cerrarla antes de crear o abrir otra.");
