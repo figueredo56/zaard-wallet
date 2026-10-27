@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ZARD NEXUS V5.1 - ZARD INNOVATION</title>
+    <title>ZARD NEXUS V5.2 - ZARD INNOVATION</title>
     <!-- Google Fonts & FontAwesome -->
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;800;900&family=Rajdhani:wght@500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -13,7 +13,7 @@
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
 
     <!-- Etiquetas Open Graph -->
-    <meta property="og:title" content="ZARD NEXUS V5.1 - ZARD INNOVATION">
+    <meta property="og:title" content="ZARD NEXUS V5.2 - ZARD INNOVATION">
     <meta property="og:description" content="Dashboard Web3 Oficial, Gráficas en Vivo y Audio Spaces Pro.">
     <meta property="og:url" content="https://figueredo56.github.io/zaard-wallet/wallet.html">
     <meta property="og:type" content="website">
@@ -51,23 +51,23 @@
         }
         #welcome-screen.fade-out { opacity: 0; visibility: hidden; pointer-events: none; }
         .welcome-logo {
-            width: 140px; height: 140px; border-radius: 50%; border: 3px solid var(--neon-blue);
+            width: 130px; height: 130px; border-radius: 50%; border: 3px solid var(--neon-blue);
             box-shadow: 0 0 50px var(--neon-purple), inset 0 0 30px var(--neon-blue);
-            animation: majesticPulse 2.5s infinite alternate; margin-bottom: 20px; object-fit: cover; background: #0c061a;
+            animation: majesticPulse 2.5s infinite alternate; margin-bottom: 15px; object-fit: cover; background: #0c061a;
         }
         .welcome-title {
-            font-family: 'Orbitron', sans-serif; font-size: 2rem; font-weight: 900;
+            font-family: 'Orbitron', sans-serif; font-size: 1.8rem; font-weight: 900;
             background: linear-gradient(135deg, var(--neon-blue), var(--neon-purple), var(--neon-pink));
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent; letter-spacing: 4px; margin-bottom: 15px;
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent; letter-spacing: 3px; margin-bottom: 10px;
         }
         .profile-input {
-            background: #0c061a; border: 1px solid var(--neon-blue); padding: 14px 20px;
-            border-radius: 12px; color: #fff; font-size: 1.1rem; outline: none; margin-bottom: 15px; width: 100%; max-width: 320px; text-align: center;
+            background: #0c061a; border: 1px solid var(--neon-blue); padding: 12px 18px;
+            border-radius: 12px; color: #fff; font-size: 1rem; outline: none; margin-bottom: 12px; width: 100%; max-width: 340px; text-align: center;
         }
         .enter-btn {
             background: linear-gradient(135deg, var(--neon-purple), var(--neon-blue)); color: #fff; border: none;
-            padding: 14px 40px; font-family: 'Orbitron', sans-serif; font-weight: 800; font-size: 1.1rem;
-            border-radius: 35px; cursor: pointer; box-shadow: 0 0 30px rgba(0, 243, 255, 0.5); transition: 0.3s; text-transform: uppercase;
+            padding: 12px 35px; font-family: 'Orbitron', sans-serif; font-weight: 800; font-size: 1rem;
+            border-radius: 35px; cursor: pointer; box-shadow: 0 0 30px rgba(0, 243, 255, 0.5); transition: 0.3s; text-transform: uppercase; margin-top: 10px;
         }
         .enter-btn:hover { transform: scale(1.08); box-shadow: 0 0 50px var(--neon-purple); }
 
@@ -153,14 +153,34 @@
             font-family: 'Orbitron', sans-serif; font-weight: bold; cursor: pointer;
             box-shadow: 0 0 15px rgba(168, 85, 247, 0.4);
         }
+
+        /* ESTILOS DE PUBLICACIONES EN EL MURO (MEJORADOS) */
         .post-card {
-            background: #0c061a; border: 1px solid rgba(168, 85, 247, 0.2);
-            border-radius: 12px; padding: 18px; margin-top: 15px; box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+            background: #0c061a; border: 1px solid rgba(168, 85, 247, 0.25);
+            border-radius: 14px; padding: 20px; margin-top: 18px; box-shadow: 0 4px 25px rgba(0,0,0,0.6);
+        }
+        .post-avatar-small {
+            width: 36px; height: 36px; border-radius: 50%; object-fit: cover; border: 1.5px solid var(--neon-blue); flex-shrink: 0;
+        }
+        .post-text-content {
+            margin-top: 14px; font-size: 1.05rem; color: #f3f4f6; line-height: 1.5; word-break: break-word; font-weight: 500;
+        }
+        /* IMÁGENES Y VIDEOS CENTRADOS Y MÁS GRANDES */
+        .post-media-container {
+            display: flex; justify-content: center; align-items: center; width: 100%; margin-top: 15px; background: #030107; border-radius: 10px; overflow: hidden; border: 1px solid rgba(255,255,255,0.06);
         }
         .post-card img, .post-card video {
-            width: 100%; max-height: 450px; height: auto; object-fit: contain;
-            background: #030107; border-radius: 8px; margin-top: 10px; display: block;
+            max-width: 100%; max-height: 520px; width: auto; height: auto; object-fit: contain; display: block; margin: 0 auto;
         }
+        /* BARRA DE INTERACCIONES (ME GUSTA, NO ME GUSTA, REPUBLICAR) */
+        .post-actions-bar {
+            display: flex; gap: 15px; margin-top: 16px; padding-top: 12px; border-top: 1px solid rgba(255,255,255,0.08); flex-wrap: wrap;
+        }
+        .interaction-btn {
+            background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1); color: var(--text-muted);
+            padding: 6px 12px; border-radius: 8px; cursor: pointer; font-size: 0.85rem; display: flex; align-items: center; gap: 6px; transition: 0.2s;
+        }
+        .interaction-btn:hover { background: rgba(168,85,247,0.15); border-color: var(--neon-purple); color: #fff; }
 
         .order-book-table { width: 100%; border-collapse: collapse; font-size: 0.9rem; margin-top: 10px; }
         .order-book-table th, .order-book-table td { padding: 8px 10px; text-align: left; border-bottom: 1px solid rgba(255,255,255,0.05); }
@@ -219,20 +239,21 @@
             font-family: 'Orbitron', sans-serif; font-weight: bold; display: flex; align-items: center; gap: 15px;
         }
         .wallet-option:hover { border-color: var(--neon-blue); background: rgba(0, 243, 255, 0.1); }
-        .profile-avatar-small {
-            width: 40px; height: 40px; border-radius: 50%; object-fit: cover; border: 1px solid var(--neon-blue);
-        }
     </style>
 </head>
 <body dir="ltr">
 
-    <!-- BIENVENIDA & PERFIL -->
+    <!-- BIENVENIDA & PERFIL CON DESCRIPCIÓN -->
     <div id="welcome-screen">
         <img src="https://photos.pinksale.finance/file/pinksale-logo-upload/1789411086014-7b67968ed9538e215f1948583ee37c7c.png" alt="ZARD Logo" class="welcome-logo">
         <div class="welcome-title" data-i18n="welcome_title">ZARD INNOVATION</div>
-        <div class="welcome-sub" style="color:var(--text-muted); margin-bottom:20px;" data-i18n="welcome_sub">Configura tu Perfil Web3 Exclusivo</div>
+        <div class="welcome-sub" style="color:var(--text-muted); margin-bottom:15px; font-size:0.9rem;" data-i18n="welcome_sub">Configura tu Perfil Web3 Exclusivo</div>
+        
         <input type="text" id="userInputName" class="profile-input" placeholder="Tu Nombre o Alias (ej: @ZAARD_ALX)" onkeydown="if(event.key==='Enter') entrarNexus()">
-        <label class="file-upload-label" style="margin-bottom: 20px; font-size: 0.85rem;">
+        
+        <input type="text" id="userBioInput" class="profile-input" maxlength="100" placeholder="Breve descripción (máx 100 carácteres)" onkeydown="if(event.key==='Enter') entrarNexus()">
+
+        <label class="file-upload-label" style="margin-bottom: 15px; font-size: 0.85rem;">
             <i class="fa-solid fa-camera"></i> <span data-i18n="btn_upload_avatar">Subir Foto de Perfil</span> <input type="file" id="userAvatarFile" accept="image/*" style="display: none;" onchange="cargarAvatarMemoria(event)">
         </label>
         <br>
@@ -272,7 +293,7 @@
                 <img id="headerUserAvatar" src="https://photos.pinksale.finance/file/pinksale-logo-upload/1789411086014-7b67968ed9538e215f1948583ee37c7c.png" alt="Avatar">
                 <div>
                     <h1>ZARD NEXUS <span style="font-size: 0.7rem; background: rgba(0,255,204,0.2); border: 1px solid var(--neon-green); color: var(--neon-green); padding: 2px 6px; border-radius: 6px; margin-left: 8px;" id="displayProfileTag">@Usuario</span></h1>
-                    <p>Cyber Ecosystem & Web3</p>
+                    <p id="displayProfileBioHeader" style="font-size:0.75rem; color:var(--text-muted);">Entusiasta de la Web3</p>
                 </div>
             </div>
             <div class="controls-bar">
@@ -354,9 +375,7 @@
                         </div>
 
                         <!-- BOTONES DINÁMICOS SEGÚN ROL -->
-                        <div id="roomActionButtonsContainer" style="display: flex; justify-content: center; gap: 8px; flex-wrap: wrap;">
-                            <!-- Se actualiza con JS -->
-                        </div>
+                        <div id="roomActionButtonsContainer" style="display: flex; justify-content: center; gap: 8px; flex-wrap: wrap;"></div>
                     </div>
 
                     <!-- PANEL CREAR SALA -->
@@ -422,7 +441,8 @@
                     <div style="text-align: center; padding: 20px; background: #0c061a; border-radius: 12px; border: 1px solid var(--neon-blue); margin-bottom: 15px;">
                         <img id="profileAvatarDisplay" src="" alt="Avatar" style="width: 70px; height: 70px; border-radius: 50%; object-fit: cover; border: 2px solid var(--neon-green); margin-bottom: 10px; display: none;">
                         <h4 style="font-family: 'Orbitron'; color: #fff; font-size: 1.1rem;" id="profileDisplayName">@Usuario</h4>
-                        <p style="font-size: 0.8rem; color: var(--text-muted); margin-top: 5px;" id="profileAddress">Billetera no conectada</p>
+                        <p id="profileDisplayBio" style="font-size: 0.82rem; color: var(--neon-purple); margin-top: 4px; font-style: italic;">Entusiasta de la Web3</p>
+                        <p style="font-size: 0.75rem; color: var(--text-muted); margin-top: 5px;" id="profileAddress">Billetera no conectada</p>
                     </div>
                 </div>
             </div>
@@ -562,7 +582,7 @@
             </div>
         </div>
         
-        <!-- PESTAÑA: BUSCADOR WEB3 (PÁGINA PRINCIPAL ZAARD INNOVATION INTEGRADA) -->
+        <!-- PESTAÑA: BUSCADOR WEB3 -->
         <div id="tab-browser" class="tab-content">
             <div class="card-grid">
                 <div class="fin-card" style="grid-column: span 2; padding: 20px;">
@@ -571,7 +591,6 @@
                         <a href="https://figueredo56.github.io/DAIoficial/" target="_blank" class="action-btn" style="text-decoration: none; font-size: 0.8rem; padding: 6px 14px;"><i class="fa-solid fa-up-right-from-square"></i> Abrir en Pantalla Completa</a>
                     </div>
 
-                    <!-- IFRAME DE LA PÁGINA PRINCIPAL -->
                     <div style="width: 100%; height: 500px; border-radius: 14px; overflow: hidden; border: 1px solid var(--border-glow); background: #000; margin-bottom: 25px;">
                         <iframe src="https://figueredo56.github.io/DAIoficial/" width="100%" height="100%" style="border: 0;" loading="lazy"></iframe>
                     </div>
@@ -634,6 +653,7 @@
         const dbRef = firebase.database().ref('zard_global_voice_rooms');
 
         let userName = localStorage.getItem('zard_username') || "";
+        let userBio = localStorage.getItem('zard_userbio') || "Entusiasta de la Web3 y el ecosistema ZAARD";
         let userAvatar = localStorage.getItem('zard_useravatar') || "";
         let cuentaActual = null;
         let mediaBase64Temp = "";
@@ -651,12 +671,12 @@
         window.onload = function() {
             if (userName && userName.trim() !== "") {
                 document.getElementById('userInputName').value = userName;
+                document.getElementById('userBioInput').value = userBio;
                 entrarNexusDirecto();
             } else {
                 document.getElementById('welcome-screen').style.display = 'flex';
             }
 
-            // Escuchar Transmisiones Globales en Vivo
             dbRef.on('value', (snapshot) => {
                 const data = snapshot.val();
                 const carousel = document.getElementById('voiceRoomsCarousel');
@@ -694,8 +714,12 @@
 
         function entrarNexus() {
             const inputVal = document.getElementById('userInputName').value.trim();
+            const bioVal = document.getElementById('userBioInput').value.trim();
             userName = inputVal !== "" ? inputVal : "@ZAARD_ALX";
+            userBio = bioVal !== "" ? bioVal.substring(0, 100) : "Apoya al 100% el ecosistema ZAARD INNOVATION";
+            
             localStorage.setItem('zard_username', userName);
+            localStorage.setItem('zard_userbio', userBio);
             if (userAvatar !== "") { localStorage.setItem('zard_useravatar', userAvatar); }
             entrarNexusDirecto();
         }
@@ -707,8 +731,12 @@
                 setTimeout(() => { welcomeScreen.style.display = 'none'; }, 400);
             }
             document.getElementById('main-app').style.display = 'block';
-            document.getElementById('displayProfileTag').innerText = userName.startsWith('@') ? userName : "@" + userName;
-            document.getElementById('profileDisplayName').innerText = userName.startsWith('@') ? userName : "@" + userName;
+            
+            const formattedName = userName.startsWith('@') ? userName : "@" + userName;
+            document.getElementById('displayProfileTag').innerText = formattedName;
+            document.getElementById('displayProfileBioHeader').innerText = userBio;
+            document.getElementById('profileDisplayName').innerText = formattedName;
+            document.getElementById('profileDisplayBio').innerText = userBio;
             
             if (userAvatar) {
                 document.getElementById('headerUserAvatar').src = userAvatar;
@@ -778,7 +806,6 @@
             document.getElementById('liveRoomHostBig').innerText = "Host: " + room.host;
             document.getElementById('liveRoomImgBigContainer').innerHTML = `<img src="${room.img}" style="width:75px; height:75px; border-radius:50%; border:3px solid var(--neon-green); object-fit:cover;">`;
             
-            // Escuchar solicitudes de oradores en Firebase si es anfitrión
             if (esAnfitrion) {
                 document.getElementById('speakersRequestBox').style.display = 'block';
                 dbRef.child(room.id).child('requests').on('value', (snap) => {
@@ -811,16 +838,16 @@
 
         function renderizarBotonesTransmitir(esAnfitrion) {
             const btnContainer = document.getElementById('roomActionButtonsContainer');
-            const micText = isMicMuted ? `<i class="fa-solid fa-microphone-slash"></i> Activar Mic` : `<i class="fa-solid fa-microphone"></i> Silenciar`;
+            const micText = isMicMuted ? `<i class="fa-solid fa-microphone-slash"></i> Activar` : `<i class="fa-solid fa-microphone"></i> Silenciar`;
             
             if (esAnfitrion) {
                 btnContainer.innerHTML = `
                     <button type="button" id="muteMicBtn" class="action-btn" onclick="toggleSilenciarMic()" style="background: rgba(255,193,7,0.2); border:1px solid #ffc107; color:#ffc107; font-size: 0.75rem; padding: 7px 10px;">${micText}</button>
                     <button type="button" class="action-btn" onclick="minimizarSalaVoz()" style="background: rgba(0,243,255,0.2); border:1px solid var(--neon-blue); color:var(--neon-blue); font-size: 0.75rem; padding: 7px 10px;"><i class="fa-solid fa-window-minimize"></i> Minimizar</button>
-                    <button type="button" class="action-btn" onclick="cerrarTransmisionAnfitriona()" style="background: rgba(255,51,102,0.3); border:1px solid var(--neon-red); color:var(--neon-red); font-size: 0.75rem; padding: 7px 10px;"><i class="fa-solid fa-power-off"></i> Cerrar Transmisión</button>
+                    <button type="button" class="action-btn" onclick="cerrarTransmisionAnfitriona()" style="background: rgba(255,51,102,0.3); border:1px solid var(--neon-red); color:var(--neon-red); font-size: 0.75rem; padding: 7px 10px;"><i class="fa-solid fa-power-off"></i> Cerrar</button>
                 `;
             } else {
-                let hablarBtn = `<button type="button" class="action-btn" onclick="pedirLaPalabraSala()" style="background: rgba(0,255,204,0.2); border:1px solid var(--neon-green); color:var(--neon-green); font-size: 0.75rem; padding: 7px 10px;"><i class="fa-solid fa-hand"></i> Pedir Hablar</button>`;
+                let hablarBtn = `<button type="button" class="action-btn" onclick="pedirLaPalabraSala()" style="background: rgba(0,255,204,0.2); border:1px solid var(--neon-green); color:var(--neon-green); font-size: 0.75rem; padding: 7px 10px;"><i class="fa-solid fa-hand"></i> Hablar</button>`;
                 
                 if (esOradorAceptado) {
                     hablarBtn = `<button type="button" id="muteMicBtn" class="action-btn" onclick="toggleSilenciarMic()" style="background: rgba(255,193,7,0.2); border:1px solid #ffc107; color:#ffc107; font-size: 0.75rem; padding: 7px 10px;">${micText}</button>`;
@@ -909,7 +936,7 @@
                         <strong style="color: var(--neon-purple);">${cleanAuthor}:</strong> ${txt}<br>
                         <span style="font-size: 0.7rem; color: var(--neon-blue);">${targetLangTag} ${translation}</span>
                     </div>
-                    ${esAnfitrion ? `<button type="button" onclick="eliminarMensajeChat('${msgId}')" style="background:transparent; border:none; color:var(--neon-red); cursor:pointer; font-size:0.75rem;" title="Eliminar grosería"><i class="fa-solid fa-trash"></i></button>` : ''}
+                    ${esAnfitrion ? `<button type="button" onclick="eliminarMensajeChat('${msgId}')" style="background:transparent; border:none; color:var(--neon-red); cursor:pointer; font-size:0.75rem;" title="Eliminar mensaje"><i class="fa-solid fa-trash"></i></button>` : ''}
                 </div>
             `;
             input.value = "";
@@ -921,7 +948,7 @@
             if(elem) elem.remove();
         }
 
-        /* PUBLICACIONES Y PRECIOS */
+        /* PUBLICACIONES CON ME GUSTA, NO ME GUSTA Y REPUBLICAR */
         function verMediaSeleccionada(event) {
             const file = event.target.files[0];
             if (!file) return;
@@ -940,11 +967,15 @@
             const nuevaPub = {
                 id: Date.now(),
                 autor: cleanAuthor,
+                bio: userBio,
                 avatar: userAvatar || "https://photos.pinksale.finance/file/pinksale-logo-upload/1789411086014-7b67968ed9538e215f1948583ee37c7c.png",
                 texto: texto,
                 media: mediaBase64Temp,
                 type: mediaTypeTemp,
-                fecha: new Date().toLocaleString()
+                fecha: new Date().toLocaleString(),
+                likes: 0,
+                dislikes: 0,
+                reposts: 0
             };
             publicaciones.unshift(nuevaPub);
             localStorage.setItem('zard_posts', JSON.stringify(publicaciones));
@@ -964,22 +995,52 @@
                 return;
             }
             let html = '';
-            publicaciones.forEach(pub => {
+            publicaciones.forEach((pub, index) => {
                 html += `
                     <div class="post-card">
-                        <div style="display:flex; justify-content:space-between; align-items:center;">
-                            <div style="display:flex; align-items:center; gap:10px;">
-                                <img src="${pub.avatar}" class="profile-avatar-small" alt="Avatar">
-                                <div><strong style="color:var(--neon-blue); font-family:'Orbitron'; font-size:0.9rem;">${pub.autor}</strong></div>
+                        <div style="display:flex; align-items:flex-start; gap:12px;">
+                            <img src="${pub.avatar}" class="post-avatar-small" alt="Avatar">
+                            <div style="flex:1; display:flex; justify-content:space-between; align-items:flex-start;">
+                                <div>
+                                    <strong style="color:var(--neon-blue); font-family:'Orbitron'; font-size:0.92rem; display:block;">${pub.autor}</strong>
+                                    <span style="font-size:0.75rem; color:var(--text-muted); display:block; margin-top:1px;">${pub.bio || 'Entusiasta de la Web3'}</span>
+                                </div>
+                                <span style="font-size:0.72rem; color:var(--text-muted);">${pub.fecha}</span>
                             </div>
-                            <span style="font-size:0.75rem; color:var(--text-muted);">${pub.fecha}</span>
                         </div>
-                        <p style="margin-top:12px; font-size:0.95rem; color:#fff; word-break:break-word;">${pub.texto}</p>
-                        ${pub.media ? (pub.type === 'video' ? `<video controls src="${pub.media}"></video>` : `<img src="${pub.media}" alt="Media">`) : ''}
+
+                        <div class="post-text-content">${pub.texto}</div>
+                        
+                        ${pub.media ? `<div class="post-media-container">${pub.type === 'video' ? `<video controls src="${pub.media}"></video>` : `<img src="${pub.media}" alt="Media">`}</div>` : ''}
+
+                        <div class="post-actions-bar">
+                            <button type="button" class="interaction-btn" onclick="interactuarPost(${index}, 'like')">
+                                <i class="fa-solid fa-thumbs-up" style="color:var(--neon-green);"></i> <span>${pub.likes || 0}</span>
+                            </button>
+                            <button type="button" class="interaction-btn" onclick="interactuarPost(${index}, 'dislike')">
+                                <i class="fa-solid fa-thumbs-down" style="color:var(--neon-red);"></i> <span>${pub.dislikes || 0}</span>
+                            </button>
+                            <button type="button" class="interaction-btn" onclick="interactuarPost(${index}, 'repost')">
+                                <i class="fa-solid fa-retweet" style="color:var(--neon-blue);"></i> <span>${pub.reposts || 0}</span>
+                            </button>
+                        </div>
                     </div>
                 `;
             });
             muro.innerHTML = html;
+        }
+
+        function interactuarPost(index, tipo) {
+            let publicaciones = JSON.parse(localStorage.getItem('zard_posts') || '[]');
+            if (!publicaciones[index]) return;
+            if (tipo === 'like') publicaciones[index].likes = (publicaciones[index].likes || 0) + 1;
+            if (tipo === 'dislike') publicaciones[index].dislikes = (publicaciones[index].dislikes || 0) + 1;
+            if (tipo === 'repost') {
+                publicaciones[index].reposts = (publicaciones[index].reposts || 0) + 1;
+                alert("¡Publicación republicada en tu perfil con éxito!");
+            }
+            localStorage.setItem('zard_posts', JSON.stringify(publicaciones));
+            cargarPublicaciones();
         }
 
         async function obtenerPreciosGlobalesCrypto() {
