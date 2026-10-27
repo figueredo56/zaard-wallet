@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ZARD NEXUS V4.1 - ZARD INNOVATION</title>
+    <title>ZARD NEXUS V4.2 - ZARD INNOVATION</title>
     <!-- Google Fonts & FontAwesome -->
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;800;900&family=Rajdhani:wght@500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <!-- Etiquetas Open Graph con tu Imagen Oficial -->
-    <meta property="og:title" content="ZARD NEXUS V4.1 - ZARD INNOVATION">
+    <meta property="og:title" content="ZARD NEXUS V4.2 - ZARD INNOVATION">
     <meta property="og:description" content="Dashboard Web3 Oficial, Gráficas en Vivo, Pares de Mercado y Conexión de Billetera.">
     <meta property="og:url" content="https://figueredo56.github.io/zaard-wallet/wallet.html">
     <meta property="og:type" content="website">
@@ -104,7 +104,7 @@
             color: var(--neon-pink); padding: 8px 14px; border-radius: 10px; cursor: pointer; font-weight: bold;
         }
 
-        /* NAVEGACIÓN PESTAÑAS ORIGINALES */
+        /* NAVEGACIÓN PESTAÑAS EXACTAS */
         .tabs-nav { display: flex; gap: 10px; overflow-x: auto; padding-bottom: 10px; margin-bottom: 25px; }
         .tab-btn, .tab-link {
             background: rgba(18, 10, 35, 0.8); border: 1px solid var(--neon-purple); color: var(--text-muted);
@@ -164,6 +164,33 @@
         .price-up { color: var(--neon-green); font-weight: bold; }
         .price-down { color: var(--neon-red); font-weight: bold; }
 
+        /* ESTILOS SALAS DE VOZ & FONDO DE AGUA */
+        .voice-carousel { display: flex; gap: 15px; overflow-x: auto; padding-bottom: 10px; margin-bottom: 20px; }
+        .voice-room-card {
+            min-width: 250px; background: #0c061a; border: 1px solid var(--neon-green);
+            border-radius: 14px; padding: 18px; text-align: center; flex-shrink: 0;
+            box-shadow: 0 0 20px rgba(0,255,204,0.2);
+        }
+        .voice-room-card img {
+            width: 70px; height: 70px; border-radius: 50%; object-fit: cover;
+            border: 2px solid var(--neon-green); margin-bottom: 10px;
+        }
+
+        #activeVoiceRoomBox {
+            background: linear-gradient(135deg, rgba(12, 6, 26, 0.88), rgba(21, 10, 40, 0.88)),
+                        url('https://photos.pinksale.finance/file/pinksale-logo-upload/1790375348672-4de629a77b910ca4b3f245dda1b233f0.png');
+            background-size: cover; background-position: center; background-repeat: no-repeat;
+            border: 2px solid var(--neon-green); border-radius: 16px; padding: 25px; margin-bottom: 25px;
+            box-shadow: 0 0 35px rgba(0,255,204,0.3); display: none;
+        }
+
+        #floatingVoiceBar {
+            position: fixed; bottom: 20px; right: 20px; z-index: 99999;
+            background: rgba(12, 6, 26, 0.95); border: 2px solid var(--neon-green);
+            border-radius: 16px; padding: 12px 20px; display: none; align-items: center; gap: 15px;
+            box-shadow: 0 0 30px rgba(0,255,204,0.4); backdrop-filter: blur(10px);
+        }
+
         /* ESTILOS PARA LOS LINKS DIRECTOS DEL BUSCADOR */
         .crypto-link-card {
             background: #0c061a; border: 1px solid var(--border-glow); padding: 14px 18px;
@@ -196,27 +223,38 @@
     <!-- BIENVENIDA & PERFIL -->
     <div id="welcome-screen">
         <img src="https://photos.pinksale.finance/file/pinksale-logo-upload/1789411086014-7b67968ed9538e215f1948583ee37c7c.png" alt="ZARD Logo" class="welcome-logo">
-        <div class="welcome-title">ZARD INNOVATION</div>
-        <div class="welcome-sub" style="color:var(--text-muted); margin-bottom:20px;">Configura tu Perfil Web3 Exclusivo</div>
+        <div class="welcome-title" data-i18n="welcome_title">ZARD INNOVATION</div>
+        <div class="welcome-sub" style="color:var(--text-muted); margin-bottom:20px;" data-i18n="welcome_sub">Configura tu Perfil Web3 Exclusivo</div>
         <input type="text" id="userInputName" class="profile-input" placeholder="Tu Nombre o Alias (ej: Panga)" onkeydown="if(event.key==='Enter') entrarNexus()">
         <label class="file-upload-label" style="margin-bottom: 20px; font-size: 0.85rem;">
-            <i class="fa-solid fa-camera"></i> Subir Foto de Perfil <input type="file" id="userAvatarFile" accept="image/*" style="display: none;" onchange="cargarAvatarMemoria(event)">
+            <i class="fa-solid fa-camera"></i> <span data-i18n="btn_upload_avatar">Subir Foto de Perfil</span> <input type="file" id="userAvatarFile" accept="image/*" style="display: none;" onchange="cargarAvatarMemoria(event)">
         </label>
         <br>
-        <button class="enter-btn" id="enterBtnAction"><i class="fa-solid fa-rocket"></i> INGRESAR AL NEXUS</button>
+        <button class="enter-btn" id="enterBtnAction"><i class="fa-solid fa-rocket"></i> <span data-i18n="btn_enter">INGRESAR AL NEXUS</span></button>
     </div>
 
     <!-- MODAL WALLET -->
     <div id="wallet-modal">
         <div class="modal-box">
-            <h3 style="font-family:'Orbitron'; color:var(--neon-blue); margin-bottom:10px;">Conectar Billetera Web3</h3>
-            <p style="color:var(--text-muted); font-size:0.85rem; margin-bottom:20px;">Abre tu app externa o conecta directamente:</p>
+            <h3 style="font-family:'Orbitron'; color:var(--neon-blue); margin-bottom:10px;" data-i18n="wallet_title">Conectar Billetera Web3</h3>
+            <p style="color:var(--text-muted); font-size:0.85rem; margin-bottom:20px;" data-i18n="wallet_desc">Abre tu app externa o conecta directamente:</p>
             <div class="wallet-option" onclick="conectarPorDeepLink('binance')"><i class="fa-solid fa-globe" style="color:#F0B90B; font-size:1.5rem;"></i> <span>Binance Web3 App</span></div>
             <div class="wallet-option" onclick="conectarPorDeepLink('trust')"><i class="fa-solid fa-shield-halved" style="color:#3375bb; font-size:1.5rem;"></i> <span>Trust Wallet</span></div>
             <div class="wallet-option" onclick="conectarPorDeepLink('metamask')"><i class="fa-solid fa-cube" style="color:#f6851b; font-size:1.5rem;"></i> <span>MetaMask App</span></div>
-            <div class="wallet-option" onclick="conectarInyectadoLocal()"><i class="fa-solid fa-bolt" style="color:var(--neon-blue); font-size:1.5rem;"></i> <span>Navegador / Inyectado Web3</span></div>
-            <button onclick="cerrarModal()" style="background:transparent; border:none; color:var(--text-muted); margin-top:15px; cursor:pointer;">Cancelar</button>
+            <div class="wallet-option" onclick="conectarInyectadoLocal()"><i class="fa-solid fa-bolt" style="color:var(--neon-blue); font-size:1.5rem;"></i> <span data-i18n="wallet_injected">Navegador / Inyectado Web3</span></div>
+            <button onclick="cerrarModal()" style="background:transparent; border:none; color:var(--text-muted); margin-top:15px; cursor:pointer;" data-i18n="cancel">Cancelar</button>
         </div>
+    </div>
+
+    <!-- BARRA FLOTANTE DE VOZ (MINIMIZADA) -->
+    <div id="floatingVoiceBar">
+        <i class="fa-solid fa-microphone-lines fa-bounce" style="color:var(--neon-green); font-size: 1.4rem;"></i>
+        <div>
+            <div id="floatingRoomTitle" style="font-family:'Orbitron'; font-size:0.85rem; color:#fff;">Sala Activa</div>
+            <div style="font-size:0.75rem; color:var(--neon-green);" id="floatingStatusText">EN VIVO</div>
+        </div>
+        <button class="action-btn" onclick="maximizarSalaVoz()" style="padding: 6px 12px; font-size:0.75rem;"><i class="fa-solid fa-expand"></i></button>
+        <button class="action-btn" onclick="cerrarSalaVozPorCompleto()" style="background:rgba(255,51,102,0.3); border:1px solid var(--neon-red); color:var(--neon-red); padding: 6px 10px; font-size:0.75rem;"><i class="fa-solid fa-power-off"></i></button>
     </div>
 
     <!-- APLICACIÓN PRINCIPAL -->
@@ -240,15 +278,15 @@
                 </select>
 
                 <div id="wallet-container">
-                    <button class="wallet-btn" onclick="abrirModalWallet()"><i class="fa-solid fa-wallet"></i> Conectar Wallet</button>
+                    <button class="wallet-btn" onclick="abrirModalWallet()"><i class="fa-solid fa-wallet"></i> <span data-i18n="btn_connect_wallet">Conectar Wallet</span></button>
                 </div>
-                <button onclick="cambiarPerfil()" style="background:rgba(168,85,247,0.2); border:1px solid var(--neon-purple); color:#fff; padding:8px 12px; border-radius:8px; cursor:pointer; font-size:0.8rem;"><i class="fa-solid fa-user-pen"></i> Editar Perfil</button>
+                <button onclick="cambiarPerfil()" style="background:rgba(168,85,247,0.2); border:1px solid var(--neon-purple); color:#fff; padding:8px 12px; border-radius:8px; cursor:pointer; font-size:0.8rem;"><i class="fa-solid fa-user-pen"></i> <span data-i18n="edit_profile">Editar Perfil</span></button>
             </div>
         </header>
 
         <!-- NAVEGACIÓN PESTAÑAS EXACTAS -->
         <div class="tabs-nav">
-            <button class="tab-btn active" onclick="switchTab(event, 'tab-square')"><i class="fa-solid fa-comments"></i> Square</button>
+            <button class="tab-btn active" onclick="switchTab(event, 'tab-square')"><i class="fa-solid fa-comments"></i> Square & Live</button>
             <a href="https://figueredo56.github.io/index.html/?img=zaard" target="_blank" class="tab-link"><i class="fa-solid fa-shield-halved"></i> ZAARD FINANCE</a>
             <a href="https://figueredo56.github.io/zaard-tracker/" target="_blank" class="tab-link"><i class="fa-solid fa-chart-line"></i> Tracker & Velas</a>
             <button class="tab-btn" onclick="switchTab(event, 'tab-coins')"><i class="fa-solid fa-coins"></i> Monedas & Subs</button>
@@ -257,10 +295,81 @@
             <button class="tab-btn" onclick="switchTab(event, 'tab-browser')"><i class="fa-solid fa-globe"></i> Buscador Web3</button>
         </div>
 
-        <!-- PESTAÑA 1: SQUARE -->
+        <!-- PESTAÑA 1: SQUARE & AUDIO SPACES EN VIVO -->
         <div id="tab-square" class="tab-content active">
             <div class="card-grid">
                 <div class="fin-card" style="grid-column: span 2;">
+                    
+                    <!-- CARRUSEL DE SALAS DE VOZ & BOTÓN CREAR -->
+                    <div style="background: #0c061a; border: 1px solid var(--neon-green); border-radius: 14px; padding: 20px; margin-bottom: 25px;">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; flex-wrap: wrap; gap: 10px;">
+                            <h3 style="color: var(--neon-green); font-size: 1.2rem; margin:0;"><i class="fa-solid fa-microphone-lines"></i> ZARD Audio Spaces (Salas de Voz en Vivo)</h3>
+                            <button class="action-btn" onclick="abrirCrearSalaModal()" style="background: linear-gradient(135deg, #00ffcc, #00f3ff); color: #030107; font-size: 0.85rem; padding: 10px 18px;"><i class="fa-solid fa-plus"></i> Iniciar Sala de Voz</button>
+                        </div>
+                        <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 15px;">Salas de llamadas en alta voz con control total, silenciar micrófono, pedir la palabra y minimizado flotante.</p>
+                        
+                        <div class="voice-carousel" id="voiceRoomsCarousel">
+                            <div class="voice-room-card" id="room-default">
+                                <img src="https://photos.pinksale.finance/file/pinksale-logo-upload/1789411086014-7b67968ed9538e215f1948583ee37c7c.png" alt="Host">
+                                <h4 style="color: #fff; font-size: 0.95rem; font-family: 'Orbitron'; margin-bottom: 4px;">Análisis ZARD & PANGA</h4>
+                                <p style="color: var(--text-muted); font-size: 0.8rem; margin-bottom: 12px;">Host: @Panga</p>
+                                <button class="action-btn" onclick="unirseSalaVoz('Análisis ZARD & PANGA', '@Panga', 'https://photos.pinksale.finance/file/pinksale-logo-upload/1789411086014-7b67968ed9538e215f1948583ee37c7c.png', 'room-default')" style="padding: 8px 16px; font-size: 0.85rem;">Escuchar</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- SALA DE VOZ ACTIVA (CON FONDO DE AGUA PERSONALIZADO Y TRADUCTOR ESPAÑOL ⇄ INGLÉS) -->
+                    <div id="activeVoiceRoomBox">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                            <h3 id="liveRoomTitleBig" style="color: var(--neon-green); font-family: 'Orbitron'; font-size: 1.3rem; margin: 0;"><i class="fa-solid fa-broadcast-tower"></i> Sala Activa</h3>
+                            <div style="display: flex; gap: 8px;">
+                                <button class="action-btn" onclick="minimizarSalaVoz()" style="background: rgba(0,243,255,0.2); border: 1px solid var(--neon-blue); color: var(--neon-blue); padding: 5px 12px; font-size: 0.8rem;"><i class="fa-solid fa-window-minimize"></i> Minimizar</button>
+                                <span style="background: rgba(255,51,102,0.2); border: 1px solid var(--neon-red); color: var(--neon-red); padding: 4px 10px; border-radius: 8px; font-size: 0.8rem; font-weight: bold;"><i class="fa-solid fa-circle-dot"></i> EN VIVO</span>
+                            </div>
+                        </div>
+                        
+                        <div style="display: flex; align-items: center; gap: 20px; margin-bottom: 20px; flex-wrap: wrap;">
+                            <div id="liveRoomImgBigContainer"></div>
+                            <div>
+                                <h4 id="liveRoomTopicBig" style="color: #fff; font-family: 'Orbitron'; font-size: 1.1rem; margin-bottom: 5px;">Tema</h4>
+                                <p id="liveRoomHostBig" style="color: var(--text-muted); font-size: 0.9rem;">Host: @Panga</p>
+                            </div>
+                        </div>
+
+                        <!-- CHAT CON TRADUCCIÓN AUTOMÁTICA ESPAÑOL ⇄ INGLÉS -->
+                        <div style="background: rgba(0,0,0,0.75); border-radius: 10px; padding: 15px; height: 240px; overflow-y: auto; text-align: left; margin-bottom: 15px; border: 1px solid var(--border-glow);" id="roomChatBox">
+                            <div style="font-size: 0.9rem; margin-bottom: 10px;"><strong style="color: var(--neon-blue);">ZARD Translator Bot:</strong> Conectado a la sala. Los mensajes se traducirán automáticamente (ES ⇄ EN).</div>
+                        </div>
+
+                        <div style="display: flex; gap: 10px; margin-bottom: 15px;">
+                            <input type="text" id="roomChatInput" placeholder="Escribe en Español o Inglés..." onkeydown="chequearEnterChat(event)" style="flex:1; background:#05020a; border:1px solid var(--border-glow); padding:12px 16px; border-radius:10px; color:#fff; outline:none; font-size: 1rem;">
+                            <button class="action-btn" onclick="enviarMensajeConTraduccion()" style="padding: 12px 22px;"><i class="fa-solid fa-paper-plane"></i> Enviar</button>
+                        </div>
+
+                        <div style="display: flex; justify-content: center; gap: 10px; flex-wrap: wrap;">
+                            <button id="muteMicBtn" class="action-btn" onclick="toggleSilenciarMic()" style="background: rgba(255,193,7,0.2); border:1px solid #ffc107; color:#ffc107; font-size: 0.85rem;"><i class="fa-solid fa-microphone"></i> <span>Silenciar Micrófono</span></button>
+                            <button class="action-btn" onclick="pedirLaPalabraSala()" style="background: rgba(0,255,204,0.2); border:1px solid var(--neon-green); color:var(--neon-green); font-size: 0.85rem;"><i class="fa-solid fa-hand"></i> Pedir la Palabra</button>
+                            <button class="action-btn" onclick="compartirEnlaceSala()" style="background: rgba(0,243,255,0.2); border:1px solid var(--neon-blue); color:var(--neon-blue); font-size: 0.85rem;"><i class="fa-solid fa-share-nodes"></i> Compartir Link</button>
+                            <button class="action-btn" onclick="cerrarSalaVozPorCompleto()" style="background: rgba(255,51,102,0.2); border:1px solid var(--neon-red); color:var(--neon-red); font-size: 0.85rem;"><i class="fa-solid fa-power-off"></i> Cerrar Transmisión</button>
+                        </div>
+                    </div>
+
+                    <!-- PANEL CREAR SALA -->
+                    <div id="createRoomBox" style="display: none; background: #05020a; border: 1px solid var(--border-glow); border-radius: 12px; padding: 18px; margin-bottom: 25px;">
+                        <h4 style="color: var(--neon-blue); font-family: 'Orbitron'; font-size: 1rem; margin-bottom: 12px;">Iniciar Sala de Voz con tu Perfil</h4>
+                        <input type="text" id="roomTopicInput" placeholder="Tema de la conversación..." style="width:100%; background:#0c061a; border:1px solid var(--border-glow); padding:12px; border-radius:8px; color:#fff; outline:none; margin-bottom:12px;">
+                        <div style="display: flex; gap: 10px; align-items: center; flex-wrap: wrap;">
+                            <label class="file-upload-label" style="font-size: 0.85rem; padding: 8px 14px;">
+                                <i class="fa-solid fa-image"></i> Imagen de Sala <input type="file" id="roomImageFile" accept="image/*" style="display: none;" onchange="verImagenSala(event)">
+                            </label>
+                            <span id="roomImgName" style="font-size:0.85rem; color:var(--neon-blue);"></span>
+                            <button class="action-btn" onclick="lanzarSalaVoz()" style="padding: 9px 20px; font-size: 0.9rem;">Transmitir Voz</button>
+                        </div>
+                    </div>
+
+                    <hr style="border: 0; border-top: 1px solid rgba(255,255,255,0.1); margin: 25px 0;">
+
+                    <!-- CREAR PUBLICACIÓN -->
                     <h3><i class="fa-solid fa-pen-nib"></i> Crear Publicación desde tu Perfil</h3>
                     <textarea id="postText" class="square-input-box" placeholder="¿Qué está pasando en el ecosistema ZARD? Comparte tu análisis o meme..."></textarea>
                     
@@ -313,7 +422,7 @@
                 </div>
             </div>
 
-            <!-- AQUÍ ABAJO DE MONEDAS Y SUBS (RELLENANDO EL ESPACIO) COLOCAMOS LAS GRÁFICAS -->
+            <!-- GRÁFICAS DE MERCADO ABAJO DE MONEDAS Y SUBS -->
             <div class="fin-card" style="margin-top: 25px;">
                 <h3 style="color: var(--neon-green); font-family: 'Orbitron';"><i class="fa-solid fa-chart-candlestick"></i> Gráficas de Mercado & Órdenes en Vivo (PANGA & ZARD)</h3>
                 <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 20px;">Análisis técnico oficial en Binance Smart Chain:</p>
@@ -388,7 +497,7 @@
                 </div>
             </div>
 
-            <!-- AQUÍ ABAJO DE MI BALANCE COLOCAMOS LOS PRECIOS PRINCIPALES UNA DEBAJO DE LA OTRA -->
+            <!-- PRECIOS DE MONEDAS PRINCIPALES ABAJO DE MI BALANCE -->
             <div class="fin-card" style="margin-top: 25px;">
                 <h3 style="color: var(--neon-blue); font-family: 'Orbitron';"><i class="fa-solid fa-chart-line"></i> Precios de Monedas Principales (En Vivo)</h3>
                 <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 15px;">Cotizaciones globales actualizadas:</p>
@@ -436,7 +545,7 @@
                 </div>
             </div>
 
-            <!-- AQUÍ ABAJO DE SWAP DEX COLOCAMOS LAS MONEDAS EN TENDENCIA -->
+            <!-- MONEDAS EN TENDENCIA ABAJO DE SWAP DEX -->
             <div class="fin-card" style="margin-top: 25px;">
                 <h3 style="color: var(--neon-pink); font-family: 'Orbitron';"><i class="fa-solid fa-fire"></i> Monedas en Tendencia (*Trending Live*)</h3>
                 <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 15px;">Los tokens con mayor tracción en el mercado actual:</p>
@@ -460,7 +569,7 @@
                 </div>
             </div>
 
-            <!-- AQUÍ ABAJO DEL BUSCADOR COLOCAMOS LOS LINKS DIRECTOS A LAS APPS PRINCIPALES -->
+            <!-- ACCESOS DIRECTOS A LAS APPS CRIPTO PRINCIPALES ABAJO DEL BUSCADOR -->
             <div class="fin-card" style="margin-top: 25px;">
                 <h3 style="color: var(--neon-blue); font-family: 'Orbitron';"><i class="fa-solid fa-link"></i> Accesos Directos a Apps Principales Web3</h3>
                 <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 20px;">Exploradores, DEXs, Launchpads y Analizadores:</p>
@@ -510,11 +619,67 @@
         let cuentaActual = null;
         let mediaBase64Temp = "";
         let mediaTypeTemp = "image";
+        let roomImageBase64 = "";
+        let activeRoomData = null;
+        let isMicMuted = false;
+        let currentRoomTopic = "";
 
         const CONTRACT_ZARD = "0x973ba2c1dccd0820f1e026d6b1f01c55c4085d38";
         const CONTRACT_PANGA = "0x6a7cc7d5749e028c8f78f29c1d6ac8eda0eefad2";
         const CONTRACT_BTCB = "0x7130d2A12B9BCbFAe4f2634d864a1Ee1Ce3Ead9c";
         const CONTRACT_USDT = "0x55d398326f99059fF775485246999027B3197955";
+
+        // DICCIONARIO DE IDIOMAS FUNCIONAL
+        const translations = {
+            es: {
+                welcome_title: "ZARD INNOVATION",
+                welcome_sub: "Configura tu Perfil Web3 Exclusivo",
+                btn_upload_avatar: "Subir Foto de Perfil",
+                btn_enter: "INGRESAR AL NEXUS",
+                wallet_title: "Conectar Billetera Web3",
+                wallet_desc: "Abre tu app externa o conecta directamente:",
+                wallet_injected: "Navegador / Inyectado Web3",
+                cancel: "Cancelar",
+                btn_connect_wallet: "Conectar Wallet",
+                edit_profile: "Editar Perfil"
+            },
+            en: {
+                welcome_title: "ZARD INNOVATION",
+                welcome_sub: "Set up your Exclusive Web3 Profile",
+                btn_upload_avatar: "Upload Profile Picture",
+                btn_enter: "ENTER NEXUS",
+                wallet_title: "Connect Web3 Wallet",
+                wallet_desc: "Open external app or connect directly:",
+                wallet_injected: "Browser / Injected Web3",
+                cancel: "Cancel",
+                btn_connect_wallet: "Connect Wallet",
+                edit_profile: "Edit Profile"
+            },
+            ar: {
+                welcome_title: "زارد للإابتكار",
+                welcome_sub: "قم بإعداد ملف تعريف Web3 الحصري الخاص بك",
+                btn_upload_avatar: "تحميل الصورة الشخصية",
+                btn_enter: "دخول النيصم",
+                wallet_title: "ربط محفظة Web3",
+                wallet_desc: "افتح التطبيق الخارجي أو اتصل مباشرة:",
+                wallet_injected: "متصفح / محفظة Web3 مدمجة",
+                cancel: "إلغاء",
+                btn_connect_wallet: "ربط المحفظة",
+                edit_profile: "تعديل الملف الشخصي"
+            },
+            zh: {
+                welcome_title: "ZARD INNOVATION",
+                welcome_sub: "设置您的专属 Web3 个人资料",
+                btn_upload_avatar: "上传头像",
+                btn_enter: "进入NEXUS",
+                wallet_title: "连接 Web3 钱包",
+                wallet_desc: "打开外部应用程序或直接连接：",
+                wallet_injected: "浏览器 / 内置 Web3",
+                cancel: "取消",
+                btn_connect_wallet: "连接钱包",
+                edit_profile: "编辑资料"
+            }
+        };
 
         window.onload = function() {
             const btnEnter = document.getElementById('enterBtnAction');
@@ -526,10 +691,26 @@
             } else {
                 document.getElementById('welcome-screen').style.display = 'flex';
             }
+            
+            const savedRoom = localStorage.getItem('zard_active_room');
+            if (savedRoom) {
+                const roomObj = JSON.parse(savedRoom);
+                unirseSalaVoz(roomObj.topic, roomObj.host, roomObj.img, roomObj.roomId);
+            }
 
             obtenerPreciosGlobalesCrypto();
             obtenerMonedasEnTendencia();
         };
+
+        function cambiarIdiomaGlobal(lang) {
+            const t = translations[lang];
+            if (!t) return;
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (t[key]) el.innerText = t[key];
+            });
+            document.getElementById('htmlRoot').setAttribute('dir', lang === 'ar' ? 'rtl' : 'ltr');
+        }
 
         function cargarAvatarMemoria(event) {
             const file = event.target.files[0];
@@ -701,6 +882,128 @@
                 }
             } catch (e) {}
             return "0.00";
+        }
+
+        /* FUNCIONES DE SALAS DE VOZ & TRADUCTOR ESPAÑOL ⇄ INGLÉS */
+        function abrirCrearSalaModal() {
+            if (activeRoomData) { alert("Ya tienes una transmisión activa."); return; }
+            const box = document.getElementById('createRoomBox');
+            box.style.display = box.style.display === 'none' ? 'block' : 'none';
+        }
+
+        function verImagenSala(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+            document.getElementById('roomImgName').innerText = file.name;
+            const reader = new FileReader();
+            reader.onload = function(e) { roomImageBase64 = e.target.result; };
+            reader.readAsDataURL(file);
+        }
+
+        function lanzarSalaVoz() {
+            if (activeRoomData) { alert("Ya tienes una transmisión activa."); return; }
+            const topic = document.getElementById('roomTopicInput').value.trim();
+            if (!topic) { alert("Escribe el tema de la sala."); return; }
+
+            currentRoomTopic = topic;
+            const carousel = document.getElementById('voiceRoomsCarousel');
+            const hostName = "@" + userName;
+            const roomImg = roomImageBase64 || userAvatar || "https://photos.pinksale.finance/file/pinksale-logo-upload/1789411086014-7b67968ed9538e215f1948583ee37c7c.png";
+            const roomId = "room-" + Date.now();
+
+            const newCard = document.createElement('div');
+            newCard.className = 'voice-room-card';
+            newCard.id = roomId;
+            newCard.innerHTML = `
+                <img src="${roomImg}" alt="Room">
+                <h4 style="color: #fff; font-size: 0.95rem; font-family: 'Orbitron'; margin-bottom: 4px;">${topic}</h4>
+                <p style="color: var(--text-muted); font-size: 0.8rem; margin-bottom: 12px;">Host: ${hostName}</p>
+                <button class="action-btn" onclick="unirseSalaVoz('${topic.replace(/'/g, "\\'")}', '${hostName}', '${roomImg}', '${roomId}')" style="padding: 8px 16px; font-size: 0.85rem;">Escuchar</button>
+            `;
+            carousel.prepend(newCard);
+            document.getElementById('roomTopicInput').value = "";
+            document.getElementById('createRoomBox').style.display = 'none';
+            unirseSalaVoz(topic, hostName, roomImg, roomId);
+        }
+
+        function unirseSalaVoz(topic, host, img, roomId) {
+            if (activeRoomData && activeRoomData !== roomId) { alert("Ya tienes una sala en curso."); return; }
+            activeRoomData = roomId;
+            currentRoomTopic = topic;
+            localStorage.setItem('zard_active_room', JSON.stringify({ topic, host, img, roomId }));
+
+            document.getElementById('liveRoomTopicBig').innerText = topic;
+            document.getElementById('liveRoomHostBig').innerText = "Anfitrión: " + host;
+            document.getElementById('liveRoomImgBigContainer').innerHTML = `<img src="${img}" style="width:90px; height:90px; border-radius:50%; border:3px solid var(--neon-green); object-fit:cover;">`;
+            document.getElementById('activeVoiceRoomBox').style.display = 'block';
+            document.getElementById('floatingVoiceBar').style.display = 'none';
+            window.scrollTo({ top: 0, height: 'smooth' });
+        }
+
+        function minimizarSalaVoz() {
+            document.getElementById('activeVoiceRoomBox').style.display = 'none';
+            document.getElementById('floatingRoomTitle').innerText = currentRoomTopic;
+            document.getElementById('floatingVoiceBar').style.display = 'flex';
+        }
+
+        function maximizarSalaVoz() {
+            document.getElementById('floatingVoiceBar').style.display = 'none';
+            document.getElementById('activeVoiceRoomBox').style.display = 'block';
+            window.scrollTo({ top: 0, height: 'smooth' });
+        }
+
+        function toggleSilenciarMic() {
+            isMicMuted = !isMicMuted;
+            const btn = document.getElementById('muteMicBtn');
+            const statusText = document.getElementById('floatingStatusText');
+            if(isMicMuted) {
+                btn.innerHTML = `<i class="fa-solid fa-microphone-slash"></i> <span>Silenciado</span>`;
+                statusText.innerText = "EN VIVO (Silenciado 🔇)";
+            } else {
+                btn.innerHTML = `<i class="fa-solid fa-microphone"></i> <span>Silenciar Micrófono</span>`;
+                statusText.innerText = "EN VIVO";
+            }
+        }
+
+        function cerrarSalaVozPorCompleto() {
+            document.getElementById('activeVoiceRoomBox').style.display = 'none';
+            document.getElementById('floatingVoiceBar').style.display = 'none';
+            localStorage.removeItem('zard_active_room');
+            if (activeRoomData && document.getElementById(activeRoomData)) {
+                document.getElementById(activeRoomData).remove();
+            }
+            activeRoomData = null;
+        }
+
+        function pedirLaPalabraSala() { alert("Has solicitado la palabra al anfitrión. Esperando autorización..."); }
+        function compartirEnlaceSala() { navigator.clipboard.writeText(window.location.href); alert("¡Enlace de la transmisión copiado!"); }
+        function chequearEnterChat(event) { if (event.key === 'Enter') { event.preventDefault(); enviarMensajeConTraduccion(); } }
+
+        function enviarMensajeConTraduccion() {
+            const input = document.getElementById('roomChatInput');
+            const chatBox = document.getElementById('roomChatBox');
+            const txt = input.value.trim();
+            if (!txt) return;
+
+            // Simulación de traducción automática inteligente ES ⇄ EN
+            let translation = "";
+            let targetLangTag = "[EN]";
+            if(/[a-zA-Z]/.test(txt) && !/[áéíóúÁÉÍÓÚñÑ]/.test(txt)) {
+                targetLangTag = "[ES]";
+                translation = `Traducción: "${txt}" (Traducido al Español para la comunidad)`;
+            } else {
+                targetLangTag = "[EN]";
+                translation = `Translation: "${txt}" (Translated to English for global listeners)`;
+            }
+
+            chatBox.innerHTML += `
+                <div style="font-size: 0.9rem; margin-bottom: 12px; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 8px;">
+                    <strong style="color: var(--neon-purple);">@${userName}:</strong> ${txt}<br>
+                    <span style="font-size: 0.8rem; color: var(--neon-blue);">${targetLangTag} ${translation}</span>
+                </div>
+            `;
+            input.value = "";
+            chatBox.scrollTop = chatBox.scrollHeight;
         }
 
         function verMediaSeleccionada(event) {
