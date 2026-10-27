@@ -3,17 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ZARD NEXUS V4.8 - ZARD INNOVATION</title>
+    <title>ZARD NEXUS V4.9 - ZARD INNOVATION</title>
     <!-- Google Fonts & FontAwesome -->
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;800;900&family=Rajdhani:wght@500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-    <!-- Firebase SDK (Para sincronización global en tiempo real de las salas de voz) -->
+    <!-- Firebase CDN para Sincronización Global en Tiempo Real de las Transmisiones -->
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
 
     <!-- Etiquetas Open Graph con tu Imagen Oficial -->
-    <meta property="og:title" content="ZARD NEXUS V4.8 - ZARD INNOVATION">
+    <meta property="og:title" content="ZARD NEXUS V4.9 - ZARD INNOVATION">
     <meta property="og:description" content="Dashboard Web3 Oficial, Gráficas en Vivo, Pares de Mercado y Conexión de Billetera.">
     <meta property="og:url" content="https://figueredo56.github.io/zaard-wallet/wallet.html">
     <meta property="og:type" content="website">
@@ -181,7 +181,7 @@
         }
 
         #activeVoiceRoomBox {
-            background: linear-gradient(135deg, rgba(12, 6, 26, 0.88), rgba(21, 10, 40, 0.88)),
+            background: linear-gradient(135deg, rgba(12, 6, 26, 0.92), rgba(21, 10, 40, 0.92)),
                         url('https://photos.pinksale.finance/file/pinksale-logo-upload/1790375348672-4de629a77b910ca4b3f245dda1b233f0.png');
             background-size: cover; background-position: center; background-repeat: no-repeat;
             border: 2px solid var(--neon-green); border-radius: 16px; padding: 25px; margin-bottom: 25px;
@@ -195,7 +195,7 @@
             box-shadow: 0 0 30px rgba(0,255,204,0.4); backdrop-filter: blur(10px);
         }
 
-        /* ESTILOS PARA LOS LINKS DIRECTOS DEL BUSCADOR */
+        /* ACCESOS DIRECTOS APPS */
         .crypto-link-card {
             background: #0c061a; border: 1px solid var(--border-glow); padding: 14px 18px;
             border-radius: 12px; text-decoration: none; color: #fff; display: flex; align-items: center;
@@ -234,7 +234,7 @@
             <i class="fa-solid fa-camera"></i> <span data-i18n="btn_upload_avatar">Subir Foto de Perfil</span> <input type="file" id="userAvatarFile" accept="image/*" style="display: none;" onchange="cargarAvatarMemoria(event)">
         </label>
         <br>
-        <button class="enter-btn" id="enterBtnAction"><i class="fa-solid fa-rocket"></i> <span data-i18n="btn_enter">INGRESAR AL NEXUS</span></button>
+        <button type="button" class="enter-btn" id="enterBtnAction" onclick="entrarNexus()"><i class="fa-solid fa-rocket"></i> <span data-i18n="btn_enter">INGRESAR AL NEXUS</span></button>
     </div>
 
     <!-- MODAL WALLET -->
@@ -246,7 +246,7 @@
             <div class="wallet-option" onclick="conectarPorDeepLink('trust')"><i class="fa-solid fa-shield-halved" style="color:#3375bb; font-size:1.5rem;"></i> <span>Trust Wallet</span></div>
             <div class="wallet-option" onclick="conectarPorDeepLink('metamask')"><i class="fa-solid fa-cube" style="color:#f6851b; font-size:1.5rem;"></i> <span>MetaMask App</span></div>
             <div class="wallet-option" onclick="conectarInyectadoLocal()"><i class="fa-solid fa-bolt" style="color:var(--neon-blue); font-size:1.5rem;"></i> <span data-i18n="wallet_injected">Navegador / Inyectado Web3</span></div>
-            <button onclick="cerrarModal()" style="background:transparent; border:none; color:var(--text-muted); margin-top:15px; cursor:pointer;" data-i18n="cancel">Cancelar</button>
+            <button type="button" onclick="cerrarModal()" style="background:transparent; border:none; color:var(--text-muted); margin-top:15px; cursor:pointer;" data-i18n="cancel">Cancelar</button>
         </div>
     </div>
 
@@ -257,8 +257,8 @@
             <div id="floatingRoomTitle" style="font-family:'Orbitron'; font-size:0.85rem; color:#fff;">Sala Activa</div>
             <div style="font-size:0.75rem; color:var(--neon-green);" id="floatingStatusText">EN VIVO</div>
         </div>
-        <button class="action-btn" onclick="maximizarSalaVoz()" style="padding: 6px 12px; font-size:0.75rem;"><i class="fa-solid fa-expand"></i></button>
-        <button class="action-btn" onclick="cerrarSalaVozPorCompleto()" style="background:rgba(255,51,102,0.3); border:1px solid var(--neon-red); color:var(--neon-red); padding: 6px 10px; font-size:0.75rem;"><i class="fa-solid fa-power-off"></i></button>
+        <button type="button" class="action-btn" onclick="maximizarSalaVoz()" style="padding: 6px 12px; font-size:0.75rem;"><i class="fa-solid fa-expand"></i></button>
+        <button type="button" class="action-btn" onclick="cerrarSalaVozPorCompleto()" style="background:rgba(255,51,102,0.3); border:1px solid var(--neon-red); color:var(--neon-red); padding: 6px 10px; font-size:0.75rem;"><i class="fa-solid fa-power-off"></i></button>
     </div>
 
     <!-- APLICACIÓN PRINCIPAL -->
@@ -282,21 +282,21 @@
                 </select>
 
                 <div id="wallet-container">
-                    <button class="wallet-btn" onclick="abrirModalWallet()"><i class="fa-solid fa-wallet"></i> <span data-i18n="btn_connect_wallet">Conectar Wallet</span></button>
+                    <button type="button" class="wallet-btn" onclick="abrirModalWallet()"><i class="fa-solid fa-wallet"></i> <span data-i18n="btn_connect_wallet">Conectar Wallet</span></button>
                 </div>
-                <button onclick="cambiarPerfil()" style="background:rgba(168,85,247,0.2); border:1px solid var(--neon-purple); color:#fff; padding:8px 12px; border-radius:8px; cursor:pointer; font-size:0.8rem;"><i class="fa-solid fa-user-pen"></i> <span data-i18n="edit_profile">Editar Perfil</span></button>
+                <button type="button" onclick="cambiarPerfil()" style="background:rgba(168,85,247,0.2); border:1px solid var(--neon-purple); color:#fff; padding:8px 12px; border-radius:8px; cursor:pointer; font-size:0.8rem;"><i class="fa-solid fa-user-pen"></i> <span data-i18n="edit_profile">Editar Perfil</span></button>
             </div>
         </header>
 
         <!-- NAVEGACIÓN PESTAÑAS EXACTAS -->
         <div class="tabs-nav">
-            <button class="tab-btn active" onclick="switchTab(event, 'tab-square')"><i class="fa-solid fa-comments"></i> Square & Live</button>
+            <button type="button" class="tab-btn active" onclick="switchTab(event, 'tab-square')"><i class="fa-solid fa-comments"></i> Square & Audio Spaces</button>
             <a href="https://figueredo56.github.io/index.html/?img=zaard" target="_blank" class="tab-link"><i class="fa-solid fa-shield-halved"></i> ZAARD FINANCE</a>
             <a href="https://figueredo56.github.io/zaard-tracker/" target="_blank" class="tab-link"><i class="fa-solid fa-chart-line"></i> Tracker & Velas</a>
-            <button class="tab-btn" onclick="switchTab(event, 'tab-coins')"><i class="fa-solid fa-coins"></i> Monedas & Subs</button>
-            <button class="tab-btn" onclick="switchTab(event, 'tab-balance')"><i class="fa-solid fa-wallet"></i> Mi Balance</button>
-            <button class="tab-btn" onclick="switchTab(event, 'tab-swap')"><i class="fa-solid fa-right-left"></i> Swap DEX</button>
-            <button class="tab-btn" onclick="switchTab(event, 'tab-browser')"><i class="fa-solid fa-globe"></i> Buscador Web3</button>
+            <button type="button" class="tab-btn" onclick="switchTab(event, 'tab-coins')"><i class="fa-solid fa-coins"></i> Monedas & Subs</button>
+            <button type="button" class="tab-btn" onclick="switchTab(event, 'tab-balance')"><i class="fa-solid fa-wallet"></i> Mi Balance</button>
+            <button type="button" class="tab-btn" onclick="switchTab(event, 'tab-swap')"><i class="fa-solid fa-right-left"></i> Swap DEX</button>
+            <button type="button" class="tab-btn" onclick="switchTab(event, 'tab-browser')"><i class="fa-solid fa-globe"></i> Buscador Web3</button>
         </div>
 
         <!-- PESTAÑA 1: SQUARE & AUDIO SPACES EN VIVO -->
@@ -304,21 +304,26 @@
             <div class="card-grid">
                 <div class="fin-card" style="grid-column: span 2;">
                     
-                    <!-- CARRUSEL DE SALAS DE VOZ & BOTÓN CREAR -->
+                    <!-- CARRUSEL DE SALAS DE VOZ -->
                     <div style="background: #0c061a; border: 1px solid var(--neon-green); border-radius: 14px; padding: 20px; margin-bottom: 25px;">
                         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; flex-wrap: wrap; gap: 10px;">
                             <h3 style="color: var(--neon-green); font-size: 1.2rem; margin:0;"><i class="fa-solid fa-microphone-lines"></i> ZARD Audio Spaces (Salas de Voz en Vivo)</h3>
                             <button type="button" class="action-btn" onclick="abrirCrearSalaModal()" style="background: linear-gradient(135deg, #00ffcc, #00f3ff); color: #030107; font-size: 0.85rem; padding: 10px 18px;"><i class="fa-solid fa-plus"></i> Iniciar Sala de Voz</button>
                         </div>
-                        <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 15px;">Salas sincronizadas en tiempo real global con control total, silenciar micrófono, pedir la palabra y minimizado flotante.</p>
+                        <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 15px;">Salas de llamadas en alta voz con control total, silenciar micrófono y minimizado flotante.</p>
                         
                         <div class="voice-carousel" id="voiceRoomsCarousel">
-                            <!-- Las salas se cargan dinámicamente aquí en tiempo real -->
+                            <div class="voice-room-card" id="room-default">
+                                <img src="https://photos.pinksale.finance/file/pinksale-logo-upload/1789411086014-7b67968ed9538e215f1948583ee37c7c.png" alt="Host">
+                                <h4 style="color: #fff; font-size: 0.95rem; font-family: 'Orbitron'; margin-bottom: 4px;">Análisis ZARD & PANGA</h4>
+                                <p style="color: var(--text-muted); font-size: 0.8rem; margin-bottom: 12px;">Host: @Panga</p>
+                                <button type="button" class="action-btn" onclick="unirseSalaVozDirecta('Análisis ZARD & PANGA', '@Panga', 'https://photos.pinksale.finance/file/pinksale-logo-upload/1789411086014-7b67968ed9538e215f1948583ee37c7c.png', 'room-default')" style="padding: 8px 16px; font-size: 0.85rem;">Escuchar</button>
+                            </div>
                         </div>
                     </div>
 
-                    <!-- SALA DE VOZ ACTIVA (CON FONDO DE AGUA Y TRADUCTOR ESPAÑOL ⇄ INGLÉS) -->
-                    <div id="activeVoiceRoomBox">
+                    <!-- SALA DE VOZ ACTIVA EN GRANDE (REPRODUCTOR V3.6) -->
+                    <div id="activeVoiceRoomBox" class="fin-card" style="display: none; border: 2px solid var(--neon-green); margin-bottom: 25px; padding: 25px;">
                         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
                             <h3 id="liveRoomTitleBig" style="color: var(--neon-green); font-family: 'Orbitron'; font-size: 1.3rem; margin: 0;"><i class="fa-solid fa-broadcast-tower"></i> Sala Activa</h3>
                             <div style="display: flex; gap: 8px;">
@@ -335,18 +340,18 @@
                             </div>
                         </div>
 
-                        <!-- CHAT CON TRADUCCIÓN AUTOMÁTICA ESPAÑOL ⇄ INGLÉS -->
-                        <div style="background: rgba(0,0,0,0.75); border-radius: 10px; padding: 15px; height: 240px; overflow-y: auto; text-align: left; margin-bottom: 15px; border: 1px solid var(--border-glow);" id="roomChatBox">
-                            <div style="font-size: 0.9rem; margin-bottom: 10px;"><strong style="color: var(--neon-blue);">ZARD Translator Bot:</strong> Conectado a la sala. Los mensajes se traducirán automáticamente (ES ⇄ EN).</div>
+                        <!-- Chat en Vivo con Traducción Automática -->
+                        <div style="background: rgba(0,0,0,0.75); border-radius: 10px; padding: 12px; height: 180px; overflow-y: auto; text-align: left; margin-bottom: 15px; border: 1px solid var(--border-glow);" id="roomChatBox">
+                            <div style="font-size: 0.85rem; margin-bottom: 8px;"><strong style="color: var(--neon-blue);">Sistema:</strong> Conectado a la sala de voz en alta voz (Traducción ES ⇄ EN activada).</div>
                         </div>
 
                         <div style="display: flex; gap: 10px; margin-bottom: 15px;">
-                            <input type="text" id="roomChatInput" placeholder="Escribe en Español o Inglés..." onkeydown="chequearEnterChat(event)" style="flex:1; background:#05020a; border:1px solid var(--border-glow); padding:12px 16px; border-radius:10px; color:#fff; outline:none; font-size: 1rem;">
-                            <button type="button" class="action-btn" onclick="enviarMensajeConTraduccion()" style="padding: 12px 22px;"><i class="fa-solid fa-paper-plane"></i> Enviar</button>
+                            <input type="text" id="roomChatInput" placeholder="Escribe un comentario..." onkeydown="if(event.key==='Enter') enviarMensajeConTraduccion()" style="flex:1; background:#05020a; border:1px solid var(--border-glow); padding:10px 14px; border-radius:8px; color:#fff; outline:none; font-size: 0.95rem;">
+                            <button type="button" class="action-btn" onclick="enviarMensajeConTraduccion()" style="padding: 10px 20px;">Enviar</button>
                         </div>
 
                         <div style="display: flex; justify-content: center; gap: 10px; flex-wrap: wrap;">
-                            <button type="button" id="muteMicBtn" class="action-btn" onclick="toggleSilenciarMic()" style="background: rgba(255,193,7,0.2); border:1px solid #ffc107; color:#ffc107; font-size: 0.85rem;"><i class="fa-solid fa-microphone"></i> <span>Silenciar Micrófono</span></button>
+                            <button type="button" id="muteMicBtn" class="action-btn" onclick="toggleSilenciarMic()" style="background: rgba(255,193,7,0.2); border:1px solid #ffc107; color:#ffc107; font-size: 0.85rem;"><i class="fa-solid fa-microphone"></i> Silenciar Micrófono</button>
                             <button type="button" class="action-btn" onclick="pedirLaPalabraSala()" style="background: rgba(0,255,204,0.2); border:1px solid var(--neon-green); color:var(--neon-green); font-size: 0.85rem;"><i class="fa-solid fa-hand"></i> Pedir la Palabra</button>
                             <button type="button" class="action-btn" onclick="compartirEnlaceSala()" style="background: rgba(0,243,255,0.2); border:1px solid var(--neon-blue); color:var(--neon-blue); font-size: 0.85rem;"><i class="fa-solid fa-share-nodes"></i> Compartir Link</button>
                             <button type="button" class="action-btn" onclick="cerrarSalaVozPorCompleto()" style="background: rgba(255,51,102,0.2); border:1px solid var(--neon-red); color:var(--neon-red); font-size: 0.85rem;"><i class="fa-solid fa-power-off"></i> Cerrar Transmisión</button>
@@ -368,7 +373,7 @@
 
                     <hr style="border: 0; border-top: 1px solid rgba(255,255,255,0.1); margin: 25px 0;">
 
-                    <!-- CREAR PUBLICACIÓN -->
+                    <!-- CREAR PUBLICACIÓN DESDE EL PERFIL -->
                     <h3><i class="fa-solid fa-pen-nib"></i> Crear Publicación desde tu Perfil</h3>
                     <textarea id="postText" class="square-input-box" placeholder="¿Qué está pasando en el ecosistema ZARD? Comparte tu análisis o meme..."></textarea>
                     
@@ -613,14 +618,9 @@
     </div>
 
     <script>
-        // CONFIGURACIÓN FIREBASE PARA SINCRONIZACIÓN GLOBAL EN TIEMPO REAL
-        const firebaseConfig = {
-            databaseURL: "https://zard-nexus-default-rtdb.firebaseio.com/"
-        };
-        // Inicializar Firebase de forma segura
-        if (!firebase.apps.length) {
-            firebase.initializeApp(firebaseConfig);
-        }
+        // CONFIGURACIÓN FIREBASE PARA SINCRONIZACIÓN EN TIEMPO REAL
+        const firebaseConfig = { databaseURL: "https://zard-nexus-default-rtdb.firebaseio.com/" };
+        if (!firebase.apps.length) { firebase.initializeApp(firebaseConfig); }
         const dbRef = firebase.database().ref('zard_global_voice_rooms');
 
         let userName = localStorage.getItem('zard_username') || "";
@@ -629,10 +629,9 @@
         let mediaBase64Temp = "";
         let mediaTypeTemp = "image";
         let roomImageBase64 = "";
-        let activeRoomData = null;
+        let activeRoomId = null;
         let isMicMuted = false;
         let currentRoomTopic = "";
-        let voiceRooms = [];
 
         const CONTRACT_ZARD = "0x973ba2c1dccd0820f1e026d6b1f01c55c4085d38";
         const CONTRACT_PANGA = "0x6a7cc7d5749e028c8f78f29c1d6ac8eda0eefad2";
@@ -691,56 +690,49 @@
         };
 
         window.onload = function() {
-            const btnEnter = document.getElementById('enterBtnAction');
-            if(btnEnter) { btnEnter.onclick = entrarNexus; }
-
             if (userName && userName.trim() !== "") {
                 document.getElementById('userInputName').value = userName;
                 entrarNexusDirecto();
             } else {
                 document.getElementById('welcome-screen').style.display = 'flex';
             }
-            
-            // ESCUCHADOR EN TIEMPO REAL DE FIREBASE (Para que todos vean las salas de todos)
+
+            // Sincronizar salas globales en vivo desde Firebase (V3.6 Sincronizado)
             dbRef.on('value', (snapshot) => {
                 const data = snapshot.val();
-                if (data) {
-                    voiceRooms = Object.values(data);
-                } else {
-                    voiceRooms = [];
-                }
-                renderizarSalasVoz();
-            });
+                const carousel = document.getElementById('voiceRoomsCarousel');
+                if (!carousel) return;
 
-            const savedRoom = localStorage.getItem('zard_active_room_id');
-            if (savedRoom) {
-                setTimeout(() => unirseSalaPorId(savedRoom), 500);
-            }
+                let defaultHtml = `
+                    <div class="voice-room-card" id="room-default">
+                        <img src="https://photos.pinksale.finance/file/pinksale-logo-upload/1789411086014-7b67968ed9538e215f1948583ee37c7c.png" alt="Host">
+                        <h4 style="color: #fff; font-size: 0.95rem; font-family: 'Orbitron'; margin-bottom: 4px;">Análisis ZARD & PANGA</h4>
+                        <p style="color: var(--text-muted); font-size: 0.8rem; margin-bottom: 12px;">Host: @Panga</p>
+                        <button type="button" class="action-btn" onclick="unirseSalaVozDirecta('Análisis ZARD & PANGA', '@Panga', 'https://photos.pinksale.finance/file/pinksale-logo-upload/1789411086014-7b67968ed9538e215f1948583ee37c7c.png', 'room-default')" style="padding: 8px 16px; font-size: 0.85rem;">Escuchar</button>
+                    </div>
+                `;
+
+                if (data) {
+                    let roomsHtml = '';
+                    Object.values(data).forEach(room => {
+                        roomsHtml += `
+                            <div class="voice-room-card" id="${room.id}">
+                                <img src="${room.img}" alt="Host">
+                                <h4 style="color: #fff; font-size: 0.95rem; font-family: 'Orbitron'; margin-bottom: 4px;">${room.topic}</h4>
+                                <p style="color: var(--text-muted); font-size: 0.8rem; margin-bottom: 12px;">Host: ${room.host}</p>
+                                <button type="button" class="action-btn" onclick="unirseSalaVozDirecta('${room.topic.replace(/'/g, "\\'")}', '${room.host.replace(/'/g, "\\'")}', '${room.img}', '${room.id}')" style="padding: 8px 16px; font-size: 0.85rem;">Escuchar</button>
+                            </div>
+                        `;
+                    });
+                    carousel.innerHTML = roomsHtml + defaultHtml;
+                } else {
+                    carousel.innerHTML = defaultHtml;
+                }
+            });
 
             obtenerPreciosGlobalesCrypto();
             obtenerMonedasEnTendencia();
         };
-
-        function renderizarSalasVoz() {
-            const carousel = document.getElementById('voiceRoomsCarousel');
-            if (!carousel) return;
-            if (voiceRooms.length === 0) {
-                carousel.innerHTML = `<p style="color:var(--text-muted); font-size:0.9rem;">No hay salas de voz activas. ¡Inicia una arriba!</p>`;
-                return;
-            }
-            let html = '';
-            voiceRooms.forEach(room => {
-                html += `
-                    <div class="voice-room-card" id="${room.id}">
-                        <img src="${room.img}" alt="Host">
-                        <h4 style="color: #fff; font-size: 0.95rem; font-family: 'Orbitron'; margin-bottom: 4px;">${room.topic}</h4>
-                        <p style="color: var(--text-muted); font-size: 0.8rem; margin-bottom: 12px;">Host: ${room.host}</p>
-                        <button type="button" class="action-btn" onclick="unirseSalaPorId('${room.id}')" style="padding: 8px 16px; font-size: 0.85rem;">Escuchar</button>
-                    </div>
-                `;
-            });
-            carousel.innerHTML = html;
-        }
 
         function cambiarIdiomaGlobal(lang) {
             const t = translations[lang];
@@ -799,6 +791,178 @@
             document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
             document.getElementById(tabId).classList.add('active');
             evt.currentTarget.classList.add('active');
+        }
+
+        /* LÓGICA DE SALAS DE VOZ RÁPIDA (V3.6) */
+        function abrirCrearSalaModal() {
+            const box = document.getElementById('createRoomBox');
+            if (box) box.style.display = box.style.display === 'none' ? 'block' : 'none';
+        }
+
+        function verImagenSala(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+            document.getElementById('roomImgName').innerText = file.name;
+            const reader = new FileReader();
+            reader.onload = function(e) { roomImageBase64 = e.target.result; };
+            reader.readAsDataURL(file);
+        }
+
+        function lanzarSalaVoz() {
+            const topicInput = document.getElementById('roomTopicInput');
+            const topic = topicInput ? topicInput.value.trim() : "";
+            if (!topic) { alert("Escribe el tema de la sala."); return; }
+
+            const hostName = "@" + (userName || "Panga");
+            const roomImg = roomImageBase64 || userAvatar || "https://photos.pinksale.finance/file/pinksale-logo-upload/1789411086014-7b67968ed9538e215f1948583ee37c7c.png";
+            const roomId = "room-" + Date.now();
+
+            const nuevaSala = { id: roomId, topic: topic, host: hostName, img: roomImg };
+
+            // Publicar en Firebase en vivo para que a tu amiga le aparezca
+            dbRef.child(roomId).set(nuevaSala);
+
+            if(topicInput) topicInput.value = "";
+            document.getElementById('createRoomBox').style.display = 'none';
+            roomImageBase64 = "";
+            document.getElementById('roomImgName').innerText = "";
+
+            unirseSalaVozDirecta(topic, hostName, roomImg, roomId);
+        }
+
+        function unirseSalaVozDirecta(topic, host, img, roomId) {
+            activeRoomId = roomId;
+            currentRoomTopic = topic;
+
+            document.getElementById('liveRoomTopicBig').innerText = topic;
+            document.getElementById('liveRoomHostBig').innerText = "Host: " + host;
+            document.getElementById('liveRoomImgBigContainer').innerHTML = `<img src="${img}" style="width:80px; height:80px; border-radius:50%; border:3px solid var(--neon-green); object-fit:cover;">`;
+            document.getElementById('activeVoiceRoomBox').style.display = 'block';
+            document.getElementById('floatingVoiceBar').style.display = 'none';
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function minimizarSalaVoz() {
+            document.getElementById('activeVoiceRoomBox').style.display = 'none';
+            document.getElementById('floatingRoomTitle').innerText = currentRoomTopic;
+            document.getElementById('floatingVoiceBar').style.display = 'flex';
+        }
+
+        function maximizarSalaVoz() {
+            document.getElementById('floatingVoiceBar').style.display = 'none';
+            document.getElementById('activeVoiceRoomBox').style.display = 'block';
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function toggleSilenciarMic() {
+            isMicMuted = !isMicMuted;
+            const btn = document.getElementById('muteMicBtn');
+            const statusText = document.getElementById('floatingStatusText');
+            if(isMicMuted) {
+                btn.innerHTML = `<i class="fa-solid fa-microphone-slash"></i> Silenciado`;
+                statusText.innerText = "EN VIVO (Micrófono Silenciado 🔇)";
+            } else {
+                btn.innerHTML = `<i class="fa-solid fa-microphone"></i> Silenciar Micrófono`;
+                statusText.innerText = "EN VIVO (Micrófono Abierto)";
+            }
+        }
+
+        function cerrarSalaVozPorCompleto() {
+            document.getElementById('activeVoiceRoomBox').style.display = 'none';
+            document.getElementById('floatingVoiceBar').style.display = 'none';
+            if (activeRoomId && activeRoomId !== 'room-default') {
+                dbRef.child(activeRoomId).remove();
+            }
+            activeRoomId = null;
+        }
+
+        function pedirLaPalabraSala() { alert("Has solicitado la palabra al anfitrión."); }
+        function compartirEnlaceSala() { navigator.clipboard.writeText(window.location.href); alert("¡Enlace copiado!"); }
+
+        function enviarMensajeConTraduccion() {
+            const input = document.getElementById('roomChatInput');
+            const chatBox = document.getElementById('roomChatBox');
+            const txt = input.value.trim();
+            if (!txt) return;
+
+            let translation = "";
+            let targetLangTag = "[EN]";
+            if(/[a-zA-Z]/.test(txt) && !/[áéíóúÁÉÍÓÚñÑ]/.test(txt)) {
+                targetLangTag = "[ES]";
+                translation = `Traducción: "${txt}"`;
+            } else {
+                targetLangTag = "[EN]";
+                translation = `Translation: "${txt}"`;
+            }
+
+            chatBox.innerHTML += `
+                <div style="font-size: 0.85rem; margin-bottom: 8px;">
+                    <strong style="color: var(--neon-purple);">@${userName || 'Anónimo'}:</strong> ${txt}<br>
+                    <span style="font-size: 0.75rem; color: var(--neon-blue);">${targetLangTag} ${translation}</span>
+                </div>
+            `;
+            input.value = "";
+            chatBox.scrollTop = chatBox.scrollHeight;
+        }
+
+        /* PUBLICACIONES Y PRECIOS */
+        function verMediaSeleccionada(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+            mediaTypeTemp = file.type.startsWith('video') ? 'video' : 'image';
+            document.getElementById('fileNameDisplay').innerText = "Cargado: " + file.name;
+            const reader = new FileReader();
+            reader.onload = function(e) { mediaBase64Temp = e.target.result; };
+            reader.readAsDataURL(file);
+        }
+
+        function crearPublicacion() {
+            const texto = document.getElementById('postText').value.trim();
+            if (texto === "" && !mediaBase64Temp) { alert("Escribe algo o adjunta multimedia."); return; }
+            let publicaciones = JSON.parse(localStorage.getItem('zard_posts') || '[]');
+            const nuevaPub = {
+                id: Date.now(),
+                autor: "@" + (userName || "Panga"),
+                avatar: userAvatar || "https://photos.pinksale.finance/file/pinksale-logo-upload/1789411086014-7b67968ed9538e215f1948583ee37c7c.png",
+                texto: texto,
+                media: mediaBase64Temp,
+                type: mediaTypeTemp,
+                fecha: new Date().toLocaleString()
+            };
+            publicaciones.unshift(nuevaPub);
+            localStorage.setItem('zard_posts', JSON.stringify(publicaciones));
+            document.getElementById('postText').value = "";
+            document.getElementById('postMediaFile').value = "";
+            document.getElementById('fileNameDisplay').innerText = "";
+            mediaBase64Temp = "";
+            cargarPublicaciones();
+        }
+
+        function cargarPublicaciones() {
+            const muro = document.getElementById('muroPublicaciones');
+            if (!muro) return;
+            let publicaciones = JSON.parse(localStorage.getItem('zard_posts') || '[]');
+            if (publicaciones.length === 0) {
+                muro.innerHTML = `<p style="color:var(--text-muted); font-size:0.9rem; margin-top:15px;">Aún no hay publicaciones.</p>`;
+                return;
+            }
+            let html = '';
+            publicaciones.forEach(pub => {
+                html += `
+                    <div class="post-card">
+                        <div style="display:flex; justify-content:space-between; align-items:center;">
+                            <div style="display:flex; align-items:center; gap:10px;">
+                                <img src="${pub.avatar}" class="profile-avatar-small" alt="Avatar">
+                                <div><strong style="color:var(--neon-blue); font-family:'Orbitron'; font-size:0.9rem;">${pub.autor}</strong></div>
+                            </div>
+                            <span style="font-size:0.75rem; color:var(--text-muted);">${pub.fecha}</span>
+                        </div>
+                        <p style="margin-top:12px; font-size:0.95rem; color:#fff; word-break:break-word;">${pub.texto}</p>
+                        ${pub.media ? (pub.type === 'video' ? `<video controls src="${pub.media}"></video>` : `<img src="${pub.media}" alt="Media">`) : ''}
+                    </div>
+                `;
+            });
+            muro.innerHTML = html;
         }
 
         async function obtenerPreciosGlobalesCrypto() {
@@ -922,189 +1086,6 @@
                 }
             } catch (e) {}
             return "0.00";
-        }
-
-        /* FUNCIONES DE SALAS DE VOZ & SINCRONIZACIÓN GLOBAL */
-        function abrirCrearSalaModal() {
-            const box = document.getElementById('createRoomBox');
-            if (box) box.style.display = box.style.display === 'none' ? 'block' : 'none';
-        }
-
-        function verImagenSala(event) {
-            const file = event.target.files[0];
-            if (!file) return;
-            document.getElementById('roomImgName').innerText = file.name;
-            const reader = new FileReader();
-            reader.onload = function(e) { roomImageBase64 = e.target.result; };
-            reader.readAsDataURL(file);
-        }
-
-        function lanzarSalaVoz() {
-            const topicInput = document.getElementById('roomTopicInput');
-            const topic = topicInput ? topicInput.value.trim() : "";
-            if (!topic) { alert("Escribe el tema de la sala."); return; }
-
-            const hostName = "@" + (userName || "Panga");
-            const roomImg = roomImageBase64 || userAvatar || "https://photos.pinksale.finance/file/pinksale-logo-upload/1789411086014-7b67968ed9538e215f1948583ee37c7c.png";
-            const roomId = "room-" + Date.now();
-
-            const nuevaSala = { id: roomId, topic, host: hostName, img: roomImg };
-
-            // Enviar la sala a Firebase para que todos los usuarios la vean al instante
-            dbRef.child(roomId).set(nuevaSala).then(() => {
-                if(topicInput) topicInput.value = "";
-                const createBox = document.getElementById('createRoomBox');
-                if(createBox) createBox.style.display = 'none';
-                roomImageBase64 = "";
-                const imgNameEl = document.getElementById('roomImgName');
-                if(imgNameEl) imgNameEl.innerText = "";
-
-                unirseSalaPorId(roomId);
-            }).catch(err => {
-                alert("Error al transmitir: " + err.message);
-            });
-        }
-
-        function unirseSalaPorId(roomId) {
-            const room = voiceRooms.find(r => r.id === roomId);
-            if (!room) return;
-            
-            activeRoomData = roomId;
-            currentRoomTopic = room.topic;
-            localStorage.setItem('zard_active_room_id', roomId);
-
-            document.getElementById('liveRoomTopicBig').innerText = room.topic;
-            document.getElementById('liveRoomHostBig').innerText = "Anfitrión: " + room.host;
-            document.getElementById('liveRoomImgBigContainer').innerHTML = `<img src="${room.img}" style="width:90px; height:90px; border-radius:50%; border:3px solid var(--neon-green); object-fit:cover;">`;
-            document.getElementById('activeVoiceRoomBox').style.display = 'block';
-            document.getElementById('floatingVoiceBar').style.display = 'none';
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-
-        function minimizarSalaVoz() {
-            document.getElementById('activeVoiceRoomBox').style.display = 'none';
-            document.getElementById('floatingRoomTitle').innerText = currentRoomTopic;
-            document.getElementById('floatingVoiceBar').style.display = 'flex';
-        }
-
-        function maximizarSalaVoz() {
-            document.getElementById('floatingVoiceBar').style.display = 'none';
-            document.getElementById('activeVoiceRoomBox').style.display = 'block';
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-
-        function toggleSilenciarMic() {
-            isMicMuted = !isMicMuted;
-            const btn = document.getElementById('muteMicBtn');
-            const statusText = document.getElementById('floatingStatusText');
-            if(isMicMuted) {
-                btn.innerHTML = `<i class="fa-solid fa-microphone-slash"></i> <span>Silenciado</span>`;
-                statusText.innerText = "EN VIVO (Silenciado 🔇)";
-            } else {
-                btn.innerHTML = `<i class="fa-solid fa-microphone"></i> <span>Silenciar Micrófono</span>`;
-                statusText.innerText = "EN VIVO";
-            }
-        }
-
-        function cerrarSalaVozPorCompleto() {
-            document.getElementById('activeVoiceRoomBox').style.display = 'none';
-            document.getElementById('floatingVoiceBar').style.display = 'none';
-            localStorage.removeItem('zard_active_room_id');
-            
-            if (activeRoomData) {
-                // Eliminar la sala de Firebase para que desaparezca del carrusel de todos
-                dbRef.child(activeRoomData).remove();
-            }
-            activeRoomData = null;
-        }
-
-        function pedirLaPalabraSala() { alert("Has solicitado la palabra al anfitrión. Esperando autorización..."); }
-        function compartirEnlaceSala() { navigator.clipboard.writeText(window.location.href); alert("¡Enlace de la transmisión copiado!"); }
-        function chequearEnterChat(event) { if (event.key === 'Enter') { event.preventDefault(); enviarMensajeConTraduccion(); } }
-
-        function enviarMensajeConTraduccion() {
-            const input = document.getElementById('roomChatInput');
-            const chatBox = document.getElementById('roomChatBox');
-            const txt = input.value.trim();
-            if (!txt) return;
-
-            let translation = "";
-            let targetLangTag = "[EN]";
-            if(/[a-zA-Z]/.test(txt) && !/[áéíóúÁÉÍÓÚñÑ]/.test(txt)) {
-                targetLangTag = "[ES]";
-                translation = `Traducción: "${txt}" (Traducido al Español para la comunidad)`;
-            } else {
-                targetLangTag = "[EN]";
-                translation = `Translation: "${txt}" (Translated to English for global listeners)`;
-            }
-
-            chatBox.innerHTML += `
-                <div style="font-size: 0.9rem; margin-bottom: 12px; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 8px;">
-                    <strong style="color: var(--neon-purple);">@${userName}:</strong> ${txt}<br>
-                    <span style="font-size: 0.8rem; color: var(--neon-blue);">${targetLangTag} ${translation}</span>
-                </div>
-            `;
-            input.value = "";
-            chatBox.scrollTop = chatBox.scrollHeight;
-        }
-
-        function verMediaSeleccionada(event) {
-            const file = event.target.files[0];
-            if (!file) return;
-            mediaTypeTemp = file.type.startsWith('video') ? 'video' : 'image';
-            document.getElementById('fileNameDisplay').innerText = "Cargado: " + file.name;
-            const reader = new FileReader();
-            reader.onload = function(e) { mediaBase64Temp = e.target.result; };
-            reader.readAsDataURL(file);
-        }
-
-        function crearPublicacion() {
-            const texto = document.getElementById('postText').value.trim();
-            if (texto === "" && !mediaBase64Temp) { alert("Escribe algo o adjunta multimedia."); return; }
-            let publicaciones = JSON.parse(localStorage.getItem('zard_posts') || '[]');
-            const nuevaPub = {
-                id: Date.now(),
-                autor: "@" + userName,
-                avatar: userAvatar || "https://photos.pinksale.finance/file/pinksale-logo-upload/1789411086014-7b67968ed9538e215f1948583ee37c7c.png",
-                texto: texto,
-                media: mediaBase64Temp,
-                type: mediaTypeTemp,
-                fecha: new Date().toLocaleString()
-            };
-            publicaciones.unshift(nuevaPub);
-            localStorage.setItem('zard_posts', JSON.stringify(publicaciones));
-            document.getElementById('postText').value = "";
-            document.getElementById('postMediaFile').value = "";
-            document.getElementById('fileNameDisplay').innerText = "";
-            mediaBase64Temp = "";
-            cargarPublicaciones();
-        }
-
-        function cargarPublicaciones() {
-            const muro = document.getElementById('muroPublicaciones');
-            if (!muro) return;
-            let publicaciones = JSON.parse(localStorage.getItem('zard_posts') || '[]');
-            if (publicaciones.length === 0) {
-                muro.innerHTML = `<p style="color:var(--text-muted); font-size:0.9rem; margin-top:15px;">Aún no hay publicaciones.</p>`;
-                return;
-            }
-            let html = '';
-            publicaciones.forEach(pub => {
-                html += `
-                    <div class="post-card">
-                        <div style="display:flex; justify-content:space-between; align-items:center;">
-                            <div style="display:flex; align-items:center; gap:10px;">
-                                <img src="${pub.avatar}" class="profile-avatar-small" alt="Avatar">
-                                <div><strong style="color:var(--neon-blue); font-family:'Orbitron'; font-size:0.9rem;">${pub.autor}</strong></div>
-                            </div>
-                            <span style="font-size:0.75rem; color:var(--text-muted);">${pub.fecha}</span>
-                        </div>
-                        <p style="margin-top:12px; font-size:0.95rem; color:#fff; word-break:break-word;">${pub.texto}</p>
-                        ${pub.media ? (pub.type === 'video' ? `<video controls src="${pub.media}"></video>` : `<img src="${pub.media}" alt="Media">`) : ''}
-                    </div>
-                `;
-            });
-            muro.innerHTML = html;
         }
 
         function suscribirseCanal(canal) { alert("¡Te has suscrito a " + canal + "!"); }
