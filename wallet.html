@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ZARD NEXUS V5.0 - ZARD INNOVATION</title>
+    <title>ZARD NEXUS V5.1 - ZARD INNOVATION</title>
     <!-- Google Fonts & FontAwesome -->
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;800;900&family=Rajdhani:wght@500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -13,8 +13,8 @@
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
 
     <!-- Etiquetas Open Graph -->
-    <meta property="og:title" content="ZARD NEXUS V5.0 - ZARD INNOVATION">
-    <meta property="og:description" content="Dashboard Web3 Oficial, Gráficas en Vivo y Audio Spaces.">
+    <meta property="og:title" content="ZARD NEXUS V5.1 - ZARD INNOVATION">
+    <meta property="og:description" content="Dashboard Web3 Oficial, Gráficas en Vivo y Audio Spaces Pro.">
     <meta property="og:url" content="https://figueredo56.github.io/zaard-wallet/wallet.html">
     <meta property="og:type" content="website">
     <meta property="og:image" content="https://raw.githubusercontent.com/figueredo56/zaard-wallet/refs/heads/main/CC_20260527_151822.png">
@@ -180,7 +180,7 @@
             border: 2px solid var(--neon-green); margin-bottom: 10px;
         }
 
-        /* CONTENEDOR RECTANGULAR VERTICAL (ESTILO MÓVIL) CON FONDO DE AGUA */
+        /* CONTENEDOR RECTANGULAR VERTICAL ESTILO MÓVIL */
         #activeVoiceRoomBox {
             max-width: 440px; margin: 0 auto 25px auto;
             background: linear-gradient(135deg, rgba(12, 6, 26, 0.93), rgba(21, 10, 40, 0.93)),
@@ -312,34 +312,40 @@
                             <h3 style="color: var(--neon-green); font-size: 1.2rem; margin:0;"><i class="fa-solid fa-microphone-lines"></i> ZARD Audio Spaces (Salas en Vivo)</h3>
                             <button type="button" class="action-btn" onclick="abrirCrearSalaModal()" style="background: linear-gradient(135deg, #00ffcc, #00f3ff); color: #030107; font-size: 0.85rem; padding: 10px 18px;"><i class="fa-solid fa-plus"></i> Iniciar Sala de Voz</button>
                         </div>
-                        <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 15px;">Salas sincronizadas en tiempo real global.</p>
+                        <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 15px;">Salas de audio sincronizadas en tiempo real global.</p>
                         
                         <div class="voice-carousel" id="voiceRoomsCarousel">
-                            <p style="color:var(--text-muted); font-size:0.9rem;">No hay salas de voz activas. ¡Inicia una arriba!</p>
+                            <p style="color:var(--text-muted); font-size:0.9rem;">No hay transmisiones activas en este momento. ¡Inicia una arriba!</p>
                         </div>
                     </div>
 
-                    <!-- CONTENEDOR RECTANGULAR VERTICAL (ESTILO MÓVIL) PARA LA TRANSMISIÓN ACTIVA -->
+                    <!-- CONTENEDOR RECTANGULAR VERTICAL ESTILO MÓVIL PARA LA TRANSMISIÓN ACTIVA -->
                     <div id="activeVoiceRoomBox">
-                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
-                            <h3 id="liveRoomTitleBig" style="color: var(--neon-green); font-family: 'Orbitron'; font-size: 1.1rem; margin: 0;"><i class="fa-solid fa-broadcast-tower"></i> Transmisión en Vivo</h3>
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+                            <h3 id="liveRoomTitleBig" style="color: var(--neon-green); font-family: 'Orbitron'; font-size: 1.05rem; margin: 0;"><i class="fa-solid fa-broadcast-tower"></i> Transmisión</h3>
                             <div style="display: flex; gap: 6px;">
                                 <button type="button" class="action-btn" onclick="minimizarSalaVoz()" style="background: rgba(0,243,255,0.2); border: 1px solid var(--neon-blue); color: var(--neon-blue); padding: 4px 10px; font-size: 0.75rem;"><i class="fa-solid fa-window-minimize"></i></button>
                                 <span style="background: rgba(255,51,102,0.2); border: 1px solid var(--neon-red); color: var(--neon-red); padding: 2px 8px; border-radius: 6px; font-size: 0.75rem; font-weight: bold;"><i class="fa-solid fa-circle-dot"></i> LIVE</span>
                             </div>
                         </div>
                         
-                        <div style="display: flex; flex-direction: column; align-items: center; gap: 10px; margin-bottom: 15px;">
+                        <div style="display: flex; flex-direction: column; align-items: center; gap: 8px; margin-bottom: 12px;">
                             <div id="liveRoomImgBigContainer"></div>
                             <div>
-                                <h4 id="liveRoomTopicBig" style="color: #fff; font-family: 'Orbitron'; font-size: 1rem; margin-bottom: 3px;">Tema</h4>
+                                <h4 id="liveRoomTopicBig" style="color: #fff; font-family: 'Orbitron'; font-size: 1rem; margin-bottom: 2px;">Tema</h4>
                                 <p id="liveRoomHostBig" style="color: var(--text-muted); font-size: 0.85rem;">Host: @Panga</p>
                             </div>
                         </div>
 
-                        <!-- Chat en Vivo con Traducción Automática -->
+                        <!-- PANEL DE SOLICITUDES DE ORADORES (SOLO VISIBLE PARA EL ANFITRIÓN) -->
+                        <div id="speakersRequestBox" style="display: none; background: rgba(168,85,247,0.15); border: 1px solid var(--neon-purple); border-radius: 10px; padding: 10px; margin-bottom: 12px; text-align: left;">
+                            <div style="font-size:0.8rem; font-family:'Orbitron'; color:var(--neon-green); margin-bottom:6px;"><i class="fa-solid fa-users"></i> Solicitudes para Hablar:</div>
+                            <div id="speakersListContainer" style="font-size:0.8rem; color:#fff;">No hay solicitudes pendientes.</div>
+                        </div>
+
+                        <!-- Chat en Vivo con Moderación y Traducción -->
                         <div style="background: rgba(0,0,0,0.8); border-radius: 10px; padding: 10px; height: 160px; overflow-y: auto; text-align: left; margin-bottom: 12px; border: 1px solid var(--border-glow);" id="roomChatBox">
-                            <div style="font-size: 0.8rem; margin-bottom: 6px;"><strong style="color: var(--neon-blue);">ZARD Bot:</strong> Conectado a la transmisión (ES ⇄ EN).</div>
+                            <div style="font-size: 0.8rem; margin-bottom: 6px;"><strong style="color: var(--neon-blue);">ZARD Bot:</strong> Conectado a la transmisión.</div>
                         </div>
 
                         <div style="display: flex; gap: 8px; margin-bottom: 12px;">
@@ -347,9 +353,9 @@
                             <button type="button" class="action-btn" onclick="enviarMensajeConTraduccion()" style="padding: 8px 14px; font-size:0.85rem;"><i class="fa-solid fa-paper-plane"></i></button>
                         </div>
 
-                        <!-- BOTONES DINÁMICOS SEGÚN SI ERES ANFITRIÓN O OYENTE -->
+                        <!-- BOTONES DINÁMICOS SEGÚN ROL -->
                         <div id="roomActionButtonsContainer" style="display: flex; justify-content: center; gap: 8px; flex-wrap: wrap;">
-                            <!-- Se rellena automáticamente con JS -->
+                            <!-- Se actualiza con JS -->
                         </div>
                     </div>
 
@@ -556,13 +562,22 @@
             </div>
         </div>
         
-        <!-- PESTAÑA: BUSCADOR WEB3 -->
+        <!-- PESTAÑA: BUSCADOR WEB3 (PÁGINA PRINCIPAL ZAARD INNOVATION INTEGRADA) -->
         <div id="tab-browser" class="tab-content">
             <div class="card-grid">
-                <div class="fin-card" style="grid-column: span 2; text-align: center; padding: 30px 20px;">
-                    <h2 style="font-family: 'Orbitron', sans-serif; color: #00ffcc; font-size: 1.5em; margin-bottom: 15px;">ZAARD WEB SEARCH & APPS</h2>
-                    <div style="display: flex; gap: 12px; max-width: 700px; margin: 0 auto 25px auto;">
-                        <input type="text" id="webSearchInput" placeholder="Busca en internet..." style="flex:1; background:#0c061a; border:1px solid var(--border-glow); padding:16px 20px; border-radius:14px; color:#fff; outline:none; font-size: 1rem;">
+                <div class="fin-card" style="grid-column: span 2; padding: 20px;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; flex-wrap: wrap; gap: 10px;">
+                        <h2 style="font-family: 'Orbitron', sans-serif; color: #00ffcc; font-size: 1.2em; margin: 0;"><i class="fa-solid fa-globe"></i> Portal Oficial ZAARD INNOVATION</h2>
+                        <a href="https://figueredo56.github.io/DAIoficial/" target="_blank" class="action-btn" style="text-decoration: none; font-size: 0.8rem; padding: 6px 14px;"><i class="fa-solid fa-up-right-from-square"></i> Abrir en Pantalla Completa</a>
+                    </div>
+
+                    <!-- IFRAME DE LA PÁGINA PRINCIPAL -->
+                    <div style="width: 100%; height: 500px; border-radius: 14px; overflow: hidden; border: 1px solid var(--border-glow); background: #000; margin-bottom: 25px;">
+                        <iframe src="https://figueredo56.github.io/DAIoficial/" width="100%" height="100%" style="border: 0;" loading="lazy"></iframe>
+                    </div>
+
+                    <div style="display: flex; gap: 12px; max-width: 700px; margin: 0 auto;">
+                        <input type="text" id="webSearchInput" placeholder="Busca en internet o ingresa una URL..." style="flex:1; background:#0c061a; border:1px solid var(--border-glow); padding:14px 18px; border-radius:12px; color:#fff; outline:none; font-size: 0.95rem;">
                         <button type="button" class="action-btn" onclick="buscarEnInternet()">Buscar</button>
                     </div>
                 </div>
@@ -624,8 +639,9 @@
         let mediaBase64Temp = "";
         let mediaTypeTemp = "image";
         let roomImageBase64 = "";
-        let activeRoomObj = null; // Guarda {id, topic, host, img} de la sala actual
+        let activeRoomObj = null;
         let isMicMuted = false;
+        let esOradorAceptado = false;
 
         const CONTRACT_ZARD = "0x973ba2c1dccd0820f1e026d6b1f01c55c4085d38";
         const CONTRACT_PANGA = "0x6a7cc7d5749e028c8f78f29c1d6ac8eda0eefad2";
@@ -640,7 +656,7 @@
                 document.getElementById('welcome-screen').style.display = 'flex';
             }
 
-            // Sincronizar salas en vivo de Firebase (Sin salas fantasmas predeterminadas)
+            // Escuchar Transmisiones Globales en Vivo
             dbRef.on('value', (snapshot) => {
                 const data = snapshot.val();
                 const carousel = document.getElementById('voiceRoomsCarousel');
@@ -660,7 +676,7 @@
                     });
                     carousel.innerHTML = roomsHtml;
                 } else {
-                    carousel.innerHTML = `<p style="color:var(--text-muted); font-size:0.9rem;">No hay transmisiones activas en este momento. ¡Crea una!</p>`;
+                    carousel.innerHTML = `<p style="color:var(--text-muted); font-size:0.9rem;">No hay transmisiones activas en este momento. ¡Inicia una arriba!</p>`;
                 }
             });
 
@@ -717,7 +733,7 @@
             evt.currentTarget.classList.add('active');
         }
 
-        /* GESTIÓN DE TRANSMISIONES DE VOZ */
+        /* CONTROL DE TRANSMISIONES DE VOZ */
         function abrirCrearSalaModal() {
             const box = document.getElementById('createRoomBox');
             if (box) box.style.display = box.style.display === 'none' ? 'block' : 'none';
@@ -741,9 +757,8 @@
             const roomImg = roomImageBase64 || userAvatar || "https://photos.pinksale.finance/file/pinksale-logo-upload/1789411086014-7b67968ed9538e215f1948583ee37c7c.png";
             const roomId = "room-" + Date.now();
 
-            const nuevaSala = { id: roomId, topic: topic, host: cleanUserName, img: roomImg };
+            const nuevaSala = { id: roomId, topic: topic, host: cleanUserName, img: roomImg, requests: {} };
 
-            // Guardar en Firebase para que todos la vean
             dbRef.child(roomId).set(nuevaSala);
 
             if(topicInput) topicInput.value = "";
@@ -763,25 +778,81 @@
             document.getElementById('liveRoomHostBig').innerText = "Host: " + room.host;
             document.getElementById('liveRoomImgBigContainer').innerHTML = `<img src="${room.img}" style="width:75px; height:75px; border-radius:50%; border:3px solid var(--neon-green); object-fit:cover;">`;
             
-            // Renderizar botones según el rol (Anfitrión vs Oyente)
-            const btnContainer = document.getElementById('roomActionButtonsContainer');
+            // Escuchar solicitudes de oradores en Firebase si es anfitrión
             if (esAnfitrion) {
-                btnContainer.innerHTML = `
-                    <button type="button" class="action-btn" onclick="cerrarTransmisionAnfitriona()" style="background: rgba(255,51,102,0.3); border:1px solid var(--neon-red); color:var(--neon-red); font-size: 0.8rem; padding: 8px 14px;"><i class="fa-solid fa-power-off"></i> Cerrar Transmisión</button>
-                    <button type="button" class="action-btn" onclick="minimizarSalaVoz()" style="background: rgba(0,243,255,0.2); border:1px solid var(--neon-blue); color:var(--neon-blue); font-size: 0.8rem; padding: 8px 14px;"><i class="fa-solid fa-window-minimize"></i> Minimizar</button>
-                `;
+                document.getElementById('speakersRequestBox').style.display = 'block';
+                dbRef.child(room.id).child('requests').on('value', (snap) => {
+                    const reqs = snap.val();
+                    const container = document.getElementById('speakersListContainer');
+                    if (!reqs) {
+                        container.innerHTML = "No hay solicitudes pendientes.";
+                        return;
+                    }
+                    let html = '';
+                    Object.entries(reqs).forEach(([userKey, userVal]) => {
+                        html += `
+                            <div style="display:flex; justify-content:space-between; align-items:center; margin-top:4px;">
+                                <span>${userVal.name} desea hablar</span>
+                                <button type="button" class="action-btn" onclick="aceptarOrador('${room.id}', '${userKey}', '${userVal.name}')" style="padding:3px 8px; font-size:0.7rem; background:linear-gradient(135deg,#00ffcc,#00f3ff); color:#000;">Aceptar</button>
+                            </div>
+                        `;
+                    });
+                    container.innerHTML = html;
+                });
             } else {
-                btnContainer.innerHTML = `
-                    <button type="button" id="muteMicBtn" class="action-btn" onclick="toggleSilenciarMic()" style="background: rgba(255,193,7,0.2); border:1px solid #ffc107; color:#ffc107; font-size: 0.8rem; padding: 8px 12px;"><i class="fa-solid fa-microphone"></i> Silenciar</button>
-                    <button type="button" class="action-btn" onclick="pedirLaPalabraSala()" style="background: rgba(0,255,204,0.2); border:1px solid var(--neon-green); color:var(--neon-green); font-size: 0.8rem; padding: 8px 12px;"><i class="fa-solid fa-hand"></i> Hablar</button>
-                    <button type="button" class="action-btn" onclick="minimizarSalaVoz()" style="background: rgba(0,243,255,0.2); border:1px solid var(--neon-blue); color:var(--neon-blue); font-size: 0.8rem; padding: 8px 12px;"><i class="fa-solid fa-window-minimize"></i> Minimizar</button>
-                    <button type="button" class="action-btn" onclick="salirDeSalaActual()" style="background: rgba(255,51,102,0.2); border:1px solid var(--neon-red); color:var(--neon-red); font-size: 0.8rem; padding: 8px 12px;"><i class="fa-solid fa-right-from-bracket"></i> Salir</button>
-                `;
+                document.getElementById('speakersRequestBox').style.display = 'none';
             }
 
+            renderizarBotonesTransmitir(esAnfitrion);
             document.getElementById('activeVoiceRoomBox').style.display = 'block';
             document.getElementById('floatingVoiceBar').style.display = 'none';
             window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function renderizarBotonesTransmitir(esAnfitrion) {
+            const btnContainer = document.getElementById('roomActionButtonsContainer');
+            const micText = isMicMuted ? `<i class="fa-solid fa-microphone-slash"></i> Activar Mic` : `<i class="fa-solid fa-microphone"></i> Silenciar`;
+            
+            if (esAnfitrion) {
+                btnContainer.innerHTML = `
+                    <button type="button" id="muteMicBtn" class="action-btn" onclick="toggleSilenciarMic()" style="background: rgba(255,193,7,0.2); border:1px solid #ffc107; color:#ffc107; font-size: 0.75rem; padding: 7px 10px;">${micText}</button>
+                    <button type="button" class="action-btn" onclick="minimizarSalaVoz()" style="background: rgba(0,243,255,0.2); border:1px solid var(--neon-blue); color:var(--neon-blue); font-size: 0.75rem; padding: 7px 10px;"><i class="fa-solid fa-window-minimize"></i> Minimizar</button>
+                    <button type="button" class="action-btn" onclick="cerrarTransmisionAnfitriona()" style="background: rgba(255,51,102,0.3); border:1px solid var(--neon-red); color:var(--neon-red); font-size: 0.75rem; padding: 7px 10px;"><i class="fa-solid fa-power-off"></i> Cerrar Transmisión</button>
+                `;
+            } else {
+                let hablarBtn = `<button type="button" class="action-btn" onclick="pedirLaPalabraSala()" style="background: rgba(0,255,204,0.2); border:1px solid var(--neon-green); color:var(--neon-green); font-size: 0.75rem; padding: 7px 10px;"><i class="fa-solid fa-hand"></i> Pedir Hablar</button>`;
+                
+                if (esOradorAceptado) {
+                    hablarBtn = `<button type="button" id="muteMicBtn" class="action-btn" onclick="toggleSilenciarMic()" style="background: rgba(255,193,7,0.2); border:1px solid #ffc107; color:#ffc107; font-size: 0.75rem; padding: 7px 10px;">${micText}</button>`;
+                }
+
+                btnContainer.innerHTML = `
+                    ${hablarBtn}
+                    <button type="button" class="action-btn" onclick="minimizarSalaVoz()" style="background: rgba(0,243,255,0.2); border:1px solid var(--neon-blue); color:var(--neon-blue); font-size: 0.75rem; padding: 7px 10px;"><i class="fa-solid fa-window-minimize"></i> Minimizar</button>
+                    <button type="button" class="action-btn" onclick="salirDeSalaActual()" style="background: rgba(255,51,102,0.2); border:1px solid var(--neon-red); color:var(--neon-red); font-size: 0.75rem; padding: 7px 10px;"><i class="fa-solid fa-right-from-bracket"></i> Salir</button>
+                `;
+            }
+        }
+
+        function toggleSilenciarMic() {
+            isMicMuted = !isMicMuted;
+            const statusText = document.getElementById('floatingStatusText');
+            statusText.innerText = isMicMuted ? "EN VIVO (Silenciado 🔇)" : "EN VIVO";
+            const cleanUserName = userName.startsWith('@') ? userName : "@" + userName;
+            renderizarBotonesTransmitir(activeRoomObj && activeRoomObj.host === cleanUserName);
+        }
+
+        function pedirLaPalabraSala() {
+            if (!activeRoomObj) return;
+            const cleanUserName = userName.startsWith('@') ? userName : "@" + userName;
+            const reqId = cleanUserName.replace(/[^a-zA-Z0-9]/g, '_');
+            dbRef.child(activeRoomObj.id).child('requests').child(reqId).set({ name: cleanUserName });
+            alert("Solicitud enviada al anfitrión para hablar.");
+        }
+
+        function aceptarOrador(roomId, userKey, name) {
+            dbRef.child(roomId).child('requests').child(userKey).remove();
+            alert("Has aceptado a " + name + " para hablar en vivo.");
         }
 
         function minimizarSalaVoz() {
@@ -797,27 +868,13 @@
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
-        function toggleSilenciarMic() {
-            isMicMuted = !isMicMuted;
-            const btn = document.getElementById('muteMicBtn');
-            const statusText = document.getElementById('floatingStatusText');
-            if(isMicMuted) {
-                if(btn) btn.innerHTML = `<i class="fa-solid fa-microphone-slash"></i> Silenciado`;
-                statusText.innerText = "EN VIVO (Silenciado 🔇)";
-            } else {
-                if(btn) btn.innerHTML = `<i class="fa-solid fa-microphone"></i> Silenciar`;
-                statusText.innerText = "EN VIVO";
-            }
-        }
-
-        // Salir como oyente (no borra la sala de Firebase, solo te sales de la vista)
         function salirDeSalaActual() {
             document.getElementById('activeVoiceRoomBox').style.display = 'none';
             document.getElementById('floatingVoiceBar').style.display = 'none';
             activeRoomObj = null;
+            esOradorAceptado = false;
         }
 
-        // Cerrar transmisión como anfitrión (elimina la sala de Firebase para todos)
         function cerrarTransmisionAnfitriona() {
             if (activeRoomObj && activeRoomObj.id) {
                 dbRef.child(activeRoomObj.id).remove();
@@ -825,8 +882,6 @@
             salirDeSalaActual();
             alert("Has finalizado la transmisión.");
         }
-
-        function pedirLaPalabraSala() { alert("Has solicitado la palabra al anfitrión."); }
 
         function enviarMensajeConTraduccion() {
             const input = document.getElementById('roomChatInput');
@@ -845,14 +900,25 @@
             }
 
             const cleanAuthor = userName.startsWith('@') ? userName : "@" + userName;
+            const msgId = "msg-" + Date.now();
+            const esAnfitrion = activeRoomObj && activeRoomObj.host === cleanAuthor;
+
             chatBox.innerHTML += `
-                <div style="font-size: 0.8rem; margin-bottom: 6px;">
-                    <strong style="color: var(--neon-purple);">${cleanAuthor}:</strong> ${txt}<br>
-                    <span style="font-size: 0.7rem; color: var(--neon-blue);">${targetLangTag} ${translation}</span>
+                <div id="${msgId}" style="font-size: 0.8rem; margin-bottom: 6px; display:flex; justify-content:space-between; align-items:flex-start;">
+                    <div>
+                        <strong style="color: var(--neon-purple);">${cleanAuthor}:</strong> ${txt}<br>
+                        <span style="font-size: 0.7rem; color: var(--neon-blue);">${targetLangTag} ${translation}</span>
+                    </div>
+                    ${esAnfitrion ? `<button type="button" onclick="eliminarMensajeChat('${msgId}')" style="background:transparent; border:none; color:var(--neon-red); cursor:pointer; font-size:0.75rem;" title="Eliminar grosería"><i class="fa-solid fa-trash"></i></button>` : ''}
                 </div>
             `;
             input.value = "";
             chatBox.scrollTop = chatBox.scrollHeight;
+        }
+
+        function eliminarMensajeChat(msgId) {
+            const elem = document.getElementById(msgId);
+            if(elem) elem.remove();
         }
 
         /* PUBLICACIONES Y PRECIOS */
@@ -1042,7 +1108,13 @@
         function suscribirseCanal(canal) { alert("¡Te has suscrito a " + canal + "!"); }
         function buscarEnInternet() {
             const query = document.getElementById('webSearchInput').value;
-            if (query.trim() !== "") window.open(`https://www.google.com/search?q=${encodeURIComponent(query)}`, '_blank');
+            if (query.trim() !== "") {
+                if (query.startsWith('http://') || query.startsWith('https://')) {
+                    window.open(query, '_blank');
+                } else {
+                    window.open(`https://www.google.com/search?q=${encodeURIComponent(query)}`, '_blank');
+                }
+            }
         }
     </script>
 </body>
