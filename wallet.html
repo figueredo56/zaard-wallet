@@ -8,12 +8,12 @@
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;800;900&family=Rajdhani:wght@500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-    <!-- Etiquetas Open Graph -->
+    <!-- Etiquetas Open Graph con tu Imagen Oficial -->
     <meta property="og:title" content="ZARD NEXUS V3.6 - ZARD INNOVATION">
     <meta property="og:description" content="Dashboard Web3 Oficial, Pares de Mercado y Conexión de Billetera para el Ecosistema ZARD.">
     <meta property="og:url" content="https://figueredo56.github.io/zaard-wallet/wallet.html">
     <meta property="og:type" content="website">
-    <meta property="og:image" content="https://raw.githubusercontent.com/figueredo56/ZARD.token/refs/heads/main/170%20sin%20t%C3%ADtulo_20260707213436.png">
+    <meta property="og:image" content="https://raw.githubusercontent.com/figueredo56/zaard-wallet/refs/heads/main/CC_20260527_151822.png">
 
     <style>
         :root {
@@ -269,7 +269,7 @@
                 </div>
             </div>
             <div class="controls-bar">
-                <!-- SELECTOR DE IDIOMA GLOBAL (ESPAÑOL, INGLÉS, ÁRABE, CHINO) -->
+                <!-- SELECTOR DE IDIOMA GLOBAL -->
                 <select id="langSelector" onchange="cambiarIdiomaGlobal(this.value)">
                     <option value="es">🇪🇸 Español</option>
                     <option value="en">🇬🇧 English</option>
@@ -336,12 +336,12 @@
                             </div>
                         </div>
 
-                        <!-- Chat en Vivo Limpio (Sin mensajes fantasma repetidos) -->
+                        <!-- Chat en Vivo Limpio -->
                         <div style="background: rgba(0,0,0,0.7); border-radius: 10px; padding: 15px; height: 240px; overflow-y: auto; text-align: left; margin-bottom: 15px; border: 1px solid var(--border-glow);" id="roomChatBox">
                             <div style="font-size: 0.9rem; margin-bottom: 10px;"><strong style="color: var(--neon-blue);">ZARD System:</strong> <span id="chatWelcomeMsg">Conectado a la sala de voz en vivo. Envía un mensaje o presiona Enter en tu teclado.</span></div>
                         </div>
 
-                        <!-- Input con soporte Enter y envío móvil -->
+                        <!-- Input con soporte Enter -->
                         <div style="display: flex; gap: 10px; margin-bottom: 15px;">
                             <input type="text" id="roomChatInput" placeholder="Escribe un mensaje..." onkeydown="chequearEnterChat(event)" style="flex:1; background:#05020a; border:1px solid var(--border-glow); padding:12px 16px; border-radius:10px; color:#fff; outline:none; font-size: 1rem;">
                             <button class="action-btn" onclick="enviarMensajeSala()" style="padding: 12px 22px;" id="sendBtnText"><i class="fa-solid fa-paper-plane"></i> Enviar</button>
@@ -522,7 +522,7 @@
         let currentRoomTopic = "";
         let currentLang = localStorage.getItem('zard_lang') || "es";
 
-        // DICCIONARIO DE IDIOMAS (ESPAÑOL, INGLÉS, ÁRABE, CHINO)
+        // DICCIONARIO DE IDIOMAS
         const i18n = {
             es: {
                 welcomeSub: "Configura tu Perfil Web3 Exclusivo",
@@ -751,7 +751,6 @@
                 root.setAttribute('dir', 'ltr');
             }
 
-            // Traducir textos estáticos de la interfaz
             document.getElementById('welcomeSubText').innerText = t.welcomeSub;
             document.getElementById('uploadLabelText').innerHTML = `<i class="fa-solid fa-camera"></i> ${t.uploadLabel} <input type="file" id="userAvatarFile" accept="image/*" style="display: none;" onchange="cargarAvatarMemoria(event)">`;
             document.getElementById('enterBtnText').innerHTML = `<i class="fa-solid fa-rocket"></i> ${t.enterBtn}`;
@@ -918,8 +917,12 @@
             } catch (e) { console.error(e); }
         }
 
-        // SALAS DE VOZ
+        // SALAS DE VOZ (BLOQUEO DE MÚLTIPLES TRANSMISIONES SIMULTÁNEAS)
         function abrirCrearSalaModal() {
+            if (activeRoomData) {
+                alert("Ya tienes una transmisión o sala activa. Debes cerrarla antes de crear o abrir otra.");
+                return;
+            }
             const box = document.getElementById('createRoomBox');
             box.style.display = box.style.display === 'none' ? 'block' : 'none';
         }
@@ -934,6 +937,11 @@
         }
 
         function lanzarSalaVoz() {
+            if (activeRoomData) {
+                alert("Ya tienes una transmisión activa. Cierra la sala actual antes de iniciar otra.");
+                return;
+            }
+
             const topic = document.getElementById('roomTopicInput').value.trim();
             if (!topic) { alert("Escribe el tema de la sala."); return; }
 
@@ -950,16 +958,20 @@
                 <img src="${roomImg}" alt="Room">
                 <h4 style="color: #fff; font-size: 0.95rem; font-family: 'Orbitron'; margin-bottom: 4px;">${topic}</h4>
                 <p style="color: var(--text-muted); font-size: 0.8rem; margin-bottom: 12px;">Host: ${hostName}</p>
-                <button class="action-btn" onclick="unirseSalaVoz('${topic}', '${hostName}', '${roomImg}', '${roomId}')" style="padding: 8px 16px; font-size: 0.85rem;">Escuchar</button>
+                <button class="action-btn" onclick="unirseSalaVoz('${topic.replace(/'/g, "\\'")}', '${hostName}', '${roomImg}', '${roomId}')" style="padding: 8px 16px; font-size: 0.85rem;">Escuchar</button>
             `;
             carousel.prepend(newCard);
             document.getElementById('roomTopicInput').value = "";
             document.getElementById('createRoomBox').style.display = 'none';
-            alert("¡Sala de voz en vivo iniciada!");
             unirseSalaVoz(topic, hostName, roomImg, roomId);
         }
 
         function unirseSalaVoz(topic, host, img, roomId) {
+            if (activeRoomData && activeRoomData !== roomId) {
+                alert("Ya tienes una sala o transmisión en curso. Debes cerrarla antes de unirte a otra.");
+                return;
+            }
+
             activeRoomData = roomId;
             currentRoomTopic = topic;
             
@@ -1010,11 +1022,9 @@
             localStorage.removeItem('zard_active_room');
             if (activeRoomData && document.getElementById(activeRoomData)) {
                 document.getElementById(activeRoomData).remove();
-                alert("Has cerrado y finalizado la transmisión de voz por completo.");
-            } else {
-                alert("Has salido de la sala activa.");
             }
             activeRoomData = null;
+            alert("Has cerrado y finalizado la transmisión de voz por completo.");
         }
 
         function pedirLaPalabraSala() {
