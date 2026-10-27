@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ZARD NEXUS V4.5 - ZARD INNOVATION</title>
+    <title>ZARD NEXUS V4.6 - ZARD INNOVATION</title>
     <!-- Google Fonts & FontAwesome -->
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;800;900&family=Rajdhani:wght@500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <!-- Etiquetas Open Graph con tu Imagen Oficial -->
-    <meta property="og:title" content="ZARD NEXUS V4.5 - ZARD INNOVATION">
+    <meta property="og:title" content="ZARD NEXUS V4.6 - ZARD INNOVATION">
     <meta property="og:description" content="Dashboard Web3 Oficial, Gráficas en Vivo, Pares de Mercado y Conexión de Billetera.">
     <meta property="og:url" content="https://figueredo56.github.io/zaard-wallet/wallet.html">
     <meta property="og:type" content="website">
@@ -689,7 +689,7 @@
                 document.getElementById('welcome-screen').style.display = 'flex';
             }
             
-            // Inicializar salas de voz por defecto si está vacío
+            // Si no hay salas guardadas, iniciar con una por defecto opcional
             if (voiceRooms.length === 0) {
                 voiceRooms = [{
                     id: 'room-default',
@@ -713,6 +713,10 @@
 
         function renderizarSalasVoz() {
             const carousel = document.getElementById('voiceRoomsCarousel');
+            if (voiceRooms.length === 0) {
+                carousel.innerHTML = `<p style="color:var(--text-muted); font-size:0.9rem;">No hay salas de voz activas. ¡Inicia una arriba!</p>`;
+                return;
+            }
             let html = '';
             voiceRooms.forEach(room => {
                 html += `
@@ -911,7 +915,6 @@
 
         /* FUNCIONES DE SALAS DE VOZ & TRADUCTOR ESPAÑOL ⇄ INGLÉS */
         function abrirCrearSalaModal() {
-            if (activeRoomData) { alert("Ya tienes una transmisión activa."); return; }
             const box = document.getElementById('createRoomBox');
             box.style.display = box.style.display === 'none' ? 'block' : 'none';
         }
@@ -926,7 +929,6 @@
         }
 
         function lanzarSalaVoz() {
-            if (activeRoomData) { alert("Ya tienes una transmisión activa."); return; }
             const topic = document.getElementById('roomTopicInput').value.trim();
             if (!topic) { alert("Escribe el tema de la sala."); return; }
 
@@ -950,7 +952,6 @@
         function unirseSalaPorId(roomId) {
             const room = voiceRooms.find(r => r.id === roomId);
             if (!room) return;
-            if (activeRoomData && activeRoomData !== roomId) { alert("Ya tienes una sala en curso."); return; }
             
             activeRoomData = roomId;
             currentRoomTopic = room.topic;
@@ -995,14 +996,6 @@
             localStorage.removeItem('zard_active_room');
             if (activeRoomData) {
                 voiceRooms = voiceRooms.filter(r => r.id !== activeRoomData);
-                if (voiceRooms.length === 0) {
-                    voiceRooms = [{
-                        id: 'room-default',
-                        topic: 'Análisis ZARD & PANGA',
-                        host: '@Panga',
-                        img: 'https://photos.pinksale.finance/file/pinksale-logo-upload/1789411086014-7b67968ed9538e215f1948583ee37c7c.png'
-                    }];
-                }
                 localStorage.setItem('zard_voice_rooms', JSON.stringify(voiceRooms));
                 renderizarSalasVoz();
             }
