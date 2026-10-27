@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ZARD NEXUS V5.3 - ZARD INNOVATION</title>
+    <title>ZARD NEXUS V5.5 - ZARD INNOVATION</title>
     <!-- Google Fonts & FontAwesome -->
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;800;900&family=Rajdhani:wght@500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -13,7 +13,7 @@
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
 
     <!-- Etiquetas Open Graph -->
-    <meta property="og:title" content="ZARD NEXUS V5.3 - ZARD INNOVATION">
+    <meta property="og:title" content="ZARD NEXUS V5.5 - ZARD INNOVATION">
     <meta property="og:description" content="Dashboard Web3 Oficial, Gráficas en Vivo y Audio Spaces Pro.">
     <meta property="og:url" content="https://figueredo56.github.io/zaard-wallet/wallet.html">
     <meta property="og:type" content="website">
@@ -154,16 +154,16 @@
             box-shadow: 0 0 15px rgba(168, 85, 247, 0.4);
         }
 
-        /* ESTILOS DE PUBLICACIONES EN EL MURO (LETRA MÁS GRANDE Y CLARA) */
+        /* ESTILOS DE PUBLICACIONES EN EL MURO (LETRA BIEN GRANDE Y CLARA) */
         .post-card {
-            background: #0c061a; border: 1px solid rgba(168, 85, 247, 0.3);
+            background: #0c061a; border: 1px solid rgba(168, 85, 247, 0.35);
             border-radius: 14px; padding: 22px; margin-top: 18px; box-shadow: 0 4px 25px rgba(0,0,0,0.6);
         }
         .post-avatar-small {
             width: 40px; height: 40px; border-radius: 50%; object-fit: cover; border: 1.5px solid var(--neon-blue); flex-shrink: 0;
         }
         .post-text-content {
-            margin-top: 15px; font-size: 1.2rem; color: #ffffff; line-height: 1.6; word-break: break-word; font-weight: 600;
+            margin-top: 15px; font-size: 1.25rem; color: #ffffff; line-height: 1.6; word-break: break-word; font-weight: 600;
         }
         /* IMÁGENES Y VIDEOS CENTRADOS Y MÁS GRANDES */
         .post-media-container {
@@ -178,7 +178,7 @@
         }
         .interaction-btn {
             background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1); color: var(--text-muted);
-            padding: 7px 14px; border-radius: 8px; cursor: pointer; font-size: 0.9rem; display: flex; align-items: center; gap: 6px; transition: 0.2s;
+            padding: 7px 14px; border-radius: 8px; cursor: pointer; font-size: 0.95rem; display: flex; align-items: center; gap: 6px; transition: 0.2s;
         }
         .interaction-btn:hover { background: rgba(168,85,247,0.15); border-color: var(--neon-purple); color: #fff; }
 
@@ -647,14 +647,15 @@
     </div>
 
     <script>
-        // CONFIGURACIÓN FIREBASE GLOBAL
+        // FIREBASE INTEGRADO Y CONFIGURADO PARA ZAARD NEXUS
         const firebaseConfig = { databaseURL: "https://zard-nexus-default-rtdb.firebaseio.com/" };
         if (!firebase.apps.length) { firebase.initializeApp(firebaseConfig); }
+        
         const dbRef = firebase.database().ref('zard_global_voice_rooms');
-        const postsRef = firebase.database().ref('zard_global_posts'); // Sincronización global del Muro
+        const postsRef = firebase.database().ref('zard_global_posts');
 
         let userName = localStorage.getItem('zard_username') || "";
-        let userBio = localStorage.getItem('zard_userbio') || "Entusiasta de la Web3 y el ecosistema ZAARD";
+        let userBio = localStorage.getItem('zard_userbio') || "Apoya al 100% el ecosistema ZAARD INNOVATION";
         let userAvatar = localStorage.getItem('zard_useravatar') || "";
         let cuentaActual = null;
         let mediaBase64Temp = "";
@@ -678,7 +679,7 @@
                 document.getElementById('welcome-screen').style.display = 'flex';
             }
 
-            // Sincronización de Salas de Voz en Tiempo Real
+            // Sincronización de Salas de Voz Globales
             dbRef.on('value', (snapshot) => {
                 const data = snapshot.val();
                 const carousel = document.getElementById('voiceRoomsCarousel');
@@ -702,7 +703,7 @@
                 }
             });
 
-            // Sincronización del Muro de Publicaciones en Tiempo Real (Firebase)
+            // Sincronización del Muro Global en Tiempo Real
             postsRef.on('value', (snapshot) => {
                 const data = snapshot.val();
                 const muro = document.getElementById('muroPublicaciones');
@@ -713,7 +714,7 @@
                     return;
                 }
 
-                let publicaciones = Object.values(data).reverse(); // Ordenar de más reciente a más antigua
+                let publicaciones = Object.values(data).reverse();
                 let html = '';
                 publicaciones.forEach((pub) => {
                     html += `
@@ -997,7 +998,7 @@
             if(elem) elem.remove();
         }
 
-        /* PUBLICACIONES SINCRONIZADAS GLOBALMENTE CON FIREBASE */
+        /* PUBLICACIONES SINCRONIZADAS GLOBALMENTE */
         function verMediaSeleccionada(event) {
             const file = event.target.files[0];
             if (!file) return;
@@ -1028,7 +1029,6 @@
                 reposts: 0
             };
 
-            // Guardar en Firebase para que aparezca en el teléfono de tu amiga en tiempo real
             postsRef.child(postId).set(nuevaPub);
 
             document.getElementById('postText').value = "";
