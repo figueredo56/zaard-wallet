@@ -3,13 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ZARD NEXUS V4.7 - ZARD INNOVATION</title>
+    <title>ZARD NEXUS V4.8 - ZARD INNOVATION</title>
     <!-- Google Fonts & FontAwesome -->
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;800;900&family=Rajdhani:wght@500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
+    <!-- Firebase SDK (Para sincronización global en tiempo real de las salas de voz) -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
+
     <!-- Etiquetas Open Graph con tu Imagen Oficial -->
-    <meta property="og:title" content="ZARD NEXUS V4.7 - ZARD INNOVATION">
+    <meta property="og:title" content="ZARD NEXUS V4.8 - ZARD INNOVATION">
     <meta property="og:description" content="Dashboard Web3 Oficial, Gráficas en Vivo, Pares de Mercado y Conexión de Billetera.">
     <meta property="og:url" content="https://figueredo56.github.io/zaard-wallet/wallet.html">
     <meta property="og:type" content="website">
@@ -304,12 +308,12 @@
                     <div style="background: #0c061a; border: 1px solid var(--neon-green); border-radius: 14px; padding: 20px; margin-bottom: 25px;">
                         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; flex-wrap: wrap; gap: 10px;">
                             <h3 style="color: var(--neon-green); font-size: 1.2rem; margin:0;"><i class="fa-solid fa-microphone-lines"></i> ZARD Audio Spaces (Salas de Voz en Vivo)</h3>
-                            <button class="action-btn" onclick="abrirCrearSalaModal()" style="background: linear-gradient(135deg, #00ffcc, #00f3ff); color: #030107; font-size: 0.85rem; padding: 10px 18px;"><i class="fa-solid fa-plus"></i> Iniciar Sala de Voz</button>
+                            <button type="button" class="action-btn" onclick="abrirCrearSalaModal()" style="background: linear-gradient(135deg, #00ffcc, #00f3ff); color: #030107; font-size: 0.85rem; padding: 10px 18px;"><i class="fa-solid fa-plus"></i> Iniciar Sala de Voz</button>
                         </div>
-                        <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 15px;">Salas de llamadas en alta voz con control total, silenciar micrófono, pedir la palabra y minimizado flotante.</p>
+                        <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 15px;">Salas sincronizadas en tiempo real global con control total, silenciar micrófono, pedir la palabra y minimizado flotante.</p>
                         
                         <div class="voice-carousel" id="voiceRoomsCarousel">
-                            <!-- Las salas se cargan dinámicamente aquí -->
+                            <!-- Las salas se cargan dinámicamente aquí en tiempo real -->
                         </div>
                     </div>
 
@@ -318,7 +322,7 @@
                         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
                             <h3 id="liveRoomTitleBig" style="color: var(--neon-green); font-family: 'Orbitron'; font-size: 1.3rem; margin: 0;"><i class="fa-solid fa-broadcast-tower"></i> Sala Activa</h3>
                             <div style="display: flex; gap: 8px;">
-                                <button class="action-btn" onclick="minimizarSalaVoz()" style="background: rgba(0,243,255,0.2); border: 1px solid var(--neon-blue); color: var(--neon-blue); padding: 5px 12px; font-size: 0.8rem;"><i class="fa-solid fa-window-minimize"></i> Minimizar</button>
+                                <button type="button" class="action-btn" onclick="minimizarSalaVoz()" style="background: rgba(0,243,255,0.2); border: 1px solid var(--neon-blue); color: var(--neon-blue); padding: 5px 12px; font-size: 0.8rem;"><i class="fa-solid fa-window-minimize"></i> Minimizar</button>
                                 <span style="background: rgba(255,51,102,0.2); border: 1px solid var(--neon-red); color: var(--neon-red); padding: 4px 10px; border-radius: 8px; font-size: 0.8rem; font-weight: bold;"><i class="fa-solid fa-circle-dot"></i> EN VIVO</span>
                             </div>
                         </div>
@@ -338,14 +342,14 @@
 
                         <div style="display: flex; gap: 10px; margin-bottom: 15px;">
                             <input type="text" id="roomChatInput" placeholder="Escribe en Español o Inglés..." onkeydown="chequearEnterChat(event)" style="flex:1; background:#05020a; border:1px solid var(--border-glow); padding:12px 16px; border-radius:10px; color:#fff; outline:none; font-size: 1rem;">
-                            <button class="action-btn" onclick="enviarMensajeConTraduccion()" style="padding: 12px 22px;"><i class="fa-solid fa-paper-plane"></i> Enviar</button>
+                            <button type="button" class="action-btn" onclick="enviarMensajeConTraduccion()" style="padding: 12px 22px;"><i class="fa-solid fa-paper-plane"></i> Enviar</button>
                         </div>
 
                         <div style="display: flex; justify-content: center; gap: 10px; flex-wrap: wrap;">
-                            <button id="muteMicBtn" class="action-btn" onclick="toggleSilenciarMic()" style="background: rgba(255,193,7,0.2); border:1px solid #ffc107; color:#ffc107; font-size: 0.85rem;"><i class="fa-solid fa-microphone"></i> <span>Silenciar Micrófono</span></button>
-                            <button class="action-btn" onclick="pedirLaPalabraSala()" style="background: rgba(0,255,204,0.2); border:1px solid var(--neon-green); color:var(--neon-green); font-size: 0.85rem;"><i class="fa-solid fa-hand"></i> Pedir la Palabra</button>
-                            <button class="action-btn" onclick="compartirEnlaceSala()" style="background: rgba(0,243,255,0.2); border:1px solid var(--neon-blue); color:var(--neon-blue); font-size: 0.85rem;"><i class="fa-solid fa-share-nodes"></i> Compartir Link</button>
-                            <button class="action-btn" onclick="cerrarSalaVozPorCompleto()" style="background: rgba(255,51,102,0.2); border:1px solid var(--neon-red); color:var(--neon-red); font-size: 0.85rem;"><i class="fa-solid fa-power-off"></i> Cerrar Transmisión</button>
+                            <button type="button" id="muteMicBtn" class="action-btn" onclick="toggleSilenciarMic()" style="background: rgba(255,193,7,0.2); border:1px solid #ffc107; color:#ffc107; font-size: 0.85rem;"><i class="fa-solid fa-microphone"></i> <span>Silenciar Micrófono</span></button>
+                            <button type="button" class="action-btn" onclick="pedirLaPalabraSala()" style="background: rgba(0,255,204,0.2); border:1px solid var(--neon-green); color:var(--neon-green); font-size: 0.85rem;"><i class="fa-solid fa-hand"></i> Pedir la Palabra</button>
+                            <button type="button" class="action-btn" onclick="compartirEnlaceSala()" style="background: rgba(0,243,255,0.2); border:1px solid var(--neon-blue); color:var(--neon-blue); font-size: 0.85rem;"><i class="fa-solid fa-share-nodes"></i> Compartir Link</button>
+                            <button type="button" class="action-btn" onclick="cerrarSalaVozPorCompleto()" style="background: rgba(255,51,102,0.2); border:1px solid var(--neon-red); color:var(--neon-red); font-size: 0.85rem;"><i class="fa-solid fa-power-off"></i> Cerrar Transmisión</button>
                         </div>
                     </div>
 
@@ -358,7 +362,7 @@
                                 <i class="fa-solid fa-image"></i> Imagen de Sala <input type="file" id="roomImageFile" accept="image/*" style="display: none;" onchange="verImagenSala(event)">
                             </label>
                             <span id="roomImgName" style="font-size:0.85rem; color:var(--neon-blue);"></span>
-                            <button class="action-btn" onclick="lanzarSalaVoz()" style="padding: 9px 20px; font-size: 0.9rem;">Transmitir Voz</button>
+                            <button type="button" class="action-btn" onclick="lanzarSalaVoz()" style="padding: 9px 20px; font-size: 0.9rem;">Transmitir Voz</button>
                         </div>
                     </div>
 
@@ -373,7 +377,7 @@
                             <i class="fa-solid fa-photo-film"></i> Adjuntar Multimedia <input type="file" id="postMediaFile" accept="image/*,video/*" style="display: none;" onchange="verMediaSeleccionada(event)">
                         </label>
                         <span id="fileNameDisplay" style="font-size: 0.85rem; color: var(--neon-blue);"></span>
-                        <button class="action-btn" onclick="crearPublicacion()">Publicar Ahora</button>
+                        <button type="button" class="action-btn" onclick="crearPublicacion()">Publicar Ahora</button>
                     </div>
 
                     <div style="border-top: 1px solid rgba(255,255,255,0.1); padding-top: 20px; margin-top: 25px;">
@@ -394,7 +398,7 @@
                         <p style="font-size: 0.85rem; color: var(--text-muted); margin: 5px 0;">Contrato: 0x6a7cc7...eefad2</p>
                         <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 10px;">
                             <span style="color: var(--neon-blue); font-weight: bold;">Verificado BSC</span>
-                            <button class="action-btn" onclick="suscribirseCanal('@Panga_PANGA')" style="padding: 6px 14px; font-size: 0.8rem;"><i class="fa-solid fa-bell"></i> Suscribirse</button>
+                            <button type="button" class="action-btn" onclick="suscribirseCanal('@Panga_PANGA')" style="padding: 6px 14px; font-size: 0.8rem;"><i class="fa-solid fa-bell"></i> Suscribirse</button>
                         </div>
                     </div>
                     <div style="background: #0c061a; border: 1px solid var(--border-glow); border-radius: 12px; padding: 15px; margin-bottom: 15px;">
@@ -402,7 +406,7 @@
                         <p style="font-size: 0.85rem; color: var(--text-muted); margin: 5px 0;">Contrato: 0x973ba2...085d38</p>
                         <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 10px;">
                             <span style="color: var(--neon-green); font-weight: bold;">Liquidez Bloqueada 10 Años</span>
-                            <button class="action-btn" onclick="suscribirseCanal('@ZAARD_OFFICIAL')" style="padding: 6px 14px; font-size: 0.8rem;"><i class="fa-solid fa-bell"></i> Suscribirse</button>
+                            <button type="button" class="action-btn" onclick="suscribirseCanal('@ZAARD_OFFICIAL')" style="padding: 6px 14px; font-size: 0.8rem;"><i class="fa-solid fa-bell"></i> Suscribirse</button>
                         </div>
                     </div>
                 </div>
@@ -488,7 +492,7 @@
                             <span id="usdtBalanceVal" style="font-size: 1.15rem; color:#fff; font-weight:bold;">0.00 USDT</span>
                         </div>
                     </div>
-                    <button class="action-btn" onclick="consultarSaldosReal()">Actualizar Saldos en Vivo</button>
+                    <button type="button" class="action-btn" onclick="consultarSaldosReal()">Actualizar Saldos en Vivo</button>
                 </div>
             </div>
 
@@ -559,7 +563,7 @@
                     <h2 style="font-family: 'Orbitron', sans-serif; color: #00ffcc; font-size: 1.5em; margin-bottom: 15px;">ZAARD WEB SEARCH & APPS</h2>
                     <div style="display: flex; gap: 12px; max-width: 700px; margin: 0 auto 25px auto;">
                         <input type="text" id="webSearchInput" placeholder="Busca en internet..." style="flex:1; background:#0c061a; border:1px solid var(--border-glow); padding:16px 20px; border-radius:14px; color:#fff; outline:none; font-size: 1rem;">
-                        <button class="action-btn" onclick="buscarEnInternet()">Buscar</button>
+                        <button type="button" class="action-btn" onclick="buscarEnInternet()">Buscar</button>
                     </div>
                 </div>
             </div>
@@ -609,6 +613,16 @@
     </div>
 
     <script>
+        // CONFIGURACIÓN FIREBASE PARA SINCRONIZACIÓN GLOBAL EN TIEMPO REAL
+        const firebaseConfig = {
+            databaseURL: "https://zard-nexus-default-rtdb.firebaseio.com/"
+        };
+        // Inicializar Firebase de forma segura
+        if (!firebase.apps.length) {
+            firebase.initializeApp(firebaseConfig);
+        }
+        const dbRef = firebase.database().ref('zard_global_voice_rooms');
+
         let userName = localStorage.getItem('zard_username') || "";
         let userAvatar = localStorage.getItem('zard_useravatar') || "";
         let cuentaActual = null;
@@ -618,9 +632,7 @@
         let activeRoomData = null;
         let isMicMuted = false;
         let currentRoomTopic = "";
-
-        // Sistema de salas de voz persistentes
-        let voiceRooms = JSON.parse(localStorage.getItem('zard_voice_rooms') || '[]');
+        let voiceRooms = [];
 
         const CONTRACT_ZARD = "0x973ba2c1dccd0820f1e026d6b1f01c55c4085d38";
         const CONTRACT_PANGA = "0x6a7cc7d5749e028c8f78f29c1d6ac8eda0eefad2";
@@ -689,12 +701,20 @@
                 document.getElementById('welcome-screen').style.display = 'flex';
             }
             
-            renderizarSalasVoz();
+            // ESCUCHADOR EN TIEMPO REAL DE FIREBASE (Para que todos vean las salas de todos)
+            dbRef.on('value', (snapshot) => {
+                const data = snapshot.val();
+                if (data) {
+                    voiceRooms = Object.values(data);
+                } else {
+                    voiceRooms = [];
+                }
+                renderizarSalasVoz();
+            });
 
-            const savedRoom = localStorage.getItem('zard_active_room');
+            const savedRoom = localStorage.getItem('zard_active_room_id');
             if (savedRoom) {
-                const roomObj = JSON.parse(savedRoom);
-                unirseSalaPorId(roomObj.id);
+                setTimeout(() => unirseSalaPorId(savedRoom), 500);
             }
 
             obtenerPreciosGlobalesCrypto();
@@ -703,6 +723,7 @@
 
         function renderizarSalasVoz() {
             const carousel = document.getElementById('voiceRoomsCarousel');
+            if (!carousel) return;
             if (voiceRooms.length === 0) {
                 carousel.innerHTML = `<p style="color:var(--text-muted); font-size:0.9rem;">No hay salas de voz activas. ¡Inicia una arriba!</p>`;
                 return;
@@ -714,7 +735,7 @@
                         <img src="${room.img}" alt="Host">
                         <h4 style="color: #fff; font-size: 0.95rem; font-family: 'Orbitron'; margin-bottom: 4px;">${room.topic}</h4>
                         <p style="color: var(--text-muted); font-size: 0.8rem; margin-bottom: 12px;">Host: ${room.host}</p>
-                        <button class="action-btn" onclick="unirseSalaPorId('${room.id}')" style="padding: 8px 16px; font-size: 0.85rem;">Escuchar</button>
+                        <button type="button" class="action-btn" onclick="unirseSalaPorId('${room.id}')" style="padding: 8px 16px; font-size: 0.85rem;">Escuchar</button>
                     </div>
                 `;
             });
@@ -865,14 +886,14 @@
                 <div style="display:flex; align-items:center; gap:8px; background:rgba(0,255,204,0.1); border:1px solid var(--neon-green); padding:8px 14px; border-radius:10px;">
                     <i class="fa-solid fa-circle-dot" style="color:#00ffcc; font-size:0.6rem;"></i> 
                     <span style="font-family:'Orbitron'; font-size:0.85rem; color:#fff;">${shortAddr}</span>
-                    <button class="disconnect-btn" onclick="desconectarWallet()" style="margin-left:8px;">Salir</button>
+                    <button type="button" class="disconnect-btn" onclick="desconectarWallet()" style="margin-left:8px;">Salir</button>
                 </div>
             `;
         }
 
         function desconectarWallet() {
             cuentaActual = null;
-            document.getElementById('wallet-container').innerHTML = `<button class="wallet-btn" onclick="abrirModalWallet()"><i class="fa-solid fa-wallet"></i> Conectar Wallet</button>`;
+            document.getElementById('wallet-container').innerHTML = `<button type="button" class="wallet-btn" onclick="abrirModalWallet()"><i class="fa-solid fa-wallet"></i> Conectar Wallet</button>`;
             document.getElementById('bnbBalanceVal').innerText = "0.00 BNB";
             document.getElementById('zardBalanceVal').innerText = "0.00 ZARD";
             document.getElementById('pangaBalanceVal').innerText = "0.00 PANGA";
@@ -903,10 +924,10 @@
             return "0.00";
         }
 
-        /* FUNCIONES DE SALAS DE VOZ & TRADUCTOR ESPAÑOL ⇄ INGLÉS */
+        /* FUNCIONES DE SALAS DE VOZ & SINCRONIZACIÓN GLOBAL */
         function abrirCrearSalaModal() {
             const box = document.getElementById('createRoomBox');
-            box.style.display = box.style.display === 'none' ? 'block' : 'none';
+            if (box) box.style.display = box.style.display === 'none' ? 'block' : 'none';
         }
 
         function verImagenSala(event) {
@@ -919,25 +940,29 @@
         }
 
         function lanzarSalaVoz() {
-            const topic = document.getElementById('roomTopicInput').value.trim();
+            const topicInput = document.getElementById('roomTopicInput');
+            const topic = topicInput ? topicInput.value.trim() : "";
             if (!topic) { alert("Escribe el tema de la sala."); return; }
 
             const hostName = "@" + (userName || "Panga");
-            // Imagen por defecto garantizada si no se sube ninguna o si falla
             const roomImg = roomImageBase64 || userAvatar || "https://photos.pinksale.finance/file/pinksale-logo-upload/1789411086014-7b67968ed9538e215f1948583ee37c7c.png";
             const roomId = "room-" + Date.now();
 
             const nuevaSala = { id: roomId, topic, host: hostName, img: roomImg };
-            voiceRooms.unshift(nuevaSala);
-            localStorage.setItem('zard_voice_rooms', JSON.stringify(voiceRooms));
 
-            document.getElementById('roomTopicInput').value = "";
-            document.getElementById('createRoomBox').style.display = 'none';
-            roomImageBase64 = "";
-            document.getElementById('roomImgName').innerText = "";
+            // Enviar la sala a Firebase para que todos los usuarios la vean al instante
+            dbRef.child(roomId).set(nuevaSala).then(() => {
+                if(topicInput) topicInput.value = "";
+                const createBox = document.getElementById('createRoomBox');
+                if(createBox) createBox.style.display = 'none';
+                roomImageBase64 = "";
+                const imgNameEl = document.getElementById('roomImgName');
+                if(imgNameEl) imgNameEl.innerText = "";
 
-            renderizarSalasVoz();
-            unirseSalaPorId(roomId);
+                unirseSalaPorId(roomId);
+            }).catch(err => {
+                alert("Error al transmitir: " + err.message);
+            });
         }
 
         function unirseSalaPorId(roomId) {
@@ -946,7 +971,7 @@
             
             activeRoomData = roomId;
             currentRoomTopic = room.topic;
-            localStorage.setItem('zard_active_room', JSON.stringify(room));
+            localStorage.setItem('zard_active_room_id', roomId);
 
             document.getElementById('liveRoomTopicBig').innerText = room.topic;
             document.getElementById('liveRoomHostBig').innerText = "Anfitrión: " + room.host;
@@ -984,11 +1009,11 @@
         function cerrarSalaVozPorCompleto() {
             document.getElementById('activeVoiceRoomBox').style.display = 'none';
             document.getElementById('floatingVoiceBar').style.display = 'none';
-            localStorage.removeItem('zard_active_room');
+            localStorage.removeItem('zard_active_room_id');
+            
             if (activeRoomData) {
-                voiceRooms = voiceRooms.filter(r => r.id !== activeRoomData);
-                localStorage.setItem('zard_voice_rooms', JSON.stringify(voiceRooms));
-                renderizarSalasVoz();
+                // Eliminar la sala de Firebase para que desaparezca del carrusel de todos
+                dbRef.child(activeRoomData).remove();
             }
             activeRoomData = null;
         }
