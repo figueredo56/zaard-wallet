@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ZARD NEXUS V3.8 - ZARD INNOVATION</title>
+    <title>ZARD NEXUS V3.9 - ZARD INNOVATION</title>
     <!-- Google Fonts & FontAwesome -->
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;800;900&family=Rajdhani:wght@500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <!-- Etiquetas Open Graph con tu Imagen Oficial -->
-    <meta property="og:title" content="ZARD NEXUS V3.8 - ZARD INNOVATION">
+    <meta property="og:title" content="ZARD NEXUS V3.9 - ZARD INNOVATION">
     <meta property="og:description" content="Dashboard Web3 Oficial, Gráficas en Vivo, Pares de Mercado y Conexión de Billetera.">
     <meta property="og:url" content="https://figueredo56.github.io/zaard-wallet/wallet.html">
     <meta property="og:type" content="website">
@@ -39,7 +39,7 @@
             background-image: radial-gradient(circle at 50% 10%, #1a0b36 0%, var(--bg-deep) 70%);
         }
 
-        /* PANTALLA DE BIENVENIDA */
+        /* BIENVENIDA & PERFIL */
         #welcome-screen {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: #030107; display: flex; flex-direction: column; justify-content: center; align-items: center;
@@ -127,7 +127,7 @@
         .fin-card {
             background: var(--bg-card); border: 1px solid var(--border-glow);
             border-radius: 16px; padding: 24px; backdrop-filter: blur(12px);
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4); margin-bottom: 20px;
         }
         .fin-card h3 {
             font-family: 'Orbitron', sans-serif; font-size: 1.1rem;
@@ -217,9 +217,9 @@
     <div id="welcome-screen">
         <img src="https://photos.pinksale.finance/file/pinksale-logo-upload/1789411086014-7b67968ed9538e215f1948583ee37c7c.png" alt="ZARD Logo" class="welcome-logo">
         <div class="welcome-title">ZARD INNOVATION</div>
-        <div class="welcome-sub" style="color:var(--text-muted); margin-bottom:20px;" id="welcomeSubText">Configura tu Perfil Web3 Exclusivo</div>
+        <div class="welcome-sub" style="color:var(--text-muted); margin-bottom:20px;">Configura tu Perfil Web3 Exclusivo</div>
         <input type="text" id="userInputName" class="profile-input" placeholder="Tu Nombre o Alias (ej: Panga)" onkeydown="if(event.key==='Enter') entrarNexus()">
-        <label class="file-upload-label" id="uploadLabelText" style="margin-bottom: 20px; font-size: 0.85rem;">
+        <label class="file-upload-label" style="margin-bottom: 20px; font-size: 0.85rem;">
             <i class="fa-solid fa-camera"></i> Subir Foto de Perfil <input type="file" id="userAvatarFile" accept="image/*" style="display: none;" onchange="cargarAvatarMemoria(event)">
         </label>
         <br>
@@ -246,7 +246,7 @@
             <div id="floatingRoomTitle" style="font-family:'Orbitron'; font-size:0.85rem; color:#fff;">Sala Activa</div>
             <div style="font-size:0.75rem; color:var(--neon-green);" id="floatingStatusText">EN VIVO</div>
         </div>
-        <button class="action-btn" onclick="maximizarSalaVoz()" style="padding: 6px 12px; font-size:0.75rem;" id="maximizeBtnText"><i class="fa-solid fa-expand"></i> Maximizar</button>
+        <button class="action-btn" onclick="maximizarSalaVoz()" style="padding: 6px 12px; font-size:0.75rem;"><i class="fa-solid fa-expand"></i> Maximizar</button>
         <button class="action-btn" onclick="cerrarSalaVozPorCompleto()" style="background:rgba(255,51,102,0.3); border:1px solid var(--neon-red); color:var(--neon-red); padding: 6px 10px; font-size:0.75rem;"><i class="fa-solid fa-power-off"></i></button>
     </div>
 
@@ -258,8 +258,8 @@
             <div class="brand-box">
                 <img id="headerUserAvatar" src="https://photos.pinksale.finance/file/pinksale-logo-upload/1789411086014-7b67968ed9538e215f1948583ee37c7c.png" alt="Avatar">
                 <div>
-                    <h1 id="headerUserTitle">ZARD NEXUS <span style="font-size: 0.7rem; background: rgba(0,255,204,0.2); border: 1px solid var(--neon-green); color: var(--neon-green); padding: 2px 6px; border-radius: 6px; margin-left: 8px;" id="displayProfileTag">@Usuario</span></h1>
-                    <p id="headerSubText">Cyber Ecosystem & Web3</p>
+                    <h1>ZARD NEXUS <span style="font-size: 0.7rem; background: rgba(0,255,204,0.2); border: 1px solid var(--neon-green); color: var(--neon-green); padding: 2px 6px; border-radius: 6px; margin-left: 8px;" id="displayProfileTag">@Usuario</span></h1>
+                    <p>Cyber Ecosystem & Web3</p>
                 </div>
             </div>
             <div class="controls-bar">
@@ -271,22 +271,21 @@
                 </select>
 
                 <div id="wallet-container">
-                    <button class="wallet-btn" onclick="abrirModalWallet()" id="connectWalletBtnText"><i class="fa-solid fa-wallet"></i> Conectar Wallet</button>
+                    <button class="wallet-btn" onclick="abrirModalWallet()"><i class="fa-solid fa-wallet"></i> Conectar Wallet</button>
                 </div>
-                <button onclick="cambiarPerfil()" style="background:rgba(168,85,247,0.2); border:1px solid var(--neon-purple); color:#fff; padding:8px 12px; border-radius:8px; cursor:pointer; font-size:0.8rem;" id="editProfileBtnText"><i class="fa-solid fa-user-pen"></i> Editar Perfil</button>
+                <button onclick="cambiarPerfil()" style="background:rgba(168,85,247,0.2); border:1px solid var(--neon-purple); color:#fff; padding:8px 12px; border-radius:8px; cursor:pointer; font-size:0.8rem;"><i class="fa-solid fa-user-pen"></i> Editar Perfil</button>
             </div>
         </header>
 
         <!-- NAVEGACIÓN PESTAÑAS -->
         <div class="tabs-nav">
-            <button class="tab-btn active" onclick="switchTab(event, 'tab-square')" id="tab1Text"><i class="fa-solid fa-comments"></i> Square & Audio Spaces</button>
-            <button class="tab-btn" onclick="switchTab(event, 'tab-markets')" id="tabMarketsText"><i class="fa-solid fa-chart-candlestick"></i> Mercados & Gráficas Pro</button>
+            <button class="tab-btn active" onclick="switchTab(event, 'tab-square')"><i class="fa-solid fa-comments"></i> Square & Audio</button>
             <a href="https://figueredo56.github.io/index.html/?img=zaard" target="_blank" class="tab-link"><i class="fa-solid fa-shield-halved"></i> ZAARD FINANCE</a>
             <a href="https://figueredo56.github.io/zaard-tracker/" target="_blank" class="tab-link"><i class="fa-solid fa-chart-line"></i> Tracker & Velas</a>
-            <button class="tab-btn" onclick="switchTab(event, 'tab-coins')" id="tab2Text"><i class="fa-solid fa-coins"></i> Monedas & Subs</button>
-            <button class="tab-btn" onclick="switchTab(event, 'tab-balance')" id="tab3Text"><i class="fa-solid fa-wallet"></i> Mi Balance</button>
-            <button class="tab-btn" onclick="switchTab(event, 'tab-swap')" id="tab4Text"><i class="fa-solid fa-right-left"></i> Swap DEX</button>
-            <button class="tab-btn" onclick="switchTab(event, 'tab-browser')" id="tab5Text"><i class="fa-solid fa-globe"></i> Buscador Web3</button>
+            <button class="tab-btn" onclick="switchTab(event, 'tab-coins')"><i class="fa-solid fa-coins"></i> Monedas & Subs</button>
+            <button class="tab-btn" onclick="switchTab(event, 'tab-balance')"><i class="fa-solid fa-wallet"></i> Mi Balance & Terminal</button>
+            <button class="tab-btn" onclick="switchTab(event, 'tab-swap')"><i class="fa-solid fa-right-left"></i> Swap DEX</button>
+            <button class="tab-btn" onclick="switchTab(event, 'tab-browser')"><i class="fa-solid fa-globe"></i> Buscador Web3</button>
         </div>
 
         <!-- PESTAÑA 1: SQUARE & AUDIO SPACES -->
@@ -297,17 +296,17 @@
                     <!-- CARRUSEL DE SALAS DE VOZ -->
                     <div style="background: #0c061a; border: 1px solid var(--neon-green); border-radius: 14px; padding: 20px; margin-bottom: 25px;">
                         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; flex-wrap: wrap; gap: 10px;">
-                            <h3 style="color: var(--neon-green); font-size: 1.2rem; margin:0;" id="audioSpacesTitle"><i class="fa-solid fa-microphone-lines"></i> ZARD Audio Spaces (Salas de Voz en Vivo)</h3>
-                            <button class="action-btn" onclick="abrirCrearSalaModal()" style="background: linear-gradient(135deg, #00ffcc, #00f3ff); color: #030107; font-size: 0.85rem; padding: 10px 18px;" id="startRoomBtnText"><i class="fa-solid fa-plus"></i> Iniciar Sala de Voz</button>
+                            <h3 style="color: var(--neon-green); font-size: 1.2rem; margin:0;"><i class="fa-solid fa-microphone-lines"></i> ZARD Audio Spaces (Salas de Voz en Vivo)</h3>
+                            <button class="action-btn" onclick="abrirCrearSalaModal()" style="background: linear-gradient(135deg, #00ffcc, #00f3ff); color: #030107; font-size: 0.85rem; padding: 10px 18px;"><i class="fa-solid fa-plus"></i> Iniciar Sala de Voz</button>
                         </div>
-                        <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 15px;" id="audioSpacesSub">Salas de llamadas en alta voz con control total, silenciar micrófono y minimizado flotante.</p>
+                        <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 15px;">Salas de llamadas en alta voz con control total, silenciar micrófono y minimizado flotante.</p>
                         
                         <div class="voice-carousel" id="voiceRoomsCarousel">
                             <div class="voice-room-card" id="room-default">
                                 <img src="https://photos.pinksale.finance/file/pinksale-logo-upload/1789411086014-7b67968ed9538e215f1948583ee37c7c.png" alt="Host">
                                 <h4 style="color: #fff; font-size: 0.95rem; font-family: 'Orbitron'; margin-bottom: 4px;">Análisis ZARD & PANGA</h4>
                                 <p style="color: var(--text-muted); font-size: 0.8rem; margin-bottom: 12px;">Host: @Panga</p>
-                                <button class="action-btn" onclick="unirseSalaVoz('Análisis ZARD & PANGA', '@Panga', 'https://photos.pinksale.finance/file/pinksale-logo-upload/1789411086014-7b67968ed9538e215f1948583ee37c7c.png', 'room-default')" style="padding: 8px 16px; font-size: 0.85rem;" id="listenBtn1">Escuchar</button>
+                                <button class="action-btn" onclick="unirseSalaVoz('Análisis ZARD & PANGA', '@Panga', 'https://photos.pinksale.finance/file/pinksale-logo-upload/1789411086014-7b67968ed9538e215f1948583ee37c7c.png', 'room-default')" style="padding: 8px 16px; font-size: 0.85rem;">Escuchar</button>
                             </div>
                         </div>
                     </div>
@@ -317,7 +316,7 @@
                         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
                             <h3 id="liveRoomTitleBig" style="color: var(--neon-green); font-family: 'Orbitron'; font-size: 1.3rem; margin: 0;"><i class="fa-solid fa-broadcast-tower"></i> Sala Activa</h3>
                             <div style="display: flex; gap: 8px;">
-                                <button class="action-btn" onclick="minimizarSalaVoz()" style="background: rgba(0,243,255,0.2); border: 1px solid var(--neon-blue); color: var(--neon-blue); padding: 5px 12px; font-size: 0.8rem;" id="minimizeBtnText"><i class="fa-solid fa-window-minimize"></i> Minimizar</button>
+                                <button class="action-btn" onclick="minimizarSalaVoz()" style="background: rgba(0,243,255,0.2); border: 1px solid var(--neon-blue); color: var(--neon-blue); padding: 5px 12px; font-size: 0.8rem;"><i class="fa-solid fa-window-minimize"></i> Minimizar</button>
                                 <span style="background: rgba(255,51,102,0.2); border: 1px solid var(--neon-red); color: var(--neon-red); padding: 4px 10px; border-radius: 8px; font-size: 0.8rem; font-weight: bold;"><i class="fa-solid fa-circle-dot"></i> EN VIVO</span>
                             </div>
                         </div>
@@ -331,197 +330,66 @@
                         </div>
 
                         <div style="background: rgba(0,0,0,0.7); border-radius: 10px; padding: 15px; height: 240px; overflow-y: auto; text-align: left; margin-bottom: 15px; border: 1px solid var(--border-glow);" id="roomChatBox">
-                            <div style="font-size: 0.9rem; margin-bottom: 10px;"><strong style="color: var(--neon-blue);">ZARD System:</strong> <span id="chatWelcomeMsg">Conectado a la sala de voz en vivo. Envía un mensaje o presiona Enter.</span></div>
+                            <div style="font-size: 0.9rem; margin-bottom: 10px;"><strong style="color: var(--neon-blue);">ZARD System:</strong> Conectado a la sala de voz en vivo. Envía un mensaje o presiona Enter.</div>
                         </div>
 
                         <div style="display: flex; gap: 10px; margin-bottom: 15px;">
                             <input type="text" id="roomChatInput" placeholder="Escribe un mensaje..." onkeydown="chequearEnterChat(event)" style="flex:1; background:#05020a; border:1px solid var(--border-glow); padding:12px 16px; border-radius:10px; color:#fff; outline:none; font-size: 1rem;">
-                            <button class="action-btn" onclick="enviarMensajeSala()" style="padding: 12px 22px;" id="sendBtnText"><i class="fa-solid fa-paper-plane"></i> Enviar</button>
+                            <button class="action-btn" onclick="enviarMensajeSala()" style="padding: 12px 22px;"><i class="fa-solid fa-paper-plane"></i> Enviar</button>
                         </div>
 
                         <div style="display: flex; justify-content: center; gap: 10px; flex-wrap: wrap;">
-                            <button id="muteMicBtn" class="action-btn" onclick="toggleSilenciarMic()" style="background: rgba(255,193,7,0.2); border:1px solid #ffc107; color:#ffc107; font-size: 0.85rem;"><i class="fa-solid fa-microphone"></i> <span id="muteBtnText">Silenciar Micrófono</span></button>
-                            <button class="action-btn" onclick="pedirLaPalabraSala()" style="background: rgba(0,255,204,0.2); border:1px solid var(--neon-green); color:var(--neon-green); font-size: 0.85rem;" id="raiseHandBtnText"><i class="fa-solid fa-hand"></i> Pedir la Palabra</button>
-                            <button class="action-btn" onclick="compartirEnlaceSala()" style="background: rgba(0,243,255,0.2); border:1px solid var(--neon-blue); color:var(--neon-blue); font-size: 0.85rem;" id="shareLinkBtnText"><i class="fa-solid fa-share-nodes"></i> Compartir Link</button>
-                            <button class="action-btn" onclick="cerrarSalaVozPorCompleto()" style="background: rgba(255,51,102,0.2); border:1px solid var(--neon-red); color:var(--neon-red); font-size: 0.85rem;" id="closeRoomBtnText"><i class="fa-solid fa-power-off"></i> Cerrar Transmisión</button>
+                            <button id="muteMicBtn" class="action-btn" onclick="toggleSilenciarMic()" style="background: rgba(255,193,7,0.2); border:1px solid #ffc107; color:#ffc107; font-size: 0.85rem;"><i class="fa-solid fa-microphone"></i> <span>Silenciar Micrófono</span></button>
+                            <button class="action-btn" onclick="pedirLaPalabraSala()" style="background: rgba(0,255,204,0.2); border:1px solid var(--neon-green); color:var(--neon-green); font-size: 0.85rem;"><i class="fa-solid fa-hand"></i> Pedir la Palabra</button>
+                            <button class="action-btn" onclick="compartirEnlaceSala()" style="background: rgba(0,243,255,0.2); border:1px solid var(--neon-blue); color:var(--neon-blue); font-size: 0.85rem;"><i class="fa-solid fa-share-nodes"></i> Compartir Link</button>
+                            <button class="action-btn" onclick="cerrarSalaVozPorCompleto()" style="background: rgba(255,51,102,0.2); border:1px solid var(--neon-red); color:var(--neon-red); font-size: 0.85rem;"><i class="fa-solid fa-power-off"></i> Cerrar</button>
                         </div>
                     </div>
 
                     <!-- PANEL CREAR SALA -->
                     <div id="createRoomBox" style="display: none; background: #05020a; border: 1px solid var(--border-glow); border-radius: 12px; padding: 18px; margin-bottom: 25px;">
-                        <h4 style="color: var(--neon-blue); font-family: 'Orbitron'; font-size: 1rem; margin-bottom: 12px;" id="createRoomTitleText">Iniciar Sala de Voz con tu Perfil</h4>
+                        <h4 style="color: var(--neon-blue); font-family: 'Orbitron'; font-size: 1rem; margin-bottom: 12px;">Iniciar Sala de Voz con tu Perfil</h4>
                         <input type="text" id="roomTopicInput" placeholder="Tema de la conversación..." style="width:100%; background:#0c061a; border:1px solid var(--border-glow); padding:12px; border-radius:8px; color:#fff; outline:none; margin-bottom:12px;">
                         <div style="display: flex; gap: 10px; align-items: center; flex-wrap: wrap;">
-                            <label class="file-upload-label" id="roomImgLabelText" style="font-size: 0.85rem; padding: 8px 14px;">
+                            <label class="file-upload-label" style="font-size: 0.85rem; padding: 8px 14px;">
                                 <i class="fa-solid fa-image"></i> Imagen de Sala <input type="file" id="roomImageFile" accept="image/*" style="display: none;" onchange="verImagenSala(event)">
                             </label>
                             <span id="roomImgName" style="font-size:0.85rem; color:var(--neon-blue);"></span>
-                            <button class="action-btn" onclick="lanzarSalaVoz()" style="padding: 9px 20px; font-size: 0.9rem;" id="broadcastBtnText">Transmitir Voz</button>
+                            <button class="action-btn" onclick="lanzarSalaVoz()" style="padding: 9px 20px; font-size: 0.9rem;">Transmitir Voz</button>
                         </div>
                     </div>
 
                     <hr style="border: 0; border-top: 1px solid rgba(255,255,255,0.1); margin: 25px 0;">
 
                     <!-- CREAR PUBLICACIÓN -->
-                    <h3 id="createPostTitleText"><i class="fa-solid fa-pen-nib"></i> Crear Publicación desde tu Perfil</h3>
+                    <h3><i class="fa-solid fa-pen-nib"></i> Crear Publicación desde tu Perfil</h3>
                     <textarea id="postText" class="square-input-box" placeholder="¿Qué está pasando en el ecosistema ZARD? Comparte tu análisis o meme..."></textarea>
                     
                     <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; margin-bottom: 20px;">
-                        <label class="file-upload-label" id="attachMediaText">
+                        <label class="file-upload-label">
                             <i class="fa-solid fa-photo-film"></i> Adjuntar Multimedia <input type="file" id="postMediaFile" accept="image/*,video/*" style="display: none;" onchange="verMediaSeleccionada(event)">
                         </label>
                         <span id="fileNameDisplay" style="font-size: 0.85rem; color: var(--neon-blue);"></span>
-                        <button class="action-btn" onclick="crearPublicacion()" id="publishBtnText">Publicar Ahora</button>
+                        <button class="action-btn" onclick="crearPublicacion()">Publicar Ahora</button>
                     </div>
 
                     <div style="border-top: 1px solid rgba(255,255,255,0.1); padding-top: 20px; margin-top: 25px;">
-                        <h3 style="font-size: 1rem; color: var(--text-muted);" id="muroTitleText"><i class="fa-solid fa-stream"></i> Muro de Publicaciones</h3>
+                        <h3 style="font-size: 1rem; color: var(--text-muted);"><i class="fa-solid fa-stream"></i> Muro de Publicaciones</h3>
                         <div id="muroPublicaciones"></div>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- PESTAÑA: MERCADOS & GRÁFICAS PRO -->
-        <div id="tab-markets" class="tab-content">
-            <div style="display: flex; flex-direction: column; gap: 25px;">
-                
-                <div class="fin-card">
-                    <h3 style="color: var(--neon-green); font-family: 'Orbitron';"><i class="fa-solid fa-chart-candlestick"></i> Terminal de Gráficas en Vivo: PANGA vs ZARD (BSC)</h3>
-                    <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 20px;">Gráficas técnicas de análisis oficial y libros de órdenes de compra/venta en tiempo real.</p>
-                    
-                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(500px, 1fr)); gap: 25px;">
-                        
-                        <div style="background: #0c061a; border: 1px solid var(--neon-blue); border-radius: 14px; padding: 18px;">
-                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
-                                <h4 style="color: var(--neon-blue); font-family: 'Orbitron'; font-size: 1rem;"><i class="fa-solid fa-coins"></i> PANGA Token</h4>
-                                <span style="background: rgba(0,255,204,0.15); color: var(--neon-green); padding: 3px 8px; border-radius: 6px; font-size: 0.75rem; font-weight: bold;">LIVE BSC</span>
-                            </div>
-                            <div style="width: 100%; height: 350px; border-radius: 10px; overflow: hidden; border: 1px solid var(--border-glow); margin-bottom: 15px;">
-                                <iframe src="https://dexscreener.com/bsc/0x6a7cc7d5749e028c8f78f29c1d6ac8eda0eefad2?embed=1&theme=dark&trades=0&info=0" width="100%" height="100%" style="border:0;"></iframe>
-                            </div>
-                            <h5 style="color: var(--text-main); font-family: 'Orbitron'; font-size: 0.85rem; margin-bottom: 8px;">Libro de Órdenes (Bids & Asks)</h5>
-                            <table class="order-book-table">
-                                <thead><tr><th>Precio (BNB)</th><th>Cantidad (PANGA)</th><th>Total</th></tr></thead>
-                                <tbody>
-                                    <tr><td class="price-up">0.000421 BNB</td><td>12,500.00</td><td>5.26 BNB</td></tr>
-                                    <tr><td class="price-up">0.000418 BNB</td><td>8,400.00</td><td>3.51 BNB</td></tr>
-                                    <tr><td class="price-down">0.000415 BNB</td><td>15,000.00</td><td>6.22 BNB</td></tr>
-                                </tbody>
-                            </table>
-                        </div>
-
-                        <div style="background: #0c061a; border: 1px solid var(--neon-purple); border-radius: 14px; padding: 18px;">
-                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
-                                <h4 style="color: var(--neon-purple); font-family: 'Orbitron'; font-size: 1rem;"><i class="fa-solid fa-shield-halved"></i> ZARD Token</h4>
-                                <span style="background: rgba(168,85,247,0.15); color: var(--neon-purple); padding: 3px 8px; border-radius: 6px; font-size: 0.75rem; font-weight: bold;">LIVE BSC</span>
-                            </div>
-                            <div style="width: 100%; height: 350px; border-radius: 10px; overflow: hidden; border: 1px solid var(--border-glow); margin-bottom: 15px;">
-                                <iframe src="https://dexscreener.com/bsc/0x973ba2c1dccd0820f1e026d6b1f01c55c4085d38?embed=1&theme=dark&trades=0&info=0" width="100%" height="100%" style="border:0;"></iframe>
-                            </div>
-                            <h5 style="color: var(--text-main); font-family: 'Orbitron'; font-size: 0.85rem; margin-bottom: 8px;">Libro de Órdenes (Bids & Asks)</h5>
-                            <table class="order-book-table">
-                                <thead><tr><th>Precio (BNB)</th><th>Cantidad (ZARD)</th><th>Total</th></tr></thead>
-                                <tbody>
-                                    <tr><td class="price-up">0.001850 BNB</td><td>4,200.00</td><td>7.77 BNB</td></tr>
-                                    <tr><td class="price-up">0.001842 BNB</td><td>9,150.00</td><td>16.85 BNB</td></tr>
-                                    <tr><td class="price-down">0.001835 BNB</td><td>12,000.00</td><td>22.02 BNB</td></tr>
-                                </tbody>
-                            </table>
-                        </div>
-
-                    </div>
-                </div>
-
-                <div class="fin-card">
-                    <h3 style="color: var(--neon-blue); font-family: 'Orbitron';"><i class="fa-solid fa-chart-line"></i> Cotizaciones Globales (Gigantes & Ecosistema)</h3>
-                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 15px;">
-                        <div style="background:#0c061a; padding:15px; border-radius:12px; border:1px solid var(--border-glow); text-align:center;">
-                            <div style="font-family:'Orbitron'; color:var(--neon-blue); font-size:0.9rem;">Bitcoin (BTC)</div>
-                            <div id="price-btc" style="font-size:1.2rem; font-weight:bold; color:#fff; margin:8px 0;">Cargando...</div>
-                            <div id="change-btc" style="font-size:0.8rem;">--</div>
-                        </div>
-                        <div style="background:#0c061a; padding:15px; border-radius:12px; border:1px solid var(--border-glow); text-align:center;">
-                            <div style="font-family:'Orbitron'; color:var(--neon-purple); font-size:0.9rem;">Ethereum (ETH)</div>
-                            <div id="price-eth" style="font-size:1.2rem; font-weight:bold; color:#fff; margin:8px 0;">Cargando...</div>
-                            <div id="change-eth" style="font-size:0.8rem;">--</div>
-                        </div>
-                        <div style="background:#0c061a; padding:15px; border-radius:12px; border:1px solid var(--border-glow); text-align:center;">
-                            <div style="font-family:'Orbitron'; color:#F0B90B; font-size:0.9rem;">Binance (BNB)</div>
-                            <div id="price-bnb" style="font-size:1.2rem; font-weight:bold; color:#fff; margin:8px 0;">Cargando...</div>
-                            <div id="change-bnb" style="font-size:0.8rem;">--</div>
-                        </div>
-                        <div style="background:#0c061a; padding:15px; border-radius:12px; border:1px solid var(--border-glow); text-align:center;">
-                            <div style="font-family:'Orbitron'; color:#14F195; font-size:0.9rem;">Solana (SOL)</div>
-                            <div id="price-sol" style="font-size:1.2rem; font-weight:bold; color:#fff; margin:8px 0;">Cargando...</div>
-                            <div id="change-sol" style="font-size:0.8rem;">--</div>
-                        </div>
-                        <div style="background:#0c061a; padding:15px; border-radius:12px; border:1px solid var(--border-glow); text-align:center;">
-                            <div style="font-family:'Orbitron'; color:#00ffcc; font-size:0.9rem;">PancakeSwap (CAKE)</div>
-                            <div id="price-cake" style="font-size:1.2rem; font-weight:bold; color:#fff; margin:8px 0;">Cargando...</div>
-                            <div id="change-cake" style="font-size:0.8rem;">--</div>
-                        </div>
-                        <div style="background:#0c061a; padding:15px; border-radius:12px; border:1px solid var(--border-glow); text-align:center;">
-                            <div style="font-family:'Orbitron'; color:#26a17b; font-size:0.9rem;">USD Coin (USDC)</div>
-                            <div id="price-usdc" style="font-size:1.2rem; font-weight:bold; color:#fff; margin:8px 0;">Cargando...</div>
-                            <div id="change-usdc" style="font-size:0.8rem;">--</div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="fin-card">
-                    <h3 style="color: var(--neon-pink); font-family: 'Orbitron';"><i class="fa-solid fa-fire"></i> Criptomonedas en Tendencia (*Trending Live*)</h3>
-                    <div id="trendingCoinsList" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px;">
-                        <div style="background:#0c061a; padding:12px; border-radius:10px; border:1px solid rgba(236,72,153,0.3); text-align:center;">
-                            <span style="color:var(--text-muted);">Cargando tendencias globales...</span>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-
-        <!-- PESTAÑA: MONEDAS & SUBS -->
-        <div id="tab-coins" class="tab-content">
-            <div class="card-grid">
-                <div class="fin-card">
-                    <h3 id="coinsTitleText"><i class="fa-solid fa-coins"></i> Descubrir Monedas (Tokens Oficiales)</h3>
-                    <div style="background: #0c061a; border: 1px solid var(--border-glow); border-radius: 12px; padding: 15px; margin-bottom: 15px;">
-                        <strong style="color: var(--neon-green); font-family: 'Orbitron';">PANGA Token</strong>
-                        <p style="font-size: 0.85rem; color: var(--text-muted); margin: 5px 0;">Contrato: 0x6a7cc7...eefad2</p>
-                        <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 10px;">
-                            <span style="color: var(--neon-blue); font-weight: bold;" id="bscVerifText">Verificado BSC</span>
-                            <button class="action-btn" onclick="suscribirseCanal('@Panga_PANGA')" style="padding: 6px 14px; font-size: 0.8rem;" id="subBtn1"><i class="fa-solid fa-bell"></i> Suscribirse</button>
-                        </div>
-                    </div>
-                    <div style="background: #0c061a; border: 1px solid var(--border-glow); border-radius: 12px; padding: 15px; margin-bottom: 15px;">
-                        <strong style="color: var(--neon-purple); font-family: 'Orbitron';">ZARD Token</strong>
-                        <p style="font-size: 0.85rem; color: var(--text-muted); margin: 5px 0;">Contrato: 0x973ba2...085d38</p>
-                        <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 10px;">
-                            <span style="color: var(--neon-green); font-weight: bold;" id="lockLiqText">Liquidez Bloqueada 10 Años</span>
-                            <button class="action-btn" onclick="suscribirseCanal('@ZAARD_OFFICIAL')" style="padding: 6px 14px; font-size: 0.8rem;" id="subBtn2"><i class="fa-solid fa-bell"></i> Suscribirse</button>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="fin-card">
-                    <h3 id="activeProfileTitleText"><i class="fa-solid fa-user-circle"></i> Tu Perfil Activo</h3>
-                    <div style="text-align: center; padding: 20px; background: #0c061a; border-radius: 12px; border: 1px solid var(--neon-blue); margin-bottom: 15px;">
-                        <img id="profileAvatarDisplay" src="" alt="Avatar" style="width: 70px; height: 70px; border-radius: 50%; object-fit: cover; border: 2px solid var(--neon-green); margin-bottom: 10px; display: none;">
-                        <h4 style="font-family: 'Orbitron'; color: #fff; font-size: 1.1rem;" id="profileDisplayName">@Usuario</h4>
-                        <p style="font-size: 0.8rem; color: var(--text-muted); margin-top: 5px;" id="profileAddress">Billetera no conectada</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- PESTAÑA: BALANCE -->
+        <!-- PESTAÑA 3: MI BALANCE & TERMINAL FINANCIERA COMPLETA (ABAJO DE TU BALANCE) -->
         <div id="tab-balance" class="tab-content">
-            <div class="card-grid">
-                <div class="fin-card" style="text-align: center; padding: 30px; grid-column: span 2;">
+            <div style="display: flex; flex-direction: column; gap: 20px;">
+                
+                <!-- BLOQUE 1: TU BALANCE MULTITOKEN -->
+                <div class="fin-card" style="text-align: center; padding: 30px;">
                     <i class="fa-solid fa-vault" style="font-size: 3rem; color: var(--neon-blue); margin-bottom: 15px;"></i>
-                    <h3 style="justify-content: center;" id="balanceTitleText">Balance Multitoken en tu Billetera Conectada</h3>
-                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin: 25px 0;">
+                    <h3 style="justify-content: center;">Balance Multitoken en tu Billetera Conectada</h3>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 15px; margin: 25px 0;">
                         <div style="padding: 16px; background: #0c061a; border-radius: 12px; border: 1px solid var(--border-glow);">
                             <span style="font-family:'Orbitron'; color:var(--neon-blue); display:block; margin-bottom:6px; font-size:0.9rem;">BNB:</span>
                             <span id="bnbBalanceVal" style="font-size: 1.15rem; color:#fff; font-weight:bold;">0.00 BNB</span>
@@ -543,7 +411,132 @@
                             <span id="usdtBalanceVal" style="font-size: 1.15rem; color:#fff; font-weight:bold;">0.00 USDT</span>
                         </div>
                     </div>
-                    <button class="action-btn" onclick="consultarSaldosReal()" id="refreshBalanceBtn">Actualizar Saldos en Vivo</button>
+                    <button class="action-btn" onclick="consultarSaldosReal()">Actualizar Saldos en Vivo</button>
+                </div>
+
+                <!-- BLOQUE 2: GRÁFICAS DE PANGA Y ZARD LADO A LADO + ÓRDENES ABAJO -->
+                <div class="fin-card">
+                    <h3 style="color: var(--neon-green); font-family: 'Orbitron';"><i class="fa-solid fa-chart-candlestick"></i> Gráficas de Mercado & Órdenes en Vivo (PANGA & ZARD)</h3>
+                    <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 20px;">Análisis técnico oficial en Binance Smart Chain:</p>
+                    
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(480px, 1fr)); gap: 20px;">
+                        
+                        <!-- PANGA -->
+                        <div style="background: #0c061a; border: 1px solid var(--neon-blue); border-radius: 14px; padding: 16px;">
+                            <h4 style="color: var(--neon-blue); font-family: 'Orbitron'; font-size: 1rem; margin-bottom: 10px;"><i class="fa-solid fa-coins"></i> PANGA Token</h4>
+                            <!-- Gráfica optimizada para móvil -->
+                            <div style="width: 100%; height: 320px; border-radius: 10px; overflow: hidden; border: 1px solid var(--border-glow); margin-bottom: 12px; background: #000;">
+                                <iframe src="https://dexscreener.com/bsc/0x6a7cc7d5749e028c8f78f29c1d6ac8eda0eefad2?embed=1&theme=dark&trades=0&info=0" width="100%" height="100%" style="border:0;" loading="lazy"></iframe>
+                            </div>
+                            <h5 style="color: var(--text-main); font-family: 'Orbitron'; font-size: 0.85rem; margin-bottom: 6px;">Órdenes de Compra y Venta (Bids & Asks)</h5>
+                            <table class="order-book-table">
+                                <thead><tr><th>Precio (BNB)</th><th>Cantidad (PANGA)</th><th>Total</th></tr></thead>
+                                <tbody>
+                                    <tr><td class="price-up">0.000421 BNB</td><td>12,500.00</td><td>5.26 BNB</td></tr>
+                                    <tr><td class="price-up">0.000418 BNB</td><td>8,400.00</td><td>3.51 BNB</td></tr>
+                                    <tr><td class="price-down">0.000415 BNB</td><td>15,000.00</td><td>6.22 BNB</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <!-- ZARD -->
+                        <div style="background: #0c061a; border: 1px solid var(--neon-purple); border-radius: 14px; padding: 16px;">
+                            <h4 style="color: var(--neon-purple); font-family: 'Orbitron'; font-size: 1rem; margin-bottom: 10px;"><i class="fa-solid fa-shield-halved"></i> ZARD Token</h4>
+                            <!-- Gráfica optimizada para móvil -->
+                            <div style="width: 100%; height: 320px; border-radius: 10px; overflow: hidden; border: 1px solid var(--border-glow); margin-bottom: 12px; background: #000;">
+                                <iframe src="https://dexscreener.com/bsc/0x973ba2c1dccd0820f1e026d6b1f01c55c4085d38?embed=1&theme=dark&trades=0&info=0" width="100%" height="100%" style="border:0;" loading="lazy"></iframe>
+                            </div>
+                            <h5 style="color: var(--text-main); font-family: 'Orbitron'; font-size: 0.85rem; margin-bottom: 6px;">Órdenes de Compra y Venta (Bids & Asks)</h5>
+                            <table class="order-book-table">
+                                <thead><tr><th>Precio (BNB)</th><th>Cantidad (ZARD)</th><th>Total</th></tr></thead>
+                                <tbody>
+                                    <tr><td class="price-up">0.001850 BNB</td><td>4,200.00</td><td>7.77 BNB</td></tr>
+                                    <tr><td class="price-up">0.001842 BNB</td><td>9,150.00</td><td>16.85 BNB</td></tr>
+                                    <tr><td class="price-down">0.001835 BNB</td><td>12,000.00</td><td>22.02 BNB</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- BLOQUE 3: PRECIOS DE TODAS LAS MONEDAS PRINCIPALES (UNA DEBAJO DE LA OTRA) -->
+                <div class="fin-card">
+                    <h3 style="color: var(--neon-blue); font-family: 'Orbitron';"><i class="fa-solid fa-chart-line"></i> Precios de Monedas Principales (En Vivo)</h3>
+                    <p style="color: var::text-muted; font-size: 0.9rem; margin-bottom: 15px;">Cotizaciones globales actualizadas:</p>
+                    
+                    <div style="display: flex; flex-direction: column; gap: 10px;">
+                        <div style="background:#0c061a; padding:14px; border-radius:10px; border:1px solid var(--border-glow); display:flex; justify-content:space-between; align-items:center;">
+                            <span style="font-family:'Orbitron'; color:var(--neon-blue);">Bitcoin (BTC)</span>
+                            <div style="text-align:right;"><span id="price-btc" style="font-weight:bold; color:#fff;">Cargando...</span> <span id="change-btc" style="font-size:0.8rem; margin-left:8px;">--</span></div>
+                        </div>
+                        <div style="background:#0c061a; padding:14px; border-radius:10px; border:1px solid var(--border-glow); display:flex; justify-content:space-between; align-items:center;">
+                            <span style="font-family:'Orbitron'; color:var(--neon-purple);">Ethereum (ETH)</span>
+                            <div style="text-align:right;"><span id="price-eth" style="font-weight:bold; color:#fff;">Cargando...</span> <span id="change-eth" style="font-size:0.8rem; margin-left:8px;">--</span></div>
+                        </div>
+                        <div style="background:#0c061a; padding:14px; border-radius:10px; border:1px solid var(--border-glow); display:flex; justify-content:space-between; align-items:center;">
+                            <span style="font-family:'Orbitron'; color:#F0B90B;">Binance Coin (BNB)</span>
+                            <div style="text-align:right;"><span id="price-bnb" style="font-weight:bold; color:#fff;">Cargando...</span> <span id="change-bnb" style="font-size:0.8rem; margin-left:8px;">--</span></div>
+                        </div>
+                        <div style="background:#0c061a; padding:14px; border-radius:10px; border:1px solid var(--border-glow); display:flex; justify-content:space-between; align-items:center;">
+                            <span style="font-family:'Orbitron'; color:#14F195;">Solana (SOL)</span>
+                            <div style="text-align:right;"><span id="price-sol" style="font-weight:bold; color:#fff;">Cargando...</span> <span id="change-sol" style="font-size:0.8rem; margin-left:8px;">--</span></div>
+                        </div>
+                        <div style="background:#0c061a; padding:14px; border-radius:10px; border:1px solid var(--border-glow); display:flex; justify-content:space-between; align-items:center;">
+                            <span style="font-family:'Orbitron'; color:#00ffcc;">PancakeSwap (CAKE)</span>
+                            <div style="text-align:right;"><span id="price-cake" style="font-weight:bold; color:#fff;">Cargando...</span> <span id="change-cake" style="font-size:0.8rem; margin-left:8px;">--</span></div>
+                        </div>
+                        <div style="background:#0c061a; padding:14px; border-radius:10px; border:1px solid var(--border-glow); display:flex; justify-content:space-between; align-items:center;">
+                            <span style="font-family:'Orbitron'; color:#26a17b;">USD Coin (USDC)</span>
+                            <div style="text-align:right;"><span id="price-usdc" style="font-weight:bold; color:#fff;">Cargando...</span> <span id="change-usdc" style="font-size:0.8rem; margin-left:8px;">--</span></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- BLOQUE 4: MONEDAS EN TENDENCIA (ABAJO DEL TODO) -->
+                <div class="fin-card">
+                    <h3 style="color: var(--neon-pink); font-family: 'Orbitron';"><i class="fa-solid fa-fire"></i> Monedas en Tendencia (*Trending Live*)</h3>
+                    <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 15px;">Los tokens con mayor tracción en el mercado actual:</p>
+                    <div id="trendingCoinsList" style="display: flex; flex-direction: column; gap: 10px;">
+                        <div style="background:#0c061a; padding:12px; border-radius:10px; border:1px solid rgba(236,72,153,0.3); text-align:center;">
+                            <span style="color:var(--text-muted);">Cargando tendencias globales...</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- PESTAÑA: MONEDAS & SUBS -->
+        <div id="tab-coins" class="tab-content">
+            <div class="card-grid">
+                <div class="fin-card">
+                    <h3><i class="fa-solid fa-coins"></i> Descubrir Monedas (Tokens Oficiales)</h3>
+                    <div style="background: #0c061a; border: 1px solid var(--border-glow); border-radius: 12px; padding: 15px; margin-bottom: 15px;">
+                        <strong style="color: var(--neon-green); font-family: 'Orbitron';">PANGA Token</strong>
+                        <p style="font-size: 0.85rem; color: var(--text-muted); margin: 5px 0;">Contrato: 0x6a7cc7...eefad2</p>
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 10px;">
+                            <span style="color: var(--neon-blue); font-weight: bold;">Verificado BSC</span>
+                            <button class="action-btn" onclick="suscribirseCanal('@Panga_PANGA')" style="padding: 6px 14px; font-size: 0.8rem;"><i class="fa-solid fa-bell"></i> Suscribirse</button>
+                        </div>
+                    </div>
+                    <div style="background: #0c061a; border: 1px solid var(--border-glow); border-radius: 12px; padding: 15px; margin-bottom: 15px;">
+                        <strong style="color: var(--neon-purple); font-family: 'Orbitron';">ZARD Token</strong>
+                        <p style="font-size: 0.85rem; color: var(--text-muted); margin: 5px 0;">Contrato: 0x973ba2...085d38</p>
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 10px;">
+                            <span style="color: var(--neon-green); font-weight: bold;">Liquidez Bloqueada 10 Años</span>
+                            <button class="action-btn" onclick="suscribirseCanal('@ZAARD_OFFICIAL')" style="padding: 6px 14px; font-size: 0.8rem;"><i class="fa-solid fa-bell"></i> Suscribirse</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="fin-card">
+                    <h3><i class="fa-solid fa-user-circle"></i> Tu Perfil Activo</h3>
+                    <div style="text-align: center; padding: 20px; background: #0c061a; border-radius: 12px; border: 1px solid var(--neon-blue); margin-bottom: 15px;">
+                        <img id="profileAvatarDisplay" src="" alt="Avatar" style="width: 70px; height: 70px; border-radius: 50%; object-fit: cover; border: 2px solid var(--neon-green); margin-bottom: 10px; display: none;">
+                        <h4 style="font-family: 'Orbitron'; color: #fff; font-size: 1.1rem;" id="profileDisplayName">@Usuario</h4>
+                        <p style="font-size: 0.8rem; color: var(--text-muted); margin-top: 5px;" id="profileAddress">Billetera no conectada</p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -553,7 +546,7 @@
             <div class="card-grid">
                 <div class="fin-card" style="text-align: center; padding: 40px 20px;">
                     <i class="fa-solid fa-right-left" style="font-size: 3rem; color: var(--neon-blue); margin-bottom: 20px;"></i>
-                    <h3 id="swapTitleText">PancakeSwap DEX Exchange Oficial</h3>
+                    <h3>PancakeSwap DEX Exchange Oficial</h3>
                     <div style="display: flex; justify-content: center; gap: 15px; flex-wrap: wrap; margin-top: 20px;">
                         <a href="https://pancakeswap.finance/swap?outputCurrency=0x973ba2c1dccd0820f1e026d6b1f01c55c4085d38" target="_blank" class="action-btn" style="text-decoration: none; padding: 12px 22px;">Swap BNB ⇄ ZARD</a>
                         <a href="https://pancakeswap.finance/swap?outputCurrency=0x6a7cc7d5749e028c8f78f29c1d6ac8eda0eefad2" target="_blank" class="action-btn" style="text-decoration: none; padding: 12px 22px; background: linear-gradient(135deg, #00ffcc, #00f3ff); color:#030107;">Swap BNB ⇄ PANGA</a>
@@ -588,7 +581,6 @@
         let activeRoomData = null;
         let isMicMuted = false;
         let currentRoomTopic = "";
-        let currentLang = localStorage.getItem('zard_lang') || "es";
 
         const CONTRACT_ZARD = "0x973ba2c1dccd0820f1e026d6b1f01c55c4085d38";
         const CONTRACT_PANGA = "0x6a7cc7d5749e028c8f78f29c1d6ac8eda0eefad2";
@@ -596,13 +588,8 @@
         const CONTRACT_USDT = "0x55d398326f99059fF775485246999027B3197955";
 
         window.onload = function() {
-            // Enlazar evento directamente por JS para garantizar el funcionamiento del botón en móviles
             const btnEnter = document.getElementById('enterBtnAction');
-            if(btnEnter) {
-                btnEnter.onclick = entrarNexus;
-            }
-
-            document.getElementById('langSelector').value = currentLang;
+            if(btnEnter) { btnEnter.onclick = entrarNexus; }
 
             if (userName && userName.trim() !== "") {
                 document.getElementById('userInputName').value = userName;
@@ -621,33 +608,19 @@
             obtenerMonedasEnTendencia();
         };
 
-        function cambiarIdiomaGlobal(lang) {
-            currentLang = lang;
-            localStorage.setItem('zard_lang', lang);
-        }
-
         function cargarAvatarMemoria(event) {
             const file = event.target.files[0];
             if (!file) return;
             const reader = new FileReader();
-            reader.onload = function(e) {
-                userAvatar = e.target.result;
-            };
+            reader.onload = function(e) { userAvatar = e.target.result; };
             reader.readAsDataURL(file);
         }
 
         function entrarNexus() {
             const inputVal = document.getElementById('userInputName').value.trim();
-            if (inputVal !== "") {
-                userName = inputVal;
-            } else {
-                userName = "Panga";
-            }
+            userName = inputVal !== "" ? inputVal : "Panga";
             localStorage.setItem('zard_username', userName);
-            
-            if (userAvatar !== "") {
-                localStorage.setItem('zard_useravatar', userAvatar);
-            }
+            if (userAvatar !== "") { localStorage.setItem('zard_useravatar', userAvatar); }
             entrarNexusDirecto();
         }
 
@@ -657,7 +630,6 @@
                 welcomeScreen.classList.add('fade-out');
                 setTimeout(() => { welcomeScreen.style.display = 'none'; }, 400);
             }
-
             document.getElementById('main-app').style.display = 'block';
             document.getElementById('displayProfileTag').innerText = "@" + userName;
             document.getElementById('profileDisplayName').innerText = "@" + userName;
@@ -712,7 +684,7 @@
             priceEl.innerText = "$" + info.usd.toLocaleString('en-US', { minimumFractionDigits: 2 });
             const change = info.usd_24h_change || 0;
             changeEl.innerText = (change >= 0 ? "+" : "") + change.toFixed(2) + "%";
-            changeEl.className = change >= 0 ? "price-up" : "price-down";
+            changeEl.style.color = change >= 0 ? "var(--neon-green)" : "var(--neon-red)";
         }
 
         async function obtenerMonedasEnTendencia() {
@@ -721,15 +693,15 @@
                 const data = await res.json();
                 const container = document.getElementById('trendingCoinsList');
                 let html = '';
-                data.coins.slice(0, 6).forEach(item => {
+                data.coins.slice(0, 5).forEach(item => {
                     const coin = item.item;
                     html += `
-                        <div style="background:#0c061a; padding:12px; border-radius:10px; border:1px solid rgba(236,72,153,0.3); display:flex; align-items:center; gap:10px;">
-                            <img src="${coin.small}" style="width:30px; height:30px; border-radius:50%;">
-                            <div style="text-align:left; overflow:hidden;">
-                                <div style="font-family:'Orbitron'; font-size:0.85rem; color:#fff; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">${coin.name}</div>
-                                <div style="font-size:0.75rem; color:var(--neon-pink);">Rank #${coin.market_cap_rank || 'N/A'}</div>
+                        <div style="background:#0c061a; padding:12px; border-radius:10px; border:1px solid rgba(236,72,153,0.3); display:flex; align-items:center; justify-content:space-between;">
+                            <div style="display:flex; align-items:center; gap:10px;">
+                                <img src="${coin.small}" style="width:28px; height:28px; border-radius:50%;">
+                                <span style="font-family:'Orbitron'; font-size:0.85rem; color:#fff;">${coin.name} (${coin.symbol.toUpperCase()})</span>
                             </div>
+                            <span style="font-size:0.75rem; color:var(--neon-pink); font-weight:bold;">Rank #${coin.market_cap_rank || 'N/A'}</span>
                         </div>
                     `;
                 });
@@ -773,7 +745,6 @@
                     <button class="disconnect-btn" onclick="desconectarWallet()" style="margin-left:8px;">Salir</button>
                 </div>
             `;
-            document.getElementById('profileAddress').innerText = address;
         }
 
         function desconectarWallet() {
@@ -784,7 +755,6 @@
             document.getElementById('pangaBalanceVal').innerText = "0.00 PANGA";
             document.getElementById('btcbBalanceVal').innerText = "0.00 BTCB";
             document.getElementById('usdtBalanceVal').innerText = "0.00 USDT";
-            document.getElementById('profileAddress').innerText = "Billetera no conectada";
         }
 
         async function consultarSaldosReal() {
