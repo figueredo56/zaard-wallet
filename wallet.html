@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ZARD NEXUS V4.3 - ZARD INNOVATION</title>
+    <title>ZARD NEXUS V4.4 - ZARD INNOVATION</title>
     <!-- Google Fonts & FontAwesome -->
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;800;900&family=Rajdhani:wght@500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <!-- Etiquetas Open Graph con tu Imagen Oficial -->
-    <meta property="og:title" content="ZARD NEXUS V4.3 - ZARD INNOVATION">
+    <meta property="og:title" content="ZARD NEXUS V4.4 - ZARD INNOVATION">
     <meta property="og:description" content="Dashboard Web3 Oficial, Gráficas en Vivo, Pares de Mercado y Conexión de Billetera.">
     <meta property="og:url" content="https://figueredo56.github.io/zaard-wallet/wallet.html">
     <meta property="og:type" content="website">
@@ -883,7 +883,7 @@
             return "0.00";
         }
 
-        /* FUNCIONES DE SALAS DE VOZ & TRADUCTOR ESPAÑOL ⇄ INGLÉS */
+        /* FUNCIONES DE SALAS DE VOZ & TRADUCTOR ESPAÑOL ⇄ INGLÉS CORREGIDAS */
         function abrirCrearSalaModal() {
             if (activeRoomData) { alert("Ya tienes una transmisión activa."); return; }
             const box = document.getElementById('createRoomBox');
@@ -904,24 +904,31 @@
             const topic = document.getElementById('roomTopicInput').value.trim();
             if (!topic) { alert("Escribe el tema de la sala."); return; }
 
-            currentRoomTopic = topic;
-            const carousel = document.getElementById('voiceRoomsCarousel');
             const hostName = "@" + userName;
             const roomImg = roomImageBase64 || userAvatar || "https://photos.pinksale.finance/file/pinksale-logo-upload/1789411086014-7b67968ed9538e215f1948583ee37c7c.png";
             const roomId = "room-" + Date.now();
 
+            const carousel = document.getElementById('voiceRoomsCarousel');
             const newCard = document.createElement('div');
             newCard.className = 'voice-room-card';
             newCard.id = roomId;
+            
+            // CORREGIDO: Aseguramos que los strings se pasen bien escapados al HTML
+            const escapedTopic = topic.replace(/'/g, "\\'").replace(/"/g, '&quot;');
+            const escapedHost = hostName.replace(/'/g, "\\'").replace(/"/g, '&quot;');
+            const escapedImg = roomImg.replace(/'/g, "\\'").replace(/"/g, '&quot;');
+            const escapedId = roomId.replace(/'/g, "\\'").replace(/"/g, '&quot;');
+
             newCard.innerHTML = `
                 <img src="${roomImg}" alt="Room">
                 <h4 style="color: #fff; font-size: 0.95rem; font-family: 'Orbitron'; margin-bottom: 4px;">${topic}</h4>
                 <p style="color: var(--text-muted); font-size: 0.8rem; margin-bottom: 12px;">Host: ${hostName}</p>
-                <button class="action-btn" onclick="unirseSalaVoz('${topic.replace(/'/g, "\\'")}', '${hostName}', '${roomImg}', '${roomId}')" style="padding: 8px 16px; font-size: 0.85rem;">Escuchar</button>
+                <button class="action-btn" onclick="unirseSalaVoz('${escapedTopic}', '${escapedHost}', '${escapedImg}', '${escapedId}')" style="padding: 8px 16px; font-size: 0.85rem;">Escuchar</button>
             `;
             carousel.prepend(newCard);
             document.getElementById('roomTopicInput').value = "";
             document.getElementById('createRoomBox').style.display = 'none';
+            
             unirseSalaVoz(topic, hostName, roomImg, roomId);
         }
 
