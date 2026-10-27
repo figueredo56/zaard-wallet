@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ZARD NEXUS V4.6 - ZARD INNOVATION</title>
+    <title>ZARD NEXUS V4.7 - ZARD INNOVATION</title>
     <!-- Google Fonts & FontAwesome -->
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;800;900&family=Rajdhani:wght@500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <!-- Etiquetas Open Graph con tu Imagen Oficial -->
-    <meta property="og:title" content="ZARD NEXUS V4.6 - ZARD INNOVATION">
+    <meta property="og:title" content="ZARD NEXUS V4.7 - ZARD INNOVATION">
     <meta property="og:description" content="Dashboard Web3 Oficial, Gráficas en Vivo, Pares de Mercado y Conexión de Billetera.">
     <meta property="og:url" content="https://figueredo56.github.io/zaard-wallet/wallet.html">
     <meta property="og:type" content="website">
@@ -689,16 +689,6 @@
                 document.getElementById('welcome-screen').style.display = 'flex';
             }
             
-            // Si no hay salas guardadas, iniciar con una por defecto opcional
-            if (voiceRooms.length === 0) {
-                voiceRooms = [{
-                    id: 'room-default',
-                    topic: 'Análisis ZARD & PANGA',
-                    host: '@Panga',
-                    img: 'https://photos.pinksale.finance/file/pinksale-logo-upload/1789411086014-7b67968ed9538e215f1948583ee37c7c.png'
-                }];
-                localStorage.setItem('zard_voice_rooms', JSON.stringify(voiceRooms));
-            }
             renderizarSalasVoz();
 
             const savedRoom = localStorage.getItem('zard_active_room');
@@ -932,7 +922,8 @@
             const topic = document.getElementById('roomTopicInput').value.trim();
             if (!topic) { alert("Escribe el tema de la sala."); return; }
 
-            const hostName = "@" + userName;
+            const hostName = "@" + (userName || "Panga");
+            // Imagen por defecto garantizada si no se sube ninguna o si falla
             const roomImg = roomImageBase64 || userAvatar || "https://photos.pinksale.finance/file/pinksale-logo-upload/1789411086014-7b67968ed9538e215f1948583ee37c7c.png";
             const roomId = "room-" + Date.now();
 
