@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ZARD NEXUS V4.4 - ZARD INNOVATION</title>
+    <title>ZARD NEXUS V4.5 - ZARD INNOVATION</title>
     <!-- Google Fonts & FontAwesome -->
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;800;900&family=Rajdhani:wght@500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <!-- Etiquetas Open Graph con tu Imagen Oficial -->
-    <meta property="og:title" content="ZARD NEXUS V4.4 - ZARD INNOVATION">
+    <meta property="og:title" content="ZARD NEXUS V4.5 - ZARD INNOVATION">
     <meta property="og:description" content="Dashboard Web3 Oficial, Gráficas en Vivo, Pares de Mercado y Conexión de Billetera.">
     <meta property="og:url" content="https://figueredo56.github.io/zaard-wallet/wallet.html">
     <meta property="og:type" content="website">
@@ -309,12 +309,7 @@
                         <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 15px;">Salas de llamadas en alta voz con control total, silenciar micrófono, pedir la palabra y minimizado flotante.</p>
                         
                         <div class="voice-carousel" id="voiceRoomsCarousel">
-                            <div class="voice-room-card" id="room-default">
-                                <img src="https://photos.pinksale.finance/file/pinksale-logo-upload/1789411086014-7b67968ed9538e215f1948583ee37c7c.png" alt="Host">
-                                <h4 style="color: #fff; font-size: 0.95rem; font-family: 'Orbitron'; margin-bottom: 4px;">Análisis ZARD & PANGA</h4>
-                                <p style="color: var(--text-muted); font-size: 0.8rem; margin-bottom: 12px;">Host: @Panga</p>
-                                <button class="action-btn" onclick="unirseSalaVoz('Análisis ZARD & PANGA', '@Panga', 'https://photos.pinksale.finance/file/pinksale-logo-upload/1789411086014-7b67968ed9538e215f1948583ee37c7c.png', 'room-default')" style="padding: 8px 16px; font-size: 0.85rem;">Escuchar</button>
-                            </div>
+                            <!-- Las salas se cargan dinámicamente aquí -->
                         </div>
                     </div>
 
@@ -624,6 +619,9 @@
         let isMicMuted = false;
         let currentRoomTopic = "";
 
+        // Sistema de salas de voz persistentes
+        let voiceRooms = JSON.parse(localStorage.getItem('zard_voice_rooms') || '[]');
+
         const CONTRACT_ZARD = "0x973ba2c1dccd0820f1e026d6b1f01c55c4085d38";
         const CONTRACT_PANGA = "0x6a7cc7d5749e028c8f78f29c1d6ac8eda0eefad2";
         const CONTRACT_BTCB = "0x7130d2A12B9BCbFAe4f2634d864a1Ee1Ce3Ead9c";
@@ -691,15 +689,43 @@
                 document.getElementById('welcome-screen').style.display = 'flex';
             }
             
+            // Inicializar salas de voz por defecto si está vacío
+            if (voiceRooms.length === 0) {
+                voiceRooms = [{
+                    id: 'room-default',
+                    topic: 'Análisis ZARD & PANGA',
+                    host: '@Panga',
+                    img: 'https://photos.pinksale.finance/file/pinksale-logo-upload/1789411086014-7b67968ed9538e215f1948583ee37c7c.png'
+                }];
+                localStorage.setItem('zard_voice_rooms', JSON.stringify(voiceRooms));
+            }
+            renderizarSalasVoz();
+
             const savedRoom = localStorage.getItem('zard_active_room');
             if (savedRoom) {
                 const roomObj = JSON.parse(savedRoom);
-                unirseSalaVoz(roomObj.topic, roomObj.host, roomObj.img, roomObj.roomId);
+                unirseSalaPorId(roomObj.id);
             }
 
             obtenerPreciosGlobalesCrypto();
             obtenerMonedasEnTendencia();
         };
+
+        function renderizarSalasVoz() {
+            const carousel = document.getElementById('voiceRoomsCarousel');
+            let html = '';
+            voiceRooms.forEach(room => {
+                html += `
+                    <div class="voice-room-card" id="${room.id}">
+                        <img src="${room.img}" alt="Host">
+                        <h4 style="color: #fff; font-size: 0.95rem; font-family: 'Orbitron'; margin-bottom: 4px;">${room.topic}</h4>
+                        <p style="color: var(--text-muted); font-size: 0.8rem; margin-bottom: 12px;">Host: ${room.host}</p>
+                        <button class="action-btn" onclick="unirseSalaPorId('${room.id}')" style="padding: 8px 16px; font-size: 0.85rem;">Escuchar</button>
+                    </div>
+                `;
+            });
+            carousel.innerHTML = html;
+        }
 
         function cambiarIdiomaGlobal(lang) {
             const t = translations[lang];
@@ -883,7 +909,7 @@
             return "0.00";
         }
 
-        /* FUNCIONES DE SALAS DE VOZ & TRADUCTOR ESPAÑOL ⇄ INGLÉS CORREGIDAS */
+        /* FUNCIONES DE SALAS DE VOZ & TRADUCTOR ESPAÑOL ⇄ INGLÉS */
         function abrirCrearSalaModal() {
             if (activeRoomData) { alert("Ya tienes una transmisión activa."); return; }
             const box = document.getElementById('createRoomBox');
@@ -908,39 +934,31 @@
             const roomImg = roomImageBase64 || userAvatar || "https://photos.pinksale.finance/file/pinksale-logo-upload/1789411086014-7b67968ed9538e215f1948583ee37c7c.png";
             const roomId = "room-" + Date.now();
 
-            const carousel = document.getElementById('voiceRoomsCarousel');
-            const newCard = document.createElement('div');
-            newCard.className = 'voice-room-card';
-            newCard.id = roomId;
-            
-            // CORREGIDO: Aseguramos que los strings se pasen bien escapados al HTML
-            const escapedTopic = topic.replace(/'/g, "\\'").replace(/"/g, '&quot;');
-            const escapedHost = hostName.replace(/'/g, "\\'").replace(/"/g, '&quot;');
-            const escapedImg = roomImg.replace(/'/g, "\\'").replace(/"/g, '&quot;');
-            const escapedId = roomId.replace(/'/g, "\\'").replace(/"/g, '&quot;');
+            const nuevaSala = { id: roomId, topic, host: hostName, img: roomImg };
+            voiceRooms.unshift(nuevaSala);
+            localStorage.setItem('zard_voice_rooms', JSON.stringify(voiceRooms));
 
-            newCard.innerHTML = `
-                <img src="${roomImg}" alt="Room">
-                <h4 style="color: #fff; font-size: 0.95rem; font-family: 'Orbitron'; margin-bottom: 4px;">${topic}</h4>
-                <p style="color: var(--text-muted); font-size: 0.8rem; margin-bottom: 12px;">Host: ${hostName}</p>
-                <button class="action-btn" onclick="unirseSalaVoz('${escapedTopic}', '${escapedHost}', '${escapedImg}', '${escapedId}')" style="padding: 8px 16px; font-size: 0.85rem;">Escuchar</button>
-            `;
-            carousel.prepend(newCard);
             document.getElementById('roomTopicInput').value = "";
             document.getElementById('createRoomBox').style.display = 'none';
-            
-            unirseSalaVoz(topic, hostName, roomImg, roomId);
+            roomImageBase64 = "";
+            document.getElementById('roomImgName').innerText = "";
+
+            renderizarSalasVoz();
+            unirseSalaPorId(roomId);
         }
 
-        function unirseSalaVoz(topic, host, img, roomId) {
+        function unirseSalaPorId(roomId) {
+            const room = voiceRooms.find(r => r.id === roomId);
+            if (!room) return;
             if (activeRoomData && activeRoomData !== roomId) { alert("Ya tienes una sala en curso."); return; }
+            
             activeRoomData = roomId;
-            currentRoomTopic = topic;
-            localStorage.setItem('zard_active_room', JSON.stringify({ topic, host, img, roomId }));
+            currentRoomTopic = room.topic;
+            localStorage.setItem('zard_active_room', JSON.stringify(room));
 
-            document.getElementById('liveRoomTopicBig').innerText = topic;
-            document.getElementById('liveRoomHostBig').innerText = "Anfitrión: " + host;
-            document.getElementById('liveRoomImgBigContainer').innerHTML = `<img src="${img}" style="width:90px; height:90px; border-radius:50%; border:3px solid var(--neon-green); object-fit:cover;">`;
+            document.getElementById('liveRoomTopicBig').innerText = room.topic;
+            document.getElementById('liveRoomHostBig').innerText = "Anfitrión: " + room.host;
+            document.getElementById('liveRoomImgBigContainer').innerHTML = `<img src="${room.img}" style="width:90px; height:90px; border-radius:50%; border:3px solid var(--neon-green); object-fit:cover;">`;
             document.getElementById('activeVoiceRoomBox').style.display = 'block';
             document.getElementById('floatingVoiceBar').style.display = 'none';
             window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -975,8 +993,18 @@
             document.getElementById('activeVoiceRoomBox').style.display = 'none';
             document.getElementById('floatingVoiceBar').style.display = 'none';
             localStorage.removeItem('zard_active_room');
-            if (activeRoomData && document.getElementById(activeRoomData)) {
-                document.getElementById(activeRoomData).remove();
+            if (activeRoomData) {
+                voiceRooms = voiceRooms.filter(r => r.id !== activeRoomData);
+                if (voiceRooms.length === 0) {
+                    voiceRooms = [{
+                        id: 'room-default',
+                        topic: 'Análisis ZARD & PANGA',
+                        host: '@Panga',
+                        img: 'https://photos.pinksale.finance/file/pinksale-logo-upload/1789411086014-7b67968ed9538e215f1948583ee37c7c.png'
+                    }];
+                }
+                localStorage.setItem('zard_voice_rooms', JSON.stringify(voiceRooms));
+                renderizarSalasVoz();
             }
             activeRoomData = null;
         }
