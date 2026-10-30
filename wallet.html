@@ -78,7 +78,7 @@
 
         .app-container { max-width: 1350px; margin: 0 auto; padding: 20px; display: none; padding-bottom: 80px; }
 
-        /* CABECERA ESTILO BINANCE */
+        /* CABECERA ESTILO BINANCE SQUARE */
         header {
             display: flex; justify-content: space-between; align-items: center;
             background: var(--bg-card); border: 1px solid var(--border-glow);
@@ -602,7 +602,7 @@
                 }
             });
 
-            // Sincronización Global del Muro de Publicaciones (Nunca se borran solas, estilo Binance Square)
+            // Sincronización Global del Muro de Publicaciones
             postsRef.on('value', (snapshot) => {
                 const data = snapshot.val();
                 const muro = document.getElementById('muroPublicaciones');
@@ -709,7 +709,7 @@
         }
         async function conectarWalletConnectReal() { conectarMetaMaskReal(); }
 
-        // SISTEMA DE SALAS DE VOZ & VIDEO CON PERSISTENCIA AL NAVEGAR
+        // SISTEMA DE SALAS DE VOZ & VIDEO OPTIMIZADO Y BLINDADO
         function toggleCrearSalaForm() {
             const box = document.getElementById('createRoomBox');
             box.style.display = box.style.display === 'none' ? 'block' : 'none';
@@ -726,22 +726,26 @@
         }
 
         function lanzarSalaVoz() {
-            const topic = document.getElementById('roomTopicInput').value.trim();
-            if(!topic) { alert("Escribe un tema para tu transmisión."); return; }
+            const topicInput = document.getElementById('roomTopicInput');
+            const topic = topicInput.value.trim() || "Transmisión en Vivo ZARD";
 
             const newRoomRef = dbRef.push();
             activeRoomId = newRoomRef.key;
             activeRoomData = {
                 id: activeRoomId,
                 topic: topic,
-                host: userName,
-                img: userAvatar || roomImageBase64,
+                host: userName || "@Panga",
+                img: roomImageBase64 || userAvatar,
                 timestamp: Date.now()
             };
 
             newRoomRef.set(activeRoomData).then(() => {
                 document.getElementById('createRoomBox').style.display = 'none';
+                topicInput.value = '';
                 abrirInterfazSalaActiva(activeRoomData);
+                alert("¡Transmisión iniciada con éxito en el Nexus!");
+            }).catch(err => {
+                alert("Error al iniciar transmisión: " + err.message);
             });
         }
 
@@ -759,7 +763,6 @@
             document.getElementById('liveRoomImgBigContainer').innerHTML = `<img src="${room.img}" style="width:70px; height:70px; border-radius:50%; border:2px solid var(--neon-green); object-fit:cover;">`;
         }
 
-        // Minimiza la sala pero NO la cierra (queda activa en la barra flotante al cambiar de sitio)
         function minimizarSalaVoz() {
             document.getElementById('activeVoiceRoomBox').style.display = 'none';
             document.getElementById('floatingVoiceBar').style.display = 'flex';
@@ -775,7 +778,6 @@
             }
         }
 
-        // Cierra la sala por completo SOLO cuando el usuario le da al botón de apagar
         function salirDeSalaActual() {
             if(activeRoomId) {
                 dbRef.child(activeRoomId).remove();
