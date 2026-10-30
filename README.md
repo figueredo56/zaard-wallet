@@ -66,7 +66,7 @@ El ecosistema integra un agregador de liquidez, un rastreador analítico en tiem
 * **Despliegue Asistido:** Interfaz que permite configurar parámetros de nuevos proyectos Web3 (Nombre, Símbolo, Supply, Metadatos IPFS mediante Pinata)[cite: 1, 2, 3, 4, 5, 6, 7].
 * **Emparejamiento Directo:** Módulo para establecer pares de liquidez inicial utilizando como activo base del pool a **ZARD Token** o **PANGA Token**[cite: 1, 2, 3, 4, 5, 6, 7].
 
-### 🌐 4. ZAARD Nexus | Red Social & Salas de Voz Descentralizadas
+### 🌐 4. ZAARD Nexus | Red Social Descentralizadas
 * **Salas de Transmisión Global:** Transmisión y escucha de sesiones de voz en tiempo real con sistema de solicitudes de palabra y gestión de anfitriones[cite: 1, 2, 3, 4, 5, 6, 7].
 * **Muro Comunitario Sincronizado:** Publicación global con soporte multimedia (imágenes, GIF, videos) mediante base de datos descentralizada Firebase Realtime Database[cite: 1, 2, 3, 4, 5, 6, 7].
 * **Motor de Traducción en Vivo:** Detección de idioma y traducción automática de mensajes (Español ⇄ Inglés) dentro del chat de las salas[cite: 1, 2, 3, 4, 5, 6, 7].
