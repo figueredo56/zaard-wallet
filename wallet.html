@@ -43,6 +43,65 @@
             background-image: radial-gradient(circle at 50% 10%, #2e1065 0%, var(--bg-deep) 75%);
         }
 
+        /* EFECTO WOW / TRANSICIÓN DE CHISPAS Y RAYOS MORADOS */
+        #wow-transition-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(5, 2, 10, 0.96); z-index: 999999;
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            opacity: 0; visibility: hidden; pointer-events: none;
+            transition: opacity 0.4s ease;
+        }
+        #wow-transition-overlay.active {
+            opacity: 1; visibility: visible; pointer-events: auto;
+        }
+        .wow-img-container {
+            position: relative; width: 180px; height: 180px; border-radius: 50%;
+            display: flex; justify-content: center; align-items: center;
+            animation: wowExplosion 1.5s cubic-bezier(0.1, 0.9, 0.2, 1) forwards;
+        }
+        .wow-img-container img {
+            width: 150px; height: 150px; border-radius: 50%; object-fit: cover;
+            border: 4px solid var(--neon-blue);
+            box-shadow: 0 0 50px var(--neon-purple), 0 0 100px var(--neon-blue), inset 0 0 30px var(--neon-pink);
+            animation: pulseGlow 0.75s infinite alternate;
+        }
+        /* Anillo de chispas y rayos eléctricos morados rotatorios */
+        .wow-img-container::before {
+            content: ''; position: absolute; top: -15px; left: -15px; right: -15px; bottom: -15px;
+            border-radius: 50%; border: 3px dashed var(--neon-purple);
+            box-shadow: 0 0 30px var(--neon-pink), 0 0 60px var(--neon-blue);
+            animation: rotateLightning 1.5s linear infinite;
+        }
+        .wow-text {
+            margin-top: 25px; font-family: 'Orbitron', sans-serif; font-size: 1.5rem; font-weight: 900;
+            background: linear-gradient(135deg, var(--neon-blue), var(--neon-purple), var(--neon-pink));
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 25px rgba(192, 132, 252, 0.8); letter-spacing: 2px;
+            animation: textZoom 1.5s ease forwards;
+        }
+
+        @keyframes wowExplosion {
+            0% { transform: scale(0.2) rotate(-90deg); filter: brightness(3); opacity: 0; }
+            30% { transform: scale(1.2) rotate(10deg); filter: brightness(1.5); opacity: 1; }
+            70% { transform: scale(1) rotate(0deg); filter: brightness(1); opacity: 1; }
+            100% { transform: scale(0.5) rotate(45deg); opacity: 0; }
+        }
+        @keyframes rotateLightning {
+            0% { transform: rotate(0deg); border-color: var(--neon-purple); }
+            50% { border-color: var(--neon-blue); box-shadow: 0 0 50px var(--neon-pink); }
+            100% { transform: rotate(360deg); border-color: var(--neon-purple); }
+        }
+        @keyframes pulseGlow {
+            0% { transform: scale(0.95); box-shadow: 0 0 30px var(--neon-purple); }
+            100% { transform: scale(1.08); box-shadow: 0 0 70px var(--neon-blue), 0 0 40px var(--neon-pink); }
+        }
+        @keyframes textZoom {
+            0% { transform: translateY(30px); opacity: 0; }
+            30% { transform: translateY(0); opacity: 1; }
+            70% { opacity: 1; }
+            100% { transform: translateY(-20px); opacity: 0; }
+        }
+
         /* BIENVENIDA & PERFIL */
         #welcome-screen {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
@@ -110,7 +169,7 @@
             color: #fff; padding: 6px 12px; border-radius: 8px; cursor: pointer; font-weight: bold;
         }
 
-        /* NAVEGACIÓN PESTAÑAS (SITUADA DEBAJO DE LA CABECERA) */
+        /* NAVEGACIÓN PESTAÑAS */
         .tabs-nav { display: flex; gap: 10px; overflow-x: auto; padding-bottom: 10px; margin-bottom: 25px; }
         .tab-btn, .tab-link {
             background: rgba(25, 12, 50, 0.9); border: 2px solid rgba(168, 85, 247, 0.5); color: var(--text-muted);
@@ -158,7 +217,7 @@
         }
         .action-btn:hover { transform: scale(1.05); box-shadow: 0 0 30px var(--neon-blue); }
 
-        /* MURO DE PUBLICACIONES EXCLUSIVO DE SQUARE */
+        /* MURO DE PUBLICACIONES */
         .post-card {
             background: rgba(15, 8, 30, 0.95); border: 2px solid rgba(168, 85, 247, 0.4);
             border-radius: 14px; padding: 22px; margin-top: 18px; box-shadow: 0 4px 25px rgba(0,0,0,0.7);
@@ -192,32 +251,40 @@
 </head>
 <body dir="ltr">
 
+    <!-- CAPA DE EFECTO WOW / TRANSICIÓN VISUAL -->
+    <div id="wow-transition-overlay">
+        <div class="wow-img-container">
+            <img id="wowOverlayImg" src="" alt="ZAARD WOW Effect">
+        </div>
+        <div class="wow-text" id="wowOverlayText">NEXUS POWER ⚡</div>
+    </div>
+
     <!-- BIENVENIDA & PERFIL -->
     <div id="welcome-screen">
         <img src="https://photos.pinksale.finance/file/pinksale-logo-upload/1789411086014-7b67968ed9538e215f1948583ee37c7c.png" alt="ZARD Logo" class="welcome-logo">
         <div class="welcome-title">ZARD INNOVATION</div>
-        <div class="welcome-sub" style="color:var(--text-muted); margin-bottom:15px; font-size:0.9rem;">Configura tu Perfil Web3 Exclusivo</div>
+        <div class="welcome-sub" style="color:var(--text-muted); margin-bottom:15px; font-size:0.9rem;" data-i18n="welcomeSub">Configura tu Perfil Web3 Exclusivo</div>
         
         <input type="text" id="userInputName" class="profile-input" placeholder="Tu Nombre o Alias (ej: @ZAARD_ALX)" onkeydown="if(event.key==='Enter') entrarNexus()">
         <input type="text" id="userBioInput" class="profile-input" maxlength="100" placeholder="Breve descripción (máx 100 carácteres)" onkeydown="if(event.key==='Enter') entrarNexus()">
 
         <label class="file-upload-label" style="margin-bottom: 15px; font-size: 0.85rem;">
-            <i class="fa-solid fa-camera"></i> Subir Foto de Perfil <input type="file" id="userAvatarFile" accept="image/*" style="display: none;" onchange="cargarAvatarMemoria(event)">
+            <i class="fa-solid fa-camera"></i> <span data-i18n="uploadAvatar">Subir Foto de Perfil</span> <input type="file" id="userAvatarFile" accept="image/*" style="display: none;" onchange="cargarAvatarMemoria(event)">
         </label>
         <br>
-        <button type="button" class="enter-btn" onclick="entrarNexus()"><i class="fa-solid fa-rocket"></i> INGRESAR AL NEXUS</button>
+        <button type="button" class="enter-btn" onclick="entrarNexus()"><i class="fa-solid fa-rocket"></i> <span data-i18n="enterNexus">INGRESAR AL NEXUS</span></button>
     </div>
 
     <!-- MODAL WALLET -->
     <div id="wallet-modal">
         <div class="modal-box">
-            <h3 style="font-family:'Orbitron'; color:var(--neon-blue); margin-bottom:10px;">Conectar Billetera Web3</h3>
-            <p style="color:var(--text-muted); font-size:0.85rem; margin-bottom:20px;">Abre tu app externa o conecta directamente:</p>
+            <h3 style="font-family:'Orbitron'; color:var(--neon-blue); margin-bottom:10px;" data-i18n="connectWalletTitle">Conectar Billetera Web3</h3>
+            <p style="color:var(--text-muted); font-size:0.85rem; margin-bottom:20px;" data-i18n="connectWalletSub">Abre tu app externa o conecta directamente:</p>
             <div class="wallet-option" onclick="conectarPorDeepLink('binance')"><i class="fa-solid fa-globe" style="color:#F0B90B; font-size:1.5rem;"></i> <span>Binance Web3 App</span></div>
             <div class="wallet-option" onclick="conectarPorDeepLink('trust')"><i class="fa-solid fa-shield-halved" style="color:#3375bb; font-size:1.5rem;"></i> <span>Trust Wallet</span></div>
             <div class="wallet-option" onclick="conectarPorDeepLink('metamask')"><i class="fa-solid fa-cube" style="color:#f6851b; font-size:1.5rem;"></i> <span>MetaMask App</span></div>
-            <div class="wallet-option" onclick="conectarInyectadoLocal()"><i class="fa-solid fa-bolt" style="color:var(--neon-blue); font-size:1.5rem;"></i> <span>Navegador / Inyectado Web3</span></div>
-            <button type="button" onclick="cerrarModal()" style="background:transparent; border:none; color:var(--text-muted); margin-top:15px; cursor:pointer; font-weight:bold;">Cancelar</button>
+            <div class="wallet-option" onclick="conectarInyectadoLocal()"><i class="fa-solid fa-bolt" style="color:var(--neon-blue); font-size:1.5rem;"></i> <span data-i18n="injectedWeb3">Navegador / Inyectado Web3</span></div>
+            <button type="button" onclick="cerrarModal()" style="background:transparent; border:none; color:var(--text-muted); margin-top:15px; cursor:pointer; font-weight:bold;" data-i18n="cancel">Cancelar</button>
         </div>
     </div>
 
@@ -242,54 +309,54 @@
                 </select>
 
                 <div id="wallet-container">
-                    <button type="button" class="wallet-btn" onclick="abrirModalWallet()"><i class="fa-solid fa-wallet"></i> Conectar Wallet</button>
+                    <button type="button" class="wallet-btn" onclick="abrirModalWallet()"><i class="fa-solid fa-wallet"></i> <span data-i18n="connectWalletBtn">Conectar Wallet</span></button>
                 </div>
-                <button type="button" onclick="cambiarPerfil()" style="background:rgba(168,85,247,0.3); border:2px solid var(--neon-purple); color:#fff; padding:8px 14px; border-radius:10px; cursor:pointer; font-size:0.85rem; font-weight:700;"><i class="fa-solid fa-user-pen"></i> Editar Perfil</button>
+                <button type="button" onclick="cambiarPerfil()" style="background:rgba(168,85,247,0.3); border:2px solid var(--neon-purple); color:#fff; padding:8px 14px; border-radius:10px; cursor:pointer; font-size:0.85rem; font-weight:700;"><i class="fa-solid fa-user-pen"></i> <span data-i18n="editProfileBtn">Editar Perfil</span></button>
             </div>
         </header>
 
-        <!-- NAVEGACIÓN PESTAÑAS (SITUADA DEBAJO DE LA CABECERA) -->
+        <!-- NAVEGACIÓN PESTAÑAS (Con disparador de Efecto WOW) -->
         <div class="tabs-nav">
-            <button type="button" class="tab-btn active" onclick="switchTab(event, 'tab-square')"><i class="fa-solid fa-comments"></i> Square</button>
-            <button type="button" class="tab-btn" onclick="switchTab(event, 'tab-muro')"><i class="fa-solid fa-chart-pie"></i> Muro & Rastreo</button>
-            <a href="https://figueredo56.github.io/index.html/?img=zaard" target="_blank" class="tab-link"><i class="fa-solid fa-shield-halved"></i> ZAARD FINANCE</a>
-            <a href="https://figueredo56.github.io/zaard-tracker/" target="_blank" class="tab-link"><i class="fa-solid fa-chart-line"></i> Tracker & Velas</a>
-            <button type="button" class="tab-btn" onclick="switchTab(event, 'tab-coins')"><i class="fa-solid fa-coins"></i> Monedas & Tokens</button>
-            <button type="button" class="tab-btn" onclick="switchTab(event, 'tab-balance')"><i class="fa-solid fa-wallet"></i> Mi Balance</button>
-            <button type="button" class="tab-btn" onclick="switchTab(event, 'tab-browser')"><i class="fa-solid fa-globe"></i> Buscador Web3</button>
+            <button type="button" class="tab-btn active" onclick="triggerWowEffectAndSwitch(event, 'tab-square', 'Square Space')"><i class="fa-solid fa-comments"></i> <span data-i18n="tabSquare">Square</span></button>
+            <button type="button" class="tab-btn" onclick="triggerWowEffectAndSwitch(event, 'tab-muro', 'Live Tracking')"><i class="fa-solid fa-chart-pie"></i> <span data-i18n="tabMuro">Muro & Rastreo</span></button>
+            <a href="https://figueredo56.github.io/index.html/?img=zaard" target="_blank" class="tab-link" onclick="triggerWowEffectLink(event, this.href)"><i class="fa-solid fa-shield-halved"></i> ZAARD FINANCE</a>
+            <a href="https://figueredo56.github.io/zaard-tracker/" target="_blank" class="tab-link" onclick="triggerWowEffectLink(event, this.href)"><i class="fa-solid fa-chart-line"></i> <span data-i18n="tabTracker">Tracker & Velas</span></a>
+            <button type="button" class="tab-btn" onclick="triggerWowEffectAndSwitch(event, 'tab-coins', 'Tokens Ecosystem')"><i class="fa-solid fa-coins"></i> <span data-i18n="tabCoins">Monedas & Tokens</span></button>
+            <button type="button" class="tab-btn" onclick="triggerWowEffectAndSwitch(event, 'tab-balance', 'Vault & Balance')"><i class="fa-solid fa-wallet"></i> <span data-i18n="tabBalance">Mi Balance</span></button>
+            <button type="button" class="tab-btn" onclick="triggerWowEffectAndSwitch(event, 'tab-browser', 'Web3 Browser')"><i class="fa-solid fa-globe"></i> <span data-i18n="tabBrowser">Buscador Web3</span></button>
         </div>
 
         <!-- ======================================================= -->
-        <!-- PESTAÑA 1: SQUARE (SOLO PUBLICACIONES Y MURO SOCIAL)    -->
+        <!-- PESTAÑA 1: SQUARE                                      -->
         <!-- ======================================================= -->
         <div id="tab-square" class="tab-content active">
             <div class="fin-card">
-                <h3><i class="fa-solid fa-pen-nib"></i> Crear Publicación en Square</h3>
-                <textarea id="postText" class="square-input-box" placeholder="¿Qué está pasando en el ecosistema ZARD? Comparte tu análisis o meme..."></textarea>
+                <h3><i class="fa-solid fa-pen-nib"></i> <span data-i18n="createPostTitle">Crear Publicación en Square</span></h3>
+                <textarea id="postText" class="square-input-box" data-i18n-placeholder="postPlaceholder" placeholder="¿Qué está pasando en el ecosistema ZARD? Comparte tu análisis o meme..."></textarea>
                 
                 <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; margin-bottom: 20px;">
                     <label class="file-upload-label">
-                        <i class="fa-solid fa-photo-film"></i> Adjuntar Multimedia <input type="file" id="postMediaFile" accept="image/*,video/*" style="display: none;" onchange="verMediaSeleccionada(event)">
+                        <i class="fa-solid fa-photo-film"></i> <span data-i18n="attachMedia">Adjuntar Multimedia</span> <input type="file" id="postMediaFile" accept="image/*,video/*" style="display: none;" onchange="verMediaSeleccionada(event)">
                     </label>
                     <span id="fileNameDisplay" style="font-size: 0.85rem; color: var(--neon-blue); font-weight:600;"></span>
-                    <button type="button" class="action-btn" onclick="crearPublicacion()">Publicar Ahora</button>
+                    <button type="button" class="action-btn" onclick="crearPublicacion()" data-i18n="publishNowBtn">Publicar Ahora</button>
                 </div>
 
                 <div style="border-top: 2px solid rgba(168,85,247,0.3); padding-top: 20px; margin-top: 25px;">
-                    <h3 style="font-size: 1.1rem; color: #fff; font-family:'Orbitron';"><i class="fa-solid fa-stream"></i> Muro de Publicaciones Globales</h3>
+                    <h3 style="font-size: 1.1rem; color: #fff; font-family:'Orbitron';"><i class="fa-solid fa-stream"></i> <span data-i18n="globalWallTitle">Muro de Publicaciones Globales</span></h3>
                     <div id="muroPublicaciones"></div>
                 </div>
             </div>
         </div>
 
         <!-- ======================================================= -->
-        <!-- PESTAÑA 2: MURO & RASTREO (GRÁFICAS EN VIVO 4 TOKENS)   -->
+        <!-- PESTAÑA 2: MURO & RASTREO                               -->
         <!-- ======================================================= -->
         <div id="tab-muro" class="tab-content">
             <div class="section" style="position: relative; overflow: hidden; border: 2px solid rgba(168, 85, 247, 0.6); box-shadow: 0 0 50px rgba(139, 92, 246, 0.4), inset 0 0 30px rgba(244, 114, 182, 0.15); background: linear-gradient(135deg, rgba(15, 8, 30, 0.98), rgba(30, 10, 45, 0.95)); padding: 30px; border-radius: 20px; margin-bottom: 40px; backdrop-filter: blur(12px);">
                 
                 <div style="text-align: center; margin-bottom: 35px;">
-                    <h2 style="font-family: 'Orbitron', sans-serif; background: linear-gradient(90deg, #f472b6, #c084fc, #34d399); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-size: 2em; margin-bottom: 8px; text-shadow: 0 0 25px rgba(192, 132, 252, 0.5); letter-spacing: 1px;">
+                    <h2 style="font-family: 'Orbitron', sans-serif; background: linear-gradient(90deg, #f472b6, #c084fc, #34d399); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-size: 2em; margin-bottom: 8px; text-shadow: 0 0 25px rgba(192, 132, 252, 0.5); letter-spacing: 1px;" data-i18n="rastreoTitle">
                         ⚡ NEXUS WEB3: RASTREO MULTI-TOKEN EN VIVO
                     </h2>
                     <p style="color: #cbd5e1; font-size: 0.92em; letter-spacing: 3px; text-transform: uppercase; font-family: 'Orbitron', sans-serif;">
@@ -297,10 +364,8 @@
                     </p>
                 </div>
 
-                <!-- CONTENEDOR GRID 2x2 (4 TOKENS GRÁFICOS) -->
                 <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 25px; margin-bottom: 30px;">
-                    
-                    <!-- 1. ZARD -->
+                    <!-- ZARD -->
                     <div style="background: rgba(20, 10, 40, 0.95); border: 2px solid rgba(52, 211, 153, 0.5); border-radius: 16px; padding: 20px; box-shadow: 0 0 25px rgba(52,211,153,0.15);">
                         <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 15px;">
                             <img src="https://photos.pinksale.finance/file/pinksale-logo-upload/1791940828941-906fd2a3d85625f79d066e5b033f6011.png" alt="ZARD" style="width: 48px; height: 48px; border-radius: 50%; object-fit: cover; border: 2px solid #34d399; box-shadow: 0 0 15px rgba(52,211,153,0.6);">
@@ -313,11 +378,10 @@
                             <iframe src="https://dexscreener.com/bsc/0xE2879d1172215E728472D7827586bd2796aFA3fB?embed=1&theme=dark" style="width: 100%; height: 100%; border: none;" title="ZARD"></iframe>
                         </div>
                         <div style="background: rgba(15, 23, 42, 0.85); border: 1px solid rgba(52, 211, 153, 0.3); border-radius: 10px; padding: 12px; text-align: center;">
-                            <a href="https://pancakeswap.finance/swap?outputCurrency=0xE2879d1172215E728472D7827586bd2796aFA3fB" target="_blank" style="display: block; width: 100%; background: rgba(52, 211, 153, 0.2); border: 1px solid rgba(52, 211, 153, 0.6); color: #34d399; padding: 10px; border-radius: 8px; text-decoration: none; font-size: 0.85em; font-weight: bold;">Comprar en PancakeSwap ↗</a>
+                            <a href="https://pancakeswap.finance/swap?outputCurrency=0xE2879d1172215E728472D7827586bd2796aFA3fB" target="_blank" style="display: block; width: 100%; background: rgba(52, 211, 153, 0.2); border: 1px solid rgba(52, 211, 153, 0.6); color: #34d399; padding: 10px; border-radius: 8px; text-decoration: none; font-size: 0.85em; font-weight: bold;" data-i18n="buyPancake">Comprar en PancakeSwap ↗</a>
                         </div>
                     </div>
-
-                    <!-- 2. PANGA -->
+                    <!-- PANGA -->
                     <div style="background: rgba(20, 10, 40, 0.95); border: 2px solid rgba(245, 158, 11, 0.5); border-radius: 16px; padding: 20px; box-shadow: 0 0 25px rgba(245,158,11,0.15);">
                         <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 15px;">
                             <img src="https://photos.pinksale.finance/file/pinksale-logo-upload/1790484633328-559fdd3c13098c92f8a665ac39a838c2.png" alt="PANGA" style="width: 48px; height: 48px; border-radius: 50%; object-fit: cover; border: 2px solid #f59e0b; box-shadow: 0 0 15px rgba(245,158,11,0.6);">
@@ -330,11 +394,10 @@
                             <iframe src="https://dexscreener.com/bsc/0x4a6c3ea9e7132ad217c31f8252119f08c801366e?embed=1&theme=dark" style="width: 100%; height: 100%; border: none;" title="PANGA"></iframe>
                         </div>
                         <div style="background: rgba(15, 23, 42, 0.85); border: 1px solid rgba(245, 158, 11, 0.3); border-radius: 10px; padding: 12px; text-align: center;">
-                            <a href="https://pancakeswap.finance/swap?outputCurrency=0x4a6c3ea9e7132ad217c31f8252119f08c801366e" target="_blank" style="display: block; width: 100%; background: rgba(245, 158, 11, 0.2); border: 1px solid rgba(245, 158, 11, 0.6); color: #f59e0b; padding: 10px; border-radius: 8px; text-decoration: none; font-size: 0.85em; font-weight: bold;">Comprar en PancakeSwap ↗</a>
+                            <a href="https://pancakeswap.finance/swap?outputCurrency=0x4a6c3ea9e7132ad217c31f8252119f08c801366e" target="_blank" style="display: block; width: 100%; background: rgba(245, 158, 11, 0.2); border: 1px solid rgba(245, 158, 11, 0.6); color: #f59e0b; padding: 10px; border-radius: 8px; text-decoration: none; font-size: 0.85em; font-weight: bold;" data-i18n="buyPancake">Comprar en PancakeSwap ↗</a>
                         </div>
                     </div>
-
-                    <!-- 3. ZARED -->
+                    <!-- ZARED -->
                     <div style="background: rgba(25, 10, 40, 0.95); border: 2px solid rgba(244, 114, 182, 0.6); border-radius: 16px; padding: 20px; box-shadow: 0 0 30px rgba(244,114,182,0.2);">
                         <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 15px;">
                             <img src="https://photos.pinksale.finance/file/pinksale-logo-upload/1794605349763-3b36fe22e2048e05bbf50f8bdf231392.png" alt="ZARED" style="width: 48px; height: 48px; border-radius: 50%; object-fit: cover; border: 2px solid #f472b6; box-shadow: 0 0 15px rgba(244,114,182,0.7);">
@@ -347,11 +410,10 @@
                             <iframe src="https://dexscreener.com/bsc/0xfc2aca08fc64e51793c32e9088fc43a57d39690e?embed=1&theme=dark" style="width: 100%; height: 100%; border: none;" title="ZARED"></iframe>
                         </div>
                         <div style="background: rgba(15, 23, 42, 0.85); border: 1px solid rgba(244, 114, 182, 0.4); border-radius: 10px; padding: 12px; text-align: center;">
-                            <a href="https://pancakeswap.finance/swap?outputCurrency=0xfc2aca08fc64e51793c32e9088fc43a57d39690e" target="_blank" style="display: block; width: 100%; background: rgba(244, 114, 182, 0.2); border: 1px solid rgba(244, 114, 182, 0.6); color: #f472b6; padding: 10px; border-radius: 8px; text-decoration: none; font-size: 0.85em; font-weight: bold;">Comprar en PancakeSwap ↗</a>
+                            <a href="https://pancakeswap.finance/swap?outputCurrency=0xfc2aca08fc64e51793c32e9088fc43a57d39690e" target="_blank" style="display: block; width: 100%; background: rgba(244, 114, 182, 0.2); border: 1px solid rgba(244, 114, 182, 0.6); color: #f472b6; padding: 10px; border-radius: 8px; text-decoration: none; font-size: 0.85em; font-weight: bold;" data-i18n="buyPancake">Comprar en PancakeSwap ↗</a>
                         </div>
                     </div>
-
-                    <!-- 4. ZYM -->
+                    <!-- ZYM -->
                     <div style="background: rgba(25, 10, 40, 0.95); border: 2px solid rgba(192, 132, 252, 0.6); border-radius: 16px; padding: 20px; box-shadow: 0 0 30px rgba(192,132,252,0.2);">
                         <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 15px;">
                             <img src="https://photos.pinksale.finance/file/pinksale-logo-upload/1793917735714-d84b28c0d04f3063f454cbc1d8a062fb.png" alt="ZYM" style="width: 48px; height: 48px; border-radius: 50%; object-fit: cover; border: 2px solid #c084fc; box-shadow: 0 0 15px rgba(192,132,252,0.7);">
@@ -364,22 +426,21 @@
                             <iframe src="https://dexscreener.com/bsc/0x5a1de9974c1279fbe989ce32899a1f4ece3fc53d?embed=1&theme=dark" style="width: 100%; height: 100%; border: none;" title="ZYM"></iframe>
                         </div>
                         <div style="background: rgba(15, 23, 42, 0.85); border: 1px solid rgba(192, 132, 252, 0.4); border-radius: 10px; padding: 12px; text-align: center;">
-                            <a href="https://pancakeswap.finance/swap?outputCurrency=0x5a1de9974c1279fbe989ce32899a1f4ece3fc53d" target="_blank" style="display: block; width: 100%; background: rgba(192, 132, 252, 0.2); border: 1px solid rgba(192, 132, 252, 0.6); color: #c084fc; padding: 10px; border-radius: 8px; text-decoration: none; font-size: 0.85em; font-weight: bold;">Comprar en PancakeSwap ↗</a>
+                            <a href="https://pancakeswap.finance/swap?outputCurrency=0x5a1de9974c1279fbe989ce32899a1f4ece3fc53d" target="_blank" style="display: block; width: 100%; background: rgba(192, 132, 252, 0.2); border: 1px solid rgba(192, 132, 252, 0.6); color: #c084fc; padding: 10px; border-radius: 8px; text-decoration: none; font-size: 0.85em; font-weight: bold;" data-i18n="buyPancake">Comprar en PancakeSwap ↗</a>
                         </div>
                     </div>
-
                 </div>
 
             </div>
         </div>
 
         <!-- ======================================================= -->
-        <!-- PESTAÑA 3: MONEDAS & TOKENS (ÓRDENES 2 ARRIBA Y 2 ABAJO) -->
+        <!-- PESTAÑA 3: MONEDAS & TOKENS                             -->
         <!-- ======================================================= -->
         <div id="tab-coins" class="tab-content">
             <div class="card-grid">
                 <div class="fin-card">
-                    <h3><i class="fa-solid fa-coins"></i> Tokens Oficiales del Ecosistema</h3>
+                    <h3><i class="fa-solid fa-coins"></i> <span data-i18n="ecosystemTokens">Tokens Oficiales del Ecosistema</span></h3>
                     <div style="background: rgba(15,8,30,0.9); border: 2px solid rgba(52,211,153,0.5); border-radius: 12px; padding: 15px; margin-bottom: 15px;">
                         <strong style="color: #34d399; font-family: 'Orbitron'; font-size:1.05rem;">ZARD Token</strong>
                         <p style="font-size: 0.85rem; color: var(--text-muted); margin: 6px 0; word-break: break-all;">CA: 0xE2879d1172215E728472D7827586bd2796aFA3fB</p>
@@ -399,134 +460,100 @@
                 </div>
 
                 <div class="fin-card">
-                    <h3><i class="fa-solid fa-user-circle"></i> Tu Perfil Activo</h3>
+                    <h3><i class="fa-solid fa-user-circle"></i> <span data-i18n="activeProfile">Tu Perfil Activo</span></h3>
                     <div style="text-align: center; padding: 25px; background: rgba(15,8,30,0.9); border-radius: 12px; border: 2px solid var(--neon-blue);">
                         <img id="profileAvatarDisplay" src="" alt="Avatar" style="width: 75px; height: 75px; border-radius: 50%; object-fit: cover; border: 2px solid var(--neon-green); margin-bottom: 12px; display: none;">
                         <h4 style="font-family: 'Orbitron'; color: #fff; font-size: 1.2rem;" id="profileDisplayName">@Usuario</h4>
                         <p id="profileDisplayBio" style="font-size: 0.9rem; color: var(--neon-purple); margin-top: 6px; font-style: italic; font-weight:600;">Entusiasta de la Web3</p>
-                        <p style="font-size: 0.8rem; color: var(--text-muted); margin-top: 10px;" id="profileAddress">Billetera no conectada</p>
+                        <p style="font-size: 0.8rem; color: var(--text-muted); margin-top: 10px;" id="profileAddress" data-i18n="walletDisconnected">Billetera no conectada</p>
                     </div>
                 </div>
             </div>
 
-            <!-- ÓRDENES DE COMPRA Y VENTA EN CUADRÍCULA 2 ARRIBA Y 2 ABAJO CON WIDGET DE ÓRDENES EN VIVO -->
+            <!-- ÓRDENES 2 ARRIBA Y 2 ABAJO -->
             <div class="fin-card" style="margin-top: 25px;">
-                <h3 style="font-family:'Orbitron'; color:var(--neon-blue);"><i class="fa-solid fa-book"></i> Órdenes de Compra & Venta en Vivo</h3>
+                <h3><i class="fa-solid fa-book"></i> <span data-i18n="orderBookTitle">Órdenes de Compra & Venta en Vivo</span></h3>
                 <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; margin-top: 15px;">
-                    
-                    <!-- 1. ZARD Orders -->
                     <div style="background:rgba(15,8,30,0.95); padding:15px; border-radius:12px; border:2px solid #34d399;">
                         <h4 style="color:#34d399; font-family:'Orbitron'; margin-bottom:10px; font-size:0.95rem;">ZARD Order Book</h4>
                         <div style="width:100%; height:320px; border-radius:8px; overflow:hidden; border:1px solid rgba(52,211,153,0.3); background:#000;">
                             <iframe src="https://dexscreener.com/bsc/0xE2879d1172215E728472D7827586bd2796aFA3fB?embed=1&theme=dark&trades=0&info=0" style="width:100%; height:100%; border:none;"></iframe>
                         </div>
                     </div>
-
-                    <!-- 2. PANGA Orders -->
                     <div style="background:rgba(15,8,30,0.95); padding:15px; border-radius:12px; border:2px solid #f59e0b;">
                         <h4 style="color:#f59e0b; font-family:'Orbitron'; margin-bottom:10px; font-size:0.95rem;">PANGA Order Book</h4>
                         <div style="width:100%; height:320px; border-radius:8px; overflow:hidden; border:1px solid rgba(245,158,11,0.3); background:#000;">
                             <iframe src="https://dexscreener.com/bsc/0x4a6c3ea9e7132ad217c31f8252119f08c801366e?embed=1&theme=dark&trades=0&info=0" style="width:100%; height:100%; border:none;"></iframe>
                         </div>
                     </div>
-
-                    <!-- 3. ZARED Orders -->
                     <div style="background:rgba(15,8,30,0.95); padding:15px; border-radius:12px; border:2px solid #f472b6;">
                         <h4 style="color:#f472b6; font-family:'Orbitron'; margin-bottom:10px; font-size:0.95rem;">ZARED Order Book</h4>
                         <div style="width:100%; height:320px; border-radius:8px; overflow:hidden; border:1px solid rgba(244,114,182,0.3); background:#000;">
                             <iframe src="https://dexscreener.com/bsc/0xfc2aca08fc64e51793c32e9088fc43a57d39690e?embed=1&theme=dark&trades=0&info=0" style="width:100%; height:100%; border:none;"></iframe>
                         </div>
                     </div>
-
-                    <!-- 4. ZYM Orders -->
                     <div style="background:rgba(15,8,30,0.95); padding:15px; border-radius:12px; border:2px solid #c084fc;">
                         <h4 style="color:#c084fc; font-family:'Orbitron'; margin-bottom:10px; font-size:0.95rem;">ZYM Order Book</h4>
                         <div style="width:100%; height:320px; border-radius:8px; overflow:hidden; border:1px solid rgba(192,132,252,0.3); background:#000;">
                             <iframe src="https://dexscreener.com/bsc/0x5a1de9974c1279fbe989ce32899a1f4ece3fc53d?embed=1&theme=dark&trades=0&info=0" style="width:100%; height:100%; border:none;"></iframe>
                         </div>
                     </div>
-
                 </div>
             </div>
         </div>
 
         <!-- ======================================================= -->
-        <!-- PESTAÑA 4: MI BALANCE (4 ARRIBA Y 4 ABAJO + 15 TENDENCIAS)-->
+        <!-- PESTAÑA 4: MI BALANCE                                  -->
         <!-- ======================================================= -->
         <div id="tab-balance" class="tab-content">
             <div class="card-grid">
                 <div class="fin-card" style="text-align: center; padding: 40px 20px; grid-column: span 2;">
                     <i class="fa-solid fa-vault" style="font-size: 3rem; color: var(--neon-blue); margin-bottom: 15px;"></i>
-                    <h3 style="justify-content: center; font-family: 'Orbitron';">Balance Multitoken en tu Billetera Conectada</h3>
+                    <h3 style="justify-content: center; font-family: 'Orbitron';" data-i18n="balanceTitle">Balance Multitoken en tu Billetera Conectada</h3>
                     
-                    <!-- Contenedor 4 Arriba y 4 Abajo (8 Monedas) -->
                     <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; margin: 25px 0;">
-                        <!-- BNB -->
                         <div style="padding: 16px; background: rgba(15,8,30,0.95); border-radius: 12px; border: 2px solid var(--neon-blue);">
-                            <span style="font-family:'Orbitron'; color:var(--neon-blue); display:flex; align-items:center; justify-content:center; gap:6px; margin-bottom:8px; font-size:0.85rem; font-weight:bold;">
-                                <img src="https://assets.coingecko.com/coins/images/825/small/bnb-icon2_2x.png" style="width:18px; height:18px;" alt="BNB"> BNB:
-                            </span>
+                            <span style="font-family:'Orbitron'; color:var(--neon-blue); display:flex; align-items:center; justify-content:center; gap:6px; margin-bottom:8px; font-size:0.85rem; font-weight:bold;"><img src="https://assets.coingecko.com/coins/images/825/small/bnb-icon2_2x.png" style="width:18px; height:18px;" alt="BNB"> BNB:</span>
                             <span id="bnbBalanceVal" style="font-size: 1.05rem; color:#fff; font-weight:bold;">0.00 BNB</span>
                         </div>
-                        <!-- ZARD -->
                         <div style="padding: 16px; background: rgba(15,8,30,0.95); border-radius: 12px; border: 2px solid #34d399;">
-                            <span style="font-family:'Orbitron'; color:#34d399; display:flex; align-items:center; justify-content:center; gap:6px; margin-bottom:8px; font-size:0.85rem; font-weight:bold;">
-                                <img src="https://photos.pinksale.finance/file/pinksale-logo-upload/1791940828941-906fd2a3d85625f79d066e5b033f6011.png" style="width:18px; height:18px; border-radius:50%;" alt="ZARD"> ZARD:
-                            </span>
+                            <span style="font-family:'Orbitron'; color:#34d399; display:flex; align-items:center; justify-content:center; gap:6px; margin-bottom:8px; font-size:0.85rem; font-weight:bold;"><img src="https://photos.pinksale.finance/file/pinksale-logo-upload/1791940828941-906fd2a3d85625f79d066e5b033f6011.png" style="width:18px; height:18px; border-radius:50%;" alt="ZARD"> ZARD:</span>
                             <span id="zardBalanceVal" style="font-size: 1.05rem; color:#34d399; font-weight:bold;">0.00 ZARD</span>
                         </div>
-                        <!-- PANGA -->
                         <div style="padding: 16px; background: rgba(15,8,30,0.95); border-radius: 12px; border: 2px solid #f59e0b;">
-                            <span style="font-family:'Orbitron'; color:#f59e0b; display:flex; align-items:center; justify-content:center; gap:6px; margin-bottom:8px; font-size:0.85rem; font-weight:bold;">
-                                <img src="https://photos.pinksale.finance/file/pinksale-logo-upload/1790484633328-559fdd3c13098c92f8a665ac39a838c2.png" style="width:18px; height:18px; border-radius:50%;" alt="PANGA"> PANGA:
-                            </span>
+                            <span style="font-family:'Orbitron'; color:#f59e0b; display:flex; align-items:center; justify-content:center; gap:6px; margin-bottom:8px; font-size:0.85rem; font-weight:bold;"><img src="https://photos.pinksale.finance/file/pinksale-logo-upload/1790484633328-559fdd3c13098c92f8a665ac39a838c2.png" style="width:18px; height:18px; border-radius:50%;" alt="PANGA"> PANGA:</span>
                             <span id="pangaBalanceVal" style="font-size: 1.05rem; color:#fff; font-weight:bold;">0.00 PANGA</span>
                         </div>
-                        <!-- ZARED -->
                         <div style="padding: 16px; background: rgba(15,8,30,0.95); border-radius: 12px; border: 2px solid #f472b6;">
-                            <span style="font-family:'Orbitron'; color:#f472b6; display:flex; align-items:center; justify-content:center; gap:6px; margin-bottom:8px; font-size:0.85rem; font-weight:bold;">
-                                <img src="https://photos.pinksale.finance/file/pinksale-logo-upload/1794605349763-3b36fe22e2048e05bbf50f8bdf231392.png" style="width:18px; height:18px; border-radius:50%;" alt="ZARED"> ZARED:
-                            </span>
+                            <span style="font-family:'Orbitron'; color:#f472b6; display:flex; align-items:center; justify-content:center; gap:6px; margin-bottom:8px; font-size:0.85rem; font-weight:bold;"><img src="https://photos.pinksale.finance/file/pinksale-logo-upload/1794605349763-3b36fe22e2048e05bbf50f8bdf231392.png" style="width:18px; height:18px; border-radius:50%;" alt="ZARED"> ZARED:</span>
                             <span id="zaredBalanceVal" style="font-size: 1.05rem; color:#fff; font-weight:bold;">0.00 ZARED</span>
                         </div>
-                        <!-- ZYM -->
                         <div style="padding: 16px; background: rgba(15,8,30,0.95); border-radius: 12px; border: 2px solid #c084fc;">
-                            <span style="font-family:'Orbitron'; color:#c084fc; display:flex; align-items:center; justify-content:center; gap:6px; margin-bottom:8px; font-size:0.85rem; font-weight:bold;">
-                                <img src="https://photos.pinksale.finance/file/pinksale-logo-upload/1793917735714-d84b28c0d04f3063f454cbc1d8a062fb.png" style="width:18px; height:18px; border-radius:50%;" alt="ZYM"> ZYM:
-                            </span>
+                            <span style="font-family:'Orbitron'; color:#c084fc; display:flex; align-items:center; justify-content:center; gap:6px; margin-bottom:8px; font-size:0.85rem; font-weight:bold;"><img src="https://photos.pinksale.finance/file/pinksale-logo-upload/1793917735714-d84b28c0d04f3063f454cbc1d8a062fb.png" style="width:18px; height:18px; border-radius:50%;" alt="ZYM"> ZYM:</span>
                             <span id="zymBalanceVal" style="font-size: 1.05rem; color:#fff; font-weight:bold;">0.00 ZYM</span>
                         </div>
-                        <!-- BTC -->
                         <div style="padding: 16px; background: rgba(15,8,30,0.95); border-radius: 12px; border: 2px solid #f59e0b;">
-                            <span style="font-family:'Orbitron'; color:#f59e0b; display:flex; align-items:center; justify-content:center; gap:6px; margin-bottom:8px; font-size:0.85rem; font-weight:bold;">
-                                <img src="https://assets.coingecko.com/coins/images/1/small/bitcoin.png" style="width:18px; height:18px;" alt="BTC"> BTC:
-                            </span>
+                            <span style="font-family:'Orbitron'; color:#f59e0b; display:flex; align-items:center; justify-content:center; gap:6px; margin-bottom:8px; font-size:0.85rem; font-weight:bold;"><img src="https://assets.coingecko.com/coins/images/1/small/bitcoin.png" style="width:18px; height:18px;" alt="BTC"> BTC:</span>
                             <span id="btcBalanceVal" style="font-size: 1.05rem; color:#fff; font-weight:bold;">0.00 BTC</span>
                         </div>
-                        <!-- USDT -->
                         <div style="padding: 16px; background: rgba(15,8,30,0.95); border-radius: 12px; border: 2px solid #34d399;">
-                            <span style="font-family:'Orbitron'; color:#34d399; display:flex; align-items:center; justify-content:center; gap:6px; margin-bottom:8px; font-size:0.85rem; font-weight:bold;">
-                                <img src="https://assets.coingecko.com/coins/images/325/small/Tether.png" style="width:18px; height:18px;" alt="USDT"> USDT:
-                            </span>
+                            <span style="font-family:'Orbitron'; color:#34d399; display:flex; align-items:center; justify-content:center; gap:6px; margin-bottom:8px; font-size:0.85rem; font-weight:bold;"><img src="https://assets.coingecko.com/coins/images/325/small/Tether.png" style="width:18px; height:18px;" alt="USDT"> USDT:</span>
                             <span id="usdtBalanceVal" style="font-size: 1.05rem; color:#fff; font-weight:bold;">0.00 USDT</span>
                         </div>
-                        <!-- USDC -->
                         <div style="padding: 16px; background: rgba(15,8,30,0.95); border-radius: 12px; border: 2px solid var(--neon-blue);">
-                            <span style="font-family:'Orbitron'; color:var(--neon-blue); display:flex; align-items:center; justify-content:center; gap:6px; margin-bottom:8px; font-size:0.85rem; font-weight:bold;">
-                                <img src="https://assets.coingecko.com/coins/images/6319/small/usdc.png" style="width:18px; height:18px;" alt="USDC"> USDC:
-                            </span>
+                            <span style="font-family:'Orbitron'; color:var(--neon-blue); display:flex; align-items:center; justify-content:center; gap:6px; margin-bottom:8px; font-size:0.85rem; font-weight:bold;"><img src="https://assets.coingecko.com/coins/images/6319/small/usdc.png" style="width:18px; height:18px;" alt="USDC"> USDC:</span>
                             <span id="usdcBalanceVal" style="font-size: 1.05rem; color:#fff; font-weight:bold;">0.00 USDC</span>
                         </div>
                     </div>
-                    <button type="button" class="action-btn" onclick="consultarSaldosReal()">Actualizar Saldos en Vivo</button>
+                    <button type="button" class="action-btn" onclick="consultarSaldosReal()" data-i18n="updateBalanceBtn">Actualizar Saldos en Vivo</button>
                 </div>
             </div>
 
-            <!-- MONEDAS EN TENDENCIA GLOBAL (15 TOKENS: 5 FILAS DE 3) -->
+            <!-- MONEDAS EN TENDENCIA GLOBAL (15 TOKENS) -->
             <div class="fin-card" style="margin-top: 25px;">
-                <h3 style="font-family:'Orbitron'; color:var(--neon-blue);"><i class="fa-solid fa-fire"></i> Monedas en Tendencia Global (CoinGecko - Top 15)</h3>
+                <h3 style="font-family:'Orbitron'; color:var(--neon-blue);"><i class="fa-solid fa-fire"></i> <span data-i18n="trendingTitle">Monedas en Tendencia Global (CoinGecko - Top 15)</span></h3>
                 <div id="trendingCoinsList" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin-top: 15px;">
-                    <p style="color:var(--text-muted); font-size:0.9rem;">Cargando 15 tendencias del mercado...</p>
+                    <p style="color:var(--text-muted); font-size:0.9rem;" data-i18n="loadingTrending">Cargando 15 tendencias del mercado...</p>
                 </div>
             </div>
         </div>
@@ -536,29 +563,29 @@
         <!-- ======================================================= -->
         <div id="tab-browser" class="tab-content">
             <div class="fin-card" style="text-align: center; padding: 35px 20px;">
-                <!-- Monedita al triple de tamaño y título -->
+                <!-- Monedita al triple de tamaño -->
                 <div style="display: flex; align-items: center; justify-content: center; gap: 15px; margin-bottom: 12px;">
                     <img src="https://photos.pinksale.finance/file/pinksale-logo-upload/1790286389131-9ffaade2f1b5bc4c51858adc8fdf4bd4.png" style="width: 90px; height: 90px; border-radius: 50%; border: 3px solid var(--neon-blue); box-shadow: 0 0 25px rgba(34,211,238,0.7); object-fit: cover;" alt="Icono Web3 Pro">
-                    <h3 style="font-family:'Orbitron'; margin:0; font-size:1.5rem; color:var(--neon-blue);">Buscador Web3 Inteligente</h3>
+                    <h3 style="font-family:'Orbitron'; margin:0; font-size:1.5rem; color:var(--neon-blue);" data-i18n="browserTitle">Buscador Web3 Inteligente</h3>
                 </div>
-                <p style="color:var(--text-muted); font-size:0.95rem; margin-bottom:20px;">Explora plataformas, contratos o páginas del ecosistema:</p>
+                <p style="color:var(--text-muted); font-size:0.95rem; margin-bottom:20px;" data-i18n="browserSub">Explora plataformas, contratos o páginas del ecosistema:</p>
                 
                 <!-- Barra de búsqueda -->
                 <div style="display: flex; gap: 10px; max-width: 600px; margin: 0 auto 25px auto;">
-                    <input type="text" id="webSearchInput" class="profile-input" placeholder="Ingresa URL o término de búsqueda..." style="max-width: 100%; margin-bottom: 0;">
-                    <button type="button" class="action-btn" onclick="buscarenInternet()">Buscar</button>
+                    <input type="text" id="webSearchInput" class="profile-input" data-i18n-placeholder="searchPlaceholder" placeholder="Ingresa URL o término (ej: ZAARD, PancakeSwap)..." style="max-width: 100%; margin-bottom: 0;" onkeydown="if(event.key==='Enter') buscarenInternet()">
+                    <button type="button" class="action-btn" onclick="buscarenInternet()" data-i18n="searchBtn">Buscar</button>
                 </div>
 
                 <!-- Accesos Directos Profesionales -->
                 <div style="display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; margin-bottom: 30px;">
                     <a href="https://dexscreener.com" target="_blank" style="background:rgba(30,15,60,0.9); border:1px solid #34d399; color:#34d399; padding:8px 16px; border-radius:8px; text-decoration:none; font-family:'Orbitron'; font-size:0.8rem; font-weight:bold;">DexScreener ↗</a>
                     <a href="https://pancakeswap.finance" target="_blank" style="background:rgba(30,15,60,0.9); border:1px solid #f59e0b; color:#f59e0b; padding:8px 16px; border-radius:8px; text-decoration:none; font-family:'Orbitron'; font-size:0.8rem; font-weight:bold;">PancakeSwap ↗</a>
-                    <a href="https://www.pinksale.finance" target="_blank" style="background:rgba(30,15,60,0.9); border:1px solid #f472b6; color:#f472b6; padding:8px 16px; border-radius:8px; text-decoration:none; font-family:'Orbitron'; font-size:0.8rem; font-weight:bold;">PinkSale ↗</a>
+                    <a href="https://www.pinksale.finance" style="background:rgba(30,15,60,0.9); border:1px solid #f472b6; color:#f472b6; padding:8px 16px; border-radius:8px; text-decoration:none; font-family:'Orbitron'; font-size:0.8rem; font-weight:bold;" target="_blank">PinkSale ↗</a>
                     <a href="https://bscscan.com" target="_blank" style="background:rgba(30,15,60,0.9); border:1px solid var(--neon-blue); color:var(--neon-blue); padding:8px 16px; border-radius:8px; text-decoration:none; font-family:'Orbitron'; font-size:0.8rem; font-weight:bold;">BscScan ↗</a>
                 </div>
 
-                <!-- Visor integrado alargado y rectangular (más alto que ancho) con ZAARD INNOVATION -->
-                <div style="width: 100%; height: 750px; border-radius: 14px; overflow: hidden; border: 2px solid rgba(34,211,238,0.5); background: #000; box-shadow: 0 0 40px rgba(34,211,238,0.25);">
+                <!-- Contenedor Visor Integrado -->
+                <div id="browserResultContainer" style="width: 100%; height: 750px; border-radius: 14px; overflow: hidden; border: 2px solid rgba(34,211,238,0.5); background: #000; box-shadow: 0 0 40px rgba(34,211,238,0.25);">
                     <iframe id="webViewerFrame" src="https://figueredo56.github.io/DAIoficial/" style="width: 100%; height: 100%; border: none;" title="Visor Web3 ZAARD"></iframe>
                 </div>
             </div>
@@ -566,16 +593,177 @@
 
     </div>
 
-    <!-- SCRIPT LOGICO -->
+    <!-- SCRIPT LÓGICO & ANIMACIÓN WOW -->
     <script>
         let userName = localStorage.getItem('zard_username') || '';
         let userBio = localStorage.getItem('zard_userbio') || '';
         let userAvatar = localStorage.getItem('zard_useravatar') || '';
+        let currentLang = localStorage.getItem('zard_lang') || 'es';
         let cuentaActual = null;
         let mediaBase64Temp = '';
         let mediaTypeTemp = '';
 
+        // Lista de tus 5 imágenes oficiales para rotar en el efecto WOW
+        const wowImages = [
+            "https://photos.pinksale.finance/file/pinksale-logo-upload/1790285851823-4955b8f5511ea8235af22dfb82371c91.png",
+            "https://photos.pinksale.finance/file/pinksale-logo-upload/1790286307495-7850b9884619f2e0ccb7358994c11b42.png",
+            "https://photos.pinksale.finance/file/pinksale-logo-upload/1790288769685-7d9a89bc13043a812c4889cb55ac4a54.png",
+            "https://photos.pinksale.finance/file/pinksale-logo-upload/1791940828941-906fd2a3d85625f79d066e5b033f6011.png",
+            "https://photos.pinksale.finance/file/pinksale-logo-upload/1793917735714-d84b28c0d04f3063f454cbc1d8a062fb.png"
+        ];
+
+        // Diccionario de Traducciones Reales
+        const translations = {
+            es: {
+                welcomeSub: "Configura tu Perfil Web3 Exclusivo",
+                uploadAvatar: "Subir Foto de Perfil",
+                enterNexus: "INGRESAR AL NEXUS",
+                connectWalletTitle: "Conectar Billetera Web3",
+                connectWalletSub: "Abre tu app externa o conecta directamente:",
+                injectedWeb3: "Navegador / Inyectado Web3",
+                cancel: "Cancelar",
+                connectWalletBtn: "Conectar Wallet",
+                editProfileBtn: "Editar Perfil",
+                tabSquare: "Square",
+                tabMuro: "Muro & Rastreo",
+                tabTracker: "Tracker & Velas",
+                tabCoins: "Monedas & Tokens",
+                tabBalance: "Mi Balance",
+                tabBrowser: "Buscador Web3",
+                createPostTitle: "Crear Publicación en Square",
+                postPlaceholder: "¿Qué está pasando en el ecosistema ZARD? Comparte tu análisis o meme...",
+                attachMedia: "Adjuntar Multimedia",
+                publishNowBtn: "Publicar Ahora",
+                globalWallTitle: "Muro de Publicaciones Globales",
+                rastreoTitle: "⚡ NEXUS WEB3: RASTREO MULTI-TOKEN EN VIVO",
+                buyPancake: "Comprar en PancakeSwap ↗",
+                ecosystemTokens: "Tokens Oficiales del Ecosistema",
+                activeProfile: "Tu Perfil Activo",
+                walletDisconnected: "Billetera no conectada",
+                orderBookTitle: "Órdenes de Compra & Venta en Vivo",
+                balanceTitle: "Balance Multitoken en tu Billetera Conectada",
+                updateBalanceBtn: "Actualizar Saldos en Vivo",
+                trendingTitle: "Monedas en Tendencia Global (CoinGecko - Top 15)",
+                loadingTrending: "Cargando 15 tendencias del mercado...",
+                browserTitle: "Buscador Web3 Inteligente",
+                browserSub: "Explora plataformas, contratos o páginas del ecosistema:",
+                searchPlaceholder: "Ingresa URL o término (ej: ZAARD, PancakeSwap)...",
+                searchBtn: "Buscar"
+            },
+            en: {
+                welcomeSub: "Configure your Exclusive Web3 Profile",
+                uploadAvatar: "Upload Profile Picture",
+                enterNexus: "ENTER NEXUS",
+                connectWalletTitle: "Connect Web3 Wallet",
+                connectWalletSub: "Open your external app or connect directly:",
+                injectedWeb3: "Browser / Injected Web3",
+                cancel: "Cancel",
+                connectWalletBtn: "Connect Wallet",
+                editProfileBtn: "Edit Profile",
+                tabSquare: "Square",
+                tabMuro: "Wall & Tracking",
+                tabTracker: "Tracker & Candles",
+                tabCoins: "Coins & Tokens",
+                tabBalance: "My Balance",
+                tabBrowser: "Web3 Browser",
+                createPostTitle: "Create Square Post",
+                postPlaceholder: "What's happening in the ZARD ecosystem? Share your analysis or meme...",
+                attachMedia: "Attach Media",
+                publishNowBtn: "Publish Now",
+                globalWallTitle: "Global Posts Wall",
+                rastreoTitle: "⚡ NEXUS WEB3: LIVE MULTI-TOKEN TRACKING",
+                buyPancake: "Buy on PancakeSwap ↗",
+                ecosystemTokens: "Official Ecosystem Tokens",
+                activeProfile: "Your Active Profile",
+                walletDisconnected: "Wallet not connected",
+                orderBookTitle: "Live Buy & Sell Order Book",
+                balanceTitle: "Multitoken Balance in Connected Wallet",
+                updateBalanceBtn: "Update Live Balances",
+                trendingTitle: "Global Trending Coins (CoinGecko - Top 15)",
+                loadingTrending: "Loading 15 market trends...",
+                browserTitle: "Intelligent Web3 Browser",
+                browserSub: "Explore platforms, contracts or ecosystem pages:",
+                searchPlaceholder: "Enter URL or term (e.g., ZAARD, PancakeSwap)...",
+                searchBtn: "Search"
+            },
+            ar: {
+                welcomeSub: "قم بتكوين ملف تعريف Web3 الحصري الخاص بك",
+                uploadAvatar: "تحميل الصورة الشخصية",
+                enterNexus: "الدخول إلى نيكزس",
+                connectWalletTitle: "ربط محفظة Web3",
+                connectWalletSub: "افتح تطبيقك الخارجي أو اتصل مباشرة:",
+                injectedWeb3: "المتصفح / Web3 المدمج",
+                cancel: "إلغاء",
+                connectWalletBtn: "ربط المحفظة",
+                editProfileBtn: "تعديل الملف الشخصي",
+                tabSquare: "سكوير",
+                tabMuro: "الجدار والتتبع",
+                tabTracker: "المؤشر والشموع",
+                tabCoins: "العملات والرموز",
+                tabBalance: "رصيدي",
+                tabBrowser: "متصفح Web3",
+                createPostTitle: "إنشاء منشور في سكوير",
+                postPlaceholder: "ما الذي يحدث في نظام ZARD البيئي؟ شارك تحليلك أو ميم...",
+                attachMedia: "إرفاق وسائط",
+                publishNowBtn: "انشر الآن",
+                globalWallTitle: "جدار المنشورات العالمية",
+                rastreoTitle: "⚡ NEXUS WEB3: تتبع الرموز المتعددة مباشرة",
+                buyPancake: "شراء على PancakeSwap ↗",
+                ecosystemTokens: "رموز النظام البيئي الرسمية",
+                activeProfile: "ملفك الشخصي النشط",
+                walletDisconnected: "المحفظة غير متصلة",
+                orderBookTitle: "دفتر أوامر الشراء والبيع المباشر",
+                balanceTitle: "رصيد الرموز المتعددة في المحفظة المتصلة",
+                updateBalanceBtn: "تحديث الأرصدة مباشرة",
+                trendingTitle: "العملات الرائجة عالمياً (CoinGecko - أعلى 15)",
+                loadingTrending: "جاري تحميل 15 اتجاهاً للسوق...",
+                browserTitle: "متصفح Web3 الذكي",
+                browserSub: "استكشف المنصات والعقود أو صفحات النظام البيئي:",
+                searchPlaceholder: "أدخل عنوان URL أو مصطلح...",
+                searchBtn: "بحث"
+            },
+            zh: {
+                welcomeSub: "配置您的专属 Web3 个人资料",
+                uploadAvatar: "上传头像",
+                enterNexus: "进入 NEXUS",
+                connectWalletTitle: "连接 Web3 钱包",
+                connectWalletSub: "打开外部应用程序或直接连接：",
+                injectedWeb3: "浏览器 / 注入式 Web3",
+                cancel: "取消",
+                connectWalletBtn: "连接钱包",
+                editProfileBtn: "编辑资料",
+                tabSquare: "广场",
+                tabMuro: "动态与追踪",
+                tabTracker: "追踪器与K线",
+                tabCoins: "代币与币种",
+                tabBalance: "我的余额",
+                tabBrowser: "Web3 浏览器",
+                createPostTitle: "在 Square 创建发布",
+                postPlaceholder: "ZARD 生态系统正在发生什么？分享您的分析或表情包...",
+                attachMedia: "添加多媒体",
+                publishNowBtn: "立即发布",
+                globalWallTitle: "全球动态墙",
+                rastreoTitle: "⚡ NEXUS WEB3: 实时多代币追踪",
+                buyPancake: "在 PancakeSwap 上购买 ↗",
+                ecosystemTokens: "官方生态系统代币",
+                activeProfile: "您的当前资料",
+                walletDisconnected: "钱包未连接",
+                orderBookTitle: "实时买卖订单簿",
+                balanceTitle: "已连接钱包中的多代币余额",
+                updateBalanceBtn: "实时更新余额",
+                trendingTitle: "全球热门代币 (CoinGecko - 前15名)",
+                loadingTrending: "正在加载 15 个市场趋势...",
+                browserTitle: "智能 Web3 浏览器",
+                browserSub: "探索平台、合约或生态系统页面：",
+                searchPlaceholder: "输入网址或关键词 (如: ZAARD, PancakeSwap)...",
+                searchBtn: "搜索"
+            }
+        };
+
         window.onload = function() {
+            document.getElementById('langSelector').value = currentLang;
+            aplicarTraducciones(currentLang);
+
             if (userName) {
                 document.getElementById('userInputName').value = userName;
                 document.getElementById('userBioInput').value = userBio;
@@ -583,6 +771,75 @@
             }
             obtenerMonedasTendencia();
         };
+
+        // FUNCIÓN CLAVE: LANZA EL EFECTO WOW DE 1.5 SEGUNDOS Y LUEGO CAMBIA DE PESTAÑA
+        function triggerWowEffectAndSwitch(evt, tabId, labelText) {
+            const overlay = document.getElementById('wow-transition-overlay');
+            const overlayImg = document.getElementById('wowOverlayImg');
+            const overlayText = document.getElementById('wowOverlayText');
+
+            // Seleccionar una imagen aleatoria de tus 5 enlaces
+            const randomImg = wowImages[Math.floor(Math.random() * wowImages.length)];
+            overlayImg.src = randomImg;
+            overlayText.innerText = "ZAARD " + labelText.toUpperCase();
+
+            // Activar animación super wow
+            overlay.classList.add('active');
+
+            // Exactamente 1.5 segundos después, se oculta y cambia la pestaña
+            setTimeout(() => {
+                overlay.classList.remove('active');
+                
+                // Cambiar pestaña internamente
+                document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+                document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+                document.getElementById(tabId).classList.add('active');
+                evt.currentTarget.classList.add('active');
+            }, 1500);
+        }
+
+        // EFECTO WOW PARA ENLACES EXTERNOS (ZAARD FINANCE Y TRACKER)
+        function triggerWowEffectLink(evt, targetUrl) {
+            evt.preventDefault();
+            const overlay = document.getElementById('wow-transition-overlay');
+            const overlayImg = document.getElementById('wowOverlayImg');
+            const overlayText = document.getElementById('wowOverlayText');
+
+            const randomImg = wowImages[Math.floor(Math.random() * wowImages.length)];
+            overlayImg.src = randomImg;
+            overlayText.innerText = "ZARD ECOSYSTEM ⚡";
+
+            overlay.classList.add('active');
+
+            setTimeout(() => {
+                overlay.classList.remove('active');
+                window.open(targetUrl, '_blank');
+            }, 1500);
+        }
+
+        function cambiarIdiomaGlobal(lang) {
+            currentLang = lang;
+            localStorage.setItem('zard_lang', lang);
+            aplicarTraducciones(lang);
+        }
+
+        function aplicarTraducciones(lang) {
+            const dict = translations[lang] || translations['es'];
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (dict[key]) el.innerText = dict[key];
+            });
+            document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+                const key = el.getAttribute('data-i18n-placeholder');
+                if (dict[key]) el.setAttribute('placeholder', dict[key]);
+            });
+
+            if (lang === 'ar') {
+                document.getElementById('htmlRoot').setAttribute('dir', 'rtl');
+            } else {
+                document.getElementById('htmlRoot').setAttribute('dir', 'ltr');
+            }
+        }
 
         function cargarAvatarMemoria(event) {
             const file = event.target.files[0];
@@ -637,13 +894,6 @@
             document.getElementById('main-app').style.display = 'none';
         }
 
-        function switchTab(evt, tabId) {
-            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
-            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-            document.getElementById(tabId).classList.add('active');
-            evt.currentTarget.classList.add('active');
-        }
-
         function abrirModalWallet() { document.getElementById('wallet-modal').style.display = 'flex'; }
         function cerrarModal() { document.getElementById('wallet-modal').style.display = 'none'; }
 
@@ -683,8 +933,8 @@
 
         function desconectarWallet() {
             cuentaActual = null;
-            document.getElementById('wallet-container').innerHTML = `<button type="button" class="wallet-btn" onclick="abrirModalWallet()"><i class="fa-solid fa-wallet"></i> Conectar Wallet</button>`;
-            document.getElementById('profileAddress').innerText = 'Billetera no conectada';
+            document.getElementById('wallet-container').innerHTML = `<button type="button" class="wallet-btn" onclick="abrirModalWallet()"><i class="fa-solid fa-wallet"></i> <span data-i18n="connectWalletBtn">Conectar Wallet</span></button>`;
+            document.getElementById('profileAddress').innerText = currentLang === 'en' ? 'Wallet not connected' : 'Billetera no conectada';
             document.getElementById('bnbBalanceVal').innerText = '0.00 BNB';
             document.getElementById('zardBalanceVal').innerText = '0.00 ZARD';
             document.getElementById('pangaBalanceVal').innerText = '0.00 PANGA';
@@ -745,7 +995,6 @@
                 const res = await fetch('https://api.coingecko.com/api/v3/search/trending');
                 const data = await res.json();
                 let html = '';
-                // Se cargan 15 tokens en tendencia para completar las 5 filas de 3
                 data.coins.slice(0, 15).forEach(item => {
                     const coin = item.item;
                     html += `
@@ -766,16 +1015,29 @@
 
         function buscarenInternet() {
             const query = document.getElementById('webSearchInput').value.trim();
+            const container = document.getElementById('browserResultContainer');
             if (!query) return;
-            if (query.startsWith('http://') || query.startsWith('https://')) {
-                document.getElementById('webViewerFrame').src = query;
-            } else {
-                document.getElementById('webViewerFrame').src = 'https://www.google.com/search?igu=1&q=' + encodeURIComponent(query);
-            }
-        }
 
-        function cambiarIdiomaGlobal(lang) {
-            alert('Idioma cambiado a: ' + lang.toUpperCase());
+            if (query.toLowerCase().includes('zaard') || query.startsWith('http://') || query.startsWith('https://')) {
+                let targetUrl = query.startsWith('http') ? query : 'https://' + query;
+                container.innerHTML = `<iframe id="webViewerFrame" src="${targetUrl}" style="width: 100%; height: 100%; border: none;" title="Visor Web3"></iframe>`;
+            } else {
+                container.innerHTML = `
+                    <div style="display:flex; flex-direction:column; align-items:center; justify-content:center; height:100%; padding:30px; text-align:center; background:rgba(10,5,20,0.98);">
+                        <i class="fa-solid fa-compass" style="font-size:3.5rem; color:var(--neon-blue); margin-bottom:15px; text-shadow:0 0 20px var(--neon-blue);"></i>
+                        <h4 style="font-family:'Orbitron'; color:#fff; font-size:1.3rem; margin-bottom:10px;">Resultado de Búsqueda Web3</h4>
+                        <p style="color:var(--text-muted); font-size:0.95rem; margin-bottom:20px; max-width:450px;">Término consultado: <strong style="color:var(--neon-pink);">${query}</strong></p>
+                        <div style="display:flex; gap:15px; flex-wrap:center;">
+                            <a href="https://www.google.com/search?q=${encodeURIComponent(query)}" target="_blank" class="action-btn" style="text-decoration:none; display:inline-flex; align-items:center; gap:8px;">
+                                <i class="fa-solid fa-external-link-alt"></i> Abrir en Google Externo
+                            </a>
+                            <button type="button" onclick="document.getElementById('browserResultContainer').innerHTML='<iframe id=&quot;webViewerFrame&quot; src=&quot;https://figueredo56.github.io/DAIoficial/&quot; style=&quot;width: 100%; height: 100%; border: none;&quot; title=&quot;Visor Web3 ZAARD&quot;></iframe>';" style="background:transparent; border:2px solid var(--neon-purple); color:#fff; padding:10px 20px; border-radius:12px; font-family:'Orbitron'; font-weight:bold; cursor:pointer;">
+                                Volver a ZAARD Innovation
+                            </button>
+                        </div>
+                    </div>
+                `;
+            }
         }
     </script>
 </body>
