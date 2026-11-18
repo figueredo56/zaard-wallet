@@ -43,10 +43,11 @@
             background-image: radial-gradient(circle at 50% 10%, #2e1065 0%, var(--bg-deep) 75%);
         }
 
-        /* EFECTO WOW / TRANSICIÓN DE CHISPAS Y RAYOS MORADOS */
+        /* EFECTO WOW / TRANSICIÓN CON FONDO LUMINOSO PARA IMÁGENES TRANSPARENTES */
         #wow-transition-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(5, 2, 10, 0.96); z-index: 999999;
+            background: radial-gradient(circle at center, rgba(46, 16, 101, 0.85) 0%, rgba(5, 2, 10, 0.95) 80%);
+            z-index: 999999;
             display: flex; flex-direction: column; justify-content: center; align-items: center;
             opacity: 0; visibility: hidden; pointer-events: none;
             transition: opacity 0.4s ease;
@@ -55,21 +56,21 @@
             opacity: 1; visibility: visible; pointer-events: auto;
         }
         .wow-img-container {
-            position: relative; width: 180px; height: 180px; border-radius: 50%;
+            position: relative; width: 190px; height: 190px; border-radius: 50%;
             display: flex; justify-content: center; align-items: center;
             animation: wowExplosion 1.5s cubic-bezier(0.1, 0.9, 0.2, 1) forwards;
+            background: radial-gradient(circle, rgba(192, 132, 252, 0.25) 0%, transparent 70%);
         }
         .wow-img-container img {
-            width: 150px; height: 150px; border-radius: 50%; object-fit: cover;
-            border: 4px solid var(--neon-blue);
-            box-shadow: 0 0 50px var(--neon-purple), 0 0 100px var(--neon-blue), inset 0 0 30px var(--neon-pink);
+            width: 155px; height: 155px; object-fit: contain;
+            filter: drop-shadow(0 0 25px var(--neon-purple)) drop-shadow(0 0 45px var(--neon-blue));
             animation: pulseGlow 0.75s infinite alternate;
         }
         /* Anillo de chispas y rayos eléctricos morados rotatorios */
         .wow-img-container::before {
-            content: ''; position: absolute; top: -15px; left: -15px; right: -15px; bottom: -15px;
+            content: ''; position: absolute; top: -10px; left: -10px; right: -10px; bottom: -10px;
             border-radius: 50%; border: 3px dashed var(--neon-purple);
-            box-shadow: 0 0 30px var(--neon-pink), 0 0 60px var(--neon-blue);
+            box-shadow: 0 0 35px var(--neon-pink), 0 0 65px var(--neon-blue), inset 0 0 25px var(--neon-purple);
             animation: rotateLightning 1.5s linear infinite;
         }
         .wow-text {
@@ -82,9 +83,9 @@
 
         @keyframes wowExplosion {
             0% { transform: scale(0.2) rotate(-90deg); filter: brightness(3); opacity: 0; }
-            30% { transform: scale(1.2) rotate(10deg); filter: brightness(1.5); opacity: 1; }
+            30% { transform: scale(1.25) rotate(10deg); filter: brightness(1.5); opacity: 1; }
             70% { transform: scale(1) rotate(0deg); filter: brightness(1); opacity: 1; }
-            100% { transform: scale(0.5) rotate(45deg); opacity: 0; }
+            100% { transform: scale(0.4) rotate(45deg); opacity: 0; }
         }
         @keyframes rotateLightning {
             0% { transform: rotate(0deg); border-color: var(--neon-purple); }
@@ -92,8 +93,8 @@
             100% { transform: rotate(360deg); border-color: var(--neon-purple); }
         }
         @keyframes pulseGlow {
-            0% { transform: scale(0.95); box-shadow: 0 0 30px var(--neon-purple); }
-            100% { transform: scale(1.08); box-shadow: 0 0 70px var(--neon-blue), 0 0 40px var(--neon-pink); }
+            0% { transform: scale(0.95); filter: drop-shadow(0 0 20px var(--neon-purple)); }
+            100% { transform: scale(1.08); filter: drop-shadow(0 0 40px var(--neon-blue)) drop-shadow(0 0 20px var(--neon-pink)); }
         }
         @keyframes textZoom {
             0% { transform: translateY(30px); opacity: 0; }
@@ -102,10 +103,13 @@
             100% { transform: translateY(-20px); opacity: 0; }
         }
 
-        /* BIENVENIDA & PERFIL */
+        /* PANTALLA DE BIENVENIDA CON FONDO ÉPICO PERSONALIZADO */
         #welcome-screen {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: #030107; display: flex; flex-direction: column; justify-content: center; align-items: center;
+            background: linear-gradient(rgba(3, 1, 7, 0.92), rgba(12, 6, 26, 0.95)), 
+                        url('https://photos.pinksale.finance/file/pinksale-logo-upload/1790375348672-4de629a77b910ca4b3f245dda1b233f0.png');
+            background-size: cover; background-position: center;
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
             z-index: 99999; transition: opacity 0.4s ease, visibility 0.4s ease; padding: 20px; text-align: center;
         }
         #welcome-screen.fade-out { opacity: 0; visibility: hidden; pointer-events: none; }
@@ -251,7 +255,7 @@
 </head>
 <body dir="ltr">
 
-    <!-- CAPA DE EFECTO WOW / TRANSICIÓN VISUAL -->
+    <!-- CAPA DE EFECTO WOW / CON FONDO LUMINOSO PARA TRANSPARENCIA -->
     <div id="wow-transition-overlay">
         <div class="wow-img-container">
             <img id="wowOverlayImg" src="" alt="ZAARD WOW Effect">
@@ -259,7 +263,7 @@
         <div class="wow-text" id="wowOverlayText">NEXUS POWER ⚡</div>
     </div>
 
-    <!-- BIENVENIDA & PERFIL -->
+    <!-- PANTALLA DE BIENVENIDA CON FONDO ÉPICO -->
     <div id="welcome-screen">
         <img src="https://photos.pinksale.finance/file/pinksale-logo-upload/1789411086014-7b67968ed9538e215f1948583ee37c7c.png" alt="ZARD Logo" class="welcome-logo">
         <div class="welcome-title">ZARD INNOVATION</div>
@@ -603,7 +607,7 @@
         let mediaBase64Temp = '';
         let mediaTypeTemp = '';
 
-        // Lista de tus 5 imágenes oficiales para rotar en el efecto WOW
+        // Lista de tus 5 imágenes oficiales con transparencia
         const wowImages = [
             "https://photos.pinksale.finance/file/pinksale-logo-upload/1790285851823-4955b8f5511ea8235af22dfb82371c91.png",
             "https://photos.pinksale.finance/file/pinksale-logo-upload/1790286307495-7850b9884619f2e0ccb7358994c11b42.png",
@@ -612,7 +616,7 @@
             "https://photos.pinksale.finance/file/pinksale-logo-upload/1793917735714-d84b28c0d04f3063f454cbc1d8a062fb.png"
         ];
 
-        // Diccionario de Traducciones Reales
+        // Diccionario de Traducciones
         const translations = {
             es: {
                 welcomeSub: "Configura tu Perfil Web3 Exclusivo",
@@ -772,25 +776,21 @@
             obtenerMonedasTendencia();
         };
 
-        // FUNCIÓN CLAVE: LANZA EL EFECTO WOW DE 1.5 SEGUNDOS Y LUEGO CAMBIA DE PESTAÑA
+        // LANZA EL EFECTO WOW DE 1.5 SEGUNDOS CON IMAGEN TRANSPARENTE Y LUEGO CAMBIA DE PESTAÑA
         function triggerWowEffectAndSwitch(evt, tabId, labelText) {
             const overlay = document.getElementById('wow-transition-overlay');
             const overlayImg = document.getElementById('wowOverlayImg');
             const overlayText = document.getElementById('wowOverlayText');
 
-            // Seleccionar una imagen aleatoria de tus 5 enlaces
             const randomImg = wowImages[Math.floor(Math.random() * wowImages.length)];
             overlayImg.src = randomImg;
             overlayText.innerText = "ZAARD " + labelText.toUpperCase();
 
-            // Activar animación super wow
             overlay.classList.add('active');
 
-            // Exactamente 1.5 segundos después, se oculta y cambia la pestaña
             setTimeout(() => {
                 overlay.classList.remove('active');
                 
-                // Cambiar pestaña internamente
                 document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
                 document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
                 document.getElementById(tabId).classList.add('active');
@@ -798,7 +798,6 @@
             }, 1500);
         }
 
-        // EFECTO WOW PARA ENLACES EXTERNOS (ZAARD FINANCE Y TRACKER)
         function triggerWowEffectLink(evt, targetUrl) {
             evt.preventDefault();
             const overlay = document.getElementById('wow-transition-overlay');
