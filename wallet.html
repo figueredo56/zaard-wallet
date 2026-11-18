@@ -374,7 +374,7 @@
         </div>
 
         <!-- ======================================================= -->
-        <!-- PESTAÑA 3: MONEDAS & TOKENS (CON ÓRDENES Y VENTAS ABAJO) -->
+        <!-- PESTAÑA 3: MONEDAS & TOKENS (ÓRDENES 2 ARRIBA Y 2 ABAJO) -->
         <!-- ======================================================= -->
         <div id="tab-coins" class="tab-content">
             <div class="card-grid">
@@ -409,32 +409,49 @@
                 </div>
             </div>
 
-            <!-- ÓRDENES DE COMPRA Y VENTA DE LOS 4 TOKENS -->
+            <!-- ÓRDENES DE COMPRA Y VENTA EN CUADRÍCULA 2 ARRIBA Y 2 ABAJO CON WIDGET DE ÓRDENES EN VIVO -->
             <div class="fin-card" style="margin-top: 25px;">
-                <h3 style="font-family:'Orbitron'; color:var(--neon-blue);"><i class="fa-solid fa-book"></i> Órdenes de Compra & Venta de los Tokens ZARD</h3>
-                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 15px; margin-top: 15px;">
-                    <div style="background:rgba(15,8,30,0.9); padding:15px; border-radius:10px; border:2px solid #34d399; text-align:center;">
-                        <h4 style="color:#34d399; font-family:'Orbitron'; margin-bottom:8px;">ZARD Swaps</h4>
-                        <a href="https://dexscreener.com/bsc/0xE2879d1172215E728472D7827586bd2796aFA3fB" target="_blank" style="color:#fff; text-decoration:none; font-size:0.85rem; background:rgba(52,211,153,0.2); padding:8px 12px; border-radius:6px; display:inline-block; font-weight:bold;">Ver Órdenes DexScreener ↗</a>
+                <h3 style="font-family:'Orbitron'; color:var(--neon-blue);"><i class="fa-solid fa-book"></i> Órdenes de Compra & Venta en Vivo</h3>
+                <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; margin-top: 15px;">
+                    
+                    <!-- 1. ZARD Orders -->
+                    <div style="background:rgba(15,8,30,0.95); padding:15px; border-radius:12px; border:2px solid #34d399;">
+                        <h4 style="color:#34d399; font-family:'Orbitron'; margin-bottom:10px; font-size:0.95rem;">ZARD Order Book</h4>
+                        <div style="width:100%; height:320px; border-radius:8px; overflow:hidden; border:1px solid rgba(52,211,153,0.3); background:#000;">
+                            <iframe src="https://dexscreener.com/bsc/0xE2879d1172215E728472D7827586bd2796aFA3fB?embed=1&theme=dark&trades=0&info=0" style="width:100%; height:100%; border:none;"></iframe>
+                        </div>
                     </div>
-                    <div style="background:rgba(15,8,30,0.9); padding:15px; border-radius:10px; border:2px solid #f59e0b; text-align:center;">
-                        <h4 style="color:#f59e0b; font-family:'Orbitron'; margin-bottom:8px;">PANGA Swaps</h4>
-                        <a href="https://dexscreener.com/bsc/0x4a6c3ea9e7132ad217c31f8252119f08c801366e" target="_blank" style="color:#fff; text-decoration:none; font-size:0.85rem; background:rgba(245,158,11,0.2); padding:8px 12px; border-radius:6px; display:inline-block; font-weight:bold;">Ver Órdenes DexScreener ↗</a>
+
+                    <!-- 2. PANGA Orders -->
+                    <div style="background:rgba(15,8,30,0.95); padding:15px; border-radius:12px; border:2px solid #f59e0b;">
+                        <h4 style="color:#f59e0b; font-family:'Orbitron'; margin-bottom:10px; font-size:0.95rem;">PANGA Order Book</h4>
+                        <div style="width:100%; height:320px; border-radius:8px; overflow:hidden; border:1px solid rgba(245,158,11,0.3); background:#000;">
+                            <iframe src="https://dexscreener.com/bsc/0x4a6c3ea9e7132ad217c31f8252119f08c801366e?embed=1&theme=dark&trades=0&info=0" style="width:100%; height:100%; border:none;"></iframe>
+                        </div>
                     </div>
-                    <div style="background:rgba(15,8,30,0.9); padding:15px; border-radius:10px; border:2px solid #f472b6; text-align:center;">
-                        <h4 style="color:#f472b6; font-family:'Orbitron'; margin-bottom:8px;">ZARED Swaps</h4>
-                        <a href="https://dexscreener.com/bsc/0xfc2aca08fc64e51793c32e9088fc43a57d39690e" target="_blank" style="color:#fff; text-decoration:none; font-size:0.85rem; background:rgba(244,114,182,0.2); padding:8px 12px; border-radius:6px; display:inline-block; font-weight:bold;">Ver Órdenes DexScreener ↗</a>
+
+                    <!-- 3. ZARED Orders -->
+                    <div style="background:rgba(15,8,30,0.95); padding:15px; border-radius:12px; border:2px solid #f472b6;">
+                        <h4 style="color:#f472b6; font-family:'Orbitron'; margin-bottom:10px; font-size:0.95rem;">ZARED Order Book</h4>
+                        <div style="width:100%; height:320px; border-radius:8px; overflow:hidden; border:1px solid rgba(244,114,182,0.3); background:#000;">
+                            <iframe src="https://dexscreener.com/bsc/0xfc2aca08fc64e51793c32e9088fc43a57d39690e?embed=1&theme=dark&trades=0&info=0" style="width:100%; height:100%; border:none;"></iframe>
+                        </div>
                     </div>
-                    <div style="background:rgba(15,8,30,0.9); padding:15px; border-radius:10px; border:2px solid #c084fc; text-align:center;">
-                        <h4 style="color:#c084fc; font-family:'Orbitron'; margin-bottom:8px;">ZYM Swaps</h4>
-                        <a href="https://dexscreener.com/bsc/0x5a1de9974c1279fbe989ce32899a1f4ece3fc53d" target="_blank" style="color:#fff; text-decoration:none; font-size:0.85rem; background:rgba(192,132,252,0.2); padding:8px 12px; border-radius:6px; display:inline-block; font-weight:bold;">Ver Órdenes DexScreener ↗</a>
+
+                    <!-- 4. ZYM Orders -->
+                    <div style="background:rgba(15,8,30,0.95); padding:15px; border-radius:12px; border:2px solid #c084fc;">
+                        <h4 style="color:#c084fc; font-family:'Orbitron'; margin-bottom:10px; font-size:0.95rem;">ZYM Order Book</h4>
+                        <div style="width:100%; height:320px; border-radius:8px; overflow:hidden; border:1px solid rgba(192,132,252,0.3); background:#000;">
+                            <iframe src="https://dexscreener.com/bsc/0x5a1de9974c1279fbe989ce32899a1f4ece3fc53d?embed=1&theme=dark&trades=0&info=0" style="width:100%; height:100%; border:none;"></iframe>
+                        </div>
                     </div>
+
                 </div>
             </div>
         </div>
 
         <!-- ======================================================= -->
-        <!-- PESTAÑA 4: MI BALANCE (4 ARRIBA Y 4 ABAJO + TENDENCIAS)  -->
+        <!-- PESTAÑA 4: MI BALANCE (4 ARRIBA Y 4 ABAJO + 15 TENDENCIAS)-->
         <!-- ======================================================= -->
         <div id="tab-balance" class="tab-content">
             <div class="card-grid">
@@ -505,11 +522,11 @@
                 </div>
             </div>
 
-            <!-- MONEDAS EN TENDENCIA -->
+            <!-- MONEDAS EN TENDENCIA GLOBAL (15 TOKENS: 5 FILAS DE 3) -->
             <div class="fin-card" style="margin-top: 25px;">
-                <h3 style="font-family:'Orbitron'; color:var(--neon-blue);"><i class="fa-solid fa-fire"></i> Monedas en Tendencia Global (CoinGecko)</h3>
-                <div id="trendingCoinsList" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 15px; margin-top: 15px;">
-                    <p style="color:var(--text-muted); font-size:0.9rem;">Cargando tendencias del mercado...</p>
+                <h3 style="font-family:'Orbitron'; color:var(--neon-blue);"><i class="fa-solid fa-fire"></i> Monedas en Tendencia Global (CoinGecko - Top 15)</h3>
+                <div id="trendingCoinsList" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin-top: 15px;">
+                    <p style="color:var(--text-muted); font-size:0.9rem;">Cargando 15 tendencias del mercado...</p>
                 </div>
             </div>
         </div>
@@ -519,12 +536,12 @@
         <!-- ======================================================= -->
         <div id="tab-browser" class="tab-content">
             <div class="fin-card" style="text-align: center; padding: 35px 20px;">
-                <!-- Monedita con estilo y título -->
-                <div style="display: flex; align-items: center; justify-content: center; gap: 12px; margin-bottom: 10px;">
-                    <img src="https://photos.pinksale.finance/file/pinksale-logo-upload/1790286389131-9ffaade2f1b5bc4c51858adc8fdf4bd4.png" style="width: 40px; height: 40px; border-radius: 50%; border: 2px solid var(--neon-blue); box-shadow: 0 0 15px rgba(34,211,238,0.5);" alt="Icono Web3">
-                    <h3 style="font-family:'Orbitron'; margin:0; font-size:1.3rem; color:var(--neon-blue);">Buscador Web3 Inteligente</h3>
+                <!-- Monedita al triple de tamaño y título -->
+                <div style="display: flex; align-items: center; justify-content: center; gap: 15px; margin-bottom: 12px;">
+                    <img src="https://photos.pinksale.finance/file/pinksale-logo-upload/1790286389131-9ffaade2f1b5bc4c51858adc8fdf4bd4.png" style="width: 90px; height: 90px; border-radius: 50%; border: 3px solid var(--neon-blue); box-shadow: 0 0 25px rgba(34,211,238,0.7); object-fit: cover;" alt="Icono Web3 Pro">
+                    <h3 style="font-family:'Orbitron'; margin:0; font-size:1.5rem; color:var(--neon-blue);">Buscador Web3 Inteligente</h3>
                 </div>
-                <p style="color:var(--text-muted); font-size:0.9rem; margin-bottom:20px;">Explora plataformas, contratos o páginas del ecosistema:</p>
+                <p style="color:var(--text-muted); font-size:0.95rem; margin-bottom:20px;">Explora plataformas, contratos o páginas del ecosistema:</p>
                 
                 <!-- Barra de búsqueda -->
                 <div style="display: flex; gap: 10px; max-width: 600px; margin: 0 auto 25px auto;">
@@ -540,8 +557,8 @@
                     <a href="https://bscscan.com" target="_blank" style="background:rgba(30,15,60,0.9); border:1px solid var(--neon-blue); color:var(--neon-blue); padding:8px 16px; border-radius:8px; text-decoration:none; font-family:'Orbitron'; font-size:0.8rem; font-weight:bold;">BscScan ↗</a>
                 </div>
 
-                <!-- Visor integrado con ZAARD INNOVATION por defecto -->
-                <div style="width: 100%; height: 500px; border-radius: 12px; overflow: hidden; border: 2px solid rgba(34,211,238,0.4); background: #000; box-shadow: 0 0 30px rgba(34,211,238,0.2);">
+                <!-- Visor integrado alargado y rectangular (más alto que ancho) con ZAARD INNOVATION -->
+                <div style="width: 100%; height: 750px; border-radius: 14px; overflow: hidden; border: 2px solid rgba(34,211,238,0.5); background: #000; box-shadow: 0 0 40px rgba(34,211,238,0.25);">
                     <iframe id="webViewerFrame" src="https://figueredo56.github.io/DAIoficial/" style="width: 100%; height: 100%; border: none;" title="Visor Web3 ZAARD"></iframe>
                 </div>
             </div>
@@ -571,7 +588,10 @@
             const file = event.target.files[0];
             if (!file) return;
             const reader = new FileReader();
-            reader.onload = function(e) { userAvatar = e.target.result; };
+            reader.onload = function(e) { 
+                userAvatar = e.target.result; 
+                localStorage.setItem('zard_useravatar', userAvatar);
+            };
             reader.readAsDataURL(file);
         }
 
@@ -725,21 +745,22 @@
                 const res = await fetch('https://api.coingecko.com/api/v3/search/trending');
                 const data = await res.json();
                 let html = '';
-                data.coins.slice(0, 4).forEach(item => {
+                // Se cargan 15 tokens en tendencia para completar las 5 filas de 3
+                data.coins.slice(0, 15).forEach(item => {
                     const coin = item.item;
                     html += `
-                        <div style="background:rgba(15,8,30,0.9); padding:12px; border-radius:10px; border:2px solid rgba(168,85,247,0.4); display:flex; align-items:center; gap:10px;">
-                            <img src="${coin.small}" style="width:28px; height:28px; border-radius:50%;">
-                            <div>
-                                <span style="font-family:'Orbitron'; font-size:0.85rem; color:#fff; display:block; font-weight:bold;">${coin.name} (${coin.symbol})</span>
-                                <span style="font-size:0.75rem; color:var(--neon-pink); font-weight:bold;">Rank #${coin.market_cap_rank || 'N/A'}</span>
+                        <div style="background:rgba(15,8,30,0.95); padding:12px; border-radius:10px; border:2px solid rgba(168,85,247,0.4); display:flex; align-items:center; gap:10px;">
+                            <img src="${coin.small}" style="width:32px; height:32px; border-radius:50%; object-fit:cover;">
+                            <div style="overflow:hidden;">
+                                <span style="font-family:'Orbitron'; font-size:0.8rem; color:#fff; display:block; font-weight:bold; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">${coin.name} (${coin.symbol})</span>
+                                <span style="font-size:0.72rem; color:var(--neon-pink); font-weight:bold;">Rank #${coin.market_cap_rank || 'N/A'}</span>
                             </div>
                         </div>
                     `;
                 });
                 document.getElementById('trendingCoinsList').innerHTML = html;
             } catch (e) {
-                document.getElementById('trendingCoinsList').innerHTML = `<p style="color:var(--text-muted); font-size:0.85rem;">No se pudieron cargar las tendencias en este momento.</p>`;
+                document.getElementById('trendingCoinsList').innerHTML = `<p style="color:var(--text-muted); font-size:0.85rem; grid-column:span 3; text-align:center;">No se pudieron cargar las tendencias en este momento.</p>`;
             }
         }
 
