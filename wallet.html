@@ -43,68 +43,6 @@
             background-image: radial-gradient(circle at 50% 10%, #2e1065 0%, var(--bg-deep) 75%);
         }
 
-        /* EFECTO WOW / TRANSICIÓN ULTRA VISIBLE Y POTENTE */
-        #wow-transition-overlay {
-            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
-            background: radial-gradient(circle at center, rgba(55, 15, 115, 0.92) 0%, rgba(3, 1, 7, 0.98) 85%);
-            z-index: 999999;
-            display: flex; flex-direction: column; justify-content: center; align-items: center;
-            opacity: 0; visibility: hidden; pointer-events: none;
-            transition: opacity 0.3s ease;
-        }
-        #wow-transition-overlay.active {
-            opacity: 1; visibility: visible; pointer-events: auto;
-        }
-        .wow-img-container {
-            position: relative; width: 220px; height: 220px; border-radius: 50%;
-            display: flex; justify-content: center; align-items: center;
-            animation: wowExplosion 1.5s cubic-bezier(0.1, 0.9, 0.2, 1) forwards;
-            background: radial-gradient(circle, rgba(192, 132, 252, 0.4) 0%, transparent 70%);
-            box-shadow: 0 0 80px rgba(192, 132, 252, 0.6);
-        }
-        .wow-img-container img {
-            width: 170px; height: 170px; object-fit: contain; z-index: 2;
-            filter: drop-shadow(0 0 30px var(--neon-purple)) drop-shadow(0 0 60px var(--neon-blue));
-            animation: pulseGlow 0.6s infinite alternate;
-        }
-        /* Anillo de rayos y chispas eléctricas moradas */
-        .wow-img-container::before {
-            content: ''; position: absolute; top: -15px; left: -15px; right: -15px; bottom: -15px;
-            border-radius: 50%; border: 4px dashed var(--neon-purple);
-            box-shadow: 0 0 40px var(--neon-pink), 0 0 80px var(--neon-blue), inset 0 0 30px var(--neon-purple);
-            animation: rotateLightning 1.5s linear infinite;
-        }
-        .wow-text {
-            margin-top: 30px; font-family: 'Orbitron', sans-serif; font-size: 1.6rem; font-weight: 900;
-            background: linear-gradient(135deg, var(--neon-blue), var(--neon-purple), var(--neon-pink));
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-            text-shadow: 0 0 30px rgba(192, 132, 252, 0.9); letter-spacing: 3px;
-            animation: textZoom 1.5s ease forwards;
-            text-align: center;
-        }
-
-        @keyframes wowExplosion {
-            0% { transform: scale(0.2) rotate(-90deg); opacity: 0; }
-            30% { transform: scale(1.15) rotate(10deg); opacity: 1; }
-            70% { transform: scale(1) rotate(0deg); opacity: 1; }
-            100% { transform: scale(0.4) rotate(45deg); opacity: 0; }
-        }
-        @keyframes rotateLightning {
-            0% { transform: rotate(0deg); border-color: var(--neon-purple); }
-            50% { border-color: var(--neon-blue); box-shadow: 0 0 60px var(--neon-pink); }
-            100% { transform: rotate(360deg); border-color: var(--neon-purple); }
-        }
-        @keyframes pulseGlow {
-            0% { transform: scale(0.95); filter: drop-shadow(0 0 25px var(--neon-purple)); }
-            100% { transform: scale(1.1); filter: drop-shadow(0 0 50px var(--neon-blue)) drop-shadow(0 0 30px var(--neon-pink)); }
-        }
-        @keyframes textZoom {
-            0% { transform: translateY(30px); opacity: 0; }
-            30% { transform: translateY(0); opacity: 1; }
-            70% { opacity: 1; }
-            100% { transform: translateY(-20px); opacity: 0; }
-        }
-
         /* PANTALLA DE BIENVENIDA CON FONDO ÉPICO */
         #welcome-screen {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
@@ -189,9 +127,9 @@
             box-shadow: 0 0 25px rgba(34, 211, 238, 0.5); font-weight: 900;
         }
 
-        .tab-content { display: none; animation: fadeIn 0.4s ease; }
+        .tab-content { display: none; animation: fadeIn 0.3s ease; }
         .tab-content.active { display: block; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
 
         /* TARJETAS Y COMPONENTES */
         .card-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 20px; }
@@ -257,14 +195,6 @@
 </head>
 <body dir="ltr">
 
-    <!-- CAPA DE EFECTO WOW CON ILUMINACIÓN Y TRANSPARENCIA PERFECTAS -->
-    <div id="wow-transition-overlay">
-        <div class="wow-img-container">
-            <img id="wowOverlayImg" src="" alt="ZAARD WOW Effect">
-        </div>
-        <div class="wow-text" id="wowOverlayText">ZAARD INNOVATION ⚡</div>
-    </div>
-
     <!-- PANTALLA DE BIENVENIDA CON FONDO ÉPICO -->
     <div id="welcome-screen">
         <img src="https://photos.pinksale.finance/file/pinksale-logo-upload/1789411086014-7b67968ed9538e215f1948583ee37c7c.png" alt="ZARD Logo" class="welcome-logo">
@@ -321,15 +251,15 @@
             </div>
         </header>
 
-        <!-- NAVEGACIÓN PESTAÑAS (Con disparador de Efecto WOW) -->
+        <!-- NAVEGACIÓN PESTAÑAS (Cambio normal instantáneo) -->
         <div class="tabs-nav">
-            <button type="button" class="tab-btn active" onclick="triggerWowEffectAndSwitch(event, 'tab-square', 'Square Space')"><i class="fa-solid fa-comments"></i> <span data-i18n="tabSquare">Square</span></button>
-            <button type="button" class="tab-btn" onclick="triggerWowEffectAndSwitch(event, 'tab-muro', 'Live Tracking')"><i class="fa-solid fa-chart-pie"></i> <span data-i18n="tabMuro">Muro & Rastreo</span></button>
-            <a href="https://figueredo56.github.io/index.html/?img=zaard" target="_blank" class="tab-link" onclick="triggerWowEffectLink(event, this.href)"><i class="fa-solid fa-shield-halved"></i> ZAARD FINANCE</a>
-            <a href="https://figueredo56.github.io/zaard-tracker/" target="_blank" class="tab-link" onclick="triggerWowEffectLink(event, this.href)"><i class="fa-solid fa-chart-line"></i> <span data-i18n="tabTracker">Tracker & Velas</span></a>
-            <button type="button" class="tab-btn" onclick="triggerWowEffectAndSwitch(event, 'tab-coins', 'Tokens Ecosystem')"><i class="fa-solid fa-coins"></i> <span data-i18n="tabCoins">Monedas & Tokens</span></button>
-            <button type="button" class="tab-btn" onclick="triggerWowEffectAndSwitch(event, 'tab-balance', 'Vault & Balance')"><i class="fa-solid fa-wallet"></i> <span data-i18n="tabBalance">Mi Balance</span></button>
-            <button type="button" class="tab-btn" onclick="triggerWowEffectAndSwitch(event, 'tab-browser', 'Web3 Browser')"><i class="fa-solid fa-globe"></i> <span data-i18n="tabBrowser">Buscador Web3</span></button>
+            <button type="button" class="tab-btn active" onclick="cambiarPestana(event, 'tab-square')"><i class="fa-solid fa-comments"></i> <span data-i18n="tabSquare">Square</span></button>
+            <button type="button" class="tab-btn" onclick="cambiarPestana(event, 'tab-muro')"><i class="fa-solid fa-chart-pie"></i> <span data-i18n="tabMuro">Muro & Rastreo</span></button>
+            <a href="https://figueredo56.github.io/index.html/?img=zaard" target="_blank" class="tab-link"><i class="fa-solid fa-shield-halved"></i> ZAARD FINANCE</a>
+            <a href="https://figueredo56.github.io/zaard-tracker/" target="_blank" class="tab-link"><i class="fa-solid fa-chart-line"></i> <span data-i18n="tabTracker">Tracker & Velas</span></a>
+            <button type="button" class="tab-btn" onclick="cambiarPestana(event, 'tab-coins')"><i class="fa-solid fa-coins"></i> <span data-i18n="tabCoins">Monedas & Tokens</span></button>
+            <button type="button" class="tab-btn" onclick="cambiarPestana(event, 'tab-balance')"><i class="fa-solid fa-wallet"></i> <span data-i18n="tabBalance">Mi Balance</span></button>
+            <button type="button" class="tab-btn" onclick="cambiarPestana(event, 'tab-browser')"><i class="fa-solid fa-globe"></i> <span data-i18n="tabBrowser">Buscador Web3</span></button>
         </div>
 
         <!-- ======================================================= -->
@@ -569,20 +499,17 @@
         <!-- ======================================================= -->
         <div id="tab-browser" class="tab-content">
             <div class="fin-card" style="text-align: center; padding: 35px 20px;">
-                <!-- Monedita al triple de tamaño -->
                 <div style="display: flex; align-items: center; justify-content: center; gap: 15px; margin-bottom: 12px;">
                     <img src="https://photos.pinksale.finance/file/pinksale-logo-upload/1790286389131-9ffaade2f1b5bc4c51858adc8fdf4bd4.png" style="width: 90px; height: 90px; border-radius: 50%; border: 3px solid var(--neon-blue); box-shadow: 0 0 25px rgba(34,211,238,0.7); object-fit: cover;" alt="Icono Web3 Pro">
                     <h3 style="font-family:'Orbitron'; margin:0; font-size:1.5rem; color:var(--neon-blue);" data-i18n="browserTitle">Buscador Web3 Inteligente</h3>
                 </div>
                 <p style="color:var(--text-muted); font-size:0.95rem; margin-bottom:20px;" data-i18n="browserSub">Explora plataformas, contratos o páginas del ecosistema:</p>
                 
-                <!-- Barra de búsqueda -->
                 <div style="display: flex; gap: 10px; max-width: 600px; margin: 0 auto 25px auto;">
                     <input type="text" id="webSearchInput" class="profile-input" data-i18n-placeholder="searchPlaceholder" placeholder="Ingresa URL o término (ej: ZAARD, PancakeSwap)..." style="max-width: 100%; margin-bottom: 0;" onkeydown="if(event.key==='Enter') buscarenInternet()">
                     <button type="button" class="action-btn" onclick="buscarenInternet()" data-i18n="searchBtn">Buscar</button>
                 </div>
 
-                <!-- Accesos Directos Profesionales -->
                 <div style="display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; margin-bottom: 30px;">
                     <a href="https://dexscreener.com" target="_blank" style="background:rgba(30,15,60,0.9); border:1px solid #34d399; color:#34d399; padding:8px 16px; border-radius:8px; text-decoration:none; font-family:'Orbitron'; font-size:0.8rem; font-weight:bold;">DexScreener ↗</a>
                     <a href="https://pancakeswap.finance" target="_blank" style="background:rgba(30,15,60,0.9); border:1px solid #f59e0b; color:#f59e0b; padding:8px 16px; border-radius:8px; text-decoration:none; font-family:'Orbitron'; font-size:0.8rem; font-weight:bold;">PancakeSwap ↗</a>
@@ -590,7 +517,6 @@
                     <a href="https://bscscan.com" target="_blank" style="background:rgba(30,15,60,0.9); border:1px solid var(--neon-blue); color:var(--neon-blue); padding:8px 16px; border-radius:8px; text-decoration:none; font-family:'Orbitron'; font-size:0.8rem; font-weight:bold;">BscScan ↗</a>
                 </div>
 
-                <!-- Contenedor Visor Integrado -->
                 <div id="browserResultContainer" style="width: 100%; height: 750px; border-radius: 14px; overflow: hidden; border: 2px solid rgba(34,211,238,0.5); background: #000; box-shadow: 0 0 40px rgba(34,211,238,0.25);">
                     <iframe id="webViewerFrame" src="https://figueredo56.github.io/DAIoficial/" style="width: 100%; height: 100%; border: none;" title="Visor Web3 ZAARD"></iframe>
                 </div>
@@ -599,7 +525,7 @@
 
     </div>
 
-    <!-- SCRIPT LÓGICO & ANIMACIÓN WOW -->
+    <!-- SCRIPT LÓGICO -->
     <script>
         let userName = localStorage.getItem('zard_username') || '';
         let userBio = localStorage.getItem('zard_userbio') || '';
@@ -609,16 +535,6 @@
         let mediaBase64Temp = '';
         let mediaTypeTemp = '';
 
-        // Tus 5 imágenes oficiales con transparencia
-        const wowImages = [
-            "https://photos.pinksale.finance/file/pinksale-logo-upload/1790285851823-4955b8f5511ea8235af22dfb82371c91.png",
-            "https://photos.pinksale.finance/file/pinksale-logo-upload/1790286307495-7850b9884619f2e0ccb7358994c11b42.png",
-            "https://photos.pinksale.finance/file/pinksale-logo-upload/1790288769685-7d9a89bc13043a812c4889cb55ac4a54.png",
-            "https://photos.pinksale.finance/file/pinksale-logo-upload/1791940828941-906fd2a3d85625f79d066e5b033f6011.png",
-            "https://photos.pinksale.finance/file/pinksale-logo-upload/1793917735714-d84b28c0d04f3063f454cbc1d8a062fb.png"
-        ];
-
-        // Diccionario de Traducciones
         const translations = {
             es: {
                 welcomeSub: "Configura tu Perfil Web3 Exclusivo",
@@ -778,44 +694,12 @@
             obtenerMonedasTendencia();
         };
 
-        // EFECTO WOW MEJORADO CON IMAGEN TRANSPARENTE ILUMINADA
-        function triggerWowEffectAndSwitch(evt, tabId, labelText) {
-            const overlay = document.getElementById('wow-transition-overlay');
-            const overlayImg = document.getElementById('wowOverlayImg');
-            const overlayText = document.getElementById('wowOverlayText');
-
-            const randomImg = wowImages[Math.floor(Math.random() * wowImages.length)];
-            overlayImg.src = randomImg;
-            overlayText.innerText = "ZAARD " + labelText.toUpperCase();
-
-            overlay.classList.add('active');
-
-            setTimeout(() => {
-                overlay.classList.remove('active');
-                
-                document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
-                document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-                document.getElementById(tabId).classList.add('active');
-                evt.currentTarget.classList.add('active');
-            }, 1500);
-        }
-
-        function triggerWowEffectLink(evt, targetUrl) {
-            evt.preventDefault();
-            const overlay = document.getElementById('wow-transition-overlay');
-            const overlayImg = document.getElementById('wowOverlayImg');
-            const overlayText = document.getElementById('wowOverlayText');
-
-            const randomImg = wowImages[Math.floor(Math.random() * wowImages.length)];
-            overlayImg.src = randomImg;
-            overlayText.innerText = "ZARD ECOSYSTEM ⚡";
-
-            overlay.classList.add('active');
-
-            setTimeout(() => {
-                overlay.classList.remove('active');
-                window.open(targetUrl, '_blank');
-            }, 1500);
+        // CAMBIO DE PESTAÑA NORMAL E INSTANTÁNEO
+        function cambiarPestana(evt, tabId) {
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            document.getElementById(tabId).classList.add('active');
+            evt.currentTarget.classList.add('active');
         }
 
         function cambiarIdiomaGlobal(lang) {
