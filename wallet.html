@@ -251,7 +251,7 @@
             </div>
         </header>
 
-        <!-- NAVEGACIÓN PESTAÑAS (Cambio normal instantáneo) -->
+        <!-- NAVEGACIÓN PESTAÑAS -->
         <div class="tabs-nav">
             <button type="button" class="tab-btn active" onclick="cambiarPestana(event, 'tab-square')"><i class="fa-solid fa-comments"></i> <span data-i18n="tabSquare">Square</span></button>
             <button type="button" class="tab-btn" onclick="cambiarPestana(event, 'tab-muro')"><i class="fa-solid fa-chart-pie"></i> <span data-i18n="tabMuro">Muro & Rastreo</span></button>
@@ -303,15 +303,18 @@
                 <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 25px; margin-bottom: 30px;">
                     <!-- ZARD -->
                     <div style="background: rgba(20, 10, 40, 0.95); border: 2px solid rgba(52, 211, 153, 0.5); border-radius: 16px; padding: 20px; box-shadow: 0 0 25px rgba(52,211,153,0.15);">
-                        <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 15px;">
-                            <img src="https://photos.pinksale.finance/file/pinksale-logo-upload/1791940828941-906fd2a3d85625f79d066e5b033f6011.png" alt="ZARD" style="width: 48px; height: 48px; border-radius: 50%; object-fit: cover; border: 2px solid #34d399; box-shadow: 0 0 15px rgba(52,211,153,0.6);">
-                            <div>
-                                <h3 style="font-family: 'Orbitron', sans-serif; color: #34d399; font-size: 1.15em; margin: 0;">ZARD / BNB</h3>
-                                <span style="font-size: 0.72em; color: #cbd5e1; word-break: break-all;">CA: 0xE287...3fB</span>
+                        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 15px;">
+                            <div style="display: flex; align-items: center; gap: 12px;">
+                                <img src="https://photos.pinksale.finance/file/pinksale-logo-upload/1791940828941-906fd2a3d85625f79d066e5b033f6011.png" alt="ZARD" style="width: 48px; height: 48px; border-radius: 50%; object-fit: cover; border: 2px solid #34d399; box-shadow: 0 0 15px rgba(52,211,153,0.6);">
+                                <div>
+                                    <h3 style="font-family: 'Orbitron', sans-serif; color: #34d399; font-size: 1.15em; margin: 0;">ZARD / BNB</h3>
+                                    <span style="font-size: 0.72em; color: #cbd5e1; word-break: break-all;">CA: 0xE287...3fB</span>
+                                </div>
                             </div>
+                            <button type="button" onclick="recargarIframe('iframeZard')" style="background:rgba(52,211,153,0.2); border:1px solid #34d399; color:#34d399; padding:4px 8px; border-radius:6px; cursor:pointer; font-size:0.75rem;"><i class="fa-solid fa-rotate"></i></button>
                         </div>
                         <div style="width: 100%; height: 420px; border-radius: 12px; overflow: hidden; border: 1px solid rgba(255, 255, 255, 0.1); background: #000; margin-bottom: 15px;">
-                            <iframe src="https://dexscreener.com/bsc/0xE2879d1172215E728472D7827586bd2796aFA3fB?embed=1&theme=dark" style="width: 100%; height: 100%; border: none;" title="ZARD"></iframe>
+                            <iframe id="iframeZard" src="https://dexscreener.com/bsc/0xE2879d1172215E728472D7827586bd2796aFA3fB?embed=1&theme=dark&trades=0" style="width: 100%; height: 100%; border: none;" title="ZARD"></iframe>
                         </div>
                         <div style="background: rgba(15, 23, 42, 0.85); border: 1px solid rgba(52, 211, 153, 0.3); border-radius: 10px; padding: 12px; text-align: center;">
                             <a href="https://pancakeswap.finance/swap?outputCurrency=0xE2879d1172215E728472D7827586bd2796aFA3fB" target="_blank" style="display: block; width: 100%; background: rgba(52, 211, 153, 0.2); border: 1px solid rgba(52, 211, 153, 0.6); color: #34d399; padding: 10px; border-radius: 8px; text-decoration: none; font-size: 0.85em; font-weight: bold;" data-i18n="buyPancake">Comprar en PancakeSwap ↗</a>
@@ -319,15 +322,18 @@
                     </div>
                     <!-- PANGA -->
                     <div style="background: rgba(20, 10, 40, 0.95); border: 2px solid rgba(245, 158, 11, 0.5); border-radius: 16px; padding: 20px; box-shadow: 0 0 25px rgba(245,158,11,0.15);">
-                        <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 15px;">
-                            <img src="https://photos.pinksale.finance/file/pinksale-logo-upload/1790484633328-559fdd3c13098c92f8a665ac39a838c2.png" alt="PANGA" style="width: 48px; height: 48px; border-radius: 50%; object-fit: cover; border: 2px solid #f59e0b; box-shadow: 0 0 15px rgba(245,158,11,0.6);">
-                            <div>
-                                <h3 style="font-family: 'Orbitron', sans-serif; color: #f59e0b; font-size: 1.15em; margin: 0;">PANGA / BNB</h3>
-                                <span style="font-size: 0.72em; color: #cbd5e1; word-break: break-all;">CA: 0x4a6c...366e</span>
+                        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 15px;">
+                            <div style="display: flex; align-items: center; gap: 12px;">
+                                <img src="https://photos.pinksale.finance/file/pinksale-logo-upload/1790484633328-559fdd3c13098c92f8a665ac39a838c2.png" alt="PANGA" style="width: 48px; height: 48px; border-radius: 50%; object-fit: cover; border: 2px solid #f59e0b; box-shadow: 0 0 15px rgba(245,158,11,0.6);">
+                                <div>
+                                    <h3 style="font-family: 'Orbitron', sans-serif; color: #f59e0b; font-size: 1.15em; margin: 0;">PANGA / BNB</h3>
+                                    <span style="font-size: 0.72em; color: #cbd5e1; word-break: break-all;">CA: 0x4a6c...366e</span>
+                                </div>
                             </div>
+                            <button type="button" onclick="recargarIframe('iframePanga')" style="background:rgba(245,158,11,0.2); border:1px solid #f59e0b; color:#f59e0b; padding:4px 8px; border-radius:6px; cursor:pointer; font-size:0.75rem;"><i class="fa-solid fa-rotate"></i></button>
                         </div>
                         <div style="width: 100%; height: 420px; border-radius: 12px; overflow: hidden; border: 1px solid rgba(255, 255, 255, 0.1); background: #000; margin-bottom: 15px;">
-                            <iframe src="https://dexscreener.com/bsc/0x4a6c3ea9e7132ad217c31f8252119f08c801366e?embed=1&theme=dark" style="width: 100%; height: 100%; border: none;" title="PANGA"></iframe>
+                            <iframe id="iframePanga" src="https://dexscreener.com/bsc/0x4a6c3ea9e7132ad217c31f8252119f08c801366e?embed=1&theme=dark&trades=0" style="width: 100%; height: 100%; border: none;" title="PANGA"></iframe>
                         </div>
                         <div style="background: rgba(15, 23, 42, 0.85); border: 1px solid rgba(245, 158, 11, 0.3); border-radius: 10px; padding: 12px; text-align: center;">
                             <a href="https://pancakeswap.finance/swap?outputCurrency=0x4a6c3ea9e7132ad217c31f8252119f08c801366e" target="_blank" style="display: block; width: 100%; background: rgba(245, 158, 11, 0.2); border: 1px solid rgba(245, 158, 11, 0.6); color: #f59e0b; padding: 10px; border-radius: 8px; text-decoration: none; font-size: 0.85em; font-weight: bold;" data-i18n="buyPancake">Comprar en PancakeSwap ↗</a>
@@ -335,15 +341,18 @@
                     </div>
                     <!-- ZARED -->
                     <div style="background: rgba(25, 10, 40, 0.95); border: 2px solid rgba(244, 114, 182, 0.6); border-radius: 16px; padding: 20px; box-shadow: 0 0 30px rgba(244,114,182,0.2);">
-                        <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 15px;">
-                            <img src="https://photos.pinksale.finance/file/pinksale-logo-upload/1794605349763-3b36fe22e2048e05bbf50f8bdf231392.png" alt="ZARED" style="width: 48px; height: 48px; border-radius: 50%; object-fit: cover; border: 2px solid #f472b6; box-shadow: 0 0 15px rgba(244,114,182,0.7);">
-                            <div>
-                                <h3 style="font-family: 'Orbitron', sans-serif; color: #f472b6; font-size: 1.15em; margin: 0;">ZARED / BNB</h3>
-                                <span style="font-size: 0.72em; color: #cbd5e1; word-break: break-all;">CA: 0xfc2a...690e</span>
+                        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 15px;">
+                            <div style="display: flex; align-items: center; gap: 12px;">
+                                <img src="https://photos.pinksale.finance/file/pinksale-logo-upload/1794605349763-3b36fe22e2048e05bbf50f8bdf231392.png" alt="ZARED" style="width: 48px; height: 48px; border-radius: 50%; object-fit: cover; border: 2px solid #f472b6; box-shadow: 0 0 15px rgba(244,114,182,0.7);">
+                                <div>
+                                    <h3 style="font-family: 'Orbitron', sans-serif; color: #f472b6; font-size: 1.15em; margin: 0;">ZARED / BNB</h3>
+                                    <span style="font-size: 0.72em; color: #cbd5e1; word-break: break-all;">CA: 0xfc2a...690e</span>
+                                </div>
                             </div>
+                            <button type="button" onclick="recargarIframe('iframeZared')" style="background:rgba(244,114,182,0.2); border:1px solid #f472b6; color:#f472b6; padding:4px 8px; border-radius:6px; cursor:pointer; font-size:0.75rem;"><i class="fa-solid fa-rotate"></i></button>
                         </div>
                         <div style="width: 100%; height: 420px; border-radius: 12px; overflow: hidden; border: 1px solid rgba(255, 255, 255, 0.1); background: #000; margin-bottom: 15px;">
-                            <iframe src="https://dexscreener.com/bsc/0xfc2aca08fc64e51793c32e9088fc43a57d39690e?embed=1&theme=dark" style="width: 100%; height: 100%; border: none;" title="ZARED"></iframe>
+                            <iframe id="iframeZared" src="https://dexscreener.com/bsc/0xfc2aca08fc64e51793c32e9088fc43a57d39690e?embed=1&theme=dark&trades=0" style="width: 100%; height: 100%; border: none;" title="ZARED"></iframe>
                         </div>
                         <div style="background: rgba(15, 23, 42, 0.85); border: 1px solid rgba(244, 114, 182, 0.4); border-radius: 10px; padding: 12px; text-align: center;">
                             <a href="https://pancakeswap.finance/swap?outputCurrency=0xfc2aca08fc64e51793c32e9088fc43a57d39690e" target="_blank" style="display: block; width: 100%; background: rgba(244, 114, 182, 0.2); border: 1px solid rgba(244, 114, 182, 0.6); color: #f472b6; padding: 10px; border-radius: 8px; text-decoration: none; font-size: 0.85em; font-weight: bold;" data-i18n="buyPancake">Comprar en PancakeSwap ↗</a>
@@ -351,15 +360,18 @@
                     </div>
                     <!-- ZYM -->
                     <div style="background: rgba(25, 10, 40, 0.95); border: 2px solid rgba(192, 132, 252, 0.6); border-radius: 16px; padding: 20px; box-shadow: 0 0 30px rgba(192,132,252,0.2);">
-                        <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 15px;">
-                            <img src="https://photos.pinksale.finance/file/pinksale-logo-upload/1793917735714-d84b28c0d04f3063f454cbc1d8a062fb.png" alt="ZYM" style="width: 48px; height: 48px; border-radius: 50%; object-fit: cover; border: 2px solid #c084fc; box-shadow: 0 0 15px rgba(192,132,252,0.7);">
-                            <div>
-                                <h3 style="font-family: 'Orbitron', sans-serif; color: #c084fc; font-size: 1.15em; margin: 0;">ZYM / BNB</h3>
-                                <span style="font-size: 0.72em; color: #cbd5e1; word-break: break-all;">CA: 0x5a1d...c53d</span>
+                        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 15px;">
+                            <div style="display: flex; align-items: center; gap: 12px;">
+                                <img src="https://photos.pinksale.finance/file/pinksale-logo-upload/1793917735714-d84b28c0d04f3063f454cbc1d8a062fb.png" alt="ZYM" style="width: 48px; height: 48px; border-radius: 50%; object-fit: cover; border: 2px solid #c084fc; box-shadow: 0 0 15px rgba(192,132,252,0.7);">
+                                <div>
+                                    <h3 style="font-family: 'Orbitron', sans-serif; color: #c084fc; font-size: 1.15em; margin: 0;">ZYM / BNB</h3>
+                                    <span style="font-size: 0.72em; color: #cbd5e1; word-break: break-all;">CA: 0x5a1d...c53d</span>
+                                </div>
                             </div>
+                            <button type="button" onclick="recargarIframe('iframeZym')" style="background:rgba(192,132,252,0.2); border:1px solid #c084fc; color:#c084fc; padding:4px 8px; border-radius:6px; cursor:pointer; font-size:0.75rem;"><i class="fa-solid fa-rotate"></i></button>
                         </div>
                         <div style="width: 100%; height: 420px; border-radius: 12px; overflow: hidden; border: 1px solid rgba(255, 255, 255, 0.1); background: #000; margin-bottom: 15px;">
-                            <iframe src="https://dexscreener.com/bsc/0x5a1de9974c1279fbe989ce32899a1f4ece3fc53d?embed=1&theme=dark" style="width: 100%; height: 100%; border: none;" title="ZYM"></iframe>
+                            <iframe id="iframeZym" src="https://dexscreener.com/bsc/0x5a1de9974c1279fbe989ce32899a1f4ece3fc53d?embed=1&theme=dark&trades=0" style="width: 100%; height: 100%; border: none;" title="ZYM"></iframe>
                         </div>
                         <div style="background: rgba(15, 23, 42, 0.85); border: 1px solid rgba(192, 132, 252, 0.4); border-radius: 10px; padding: 12px; text-align: center;">
                             <a href="https://pancakeswap.finance/swap?outputCurrency=0x5a1de9974c1279fbe989ce32899a1f4ece3fc53d" target="_blank" style="display: block; width: 100%; background: rgba(192, 132, 252, 0.2); border: 1px solid rgba(192, 132, 252, 0.6); color: #c084fc; padding: 10px; border-radius: 8px; text-decoration: none; font-size: 0.85em; font-weight: bold;" data-i18n="buyPancake">Comprar en PancakeSwap ↗</a>
@@ -408,30 +420,33 @@
 
             <!-- ÓRDENES 2 ARRIBA Y 2 ABAJO -->
             <div class="fin-card" style="margin-top: 25px;">
-                <h3><i class="fa-solid fa-book"></i> <span data-i18n="orderBookTitle">Órdenes de Compra & Venta en Vivo</span></h3>
-                <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; margin-top: 15px;">
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px; flex-wrap:wrap; gap:10px;">
+                    <h3 style="margin:0;"><i class="fa-solid fa-book"></i> <span data-i18n="orderBookTitle">Órdenes de Compra & Venta en Vivo</span></h3>
+                    <button type="button" onclick="recargarOrdenes()" style="background:rgba(34,211,238,0.2); border:1px solid var(--neon-blue); color:var(--neon-blue); padding:6px 12px; border-radius:8px; cursor:pointer; font-family:'Orbitron'; font-size:0.8rem;"><i class="fa-solid fa-rotate"></i> Recargar Órdenes</button>
+                </div>
+                <div id="orderBooksGrid" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; margin-top: 15px;">
                     <div style="background:rgba(15,8,30,0.95); padding:15px; border-radius:12px; border:2px solid #34d399;">
                         <h4 style="color:#34d399; font-family:'Orbitron'; margin-bottom:10px; font-size:0.95rem;">ZARD Order Book</h4>
                         <div style="width:100%; height:320px; border-radius:8px; overflow:hidden; border:1px solid rgba(52,211,153,0.3); background:#000;">
-                            <iframe src="https://dexscreener.com/bsc/0xE2879d1172215E728472D7827586bd2796aFA3fB?embed=1&theme=dark&trades=0&info=0" style="width:100%; height:100%; border:none;"></iframe>
+                            <iframe id="bookZard" src="https://dexscreener.com/bsc/0xE2879d1172215E728472D7827586bd2796aFA3fB?embed=1&theme=dark&trades=0&info=0" style="width:100%; height:100%; border:none;"></iframe>
                         </div>
                     </div>
                     <div style="background:rgba(15,8,30,0.95); padding:15px; border-radius:12px; border:2px solid #f59e0b;">
                         <h4 style="color:#f59e0b; font-family:'Orbitron'; margin-bottom:10px; font-size:0.95rem;">PANGA Order Book</h4>
                         <div style="width:100%; height:320px; border-radius:8px; overflow:hidden; border:1px solid rgba(245,158,11,0.3); background:#000;">
-                            <iframe src="https://dexscreener.com/bsc/0x4a6c3ea9e7132ad217c31f8252119f08c801366e?embed=1&theme=dark&trades=0&info=0" style="width:100%; height:100%; border:none;"></iframe>
+                            <iframe id="bookPanga" src="https://dexscreener.com/bsc/0x4a6c3ea9e7132ad217c31f8252119f08c801366e?embed=1&theme=dark&trades=0&info=0" style="width:100%; height:100%; border:none;"></iframe>
                         </div>
                     </div>
                     <div style="background:rgba(15,8,30,0.95); padding:15px; border-radius:12px; border:2px solid #f472b6;">
                         <h4 style="color:#f472b6; font-family:'Orbitron'; margin-bottom:10px; font-size:0.95rem;">ZARED Order Book</h4>
                         <div style="width:100%; height:320px; border-radius:8px; overflow:hidden; border:1px solid rgba(244,114,182,0.3); background:#000;">
-                            <iframe src="https://dexscreener.com/bsc/0xfc2aca08fc64e51793c32e9088fc43a57d39690e?embed=1&theme=dark&trades=0&info=0" style="width:100%; height:100%; border:none;"></iframe>
+                            <iframe id="bookZared" src="https://dexscreener.com/bsc/0xfc2aca08fc64e51793c32e9088fc43a57d39690e?embed=1&theme=dark&trades=0&info=0" style="width:100%; height:100%; border:none;"></iframe>
                         </div>
                     </div>
                     <div style="background:rgba(15,8,30,0.95); padding:15px; border-radius:12px; border:2px solid #c084fc;">
                         <h4 style="color:#c084fc; font-family:'Orbitron'; margin-bottom:10px; font-size:0.95rem;">ZYM Order Book</h4>
                         <div style="width:100%; height:320px; border-radius:8px; overflow:hidden; border:1px solid rgba(192,132,252,0.3); background:#000;">
-                            <iframe src="https://dexscreener.com/bsc/0x5a1de9974c1279fbe989ce32899a1f4ece3fc53d?embed=1&theme=dark&trades=0&info=0" style="width:100%; height:100%; border:none;"></iframe>
+                            <iframe id="bookZym" src="https://dexscreener.com/bsc/0x5a1de9974c1279fbe989ce32899a1f4ece3fc53d?embed=1&theme=dark&trades=0&info=0" style="width:100%; height:100%; border:none;"></iframe>
                         </div>
                     </div>
                 </div>
@@ -534,6 +549,14 @@
         let cuentaActual = null;
         let mediaBase64Temp = '';
         let mediaTypeTemp = '';
+
+        // Contratos oficiales para consulta de balances ERC-20
+        const tokenContracts = {
+            zard: "0xE2879d1172215E728472D7827586bd2796aFA3fB",
+            panga: "0x4a6c3ea9e7132ad217c31f8252119f08c801366e",
+            zared: "0xfc2aca08fc64e51793c32e9088fc43a57d39690e",
+            zym: "0x5a1de9974c1279fbe989ce32899a1f4ece3fc53d"
+        };
 
         const translations = {
             es: {
@@ -694,12 +717,23 @@
             obtenerMonedasTendencia();
         };
 
-        // CAMBIO DE PESTAÑA NORMAL E INSTANTÁNEO
         function cambiarPestana(evt, tabId) {
             document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
             document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
             document.getElementById(tabId).classList.add('active');
             evt.currentTarget.classList.add('active');
+        }
+
+        function recargarIframe(iframeId) {
+            const frame = document.getElementById(iframeId);
+            if (frame) frame.src = frame.src;
+        }
+
+        function recargarOrdenes() {
+            ['bookZard', 'bookPanga', 'bookZared', 'bookZym'].forEach(id => {
+                const el = document.getElementById(id);
+                if (el) el.src = el.src;
+            });
         }
 
         function cambiarIdiomaGlobal(lang) {
@@ -830,12 +864,45 @@
             document.getElementById('usdcBalanceVal').innerText = '0.00 USDC';
         }
 
+        // Función avanzada para consultar saldo nativo BNB y tokens del ecosistema
         async function consultarSaldosReal() {
             if (!cuentaActual) { abrirModalWallet(); return; }
             try {
+                // 1. Consultar BNB Nativo
                 const balanceWei = await window.ethereum.request({ method: 'eth_getBalance', params: [cuentaActual, 'latest'] });
                 document.getElementById('bnbBalanceVal').innerText = (parseInt(balanceWei, 16) / 1e18).toFixed(4) + ' BNB';
-            } catch (e) { console.error(e); }
+
+                // 2. Consultar Tokens del Ecosistema (ZARD, PANGA, ZARED, ZYM) vía llamada RPC estandar balanceOf(address)
+                await consultarTokenBalance(tokenContracts.zard, 'zardBalanceVal', 'ZARD');
+                await consultarTokenBalance(tokenContracts.panga, 'pangaBalanceVal', 'PANGA');
+                await consultarTokenBalance(tokenContracts.zared, 'zaredBalanceVal', 'ZARED');
+                await consultarTokenBalance(tokenContracts.zym, 'zymBalanceVal', 'ZYM');
+
+            } catch (e) { console.error("Error consultando saldos:", e); }
+        }
+
+        async function consultarTokenBalance(tokenAddress, elementId, symbol) {
+            try {
+                // Selector de la función balanceOf(address) en Ethereum/BSC -> 70a08231 + padded address
+                const paddedAddress = cuentaActual.substring(2).padStart(64, '0');
+                const dataCall = '0x70a08231' + paddedAddress;
+
+                const resultHex = await window.ethereum.request({
+                    method: 'eth_call',
+                    params: [{
+                        to: tokenAddress,
+                        data: dataCall
+                    }, 'latest']
+                });
+
+                if (resultHex && resultHex !== '0x') {
+                    const rawBalance = parseInt(resultHex, 16);
+                    const formattedBalance = (rawBalance / 1e18).toFixed(2);
+                    document.getElementById(elementId).innerText = formattedBalance + ' ' + symbol;
+                }
+            } catch (err) {
+                console.log("No se pudo leer saldo de " + symbol, err);
+            }
         }
 
         function verMediaSeleccionada(event) {
