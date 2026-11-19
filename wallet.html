@@ -550,7 +550,6 @@
         let mediaBase64Temp = '';
         let mediaTypeTemp = '';
 
-        // Contratos oficiales para consulta de balances ERC-20
         const tokenContracts = {
             zard: "0xE2879d1172215E728472D7827586bd2796aFA3fB",
             panga: "0x4a6c3ea9e7132ad217c31f8252119f08c801366e",
@@ -864,45 +863,32 @@
             document.getElementById('usdcBalanceVal').innerText = '0.00 USDC';
         }
 
-        // Función avanzada para consultar saldo nativo BNB y tokens del ecosistema
         async function consultarSaldosReal() {
             if (!cuentaActual) { abrirModalWallet(); return; }
             try {
-                // 1. Consultar BNB Nativo
                 const balanceWei = await window.ethereum.request({ method: 'eth_getBalance', params: [cuentaActual, 'latest'] });
                 document.getElementById('bnbBalanceVal').innerText = (parseInt(balanceWei, 16) / 1e18).toFixed(4) + ' BNB';
 
-                // 2. Consultar Tokens del Ecosistema (ZARD, PANGA, ZARED, ZYM) vía llamada RPC estandar balanceOf(address)
                 await consultarTokenBalance(tokenContracts.zard, 'zardBalanceVal', 'ZARD');
                 await consultarTokenBalance(tokenContracts.panga, 'pangaBalanceVal', 'PANGA');
                 await consultarTokenBalance(tokenContracts.zared, 'zaredBalanceVal', 'ZARED');
                 await consultarTokenBalance(tokenContracts.zym, 'zymBalanceVal', 'ZYM');
-
             } catch (e) { console.error("Error consultando saldos:", e); }
         }
 
         async function consultarTokenBalance(tokenAddress, elementId, symbol) {
             try {
-                // Selector de la función balanceOf(address) en Ethereum/BSC -> 70a08231 + padded address
                 const paddedAddress = cuentaActual.substring(2).padStart(64, '0');
                 const dataCall = '0x70a08231' + paddedAddress;
-
                 const resultHex = await window.ethereum.request({
                     method: 'eth_call',
-                    params: [{
-                        to: tokenAddress,
-                        data: dataCall
-                    }, 'latest']
+                    params: [{ to: tokenAddress, data: dataCall }, 'latest']
                 });
-
                 if (resultHex && resultHex !== '0x') {
                     const rawBalance = parseInt(resultHex, 16);
-                    const formattedBalance = (rawBalance / 1e18).toFixed(2);
-                    document.getElementById(elementId).innerText = formattedBalance + ' ' + symbol;
+                    document.getElementById(elementId).innerText = (rawBalance / 1e18).toFixed(2) + ' ' + symbol;
                 }
-            } catch (err) {
-                console.log("No se pudo leer saldo de " + symbol, err);
-            }
+            } catch (err) { console.log("No se pudo leer saldo de " + symbol, err); }
         }
 
         function verMediaSeleccionada(event) {
@@ -965,30 +951,18 @@
             }
         }
 
+        // BUSCADOR INTELIGENTE: Si es enlace lo carga, si es texto abre Google en nueva pestaña
         function buscarenInternet() {
             const query = document.getElementById('webSearchInput').value.trim();
             const container = document.getElementById('browserResultContainer');
             if (!query) return;
 
-            if (query.toLowerCase().includes('zaard') || query.startsWith('http://') || query.startsWith('https://')) {
-                let targetUrl = query.startsWith('http') ? query : 'https://' + query;
-                container.innerHTML = `<iframe id="webViewerFrame" src="${targetUrl}" style="width: 100%; height: 100%; border: none;" title="Visor Web3"></iframe>`;
+            if (query.startsWith('http://') || query.startsWith('https://')) {
+                container.innerHTML = `<iframe id="webViewerFrame" src="${query}" style="width: 100%; height: 100%; border: none;" title="Visor Web3"></iframe>`;
             } else {
-                container.innerHTML = `
-                    <div style="display:flex; flex-direction:column; align-items:center; justify-content:center; height:100%; padding:30px; text-align:center; background:rgba(10,5,20,0.98);">
-                        <i class="fa-solid fa-compass" style="font-size:3.5rem; color:var(--neon-blue); margin-bottom:15px; text-shadow:0 0 20px var(--neon-blue);"></i>
-                        <h4 style="font-family:'Orbitron'; color:#fff; font-size:1.3rem; margin-bottom:10px;">Resultado de Búsqueda Web3</h4>
-                        <p style="color:var(--text-muted); font-size:0.95rem; margin-bottom:20px; max-width:450px;">Término consultado: <strong style="color:var(--neon-pink);">${query}</strong></p>
-                        <div style="display:flex; gap:15px; flex-wrap:center;">
-                            <a href="https://www.google.com/search?q=${encodeURIComponent(query)}" target="_blank" class="action-btn" style="text-decoration:none; display:inline-flex; align-items:center; gap:8px;">
-                                <i class="fa-solid fa-external-link-alt"></i> Abrir en Google Externo
-                            </a>
-                            <button type="button" onclick="document.getElementById('browserResultContainer').innerHTML='<iframe id=&quot;webViewerFrame&quot; src=&quot;https://figueredo56.github.io/DAIoficial/&quot; style=&quot;width: 100%; height: 100%; border: none;&quot; title=&quot;Visor Web3 ZAARD&quot;></iframe>';" style="background:transparent; border:2px solid var(--neon-purple); color:#fff; padding:10px 20px; border-radius:12px; font-family:'Orbitron'; font-weight:bold; cursor:pointer;">
-                                Volver a ZAARD Innovation
-                            </button>
-                        </div>
-                    </div>
-                `;
+                // Abre el buscador externo directamente para evitar bloqueos de iframe
+                const searchUrl = `https://www.google.com/search?q=${encodeURIComponent(query)}`;
+                window.open(searchUrl, '_blank');
             }
         }
     </script>
