@@ -365,16 +365,16 @@
                                 <img src="https://photos.pinksale.finance/file/pinksale-logo-upload/1793917735714-d84b28c0d04f3063f454cbc1d8a062fb.png" alt="ZYM" style="width: 48px; height: 48px; border-radius: 50%; object-fit: cover; border: 2px solid #c084fc; box-shadow: 0 0 15px rgba(192,132,252,0.7);">
                                 <div>
                                     <h3 style="font-family: 'Orbitron', sans-serif; color: #c084fc; font-size: 1.15em; margin: 0;">ZYM / BNB</h3>
-                                    <span style="font-size: 0.72em; color: #cbd5e1; word-break: break-all;">CA: 0x5a1d...c53d</span>
+                                    <span style="font-size: 0.72em; color: #cbd5e1; word-break: break-all;">CA: 0x3984...7bc7</span>
                                 </div>
                             </div>
                             <button type="button" onclick="recargarIframe('iframeZym')" style="background:rgba(192,132,252,0.2); border:1px solid #c084fc; color:#c084fc; padding:4px 8px; border-radius:6px; cursor:pointer; font-size:0.75rem;"><i class="fa-solid fa-rotate"></i></button>
                         </div>
                         <div style="width: 100%; height: 420px; border-radius: 12px; overflow: hidden; border: 1px solid rgba(255, 255, 255, 0.1); background: #000; margin-bottom: 15px;">
-                            <iframe id="iframeZym" src="https://dexscreener.com/bsc/0x5a1de9974c1279fbe989ce32899a1f4ece3fc53d?embed=1&theme=dark&trades=0" style="width: 100%; height: 100%; border: none;" title="ZYM"></iframe>
+                            <iframe id="iframeZym" src="https://dexscreener.com/bsc/0x3984bd80e73777f2e790892435338d032b987bc7?embed=1&theme=dark&trades=0" style="width: 100%; height: 100%; border: none;" title="ZYM"></iframe>
                         </div>
                         <div style="background: rgba(15, 23, 42, 0.85); border: 1px solid rgba(192, 132, 252, 0.4); border-radius: 10px; padding: 12px; text-align: center;">
-                            <a href="https://pancakeswap.finance/swap?outputCurrency=0x5a1de9974c1279fbe989ce32899a1f4ece3fc53d" target="_blank" style="display: block; width: 100%; background: rgba(192, 132, 252, 0.2); border: 1px solid rgba(192, 132, 252, 0.6); color: #c084fc; padding: 10px; border-radius: 8px; text-decoration: none; font-size: 0.85em; font-weight: bold;" data-i18n="buyPancake">Comprar en PancakeSwap ↗</a>
+                            <a href="https://pancakeswap.finance/swap?outputCurrency=0x3984bd80e73777f2e790892435338d032b987bc7" target="_blank" style="display: block; width: 100%; background: rgba(192, 132, 252, 0.2); border: 1px solid rgba(192, 132, 252, 0.6); color: #c084fc; padding: 10px; border-radius: 8px; text-decoration: none; font-size: 0.85em; font-weight: bold;" data-i18n="buyPancake">Comprar en PancakeSwap ↗</a>
                         </div>
                     </div>
                 </div>
@@ -403,7 +403,7 @@
                     </div>
                     <div style="background: rgba(15,8,30,0.9); border: 2px solid rgba(192,132,252,0.5); border-radius: 12px; padding: 15px; margin-bottom: 15px;">
                         <strong style="color: #c084fc; font-family: 'Orbitron'; font-size:1.05rem;">ZYM Token</strong>
-                        <p style="font-size: 0.85rem; color: var(--text-muted); margin: 6px 0; word-break: break-all;">CA: 0x5a1de9974c1279fbe989ce32899a1f4ece3fc53d</p>
+                        <p style="font-size: 0.85rem; color: var(--text-muted); margin: 6px 0; word-break: break-all;">CA: 0x3984bd80e73777f2e790892435338d032b987bc7</p>
                     </div>
                 </div>
 
@@ -446,7 +446,7 @@
                     <div style="background:rgba(15,8,30,0.95); padding:15px; border-radius:12px; border:2px solid #c084fc;">
                         <h4 style="color:#c084fc; font-family:'Orbitron'; margin-bottom:10px; font-size:0.95rem;">ZYM Order Book</h4>
                         <div style="width:100%; height:320px; border-radius:8px; overflow:hidden; border:1px solid rgba(192,132,252,0.3); background:#000;">
-                            <iframe id="bookZym" src="https://dexscreener.com/bsc/0x5a1de9974c1279fbe989ce32899a1f4ece3fc53d?embed=1&theme=dark&trades=0&info=0" style="width:100%; height:100%; border:none;"></iframe>
+                            <iframe id="bookZym" src="https://dexscreener.com/bsc/0x3984bd80e73777f2e790892435338d032b987bc7?embed=1&theme=dark&trades=0&info=0" style="width:100%; height:100%; border:none;"></iframe>
                         </div>
                     </div>
                 </div>
@@ -554,7 +554,7 @@
             zard: "0xE2879d1172215E728472D7827586bd2796aFA3fB",
             panga: "0x4a6c3ea9e7132ad217c31f8252119f08c801366e",
             zared: "0xfc2aca08fc64e51793c32e9088fc43a57d39690e",
-            zym: "0x5a1de9974c1279fbe989ce32899a1f4ece3fc53d"
+            zym: "0x3984bd80e73777f2e790892435338d032b987bc7"
         };
 
         const translations = {
@@ -951,7 +951,6 @@
             }
         }
 
-        // BUSCADOR INTELIGENTE: Si es enlace lo carga, si es texto abre Google en nueva pestaña
         function buscarenInternet() {
             const query = document.getElementById('webSearchInput').value.trim();
             const container = document.getElementById('browserResultContainer');
@@ -960,7 +959,6 @@
             if (query.startsWith('http://') || query.startsWith('https://')) {
                 container.innerHTML = `<iframe id="webViewerFrame" src="${query}" style="width: 100%; height: 100%; border: none;" title="Visor Web3"></iframe>`;
             } else {
-                // Abre el buscador externo directamente para evitar bloqueos de iframe
                 const searchUrl = `https://www.google.com/search?q=${encodeURIComponent(query)}`;
                 window.open(searchUrl, '_blank');
             }
