@@ -40,10 +40,10 @@ El ecosistema integra un agregador de liquidez, un rastreador analítico en tiem
 
 En **ZAARD INNOVATION**, la seguridad de los fondos y la privacidad de nuestros usuarios son la máxima prioridad absoluta. **ZARD NEXUS** opera bajo estrictos estándares de transparencia criptográfica y bajo el sello de calidad del **Protocolo de Seguridad Panga**:
 
-*   **Arquitectura Non-Custodial:** La aplicación **nunca** almacena llaves privadas, frases semilla (`seed phrases`) ni contraseñas. Toda operación requiere la firma directa del usuario en su propia billetera.
-*   **Conexión Segura Multicanal:** La vinculación se realiza de forma directa mediante proveedores inyectados oficiales (`window.ethereum`) o pasarelas seguras por Deep Link cifradas compatibles con **Binance Web3 Wallet**, **Trust Wallet** y **MetaMask**.
-*   **Lectura Transparente de Balances:** Las consultas de saldo nativo (`BNB`) y de tokens del ecosistema se ejecutan mediante llamadas estándar de lectura de contratos (`eth_call` / `balanceOf`). Ninguna función de lectura compromete fondos ni requiere autorizaciones de gasto (`approve`) en bóvedas externas.
-*   **Privacidad Local:** Los perfiles, avatares y alias personalizados se almacenan de manera local en el dispositivo del usuario (`localStorage`) para evitar rastreos o exposición innecesaria de datos en servidores centralizados.
+-   **Arquitectura Non-Custodial:** La aplicación **nunca** almacena llaves privadas, frases semilla (`seed phrases`) ni contraseñas. Toda operación requiere la firma directa del usuario en su propia billetera.
+-   **Conexión Segura Multicanal:** La vinculación se realiza de forma directa mediante proveedores inyectados oficiales (`window.ethereum`) o pasarelas seguras por Deep Link cifradas compatibles con **Binance Web3 Wallet**, **Trust Wallet** y **MetaMask**.
+-   **Lectura Transparente de Balances:** Las consultas de saldo nativo (`BNB`) y de tokens del ecosistema se ejecutan mediante llamadas estándar de lectura de contratos (`eth_call` / `balanceOf`). Ninguna función de lectura compromete fondos ni requiere autorizaciones de gasto (`approve`) en bóvedas externas.
+-   **Privacidad Local:** Los perfiles, avatares y alias personalizados se almacenan de manera local en el dispositivo del usuario (`localStorage`) para evitar rastreos o exposición innecesaria de datos en servidores centralizados.
 
 ---
 
@@ -54,7 +54,7 @@ En **ZAARD INNOVATION**, la seguridad de los fondos y la privacidad de nuestros 
 | **Rol en el Ecosistema** | Activo Núcleo de Gobernanza | Activo Dinámico de Utilidad | Activo de Expansión | Activo de Alta Liquidez |
 | **Red Blockchain** | BNB Smart Chain (BSC) | BNB Smart Chain (BSC) | BNB Smart Chain (BSC) | BNB Smart Chain (BSC) |
 | **Chain ID** | `56` (0x38) | `56` (0x38) | `56` (0x38) | `56` (0x38) |
-| **Dirección del Contrato (CA)** | `0xE2879d1172215E72...3fB` | `0x4a6c3ea9e7132ad2...366e` | `0xfc2aca08fc64e517...690e` | `0x5a1de9974c1279fb...c53d` |
+| **Dirección del Contrato (CA)** | `0xE2879d1172215E72...3fB` | `0x4a6c3ea9e7132ad2...366e` | `0xfc2aca08fc64e517...690e` | `0x3984bd80e73777f2...7bc7` |
 | **Estándar de Token** | BEP-20 (EVM) | BEP-20 (EVM) | BEP-20 (EVM) | BEP-20 (EVM) |
 | **Estructura Fiscal (Fees)** | 0% Compra / 0% Venta | 0% Compra / 0% Venta | 0% Compra / 0% Venta | 0% Compra / 0% Venta |
 
